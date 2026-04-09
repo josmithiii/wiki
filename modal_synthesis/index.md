@@ -1,0 +1,25 @@
+# Wiki Index
+
+> Content catalog. Every wiki page listed under its type with a one-line summary.
+> Read this first to find relevant pages for any query.
+> Last updated: 2026-04-09 | Total pages: 11
+
+## Entities
+- [[realimpact-dataset]] — 150k calibrated impact recordings from 50 objects; ML training resource
+
+## Concepts
+- [[fem-bem-for-modal-synthesis]] — computing mode shapes and frequencies numerically from CAD + material data
+- [[friction-synthesis]] — continuous rubbing/bowing sounds via nonlinear feedback loop on resonator bank
+- [[gpu-modal-synthesis]] — massively parallel resonator bank on GPU; enables ~100k+ modes in real time
+- [[impact-synthesis]] — impact sound from Hertz contact model + modal response; core use case of modal synth
+- [[material-properties-and-modes]] — how E, rho, eta affect mode frequencies, damping, and perceptual character
+- [[modal-analysis-measurement]] — experimental extraction of mode parameters via FRF + pole-fitting algorithms
+- [[modal-synthesis-overview]] — top-level: physics-based synthesis by summing N decaying sinusoidal modes
+- [[mode-shapes-and-eigenvalues]] — math of eigenmodes: K*phi = omega^2*M*phi; modal superposition; orthogonality
+- [[resonator-bank-implementation]] — N parallel biquad IIR filters implementing modal coordinates; cost and GPU SIMD
+- [[rigid-body-sound-synthesis]] — real-time physics-engine + modal synth pipeline for games/VR
+
+## Comparisons
+- [[waveguide-vs-modal]] — delay-line waveguide vs. eigenmode resonator bank: equivalence, tradeoffs, hybrid use
+
+## Queries
