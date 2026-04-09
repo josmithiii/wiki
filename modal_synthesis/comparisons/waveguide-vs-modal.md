@@ -18,7 +18,7 @@ different aspects of vibration and suit different instruments/objects.
   (delay lines, scattering junctions)
 - **Modal synthesis**: models *resonant modes* (eigenfrequencies of the system)
 
-They are mathematically equivalent for linear systems — but the representations
+They are mathematically equivalent for linear systems -- but the representations
 differ in efficiency and what is natural to control.
 
 ## Comparison Table
@@ -30,7 +30,7 @@ differ in efficiency and what is natural to control.
 | Excitation | Bow, reed, breath (flow-pressure) | Impact, impulse force |
 | Geometry | 1D structures (strings, bores) | Any dimensionality |
 | Mode count | Implicitly infinite | Explicit, finite N |
-| Real-time cost | O(L) — length of structure | O(N) — number of modes |
+| Real-time cost | O(L) -- length of structure | O(N) -- number of modes |
 | Pitch control | Change delay length | Scale all f_k |
 | Damping | Lowpass filter in loop | Pole radius per mode |
 | Nonlinearity | Natural (reed, bow at junction) | Requires feedback loop |
@@ -44,17 +44,18 @@ For a lossless string: waveguide = modal (exactly).
 ## When to Use Which
 
 Use **waveguide** when:
-- Instrument has clear 1D waveguide topology (string, bore, lip)
+- Instrument has clear 1D waveguide topology (string, bore, horn, rod)
 - Nonlinear interaction at a defined excitation point (reed, bow)
 - Real-time pitch control is key (variable delay length)
 - Continuous sound source (sustained notes)
 
 Use **modal** when:
 - Object is 2D or 3D (plate, bowl, bell, room)
+- Small number of damped masses and springs gives an adequate model (mallet, lips, reed)
 - Modes are measured or computed numerically (FEM)
 - Impact or pluck excitation (no feedback needed)
 - Need to change pickup position without recomputing all modes
-- GPU parallelism desired
+- More GPU parallelism desired
 
 ## Hybrid Approaches
 - **Modal + waveguide**: use modal for body resonance, waveguide for string
@@ -66,10 +67,10 @@ Use **modal** when:
 If pickup position and excitation position are fixed, precompute the impulse response:
   h(t) = sum_k [ a_k * exp(-d_k*t) * sin(2*pi*f_k*t) ]
 Then synthesize: y(t) = e(t) * h(t)  [convolution]
-This is exactly a single convolution — often cheaper than running N biquads
+This is exactly a single convolution -- often cheaper than running N biquads
 for long-decay instruments (but loses flexibility of changing pickup or modes).
 
 ## Related Concepts
-- [[modal-synthesis-overview]] — modal synthesis in full detail
-- [[resonator-bank-implementation]] — modal DSP
-- [[friction-synthesis]] — case where waveguide topology suits modal problems
+- [[modal-synthesis-overview]] -- modal synthesis in full detail
+- [[resonator-bank-implementation]] -- modal DSP
+- [[friction-synthesis]] -- case where waveguide topology suits modal problems
