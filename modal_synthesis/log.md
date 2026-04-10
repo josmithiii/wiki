@@ -24,3 +24,17 @@
 ## [2026-04-09] create | entities/realimpact-dataset.md
 ## [2026-04-09] update | index.md — added 11 pages
 ## [2026-04-09] update | log.md — batch log of session 1
+
+## [2026-04-10] create | concepts/damping-models.md
+- Viscous (Rayleigh), thermoelastic (Zener), structural/hysteretic, power-law, per-mode fitted
+- DSP pole placement, Q-factor, T60 formulas; comparison table
+
+## [2026-04-10] create | concepts/excitation-signals.md
+- Impulse, shaped impulse, noise burst, continuous (noise/sinusoidal/bow-force/Hertz)
+- Modal coupling via phi_n(x_drive); summary table; cross-refs to impact/friction pages
+
+## [2026-04-10] create | concepts/realtime-modal-synthesis.md
+- CPU/GPU budget, SIMD, perceptual mode reduction, LOD, latency budget, parameter modulation
+- Known implementations (Modal, PhysX Audio, Resonance Audio, Modus)
+
+## [2026-04-10] update | index.md — added 3 pages (total 14)
