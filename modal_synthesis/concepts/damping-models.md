@@ -22,14 +22,14 @@ The standard linear model. Damping force proportional to velocity.
 - Loss factor (eta) relates to damping ratio: eta = 2*zeta
 - In modal coordinates: each mode gets independent decay rate sigma_n
 - sigma_n = zeta_n * omega_n (rad/s)
-- Rayleigh damping: C = alpha*M + beta*K — makes sigma_n = alpha/2 + beta*omega_n^2/2
+- Rayleigh damping: C = alpha*M + beta*K -- makes sigma_n = alpha/2 + beta*omega_n^2/2
 - Advantage: diagonal in modal basis; each mode decays independently
 - DSP realization: complex pole pair at s = -sigma_n +/- j*omega_d,n
   where omega_d,n = sqrt(omega_n^2 - sigma_n^2) (damped natural frequency)
 
 ## Thermoelastic Damping
 
-Loss mechanism from heat flow driven by mechanical strain — dominant in metals at audio frequencies.
+Loss mechanism from heat flow driven by mechanical strain -- dominant in metals at audio frequencies.
 
 - Caused by thermoelastic coupling: compression heats, rarefaction cools
 - Peak loss at thermal relaxation frequency: f_peak = kappa / (2*pi*cp*rho*d^2)
@@ -38,7 +38,7 @@ Loss mechanism from heat flow driven by mechanical strain — dominant in metals
   eta_TE(omega) = Delta_E * (omega*tau) / (1 + (omega*tau)^2)
   where tau = thermal relaxation time, Delta_E = thermoelastic coupling coefficient
 - Significant for thin metal plates, MEMS resonators, xylophone bars
-- Practically: broadens the loss curve vs. viscous — modes near f_peak decay faster
+- Practically: broadens the loss curve vs. viscous -- modes near f_peak decay faster
 
 ## Frequency-Dependent Damping
 
@@ -59,7 +59,7 @@ simple viscous model.
 
 ### Measured / Tabulated Damping
 - For accuracy: fit measured Q_n values per mode, use per-mode sigma_n
-- No analytical model required — each resonator pole set independently
+- No analytical model required -- each resonator pole set independently
 - Standard in modal analysis workflows; see [[modal-analysis-measurement]]
 
 ## Practical Implications for Synthesis
@@ -80,6 +80,6 @@ simple viscous model.
 
 ## References
 
-[^1]: https://ccrma.stanford.edu/~jos/pasp/Damping.html
+[^1]: https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
 [^2]: Woodhouse, J. (1998). "Linear damping models for structural vibration." JSV 215(3).
 [^3]: https://hal.science/hal-00830400/document
