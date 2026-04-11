@@ -35,7 +35,7 @@ Critical optimization: discard inaudible modes before synthesis.
 ### Amplitude Thresholding
 - Modal amplitude a_n = |phi_n(x_out)| * |phi_n(x_in)| / (m_n * omega_n)
 - Modes with a_n < threshold (e.g., -60 dB relative to peak) removed
-- Tyically cuts 60-80% of FEM modes for perceptual transparency
+- Typically cuts 60-80% of FEM modes for perceptual transparency
 
 ### Temporal Decay Pruning
 - Highly damped modes (T60 < ~5 ms): pre-compute as single sample

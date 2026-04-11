@@ -26,14 +26,14 @@ Per audio block (more efficient):
 3. Single DMA transfer to CPU per block
 
 ## Historical Milestones
-- Cook & Scavone (1999): early GPU sound synthesis exploration
+- Cook & Scavone (1999): PhISEM percussive synthesis and STK toolkit (CPU, not GPU)
 - James, Barbic & Pai (2006): 60,000 modes in real time on NVIDIA GeForce 7800
 - Nikunen & Virtanen (2013): GPU-accelerated synthesis of room impulse responses
   using modal superposition
 
-## CUDA Implementation (2006-era)
-Rath & Rocchesso (2005) and James (2006) approaches:
-- Map N modes → N CUDA threads
+## GPU Implementation (Fragment Shader Era)
+James et al. (2006) used OpenGL fragment shaders (CUDA did not exist until 2007):
+- Map N modes → N fragment shader instances
 - Mode state: (s1, s2) per thread in global memory
 - Coefficients: (R, theta, a) in constant or texture memory (fast cache)
 - Per-sample: each thread does one biquad iteration, writes output to shared mem

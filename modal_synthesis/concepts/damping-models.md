@@ -80,6 +80,6 @@ simple viscous model.
 
 ## References
 
-[^1]: https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
+[^1]: JOS, "Frequency-Dependent Damping," in *PASP*: https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
 [^2]: Woodhouse, J. (1998). "Linear damping models for structural vibration." JSV 215(3).
 [^3]: https://hal.science/hal-00830400/document

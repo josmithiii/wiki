@@ -50,7 +50,9 @@ At correct bow speed and force: self-sustaining steady-state oscillation.
 ## Stability and Practical Challenges
 - Stick-slip instabilities can cause numerical chaos
 - Requires implicit or semi-implicit integration per time step
-- Alternatively: use precomputed tables of steady-state solutions (Serafin 2004)
+- Alternatively: use precomputed tables of steady-state solutions
+  (Serafin, S. "Modeling Piano Hammers and Other Nonlinear Force-Driven Systems,"
+  PhD thesis, Stanford University / CCRMA, 2004)
 
 ## Scraping and Rolling
 - Scraping: friction force modulated by surface texture → band-limited noise

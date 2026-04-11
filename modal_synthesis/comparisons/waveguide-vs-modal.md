@@ -38,7 +38,8 @@ differ in efficiency and what is natural to control.
 
 ## 1D Equivalence
 For a lossless string: waveguide = modal (exactly).
-- N-mode modal sum of string = output of pair of delay lines (Karplus-Strong)
+- N-mode modal sum of string = output of Smith's digital waveguide model (1992);
+  Karplus-Strong (1983) is a special case of this equivalence
 - They differ only in how parameters are specified
 
 ## When to Use Which

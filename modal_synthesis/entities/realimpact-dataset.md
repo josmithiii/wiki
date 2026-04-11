@@ -14,9 +14,9 @@ RealImpact is a large-scale dataset of real impact sounds recorded from physical
 designed to support ML-based modal synthesis and audio-visual sound generation research.
 
 ## Citation
-Georg, Schultheiss, Brix, & Avesani (2022):
+Clarke, Gao, Wang, Rau, Xu, Wang, James, & Wu (2023):
 "RealImpact: A Dataset of Impact Sound Fields for Real Objects"
-ICASSP 2022 / arXiv:2206.08524
+ICCV 2023 / arXiv:2306.09944
 
 ## Contents
 - ~150,000 impact sound recordings

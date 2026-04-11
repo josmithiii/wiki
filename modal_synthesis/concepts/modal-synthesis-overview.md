@@ -39,7 +39,8 @@ This is exact for linear systems; works well for mildly nonlinear ones.
 - Independently developed in mechanical engineering for structural analysis
 - Related to Risset's additive synthesis but with physically motivated parameters
 - Cook (1995, 2002) expanded to impact models and perceptual work
-- Rath & Rocchesso (2005) showed efficient real-time GPU implementations
+- Rath & Rocchesso (2005) demonstrated efficient CPU-based real-time contact sound
+- James, Barbic & Pai (2006) showed real-time GPU modal synthesis using OpenGL fragment shaders
 
 ## Basic Signal Flow
 1. Excitation signal e(t) — impulse, friction force, or arbitrary input

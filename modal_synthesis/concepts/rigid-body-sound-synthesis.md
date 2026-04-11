@@ -86,7 +86,6 @@ Similar to rolling but different statistics:
 - van den Doel & Pai (1996): "The sounds of physical shapes" — early system
 - O'Brien, Shen & Gatchalian (2002): FEM + rigid-body sound
 - James, Barbic & Pai (2006): Precomputed acoustic transfer
-- Ren, Yeh & Lin (2013): Toward realistic synthesis of 3D wind noise
 - Zheng & James (2011): Rigid-body fracture sound with precomputed transfer
 
 ## Related Concepts

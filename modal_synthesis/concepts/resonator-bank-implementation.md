@@ -27,7 +27,7 @@ Parameters:
 ## Equivalent Forms
 
 ### State-space per mode
-  s1_k[n] = 2*R_k*cos(theta_k)*s1_k[n-1] - R_k^2*s2_k[n-2] + x[n]
+  s1_k[n] = 2*R_k*cos(theta_k)*s1_k[n-1] - R_k^2*s1_k[n-2] + x[n]
   y_k[n]  = a_k * s1_k[n]
 
 Total output: y[n] = sum_k y_k[n]
