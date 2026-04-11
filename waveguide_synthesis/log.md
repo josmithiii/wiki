@@ -36,3 +36,21 @@
 ## [2026-04-11] create | concepts/artificial-reverberation.md
 ## [2026-04-11] create | concepts/waveguide-meshes.md
 ## [2026-04-11] update | index.md — 8 pages
+
+## [2026-04-11] ingest | JAES review "Four Decades of Digital Waveguides"
+- /l/wgr/Sections/HistoricalBackground.tex — K-S, DWG origins, WDF relation
+- /l/wgr/Sections/Foundations.tex — traveling waves, scattering, strings, tubes, mesh
+- /l/wgr/Sections/Advancements/InstrumentModelling.tex — winds, strings, brasses, percussion, STK
+- /l/wgr/Sections/Advancements/SpeechProcessing.tex — K-L, SPASM, 2D/3D mesh vocal tract
+- /l/wgr/Sections/Advancements/ArtificialReverberation.tex — SDN, waveguide web
+- /l/wgr/Sections/Parameter Optimization/ParameterOptimisation.tex — all optimization methods
+
+## [2026-04-11] fix | 1 JAES review typo
+- ArtificialReverberation.tex:18 — "junction,but" → "junction, but"
+
+## [2026-04-11] create | concepts/commuted-synthesis.md
+## [2026-04-11] create | concepts/banded-waveguides.md
+## [2026-04-11] create | concepts/waveguide-vocal-models.md
+## [2026-04-11] create | concepts/waveguide-parameter-optimization.md
+## [2026-04-11] create | concepts/waveguide-history.md
+## [2026-04-11] update | index.md — 13 pages
