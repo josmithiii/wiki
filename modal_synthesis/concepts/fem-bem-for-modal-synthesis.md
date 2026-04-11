@@ -4,7 +4,8 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [fem, bem, modal-synthesis, wave-equation, acoustics, vibration]
-sources: []
+sources:
+  - ~/wiki/modal_synthesis/raw/papers/DiffSound-2409.13486v1.pdf
 ---
 
 # FEM and BEM for Modal Synthesis

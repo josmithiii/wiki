@@ -4,7 +4,8 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [eigenmode, modal, vibration, wave-equation, acoustics]
-sources: []
+sources:
+  - /w/pasp/modal.tex
 ---
 
 # Mode Shapes and Eigenvalues

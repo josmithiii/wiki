@@ -4,7 +4,8 @@ created: 2026-04-09
 updated: 2026-04-09
 type: entity
 tags: [dataset, impact, modal-synthesis, acoustics, measurement, ml]
-sources: []
+sources:
+  - https://arxiv.org/abs/2306.09944
 ---
 
 # RealImpact Dataset

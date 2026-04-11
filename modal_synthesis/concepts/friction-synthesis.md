@@ -4,7 +4,8 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [friction, modal-synthesis, physical-modeling, acoustics, vibration]
-sources: []
+sources:
+  - /w/pasp/modal.tex
 ---
 
 # Friction Synthesis

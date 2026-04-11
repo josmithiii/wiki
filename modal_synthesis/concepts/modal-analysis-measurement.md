@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [modal, acoustics, measurement, impulse-response, vibration]
-sources: []
+sources:
+  - /w/pasp/modal.tex
+  - /l/dttd/modal-analysis-of-different-types-of-classical-guitar-bodies.pdf
 ---
 
 # Modal Analysis Measurement

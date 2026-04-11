@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [rigid-body, modal-synthesis, impact, physical-modeling, realtime]
-sources: []
+sources:
+  - /l/dttd/CollisionsBilbao2015.pdf
+  - /l/dttd/SynthMatch-DDSP-Diaz-Hayes-RigidBodyModal-ICASSP23.pdf
 ---
 
 # Rigid-Body Sound Synthesis

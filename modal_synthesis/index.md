@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-10 | Total pages: 14
+> Last updated: 2026-04-10 | Total pages: 19
 
 ## Entities
 - [[realimpact-dataset]] — 150k calibrated impact recordings from 50 objects; ML training resource
@@ -21,6 +21,11 @@
 - [[realtime-modal-synthesis]] — CPU/GPU strategies, perceptual mode reduction, LOD, latency budget for interactive synthesis
 - [[resonator-bank-implementation]] — N parallel biquad IIR filters implementing modal coordinates; cost and GPU SIMD
 - [[rigid-body-sound-synthesis]] — real-time physics-engine + modal synth pipeline for games/VR
+- [[nonlinear-modal-synthesis]] — mode coupling, collisions, tension modulation; energy-conserving numerical methods
+- [[coupled-structures]] — string-bridge-body coupling, commuted synthesis, state-space multi-I/O approach
+- [[ml-modal-parameter-estimation]] — neural mode prediction, differentiable modal synthesizers, audio-domain training
+- [[radiation-and-directivity]] — radiation efficiency vs. mode shape, acoustic transfer, directivity patterns
+- [[stochastic-modal-synthesis]] — SEA, high-frequency mode density, noise-band synthesis above mode resolution limit
 
 ## Comparisons
 - [[waveguide-vs-modal]] — delay-line waveguide vs. eigenmode resonator bank: equivalence, tradeoffs, hybrid use

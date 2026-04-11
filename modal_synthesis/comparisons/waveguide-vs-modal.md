@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: comparison
 tags: [waveguide, modal-synthesis, physical-modeling, dsp, comparison]
-sources: []
+sources:
+  - /w/pasp/modal.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
 ---
 
 # Waveguide vs. Modal Synthesis

@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [resonator, dsp, modal-synthesis, realtime, filter]
-sources: []
+sources:
+  - /w/pasp/modal.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
 ---
 
 # Resonator Bank Implementation

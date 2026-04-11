@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [modal-synthesis, physical-modeling, resonator, acoustics, vibration]
-sources: []
+sources:
+  - /w/pasp/modal.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
 ---
 
 # Modal Synthesis Overview

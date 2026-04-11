@@ -4,7 +4,8 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [impact, modal-synthesis, physical-modeling, acoustics, rigid-body]
-sources: []
+sources:
+  - /l/dttd/CollisionsBilbao2015.pdf
 ---
 
 # Impact Synthesis

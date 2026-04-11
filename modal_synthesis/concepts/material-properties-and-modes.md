@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [material, vibration, acoustics, modal, physics-modeling]
-sources: []
+sources:
+  - /w/pasp/damping.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
 ---
 
 # Material Properties and Modes

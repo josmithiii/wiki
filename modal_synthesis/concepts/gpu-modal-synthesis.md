@@ -4,7 +4,9 @@ created: 2026-04-09
 updated: 2026-04-09
 type: concept
 tags: [gpu, modal-synthesis, realtime, dsp, resonator]
-sources: []
+sources:
+  - https://www.cs.cornell.edu/projects/sound/precomputed/
+  - /l/dttd/NonlinearModalSynthModeCoupling-Poirot-Bilbao-EURASIP-2024.pdf
 ---
 
 # GPU Modal Synthesis
