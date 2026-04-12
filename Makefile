@@ -99,7 +99,11 @@ upload: build check ## Tar build and copy to CCRMA staging area
 	fi
 	@if [ -d $(CCRMA_STAGE) ]; then \
 	  cp $(BUILD_DIR)/$(TARBALL) $(CCRMA_STAGE)/ && \
-	  echo "Copied to $(CCRMA_STAGE)/$(TARBALL) — now run: webupd $(WIKI_NAME).tgz"; \
+	  echo "Copied to $(CCRMA_STAGE)/$(TARBALL)"; \
+	  /w/scripts/webupd $(WIKI_NAME).tgz \
+	  echo "Ran webupd $(WIKI_NAME).tgz"; \
+	  ssh ccrma-gate.stanford.edu webinst $(WIKI_NAME) \
+	  echo "Ran webinst $(WIKI_NAME) at CCRMA - test it now"; \
 	else \
 	  echo ""; \
 	  echo "$(CCRMA_STAGE) not found locally."; \
