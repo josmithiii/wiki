@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-11 | Total pages: 13
+> Last updated: 2026-04-11 | Total pages: 17
 
 ## Entities
 
@@ -20,6 +20,10 @@
 - [[waveguide-vocal-models]] — Kelly-Lochbaum vocal tract, SPASM singing, 2D/3D mesh vocal models
 - [[waveguide-parameter-optimization]] — physics-based, filter design, genetic, neural/DDSP calibration
 - [[waveguide-history]] — timeline from d'Alembert (1747) through K-S (1983) to DDSP (2025)
+- [[wave-digital-filters]] — lumped-element modeling via bilinear transform + wave variables; modularity
+- [[wdf-adaptors]] — parallel/series adaptors; one-multiply form; N-port; dependent port
+- [[wdf-elements]] — mass, spring, dashpot, transformer, gyrator, nonlinear elements; K-method
+- [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, differentiable/neural WDFs
 
 ## Comparisons
 - See [[modal_synthesis/comparisons/waveguide-vs-modal]] for waveguide vs. modal synthesis comparison

@@ -54,3 +54,20 @@
 ## [2026-04-11] create | concepts/waveguide-parameter-optimization.md
 ## [2026-04-11] create | concepts/waveguide-history.md
 ## [2026-04-11] update | index.md — 13 pages
+
+## [2026-04-11] ingest | WDF sources
+- /l/l420/WaveDigitalFiltersIntro/wdfi-content.tex — MUS420 WDF intro lecture
+- /l/l420/WaveDigitalFilters/WDFIntro.tex — MUS420 WDF full lecture
+- /w/pasp/adaptors.tex — PASP adaptor derivations
+- /l/dttd/WDF/ — Werner, Yeh, Olsen, Bernardini papers
+- /l/dttd/SMC_2022_Diff_WDFs.pdf, PyWDF-DAFx23.pdf, WDF-NeuralK-*.pdf
+
+## [2026-04-11] create | concepts/wave-digital-filters.md
+- Modularity problem, wave variables, delay-free loop elimination, comparison table
+## [2026-04-11] create | concepts/wdf-adaptors.md
+- Parallel/series 2-port, N-port, one-multiply form, dependent port
+## [2026-04-11] create | concepts/wdf-elements.md
+- Mass/spring/dashpot reflectances, transformer, gyrator, nonlinear, K-method
+## [2026-04-11] create | concepts/wdf-applications.md
+- Piano hammer, tonehole, analog circuits, differentiable/neural WDFs
+## [2026-04-11] update | index.md — 17 pages
