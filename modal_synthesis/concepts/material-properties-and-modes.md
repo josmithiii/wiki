@@ -20,22 +20,22 @@ of "any material" from first principles or perceptual parameterization.
 
 | Property | Symbol | Units | Effect on Modes |
 |----------|--------|-------|-----------------|
-| Young's modulus | E | Pa | Higher E → higher f_k (stiffer) |
-| Poisson's ratio | nu | dimensionless | Affects mode shapes for 2D/3D |
-| Density | rho | kg/m^3 | Higher rho → lower f_k |
-| Loss factor (damping) | eta | dimensionless | Higher eta → faster decay (d_k) |
+| Young's modulus | $E$ | Pa | Higher $E$ → higher $f_k$ (stiffer) |
+| Poisson's ratio | $\nu$ | dimensionless | Affects mode shapes for 2D/3D |
+| Density | $\rho$ | kg/m³ | Higher $\rho$ → lower $f_k$ |
+| Loss factor (damping) | $\eta$ | dimensionless | Higher $\eta$ → faster decay ($d_k$) |
 
 ## Frequency Scaling Laws
 For a given geometry scaled by factor s (all dimensions × s):
-- Natural frequencies: f_k ∝ 1/s  (larger object → lower pitch)
+- Natural frequencies: $f_k \propto 1/s$ (larger object → lower pitch)
 - This is why large bells are deeper than small bells
 
 Frequency vs. material:
-  f_k ∝ sqrt(E / rho) / (characteristic_length)
-For a bar: f_k = k^2 * pi/(2L^2) * sqrt(E*I / (rho*A))
+$$f_k \;\propto\; \frac{\sqrt{E/\rho}}{\text{characteristic length}}$$
+For a bar: $f_k = k^2 \dfrac{\pi}{2L^2} \sqrt{EI / (\rho A)}$
 
 Practical implication: two objects of same shape but different materials
-have all frequencies scaled by sqrt(E2/rho2) / sqrt(E1/rho1).
+have all frequencies scaled by $\sqrt{E_2/\rho_2} / \sqrt{E_1/\rho_1}$.
 
 ## Damping and Material
 Damping d_k is harder to predict from first principles than frequency.
@@ -49,10 +49,10 @@ Sources of damping in a vibrating object:
 4. **Thermoelastic damping**: conversion of strain to heat (important for MEMS)
 
 ## Rayleigh Damping Model
-Simple model for FEM: C = alpha*M + beta*K
-- alpha: mass-proportional damping (dominates at low freq)
-- beta: stiffness-proportional damping (dominates at high freq)
-- d_k = alpha/2 + beta*omega_k^2/2
+Simple model for FEM: $C = \alpha M + \beta K$
+- $\alpha$: mass-proportional damping (dominates at low freq)
+- $\beta$: stiffness-proportional damping (dominates at high freq)
+- $d_k = \alpha/2 + \beta\omega_k^2/2$
 
 This is a good approximation for many materials; real damping often
 requires measuring each mode's Q separately.
@@ -62,10 +62,10 @@ requires measuring each mode's Q separately.
 |----------|---------|--------------|-----------|---------------------|
 | Steel | 200 | 7800 | 0.001 | Bright, long ring |
 | Aluminum | 70 | 2700 | 0.002 | Bright, medium ring |
-| Wood (spruce) | 10 | 400 | 0.01-0.03 | Warm, moderate ring |
+| Wood (spruce) | 10 | 400 | 0.01–0.03 | Warm, moderate ring |
 | Glass | 70 | 2500 | 0.001 | Very bright, long ring |
 | Concrete | 30 | 2400 | 0.05 | Dull, short ring |
-| Rubber | 0.001-0.1 | 1100 | 0.1-0.5 | Thud, very short ring |
+| Rubber | 0.001–0.1 | 1100 | 0.1–0.5 | Thud, very short ring |
 
 ## Perceptual Material Attributes
 Researchers (Klatzky, Pai, McAdams) have identified perceptual dimensions:
@@ -77,8 +77,10 @@ Researchers (Klatzky, Pai, McAdams) have identified perceptual dimensions:
 
 ## Morphing Between Materials
 For synthesis, can interpolate material parameters:
-  f_k(alpha) = f_k^(A) * (1-alpha) + f_k^(B) * alpha  [linear blend of freq]
-  d_k(alpha) = d_k^(A) * (1-alpha) + d_k^(B) * alpha  [linear blend of damping]
+$$\begin{aligned}
+f_k(\alpha) &= (1-\alpha)\,f_k^{(A)} + \alpha\, f_k^{(B)} \quad\text{(linear blend of freq)}\\
+d_k(\alpha) &= (1-\alpha)\,d_k^{(A)} + \alpha\, d_k^{(B)} \quad\text{(linear blend of damping)}
+\end{aligned}$$
 
 Or more physically: interpolate E and rho, recompute f_k.
 This gives intuitive "material slider" for a sound designer.

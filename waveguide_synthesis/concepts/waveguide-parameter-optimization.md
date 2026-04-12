@@ -17,7 +17,7 @@ differentiable DSP.
 
 ## Physics-Based
 
-- Estimate modal parameters (A_n, omega_n, alpha_n) from impulse response
+- Estimate modal parameters $(A_n, \omega_n, \alpha_n)$ from impulse response
 - Design loop filter from measured viscothermal losses and dispersion
 - Does not guarantee realism on its own (Guillemain 1997, Ystad 1998)
 - Best as anchor/constraint combined with other methods
@@ -26,7 +26,7 @@ differentiable DSP.
 
 ## Filter Design
 
-- From (A_n, omega_n, alpha_n), derive poles/zeros of H(z)
+- From $(A_n, \omega_n, \alpha_n)$, derive poles/zeros of $H(z)$
 - Fundamental frequency: autocorrelation, harmonic spacing, or lowest harmonic
 - Body response: inverse-filter string to obtain pluck response
 - Body resonator: Warped-IIR captures non-harmonic modes (Helmholtz resonance)
@@ -69,14 +69,14 @@ DWG embedded within neural network; backprop through differentiable DSP:
 - Su, Liang et al. (1997-2006): RNN ↔ IIR filter equivalence;
   neuron weights = scattering coefficients
 - Engel et al. (2020): DDSP framework — native differentiable operations
-- Hayes et al.: FDL decay optimized via multi-scale spectral loss (L_MSS)
+- Hayes et al.: FDL decay optimized via multi-scale spectral loss ($L_{\text{MSS}}$)
 - Tablas de Paula et al. (2025): time-variant FDL with pluck position,
   dynamics, timbre, and decay optimized separately
 - Sudholt et al. (2023): DDSP on K-L vocal tract; beats genetic + black-box
 - Mezza et al. (2025): DDSP applied to SDN reverb; matches room RIR features
 
 ### Current Challenges
-- L_MSS yields poor gradients for sinusoidal frequency (f_0) prediction
+- $L_{\text{MSS}}$ yields poor gradients for sinusoidal frequency ($f_0$) prediction
 - Permutation symmetry in mode ordering degrades point-based regressors
 - Generative, symmetry-equivariant architectures showing promise (Hayes, 2025)
 - Combining physically interpretable control with neural audio (Zong, 2025)

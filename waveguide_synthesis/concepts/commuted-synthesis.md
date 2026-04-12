@@ -20,11 +20,11 @@ excitation signal.
 ## Principle
 
 For a plucked-string instrument, the output is:
-  y[n] = e[n] * h[n] * b[n]
-where e[n] = excitation (pluck), h[n] = string response, b[n] = body response.
+$$y[n] \;=\; e[n] * h[n] * b[n]$$
+where $e[n]$ = excitation (pluck), $h[n]$ = string response, $b[n]$ = body response.
 
 Since convolution is commutative, reorder to:
-  y[n] = [e[n] * b[n]] * h[n]
+$$y[n] \;=\; [e[n] * b[n]] * h[n]$$
 
 The term e[n] * b[n] is the "pluck response" — precompute and store it.
 At runtime, only the string delay loop h[n] runs, excited by a table lookup
@@ -45,7 +45,7 @@ This transforms a difficult real-time problem into a trivial one:
 1. Record or simulate the impulse response of body + string combined
 2. Separate into: pluck response e[n]*b[n] and string loop filter G(z)
 3. Inverse-filter the string to obtain body contribution:
-   y[n] * h^{-1}[n] = e[n] * b[n]
+   $y[n] * h^{-1}[n] = e[n] * b[n]$
 4. Store the pluck response; vary excitation details via small filter
 5. Body filter can be shared across multiple strings (same body)
 

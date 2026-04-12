@@ -21,7 +21,7 @@ The vibrating string was the first application of digital waveguide synthesis
 
 ## Basic Plucked-String Model
 
-1. Bidirectional delay line of length N = fs / f_0
+1. Bidirectional delay line of length $N = f_s / f_0$
 2. Rigid terminations → sign inversion at each end → delay-line loop
 3. Initial conditions: half the pluck shape in each delay line
 4. Acceleration waves: pluck = impulse at pluck point (simplest case)
@@ -31,10 +31,10 @@ In practice, bandwidth of the pluck shape spans the full range of hearing.
 
 ## Karplus-Strong / Extended Karplus-Strong
 
-- **Karplus-Strong** (1983): delay loop + averaging filter y(n) = [y(n-N) + y(n-N-1)] / 2
-- **Extended K-S** (Jaffe & Smith, 1983): generalize to arbitrary loop filter G(z)
+- **Karplus-Strong** (1983): delay loop + averaging filter $y(n) = [y(n-N) + y(n-N-1)] / 2$
+- **Extended K-S** (Jaffe & Smith, 1983): generalize to arbitrary loop filter $G(z)$
 - Loop filter controls: decay rate per frequency (damping), pitch fine-tuning
-- Design constraint: |G(e^{jw})| <= 1 for stability (passive loop)
+- Design constraint: $|G(e^{j\omega})| \le 1$ for stability (passive loop)
 
 ## Damping
 
@@ -47,19 +47,19 @@ Real strings lose energy at frequency-dependent rates:
 ## Stiffness / Dispersion
 
 Stiff strings (piano, steel guitar) have inharmonic partials:
-  f_n = n * f_0 * sqrt(1 + B * n^2)
-where B = pi^3 * E * a^4 / (4 * K * L^2) is the coefficient of inharmonicity.
+$$f_n = n f_0 \sqrt{1 + B n^2}$$
+where $B = \pi^3 E a^4 / (4 K L^2)$ is the coefficient of inharmonicity.
 
-- Modeled by allpass filter H_s(z) in the loop
+- Modeled by allpass filter $H_s(z)$ in the loop
 - Commutes with delay → lumped at one point
 - Piano: dominant effect; nylon guitar: generally inaudible
-- Perceptual threshold: B_thresh = exp[2.54*log(f_0) - 24.6]
+- Perceptual threshold: $B_{\text{thresh}} = \exp[2.54\log(f_0) - 24.6]$
 
 ## Struck String (Hammer-String Interaction)
 
-Mass m at velocity v_0 strikes string (impedance R):
-- Contact velocity: v(t) = v_0 * exp(-2R/m * t)
-- Time constant tau = m/(2R): heavy hammer = long contact
+Mass $m$ at velocity $v_0$ strikes string (impedance $R$):
+- Contact velocity: $v(t) = v_0\, e^{-2R t/m}$
+- Time constant $\tau = m/(2R)$: heavy hammer = long contact
 - Energy transfers gradually (not instantaneous impulse)
 - More realistic than the ideal pluck for piano synthesis
 
@@ -67,7 +67,7 @@ Mass m at velocity v_0 strikes string (impedance R):
 
 ### Horizontal + Vertical Polarization
 - Two orthogonal transverse planes coupled at the bridge
-- Coupling matrix H(z): eigenvectors = eigenpolarizations
+- Coupling matrix $H(z)$: eigenvectors = eigenpolarizations
 - Eigenvalues give per-mode damping and tuning
 - Asymmetric bridge admittance → two-stage decay (fast onset + slow sustain)
 

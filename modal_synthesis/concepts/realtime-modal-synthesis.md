@@ -30,11 +30,11 @@ Critical optimization: discard inaudible modes before synthesis.
 
 ### Frequency Masking
 - Modes above ~16 kHz inaudible; above ~10 kHz, low-amplitude modes masked
-- Remove modes with omega_n > 2*pi*16000
+- Remove modes with $\omega_n > 2\pi \cdot 16000$
 
 ### Amplitude Thresholding
-- Modal amplitude a_n = |phi_n(x_out)| * |phi_n(x_in)| / (m_n * omega_n)
-- Modes with a_n < threshold (e.g., -60 dB relative to peak) removed
+- Modal amplitude $a_n = |\phi_n(x_{\text{out}})|\,|\phi_n(x_{\text{in}})| / (m_n \omega_n)$
+- Modes with $a_n <$ threshold (e.g., $-60$ dB relative to peak) removed
 - Typically cuts 60-80% of FEM modes for perceptual transparency
 
 ### Temporal Decay Pruning
@@ -56,7 +56,7 @@ Result: 1000-mode FEM object often reduces to 50-200 run-time modes.
 - Interleave left/right ear coupling for binaural output
 
 ### Parameter Update Rate
-- Mode parameters (omega_n, sigma_n) rarely change during synthesis
+- Mode parameters ($\omega_n$, $\sigma_n$) rarely change during synthesis
 - Update at control rate (e.g., every 64 samples) not audio rate
 - Exception: Doppler shifts, material morphing — needs smooth interpolation
 
@@ -110,7 +110,7 @@ Real-time parameters that can be modulated:
 
 - Strike position: changes phi_n(x_in) — different modes excited
 - Listen position: changes phi_n(x_out) — different timbral balance
-- Material morphing: interpolate omega_n, sigma_n between presets
+- Material morphing: interpolate $\omega_n$, $\sigma_n$ between presets
 - Contact stiffness (Hertz): controls spectral content via contact duration
 - Geometry deformation: re-map mode frequencies (requires pre-computed morphs)
 

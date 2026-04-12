@@ -12,19 +12,19 @@ sources:
 # Modal Synthesis Overview
 
 ## What It Is
-Modal synthesis generates sound by summing the responses of N resonant modes,
+Modal synthesis generates sound by summing the responses of $N$ resonant modes,
 each representing a natural frequency of a vibrating object.
 Unlike waveguide synthesis (which models wave propagation), modal synthesis
 works in the eigenmode domain — each mode is a damped sinusoidal oscillator.
 
 ## Core Idea
 Any linear, time-invariant vibrating system can be decomposed into modes.
-Each mode k has three parameters:
-- f_k — natural frequency (Hz)
-- a_k — amplitude weight (depends on excitation/pick-up position)
-- d_k — decay rate (damping, in dB/s or as Q-factor)
+Each mode $k$ has three parameters:
+- $f_k$ — natural frequency (Hz)
+- $a_k$ — amplitude weight (depends on excitation/pick-up position)
+- $d_k$ — decay rate (damping, in dB/s or as Q-factor)
 
-Sound output = sum over k of: a_k * exp(-d_k * t) * sin(2*pi*f_k * t)
+$$\text{Sound output} \;=\; \sum_k a_k\, e^{-d_k t}\, \sin(2\pi f_k t)$$
 
 This is exact for linear systems; works well for mildly nonlinear ones.
 
@@ -46,7 +46,7 @@ This is exact for linear systems; works well for mildly nonlinear ones.
 
 ## Basic Signal Flow
 1. Excitation signal e(t) — impulse, friction force, or arbitrary input
-2. Each mode: H_k(z) = biquad bandpass filter centered at f_k with Q = f_k / (2*d_k)
+2. Each mode: $H_k(z)$ = biquad bandpass filter centered at $f_k$ with $Q = f_k / (2 d_k)$
 3. Output = sum of all mode filter outputs
 
 ## Modes: Measured vs. Computed

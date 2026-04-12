@@ -20,14 +20,14 @@ The classic Coulomb friction force is discontinuous (stick-slip).
 For synthesis, smooth models are used:
 
 ### Stribeck curve approximation
-  F_friction(v_rel) = mu_k * F_normal * tanh(v_rel / v_s) - b * v_rel
+$$F_{\text{friction}}(v_{\text{rel}}) \;=\; \mu_k F_{\text{normal}} \tanh(v_{\text{rel}} / v_s) - b\, v_{\text{rel}}$$
 
 where:
-- v_rel = relative velocity between object and bow/finger
-- mu_k = kinetic friction coefficient
-- F_normal = normal contact force
-- v_s = Stribeck velocity (smoothing parameter)
-- b * v_rel = viscous term
+- $v_{\text{rel}}$ = relative velocity between object and bow/finger
+- $\mu_k$ = kinetic friction coefficient
+- $F_{\text{normal}}$ = normal contact force
+- $v_s$ = Stribeck velocity (smoothing parameter)
+- $b\, v_{\text{rel}}$ = viscous term
 
 ### Physical insight
 - v_rel ~ 0: high static friction → "stick" phase, object moves with bow
@@ -35,15 +35,17 @@ where:
 
 ## Feedback Structure
 Unlike impact, friction creates a closed loop:
-  x[n] → compute v_rel[n] → F_friction[n] → resonator bank → x[n+1]
+$$x[n] \;\to\; v_{\text{rel}}[n] \;\to\; F_{\text{friction}}[n] \;\to\; \text{resonator bank} \;\to\; x[n+1]$$
 
 This nonlinear feedback can produce self-sustained oscillations (violin bow!).
 
 ## Bowed String / Bowed Bar
-For a bowed string at contact point x_b:
-  v_bow - v_string(x_b, t) = v_rel(t)
-  F_bow(t) = F_friction(v_rel(t))
-  v_string(x_b, t) = sum_k [ phi_k(x_b) * q_k'(t) ]
+For a bowed string at contact point $x_b$:
+$$\begin{aligned}
+v_{\text{bow}} - v_{\text{string}}(x_b, t) &= v_{\text{rel}}(t)\\
+F_{\text{bow}}(t) &= F_{\text{friction}}(v_{\text{rel}}(t))\\
+v_{\text{string}}(x_b, t) &= \sum_k \phi_k(x_b)\, \dot{q}_k(t)
+\end{aligned}$$
 
 Combine with modal ODE for each mode → nonlinear feedback system.
 At correct bow speed and force: self-sustaining steady-state oscillation.
@@ -57,7 +59,7 @@ At correct bow speed and force: self-sustaining steady-state oscillation.
 
 ## Scraping and Rolling
 - Scraping: friction force modulated by surface texture → band-limited noise
-  Model: F_friction(t) = F0 * (1 + n(x_bow(t))) where n(x) = surface texture profile
+  Model: $F_{\text{friction}}(t) = F_0\,(1 + n(x_{\text{bow}}(t)))$ where $n(x)$ = surface texture profile
 - Rolling: continuous contact, no true stick-slip; sounds differ from bowing
 
 ## Applications

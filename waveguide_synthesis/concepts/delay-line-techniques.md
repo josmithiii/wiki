@@ -20,26 +20,26 @@ and physical modeling.
 ## Integer Delay Lines
 
 - Implemented as circular buffers: O(1) read/write per sample
-- Length N sets fundamental: f_0 = fs / N (for a string loop)
-- Total loop delay = N_delay + N_filter (delay from loop filters counts)
+- Length $N$ sets fundamental: $f_0 = f_s / N$ (for a string loop)
+- Total loop delay = $N_{\text{delay}} + N_{\text{filter}}$ (delay from loop filters counts)
 
 ## Fractional Delay Interpolation
 
 ### Linear Interpolation
-  y(n + eta) = (1 - eta) * y(n) + eta * y(n+1),  eta in [0,1]
-- One-multiply form: y(n + eta) = y(n) + eta * [y(n+1) - y(n)]
+$$y(n + \eta) \;=\; (1 - \eta)\, y(n) + \eta\, y(n+1), \qquad \eta \in [0,1]$$
+- One-multiply form: $y(n + \eta) = y(n) + \eta\,[y(n+1) - y(n)]$
 - Cost: 1 multiply, 2 adds
 - Accurate at low frequencies; degrades toward Nyquist
 - Best at high sample rates where audio is oversampled
 - STK class: `DelayL`
 
 ### First-Order Allpass Interpolation
-  y(n) = eta * [x(n) - y(n-1)] + x(n-1)
-  H(z) = (eta + z^{-1}) / (1 + eta * z^{-1})
+$$y(n) \;=\; \eta\,[x(n) - y(n-1)] + x(n-1)$$
+$$H(z) \;=\; \frac{\eta + z^{-1}}{1 + \eta\, z^{-1}}$$
 - Flat magnitude response (unity gain at all frequencies)
 - Preferred inside feedback loops (waveguide string models)
 - Same cost as linear: 1 multiply, 2 adds
-- Ramping eta from 0 to 1 smoothly "grows" one sample of delay
+- Ramping $\eta$ from 0 to 1 smoothly "grows" one sample of delay
 - STK class: `DelayA`
 
 ### Higher-Order Methods
@@ -63,23 +63,23 @@ parameter changes, especially inside feedback loops.
 Real waves lose energy during propagation. Modeled by filtering:
 
 ### Frequency-Independent Loss
-  Substitute z^{-1} → g * z^{-1} in the delay, g in [0,1]
-  M-sample delay output: y(n) = g^M * x(n - M)
+Substitute $z^{-1} \to g\, z^{-1}$ in the delay, $g \in [0,1]$:
+$$y(n) \;=\; g^M\, x(n - M)$$
 
 ### Frequency-Dependent Loss
-  Substitute z^{-1} → G(z) * z^{-1}, where |G(e^{jw})| <= 1
-  M-sample result: Y(z) = G^M(z) * z^{-M} * X(z)
-  G(z) is the per-sample loss filter (typically low-order FIR or IIR)
+Substitute $z^{-1} \to G(z)\, z^{-1}$, where $|G(e^{j\omega})| \le 1$:
+$$Y(z) \;=\; G^M(z)\, z^{-M}\, X(z)$$
+$G(z)$ is the per-sample loss filter (typically low-order FIR or IIR).
 
 ### Lumped Loss (Key Efficiency Trick)
-  By LTI commutativity, M per-sample loss filters = one filter G^M(z)
-  at a single point in the loop. This reduces computation by factor M.
-  Example: N=500 sample loop → 500x savings by lumping.
+By LTI commutativity, $M$ per-sample loss filters = one filter $G^M(z)$
+at a single point in the loop. This reduces computation by factor $M$.
+Example: $N=500$ sample loop → 500× savings by lumping.
 
 ## Dispersion Filters
 
 Stiff strings and other media have frequency-dependent propagation speed:
-- Modeled as allpass filter H_s(z) in the loop (flat magnitude, shaped phase)
+- Modeled as allpass filter $H_s(z)$ in the loop (flat magnitude, shaped phase)
 - Commutes with delay (LTI) → lumped at one point, like the loss filter
 - Design: specify desired inharmonicity, fit allpass coefficients
 - See [[string-modeling]] for piano string dispersion

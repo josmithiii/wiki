@@ -21,15 +21,15 @@ lines with scattering at diameter changes, tone holes, and bell.
 ## Cylindrical Tubes
 
 Plane-wave propagation in a uniform cylinder:
-- Wave impedance: R = rho * c / A (A = cross-sectional area)
-- Pressure waves: p^+(n) = R * u^+(n),  p^-(n) = -R * u^-(n)
-- Volume velocity U = v * A is conserved at junctions
+- Wave impedance: $R = \rho c / A$ ($A$ = cross-sectional area)
+- Pressure waves: $p^+(n) = R\, u^+(n)$,  $p^-(n) = -R\, u^-(n)$
+- Volume velocity $U = v A$ is conserved at junctions
 
 ### Piecewise Cylindrical (Kelly-Lochbaum) Model
 - Approximate bore as concatenated cylindrical sections
-- At each area change: scattering junction with k = (R_2 - R_1)/(R_2 + R_1)
-- Accurate when wavelength >> tube diameter (low-frequency regime)
-- Above lambda ~ sqrt(A): higher-order modes appear (Bessel functions)
+- At each area change: scattering junction with $k = (R_2 - R_1)/(R_2 + R_1)$
+- Accurate when wavelength $\gg$ tube diameter (low-frequency regime)
+- Above $\lambda \approx \sqrt{A}$: higher-order modes appear (Bessel functions)
 
 ## Conical Tubes
 

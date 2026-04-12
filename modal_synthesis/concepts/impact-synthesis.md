@@ -20,28 +20,28 @@ Two contact phases:
 1. Contact phase: objects deform at contact point; contact force builds and decays
 2. Post-contact: each object rings freely (its modal response to the impulse)
 
-Key insight: for rigid-body impact, contact force ~ a half-sine pulse of duration T_c.
-  T_c depends on object stiffnesses (Hertz contact model):
-    T_c ~ (1/f_contact) ~ material stiffness^{-2/5}
+Key insight: for rigid-body impact, contact force ~ a half-sine pulse of duration $T_c$.
+$T_c$ depends on object stiffnesses (Hertz contact model):
+$$T_c \;\sim\; 1/f_{\text{contact}} \;\sim\; (\text{material stiffness})^{-2/5}$$
 
 ## Hertz Contact Model
 Force during contact:
-  F(t) = k_h * delta(t)^{3/2}
+$$F(t) \;=\; k_h\, \delta(t)^{3/2}$$
 
 where:
-- delta(t) = mutual indentation (overlap) of objects at contact point
-- k_h = Hertz contact stiffness = f(E1, E2, R1, R2)  [elastic moduli, radii]
+- $\delta(t)$ = mutual indentation (overlap) of objects at contact point
+- $k_h$ = Hertz contact stiffness = $f(E_1, E_2, R_1, R_2)$ (elastic moduli, radii)
 
 Resulting force pulse ~ smooth bump; spectral content up to ~1/T_c Hz.
 
 ## Modal Response
 Object's acoustic output after impact:
-  y(t) = sum_k [ a_k * phi_k(r_impact) * integral_0^t F(tau)*h_k(t-tau) dtau ]
+$$y(t) \;=\; \sum_k a_k\, \phi_k(r_{\text{impact}}) \int_0^t F(\tau)\, h_k(t-\tau)\, d\tau$$
 
-For an ideal impulse F(t) = delta(t):
-  y(t) = sum_k [ a_k * phi_k(r_impact) * exp(-d_k*t) * sin(2*pi*f_k*t) ]
+For an ideal impulse $F(t) = \delta(t)$:
+$$y(t) \;=\; \sum_k a_k\, \phi_k(r_{\text{impact}})\, e^{-d_k t}\, \sin(2\pi f_k t)$$
 
-For real contact pulse F(t): each mode is convolved with F(t),
+For real contact pulse $F(t)$: each mode is convolved with $F(t)$,
 which attenuates high-frequency modes (the pulse is a low-pass filter).
 Hard materials → short T_c → more HF modes excited.
 Soft materials (rubber) → long T_c → only LF modes excited.

@@ -23,10 +23,10 @@ Two subsystems share energy at a junction point (or region):
 - Energy flows bidirectionally: string excites body, body loads string
 
 ### Modal Coupling Formulation
-Given two systems with modes phi_i^A and phi_j^B coupled at point x_c:
+Given two systems with modes $\phi_i^A$ and $\phi_j^B$ coupled at point $x_c$:
 - Coupling force projects onto each system's modal basis
-- g_i^A(t) = phi_i^A(x_c) * F_c(t)  (modal excitation of system A)
-- g_j^B(t) = phi_j^B(x_c) * F_c(t)  (modal excitation of system B)
+- $g_i^A(t) = \phi_i^A(x_c)\, F_c(t)$ (modal excitation of system A)
+- $g_j^B(t) = \phi_j^B(x_c)\, F_c(t)$ (modal excitation of system B)
 - The coupling point acts as both excitation and observation point
 
 ## Guitar: String + Bridge + Body (Bilbao DAFx24)[^1]
@@ -47,9 +47,9 @@ Full real-time guitar model combining:
 
 When modes are quasi-harmonic (strings, tubes), a filtered delay loop
 is far more efficient than N separate biquads:
-- H(z) = sum_k a_k / (1 - H_k(z) * z^{-N_k})
-- N_k = delay length (sets fundamental pitch)
-- H_k(z) = low-order filter (fine-tunes mode frequencies and damping)
+- $H(z) = \sum_k a_k / (1 - H_k(z)\, z^{-N_k})$
+- $N_k$ = delay length (sets fundamental pitch)
+- $H_k(z)$ = low-order filter (fine-tunes mode frequencies and damping)
 - One delay loop replaces an entire harmonic series of biquads
 - Basis of digital waveguide synthesis
 
@@ -70,8 +70,8 @@ If excitation and pickup positions are fixed, coupling simplifies:
 ## State-Space Approach[^2]
 
 For multiple inputs/outputs, the state-space formulation is more systematic:
-- Form (A, B(i), C(o)) where B depends on input location, C on output
-- Diagonalize → (Lambda, beta(i), gamma(o)) — modal representation
+- Form $(A, B^{(i)}, C^{(o)})$ where $B$ depends on input location, $C$ on output
+- Diagonalize → $(\Lambda, \beta^{(i)}, \gamma^{(o)})$ — modal representation
 - Similarity transform preserves input-output behavior exactly
 - Each mode gets proper excitation weight beta and observation weight gamma
 - Generalizes naturally to multi-point coupling

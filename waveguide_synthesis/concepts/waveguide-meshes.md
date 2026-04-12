@@ -18,8 +18,10 @@ regular grid. Think of a tennis racket: 1D strings crossing at nodes.
 ## 2D Rectilinear Mesh
 
 At each node, four incoming traveling-wave components scatter:
-  v_node = (v_N^+ + v_E^+ + v_S^+ + v_W^+) / 2
-  v_k^- = v_node - v_k^+,  k = N, E, S, W
+$$\begin{aligned}
+v_{\text{node}} &= \tfrac{1}{2}(v_N^+ + v_E^+ + v_S^+ + v_W^+)\\
+v_k^- &= v_{\text{node}} - v_k^+, \quad k \in \{N, E, S, W\}
+\end{aligned}$$
 
 - Lossless by construction (energy-conserving scattering)
 - Linear and time-invariant → only error is dispersion

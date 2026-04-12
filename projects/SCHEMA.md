@@ -18,6 +18,9 @@ This wiki is shared across agents with varying context sizes. Rules:
 - When updating a page, always bump the `updated` date
 - Every new page must be added to `index.md`
 - Every action must be appended to `log.md`
+- **All math must be written in LaTeX** (`$...$` inline, `$$...$$` display —
+  rendered via MathJax by the HTML build). No plain-text notation like
+  `rho`, `omega_n`, or indented ASCII equations.
 
 ## Frontmatter
 ```yaml

@@ -18,8 +18,8 @@ theory (Kelly & Lochbaum, 1962). Modern waveguide vocal models range from
 ## Kelly-Lochbaum Model (1962)
 
 - Vocal tract approximated as concatenated cylindrical tube sections
-- Each section has wave impedance R_m = rho * c / A_m
-- Scattering junctions at area changes: k_m = (A_m - A_{m+1}) / (A_m + A_{m+1})
+- Each section has wave impedance $R_m = \rho c / A_m$
+- Scattering junctions at area changes: $k_m = (A_m - A_{m+1}) / (A_m + A_{m+1})$
 - Glottal source at one end, lip radiation at the other
 - Led directly to ladder/lattice digital filters and LPC for speech
 

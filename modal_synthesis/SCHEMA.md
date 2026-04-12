@@ -20,6 +20,11 @@ This wiki is used by agents with as little as 32k token context. Rules:
 - When updating a page, always bump the `updated` date
 - Every new page must be added to `index.md` under the correct section
 - Every action must be appended to `log.md`
+- **All math must be written in LaTeX**, using `$...$` for inline and
+  `$$...$$` for display equations (rendered via MathJax by the HTML build).
+  Use `\begin{aligned}...\end{aligned}` for multi-line equations.
+  Do not use plain-text notation like `omega_n`, `rho`, `z^{-1}`, or
+  indented ASCII equations — write `$\omega_n$`, `$\rho$`, `$z^{-1}$` instead.
 
 ## Frontmatter
 ```yaml

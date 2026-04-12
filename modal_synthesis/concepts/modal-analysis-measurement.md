@@ -18,8 +18,8 @@ from measured vibration data. These parameters are then used directly in modal s
 ## Basic Measurement Chain
 1. Excite the object (impact hammer or shaker)
 2. Measure the response (accelerometer, laser vibrometer, or microphone)
-3. Compute the Frequency Response Function (FRF) H(f) = Output(f) / Input(f)
-4. Fit a modal model to H(f) → extract (f_k, d_k, a_k)
+3. Compute the Frequency Response Function (FRF) $H(f) = \text{Output}(f) / \text{Input}(f)$
+4. Fit a modal model to $H(f)$ → extract $(f_k, d_k, a_k)$
 
 ## Excitation Methods
 | Method | Pros | Cons |
@@ -37,10 +37,10 @@ from measured vibration data. These parameters are then used directly in modal s
 
 ## FRF Estimation
 Using averaged measurements to reduce noise:
-  H(f) = Sxy(f) / Sxx(f)   [H1 estimator, minimizes output noise]
-  H(f) = Syy(f) / Syx(f)   [H2 estimator, minimizes input noise]
+$$H(f) = S_{xy}(f) / S_{xx}(f) \quad\text{(H1 estimator, minimizes output noise)}$$
+$$H(f) = S_{yy}(f) / S_{yx}(f) \quad\text{(H2 estimator, minimizes input noise)}$$
 
-where Sxy = cross-power spectrum, Sxx = input power spectrum.
+where $S_{xy}$ = cross-power spectrum, $S_{xx}$ = input power spectrum.
 
 ## Modal Parameter Extraction Algorithms
 ### Time domain

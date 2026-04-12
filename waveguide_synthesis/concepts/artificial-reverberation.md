@@ -46,8 +46,8 @@ into a statistical process. Requirements:
 
 ### Schroeder (1962) / JCREV (Chowning, 1972)
 - Series allpass filters → parallel feedback comb filters → mixing matrix
-- Allpass: AP(N,g) = (-g + z^{-N}) / (1 - g*z^{-N})
-- Feedback comb: FBCF(N,g) = 1 / (1 - g*z^{-N})
+- Allpass: $\mathrm{AP}(N,g) = \dfrac{-g + z^{-N}}{1 - g\,z^{-N}}$
+- Feedback comb: $\mathrm{FBCF}(N,g) = \dfrac{1}{1 - g\,z^{-N}}$
 - 5 series allpasses produce ~810 echoes/sec
 
 ### Freeverb (Jezar, 2000)
@@ -63,11 +63,11 @@ The modern standard for algorithmic reverb (Gerzon 1971; Jot 1991):
 - Tonal correction filter E(z) decouples T60 from spectral shape
 
 ### Feedback Matrix Choices
-- **Hadamard H_N**: recursive 2x2 embedding; multiply-free for N = power of 4
-- **Householder A_N = I - (2/N)*u*u^T**: multiply-free for N = power of 2;
-  cost: 2N-1 adds for matrix-vector product; equivalent to physical
-  scattering at an N-waveguide junction
-- N=4 Householder is uniquely "balanced" (all entries equal magnitude)
+- **Hadamard $H_N$**: recursive $2\times 2$ embedding; multiply-free for $N$ = power of 4
+- **Householder $A_N = I - (2/N)\,\mathbf{u}\mathbf{u}^T$**: multiply-free for $N$ = power of 2;
+  cost: $2N-1$ adds for matrix-vector product; equivalent to physical
+  scattering at an $N$-waveguide junction
+- $N=4$ Householder is uniquely "balanced" (all entries equal magnitude)
 
 ### Design Principle
 Start from lossless prototype (infinite T60), tune for perceptually white
@@ -81,7 +81,7 @@ Bridges FDN and physical room modeling:
 - Higher-order reflections reuse same waveguide segments (approximate)
 - 3D room: 6 junctions, interconnected by digital waveguides
 - Parameters (room dimensions, wall absorption) directly control network
-- Perceptually adequate for rooms > ~10 m^3
+- Perceptually adequate for rooms > ~10 m³
 
 ## Related Concepts
 - [[waveguide-overview]] — the delay lines reverb is built from

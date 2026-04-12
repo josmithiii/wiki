@@ -20,38 +20,42 @@ and multi-waveguide interconnections.
 
 ## Two-Port Scattering (Kelly-Lochbaum)
 
-Two waveguides with impedances R_1 and R_2 joined end-to-end:
+Two waveguides with impedances $R_1$ and $R_2$ joined end-to-end:
 
 **Reflection coefficient** (pressure/force waves):
-  k = (R_2 - R_1) / (R_2 + R_1)
+$$k \;=\; \frac{R_2 - R_1}{R_2 + R_1}$$
 
 **Scattering relations** (pressure):
-- Reflected: p_1^- = k * p_1^+
-- Transmitted: p_2^+ = (1 + k) * p_1^+
+- Reflected: $p_1^- = k\, p_1^+$
+- Transmitted: $p_2^+ = (1 + k)\, p_1^+$
 
-For velocity waves: reflection = -k, transmission = 1 - k.
+For velocity waves: reflection = $-k$, transmission = $1 - k$.
 
 ### Kelly-Lochbaum Form (4 multiplies, 2 adds)
-  p_1^- =  k * p_1^+ + (1-k) * p_2^-
-  p_2^+ = (1+k) * p_1^+ - k * p_2^-
+$$\begin{aligned}
+p_1^- &= k\, p_1^+ + (1-k)\, p_2^-\\
+p_2^+ &= (1+k)\, p_1^+ - k\, p_2^-
+\end{aligned}$$
 
 ### One-Multiply Form (1 multiply, 3 adds)
-  temp = k * (p_1^+ - p_2^-)
-  p_1^- = p_2^- + temp
-  p_2^+ = p_1^+ + temp
+$$\begin{aligned}
+t    &= k\,(p_1^+ - p_2^-)\\
+p_1^- &= p_2^- + t\\
+p_2^+ &= p_1^+ + t
+\end{aligned}$$
 
 The one-multiply form is preferred in practice — same result, fewer ops.
 
 ## Multiport Scattering (N Waveguides)
 
-N waveguides meeting at a single junction (all wave impedances equal):
-- Junction velocity: v_J = (1/N) * sum(v_in_k, k=1..N)  [for equal impedances]
-- Outgoing: v_out_k = v_J - v_in_k  (continuity)
-- When N is a power of 2: **multiply-free** scattering (Hadamard structure)
+$N$ waveguides meeting at a single junction (all wave impedances equal):
+- Junction velocity: $v_J = \dfrac{1}{N} \sum_{k=1}^{N} v_k^+$ (for equal impedances)
+- Outgoing: $v_k^- = v_J - v_k^+$ (continuity)
+- When $N$ is a power of 2: **multiply-free** scattering (Hadamard structure)
 - Used in waveguide meshes and FDN reverberators
 
 For unequal impedances, junction pressure is the impedance-weighted sum:
-  p_J = 2 * sum(Gamma_k * p_k^+) / sum(Gamma_k)  where Gamma_k = 1/R_k
+$$p_J \;=\; \frac{2\sum_k \Gamma_k\, p_k^+}{\sum_k \Gamma_k}, \qquad \Gamma_k = 1/R_k$$
 
 ## Wave Digital Filter Adaptors
 
@@ -60,7 +64,7 @@ on bilinear-transform-warped wave variables. Key types:
 
 - **Parallel adaptor**: forces equal, velocities sum to zero
 - **Series adaptor**: velocities equal, forces sum to zero
-- Both reduce to the same reflection coefficient k = (R_2 - R_1)/(R_2 + R_1)
+- Both reduce to the same reflection coefficient $k = (R_2 - R_1)/(R_2 + R_1)$
 
 See PASP Appendix on Wave Digital Filters for the full theory.
 
@@ -77,7 +81,7 @@ See PASP Appendix on Wave Digital Filters for the full theory.
 ## Lossless Property
 
 Scattering is energy-conserving by construction:
-- |reflected|^2 + |transmitted|^2 = |incident|^2
+- $|\text{reflected}|^2 + |\text{transmitted}|^2 = |\text{incident}|^2$
 - A network of lossless junctions + pure delays = lossless allpass system
 - This is the basis for digital waveguide network (DWN) design
 

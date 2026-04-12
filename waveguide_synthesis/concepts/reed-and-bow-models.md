@@ -21,8 +21,8 @@ or string.
 ## Single Reed (Clarinet/Saxophone)
 
 ### Physical Mechanism
-- Player blows with mouth pressure P_m into mouthpiece
-- Reed deflects under pressure difference P_d = P_m - P_b (bore pressure)
+- Player blows with mouth pressure $P_m$ into mouthpiece
+- Reed deflects under pressure difference $P_d = P_m - P_b$ (bore pressure)
 - Flow U through reed aperture depends nonlinearly on P_d
 - At small P_d: reed opens, flow increases (positive resistance)
 - At large P_d: reed closes, flow drops to zero (negative resistance region)
@@ -31,8 +31,8 @@ or string.
 ### Digital Waveguide Implementation
 - Bore = bidirectional delay line carrying pressure waves
 - Reed = nonlinear reflection coefficient at mouthpiece end
-- Incoming pressure wave p^+ arrives at reed
-- Outgoing pressure p^- = f_reed(p^+, P_m, embouchure)
+- Incoming pressure wave $p^+$ arrives at reed
+- Outgoing pressure $p^- = f_{\text{reed}}(p^+, P_m, \text{embouchure})$
 - Reed function is a memoryless nonlinear map (mass neglected)
 - Embouchure controls: aperture width, damping, blowing pressure
 - Implemented as lookup table or polynomial approximation
@@ -47,7 +47,7 @@ or string.
 ## Lip Reed (Brass)
 
 - Lips modeled as mass-spring oscillator (1 or 2 masses)
-- Bernoulli flow between lips: p_m = p_l + (1/2) * rho * u_l^2
+- Bernoulli flow between lips: $p_m = p_l + \tfrac{1}{2}\rho\, u_l^2$
 - Jet in mouthpiece dissipates kinetically (no pressure recovery)
 - Cook's simplified model: second-order resonator, output squared and clipped
 - More sophisticated: Rodet-Vergez 1- and 2-mass models
@@ -56,7 +56,7 @@ or string.
 
 - No mechanical reed; oscillation from jet-edge interaction
 - Second feedback loop models jet propagation delay (mouth to edge)
-- Nonlinearity: soft clipper y(x) = x - x^3 (jet saturation)
+- Nonlinearity: soft clipper $y(x) = x - x^3$ (jet saturation)
 - Higher noise component than reed instruments (scaled by DC flow)
 - Cook's SlideFlute (STK): simplified jet + bore + noise model
 

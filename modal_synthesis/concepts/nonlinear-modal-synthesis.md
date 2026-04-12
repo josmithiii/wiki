@@ -29,7 +29,7 @@ When vibration amplitudes are large enough, modes exchange energy:
 - Departs from strict PDE simulation for perceptual/procedural goals
 - Coupled Mathews-Smith resonant filters with inter-modal energy transfer
 - Coupling matrix C_ij encodes energy flow between mode pairs
-- Power transfer: P_i(n+1) = [P_i(n) + T_i(n)] * exp(-2*alpha_i/fs)
+- Power transfer: $P_i(n+1) = [P_i(n) + T_i(n)]\, e^{-2\alpha_i/f_s}$
 - Equivalence between filter signal power and modal mechanical energy
 - Randomization of coupling improves realism
 - Achievable in real time (no iterative solver needed)
@@ -39,16 +39,16 @@ When vibration amplitudes are large enough, modes exchange energy:
 Collisions are one-sided nonlinearities: force is zero until contact, then large.
 
 ### Power-Law Contact Model[^2]
-- F = K * [eta]_+^alpha, where eta = penetration depth
-- K = stiffness, alpha > 1 (typically 1.5–3 for Hertzian contact)
-- Potential: Phi = K * [eta]_+^(alpha+1) / (alpha+1)
+- $F = K\, [\eta]_+^\alpha$, where $\eta$ = penetration depth
+- $K$ = stiffness, $\alpha > 1$ (typically 1.5–3 for Hertzian contact)
+- Potential: $\Phi = K\, [\eta]_+^{\alpha+1} / (\alpha+1)$
 - Energy-conserving finite difference schemes guarantee numerical stability
 
 ### Bilbao's Hamiltonian Framework[^2][^3]
 - Cast collision as additional potential energy term in Hamiltonian
-- Discrete energy balance: delta_t- h = -q (h = total energy, q = dissipated power)
-- Stability follows from h >= 0
-- Bounds on spurious penetration: max(eta) <= [(2(alpha+1)*h) / (K*h_spatial)]^(1/(alpha+1))
+- Discrete energy balance: $\delta_{t-} h = -q$ ($h$ = total energy, $q$ = dissipated power)
+- Stability follows from $h \ge 0$
+- Bounds on spurious penetration: $\max(\eta) \le \bigl[2(\alpha+1)h / (K h_{\text{spatial}})\bigr]^{1/(\alpha+1)}$
 - Applies to lumped (hammer-string) and distributed (string-barrier) collisions
 
 ### Applications in Musical Instruments
@@ -61,7 +61,7 @@ Collisions are one-sided nonlinearities: force is zero until contact, then large
 ## Tension Modulation (Kirchhoff-Carrier)
 
 At large amplitudes, string stretching increases effective tension:
-- K[u] = (EA/2L) * integral[(du/dx)^2 dx] * d^2u/dx^2
+$$K[u] \;=\; \frac{EA}{2L} \int_0^L \!\left(\frac{\partial u}{\partial x}\right)^2 dx \;\cdot\; \frac{\partial^2 u}{\partial x^2}$$
 - Causes pitch glide upward at high amplitudes
 - Couples all modes through shared tension term
 

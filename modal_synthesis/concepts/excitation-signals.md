@@ -16,7 +16,7 @@ The choice of excitation shapes the perceptual character of the synthesized soun
 
 ## Impulse
 
-The mathematical ideal: Dirac delta delta(t).
+The mathematical ideal: Dirac delta $\delta(t)$.
 
 - Spectrum: flat (white) across all frequencies
 - Excites all modes simultaneously with equal amplitude at t=0
@@ -24,7 +24,7 @@ The mathematical ideal: Dirac delta delta(t).
 - In practice: single non-zero sample of amplitude A at t=0
 - Use for: struck/hit sounds (hammer, mallet, collision), any transient event
 - Modal synthesis: apply impulse to each mode's initial conditions
-  — sets x_n(0) = 0, x_n'(0) = phi_n(x_drive) * F_impulse / m_n
+  — sets $x_n(0) = 0$, $\dot{x}_n(0) = \phi_n(x_{\text{drive}})\, F_{\text{impulse}} / m_n$
 - Extended impulse (shaped): raised-cosine or Hann-windowed pulse
   — controls spectral bandwidth, avoids exciting modes above f_cutoff
   — softer mallet = lower f_cutoff = less high-frequency mode content
@@ -33,7 +33,7 @@ The mathematical ideal: Dirac delta delta(t).
 
 Band-limited or broadband noise, windowed to finite duration.
 
-- Duration tau sets spectral resolution: Delta_f ~ 1/tau
+- Duration $\tau$ sets spectral resolution: $\Delta f \sim 1/\tau$
 - Amplitude envelope: rectangular, Gaussian, or exponential attack + decay
 - Use for: rough/grainy impacts, scraping onset, stochastic excitation
 - Colored noise: pre-filter to shape input spectrum
@@ -50,12 +50,12 @@ Sustained signal driving the resonator bank indefinitely.
 ### White/Pink Noise Drive
 - Stochastic steady-state output — statistical coloring by resonator
 - Use for: wind noise through structures, cavity resonance, acoustic noise
-- Output spectrum = |H(omega)|^2 * S_input(omega)
+- Output spectrum = $|H(\omega)|^2 \cdot S_{\text{input}}(\omega)$
 
 ### Sinusoidal / Harmonic Drive
 - Single frequency f_drive or harmonic series
-- When f_drive near mode omega_n: resonance buildup (transient + steady state)
-- Beating when f_drive slightly off resonance: |f_drive - f_n| beats per second
+- When $f_{\text{drive}}$ near mode $\omega_n$: resonance buildup (transient + steady state)
+- Beating when $f_{\text{drive}}$ slightly off resonance: $|f_{\text{drive}} - f_n|$ beats per second
 - Use for: bowed strings, singing bowls, friction drums, wind-excited structures
 
 ### Bow-Force Model (friction excitation)
@@ -65,14 +65,14 @@ Sustained signal driving the resonator bank indefinitely.
 - See [[friction-synthesis]] for full treatment
 
 ### Physical Contact Models
-- Hertz spring model for impact: F = k_H * x^1.5 during contact
+- Hertz spring model for impact: $F = k_H x^{1.5}$ during contact
 - Contact duration determines spectral content: shorter = more HF
 - See [[impact-synthesis]] for parameter details
 
 ## Excitation Location (Modal Coupling)
 
-The input force couples to mode n proportional to phi_n(x_drive):
-- Excite at node of mode n: phi_n(x_drive) = 0 — mode not excited
+The input force couples to mode $n$ proportional to $\phi_n(x_{\text{drive}})$:
+- Excite at node of mode $n$: $\phi_n(x_{\text{drive}}) = 0$ — mode not excited
 - Excite at antinode: maximum energy transfer to that mode
 - This is why striking a bell at the rim vs. near the nodal line changes tone
 

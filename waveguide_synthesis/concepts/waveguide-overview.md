@@ -19,14 +19,14 @@ by directly implementing d'Alembert's traveling-wave solution.
 ## Core Principle
 
 Any 1D linear acoustic vibration = sum of two opposing traveling waves (d'Alembert, 1747):
-- y(t,x) = y_right(t - x/c) + y_left(t + x/c)
+- $y(t,x) = y_{\text{right}}(t - x/c) + y_{\text{left}}(t + x/c)$
 - A bidirectional delay line holds sampled versions of both components
 - Physical variables (force, pressure, velocity) = sum of left + right components
 
 ## Physical Outputs and Inputs
 
 **Output** (observation): sum the two delay-line taps at the observation point
-- y_physical(n) = y_right(n) + y_left(n) at the tap position
+- $y_{\text{physical}}(n) = y_{\text{right}}(n) + y_{\text{left}}(n)$ at the tap position
 
 **Superimposing input** (ideal pluck): add equal disturbance to both delay lines
 - Graph-theoretic transpose of the output (transposed taps)
@@ -40,7 +40,7 @@ Any 1D linear acoustic vibration = sum of two opposing traveling waves (d'Alembe
 
 1. **Infinite string**: single bidirectional delay line
 2. **Finite string** (rigid terminations): delay-line loop (sign inversion at each end)
-3. **Damped string**: insert loop filter G(z) with |G(e^{jw})| <= 1
+3. **Damped string**: insert loop filter $G(z)$ with $|G(e^{j\omega})| \le 1$
 4. **Stiff string**: add allpass dispersion filter in the loop
 5. **Excited string**: pluck/strike/bow via input junction
 
@@ -49,31 +49,31 @@ This progression yields the Karplus-Strong / Extended Karplus-Strong family.
 ## Wave Variables
 
 Two common choices:
-- **Displacement/velocity waves**: y^+(n), y^-(n) — sum gives displacement
-- **Force/pressure waves**: f^+(n), f^-(n) — sum gives force; difference gives velocity
+- **Displacement/velocity waves**: $y^+(n)$, $y^-(n)$ — sum gives displacement
+- **Force/pressure waves**: $f^+(n)$, $f^-(n)$ — sum gives force; difference gives velocity
 - Choice affects sign conventions at scattering junctions
 
 ## Wave Impedance
 
-- String: R = sqrt(K * epsilon) where K = tension, epsilon = mass density
-- Acoustic tube: R = rho * c / A where A = cross-sectional area
+- String: $R = \sqrt{K \epsilon}$ where $K$ = tension, $\epsilon$ = mass density
+- Acoustic tube: $R = \rho c / A$ where $A$ = cross-sectional area
 - Needed for connecting waveguides to each other or to lumped elements
 - See [[scattering-junctions]] for how impedance mismatches create reflections
 
 ## Computational Efficiency
 
-A digital waveguide loop of length N replaces:
-- N second-order resonators (modal synthesis) for a quasi-harmonic series
-- N^2 multiply-adds per sample (finite-difference grid)
-with just N delay samples + 1 filter evaluation per sample period.
+A digital waveguide loop of length $N$ replaces:
+- $N$ second-order resonators (modal synthesis) for a quasi-harmonic series
+- $N^2$ multiply-adds per sample (finite-difference grid)
+with just $N$ delay samples + 1 filter evaluation per sample period.
 
 ## Relation to Other Methods
 
 | Method | Represents | Cost | Strengths |
 |--------|-----------|------|-----------|
-| Digital waveguide | Traveling waves | O(N) per string | Exact for 1D; commutes losses |
-| Finite difference | Grid samples | O(N) but higher constant | Handles 2D/3D, nonlinear |
-| Modal synthesis | Eigenmodes | O(M) per mode | Any geometry; independent modes |
+| Digital waveguide | Traveling waves | $O(N)$ per string | Exact for 1D; commutes losses |
+| Finite difference | Grid samples | $O(N)$ but higher constant | Handles 2D/3D, nonlinear |
+| Modal synthesis | Eigenmodes | $O(M)$ per mode | Any geometry; independent modes |
 
 See [[waveguide-vs-modal]] in the modal_synthesis wiki for detailed comparison.
 

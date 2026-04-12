@@ -17,21 +17,21 @@ approaches.
 ## Mode Density and the Schroeder Frequency
 
 Mode density increases with frequency and object dimensionality:
-- 1D (string, tube): constant mode spacing = c / (2L)
-- 2D (plate, membrane): mode density ~ f (grows linearly)
-- 3D (room, solid): mode density ~ f^2 (grows quadratically)
+- 1D (string, tube): constant mode spacing $= c / (2L)$
+- 2D (plate, membrane): mode density $\sim f$ (grows linearly)
+- 3D (room, solid): mode density $\sim f^2$ (grows quadratically)
 
-The **Schroeder frequency** f_S marks where modes begin to overlap:
-- f_S = 2000 * sqrt(T60 / V) for rooms (V = volume in m^3)
+The **Schroeder frequency** $f_S$ marks where modes begin to overlap:
+- $f_S = 2000\sqrt{T_{60} / V}$ for rooms ($V$ = volume in m³)
 - Below f_S: individual modes are resolvable → deterministic modal synthesis
 - Above f_S: modes overlap heavily → statistical/stochastic treatment
 
 ## Statistical Energy Analysis (SEA)
 
 SEA models energy flow between coupled subsystems at high frequencies:
-- Each subsystem characterized by modal density n(f), damping eta, and input power
-- Energy balance: P_in = P_diss + P_coupled
-- Coupling loss factors eta_ij govern energy exchange between subsystems
+- Each subsystem characterized by modal density $n(f)$, damping $\eta$, and input power
+- Energy balance: $P_{\text{in}} = P_{\text{diss}} + P_{\text{coupled}}$
+- Coupling loss factors $\eta_{ij}$ govern energy exchange between subsystems
 - Output: average energy per subsystem, not individual mode amplitudes
 - Originally developed for aerospace vibro-acoustics (Lyon, 1975)
 
@@ -60,7 +60,7 @@ When individual modes cannot be resolved:
 - Human frequency resolution (ERB) broadens with frequency
 - Above ~2-4 kHz, individual partials of most objects are unresolvable
 - Noise-band representation is perceptually transparent in this range
-- Significant computational savings: O(B) bands vs. O(N) modes, B << N
+- Significant computational savings: $O(B)$ bands vs. $O(N)$ modes, $B \ll N$
 
 ## Texture Synthesis for Contact Sounds
 

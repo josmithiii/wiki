@@ -32,7 +32,7 @@ differ in efficiency and what is natural to control.
 | Excitation | Bow, reed, breath (flow-pressure) | Impact, impulse force |
 | Geometry | 1D structures (strings, bores) | Any dimensionality |
 | Mode count | Implicitly infinite | Explicit, finite N |
-| Real-time cost | O(L) -- length of structure | O(N) -- number of modes |
+| Real-time cost | $O(L)$ — length of structure | $O(N)$ — number of modes |
 | Pitch control | Change delay length | Scale all f_k |
 | Damping | Lowpass filter in loop | Pole radius per mode |
 | Nonlinearity | Natural (reed, bow at junction) | Requires feedback loop |
@@ -68,8 +68,8 @@ Use **modal** when:
 
 ## Commuted Synthesis Shortcut
 If pickup position and excitation position are fixed, precompute the impulse response:
-  h(t) = sum_k [ a_k * exp(-d_k*t) * sin(2*pi*f_k*t) ]
-Then synthesize: y(t) = e(t) * h(t)  [convolution]
+$$h(t) \;=\; \sum_k a_k\, e^{-d_k t}\, \sin(2\pi f_k t)$$
+Then synthesize: $y(t) = e(t) * h(t)$ (convolution)
 This is exactly a single convolution -- often cheaper than running N biquads
 for long-decay instruments (but loses flexibility of changing pickup or modes).
 

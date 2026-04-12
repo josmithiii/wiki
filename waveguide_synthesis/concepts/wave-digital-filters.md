@@ -32,15 +32,16 @@ recomputation of the mass update.
 
 ## Wave Variables to the Rescue
 
-Decompose force f and velocity v into traveling-wave components:
-  f(t) = f^+(t) + f^-(t)
-  v(t) = [f^+(t) - f^-(t)] / R_0
-
-where R_0 > 0 is a free **port wave impedance** parameter per element.
+Decompose force $f$ and velocity $v$ into traveling-wave components:
+$$\begin{aligned}
+f(t) &= f^+(t) + f^-(t)\\
+v(t) &= \bigl[f^+(t) - f^-(t)\bigr] / R_0
+\end{aligned}$$
+where $R_0 > 0$ is a free **port wave impedance** parameter per element.
 
 ### Element Reflectance
-Given driving-point impedance R(s), the force-wave reflectance from port R_0:
-  rho(s) = [R(s) - R_0] / [R(s) + R_0]
+Given driving-point impedance $R(s)$, the force-wave reflectance from port $R_0$:
+$$\rho(s) \;=\; \frac{R(s) - R_0}{R(s) + R_0}$$
 
 This is the impedance step over the impedance sum — same formula as
 [[scattering-junctions]] but now in the Laplace domain.
@@ -50,13 +51,13 @@ This is the impedance step over the impedance sum — same formula as
 After bilinear transform, each element reflectance has a delay-free path
 proportional to its "instantaneous reflectance." By choosing R_0 to match:
 
-| Element | R(s) | Choose R_0 = | rho(z) |
-|---------|------|-------------|--------|
-| Mass m | ms | mc | -z^{-1} (pure delay + sign flip) |
-| Spring k | k/s | k/c | +z^{-1} (pure delay) |
-| Dashpot mu | mu | mu | 0 (matched termination) |
+| Element | $R(s)$ | Choose $R_0 =$ | $\rho(z)$ |
+|---------|--------|----------------|-----------|
+| Mass $m$ | $ms$ | $mc$ | $-z^{-1}$ (pure delay + sign flip) |
+| Spring $k$ | $k/s$ | $k/c$ | $+z^{-1}$ (pure delay) |
+| Dashpot $\mu$ | $\mu$ | $\mu$ | $0$ (matched termination) |
 
-where c = 2/T is the bilinear transform constant.
+where $c = 2/T$ is the bilinear transform constant.
 
 Each reactive element becomes a **unit delay** — no delay-free path.
 Element parameters (k, m) are encoded entirely in the port impedances.
@@ -67,7 +68,7 @@ Elements with different port impedances connect via **adaptors** —
 memoryless scattering junctions:
 
 - **Parallel adaptor**: common force, velocities sum to zero
-  - rho = (R_2 - R_1) / (R_2 + R_1)
+  - $\rho = (R_2 - R_1) / (R_2 + R_1)$
 - **Series adaptor**: common velocity, forces sum to zero
 
 Since each element is a pure delay and each adaptor is memoryless,
@@ -82,17 +83,17 @@ See [[wdf-adaptors]] for full derivation and N-port generalization.
 - **Stability**: guaranteed by passivity (element reflectance gain <= 1)
 - **Modularity**: changing one element only changes its R_0 and the
   adaptor coefficient — other elements untouched
-- **Frequency warping**: omega_d = (2/T) * arctan(omega_0 * T/2)
+- **Frequency warping**: $\omega_d = (2/T)\arctan(\omega_0 T/2)$
   — slight pitch error, correctable
 
 ## Comparison: Forward/Backward Euler vs. Bilinear Transform
 
-| Method | Explicit? | |lambda| | Modular? |
-|--------|-----------|---------|----------|
-| Forward Euler | Yes | > 1 (unstable) | Yes |
-| Backward Euler | No (implicit) | < 1 (overdamped) | No |
-| Bilinear transform | No (implicit) | = 1 (perfect) | No |
-| **WDF (bilinear + waves)** | **Yes** | **= 1 (perfect)** | **Yes** |
+| Method | Explicit? | $|\lambda|$ | Modular? |
+|--------|-----------|-------------|----------|
+| Forward Euler | Yes | $> 1$ (unstable) | Yes |
+| Backward Euler | No (implicit) | $< 1$ (overdamped) | No |
+| Bilinear transform | No (implicit) | $= 1$ (perfect) | No |
+| **WDF (bilinear + waves)** | **Yes** | **$= 1$ (perfect)** | **Yes** |
 
 WDFs achieve the best of all worlds: explicit, stable, energy-conserving,
 and modular.

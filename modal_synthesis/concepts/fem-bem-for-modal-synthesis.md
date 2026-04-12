@@ -20,15 +20,15 @@ Two main methods: Finite Element Method (FEM) and Boundary Element Method (BEM).
 ### What it does
 Discretizes the interior volume of an object into small elements (tetrahedra, hexahedra).
 Assembles mass matrix M and stiffness matrix K from element integrals.
-Solves generalized eigenvalue problem: K*phi = omega^2 * M * phi.
+Solves generalized eigenvalue problem: $K\phi = \omega^2 M \phi$.
 
 ### Inputs required
 - Geometry: CAD file or mesh (STL, OBJ, etc.) → meshed into volumetric elements
-- Material properties: Young's modulus E, Poisson's ratio nu, density rho
+- Material properties: Young's modulus $E$, Poisson's ratio $\nu$, density $\rho$
 - Boundary conditions: free, clamped, pinned edges
 
 ### Typical outputs
-- First few hundred mode shapes phi_k and frequencies f_k
+- First few hundred mode shapes $\phi_k$ and frequencies $f_k$
 - Adequate for synthesis up to ~5-10 kHz depending on mesh refinement
 
 ### Tools
@@ -39,13 +39,13 @@ Solves generalized eigenvalue problem: K*phi = omega^2 * M * phi.
 
 ### Mesh requirements
 - Rule of thumb: at least 6 elements per wavelength at highest freq of interest
-- For audio up to 10 kHz in steel (c_L ~ 5000 m/s): lambda_min ~ 0.5 mm
+- For audio up to 10 kHz in steel ($c_L \approx 5000$ m/s): $\lambda_{\min} \approx 0.5$ mm
   → very fine mesh for large objects → millions of DOF
 
 ### Reduced-order models
 Problem: full FEM has millions of DOF, but only ~100-500 modes needed for synthesis.
-Solution: compute only first N eigenpairs using iterative solvers (Arnoldi, Lanczos).
-Cost: O(N * DOF) not O(DOF^3).
+Solution: compute only first $N$ eigenpairs using iterative solvers (Arnoldi, Lanczos).
+Cost: $O(N \cdot \text{DOF})$ not $O(\text{DOF}^3)$.
 
 ## Boundary Element Method (BEM)
 
@@ -60,13 +60,13 @@ Coupled with FEM structure, it computes sound radiation from vibrating surfaces.
 - Naturally computes transfer functions: force at point A → pressure at point B
 
 ### Acoustic BEM Transfer Function
-Given surface velocity distribution v_n(r) on object surface:
-  p(r_obs) = BEM_operator * v_n
+Given surface velocity distribution $v_n(r)$ on object surface:
+$$p(r_{\text{obs}}) \;=\; \mathcal{B}\, v_n$$
 
 For modal synthesis, precompute "acoustic transfer vectors" (ATVs):
-  p_k(r_obs) = BEM_operator * phi_k(surface)
+$$p_k(r_{\text{obs}}) \;=\; \mathcal{B}\, \phi_k(\text{surface})$$
 
-Then: p(r_obs, t) = sum_k [ p_k(r_obs) * q_k(t) ]
+Then: $p(r_{\text{obs}}, t) = \sum_k p_k(r_{\text{obs}})\, q_k(t)$
 This is the "Precomputed Acoustic Transfer" approach (James & Pai 2002).
 
 ### Tools
@@ -75,18 +75,18 @@ This is the "Precomputed Acoustic Transfer" approach (James & Pai 2002).
 - **Bempp-cl**: modern GPU-accelerated BEM
 
 ### Fast Multipole Method (FMM)
-Reduces BEM cost from O(N^2) to O(N log N):
+Reduces BEM cost from $O(N^2)$ to $O(N \log N)$:
 - Groups far-field interactions hierarchically
 - Essential for large surfaces (>10k boundary elements)
 
 ## Combined FEM-BEM Workflow
 1. Build CAD model of object
 2. Mesh: volumetric (FEM) + surface (BEM)
-3. FEM: compute structural mode shapes phi_k, frequencies f_k
-4. BEM: compute acoustic transfer vectors p_k(r_mic)
-5. Damping: assign d_k from material loss factor eta_k (or measure one sample)
-6. Export: {f_k, d_k, p_k} → resonator bank
-7. Synthesize: sum_k [ p_k * exp(-d_k*t) * sin(2*pi*f_k*t) ]
+3. FEM: compute structural mode shapes $\phi_k$, frequencies $f_k$
+4. BEM: compute acoustic transfer vectors $p_k(r_{\text{mic}})$
+5. Damping: assign $d_k$ from material loss factor $\eta_k$ (or measure one sample)
+6. Export: $\{f_k, d_k, p_k\}$ → resonator bank
+7. Synthesize: $\sum_k p_k\, e^{-d_k t}\, \sin(2\pi f_k t)$
 
 ## Related Concepts
 - [[mode-shapes-and-eigenvalues]] — the mathematical objects FEM/BEM compute
