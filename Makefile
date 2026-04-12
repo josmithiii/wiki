@@ -18,7 +18,7 @@ TARBALL      := $(WIKI_NAME).tgz
 BUILD_STAMP  := $(BUILD_DIR)/.BUILD_TIMESTAMP
 
 # Sub-wikis to include (each is a top-level directory with SCHEMA.md/index.md/log.md)
-SUBWIKIS     := modal_synthesis waveguide_synthesis projects
+SUBWIKIS     := waveguide_synthesis modal_synthesis
 
 # Top-level files to include
 TOPFILES     := README.md
@@ -75,6 +75,7 @@ copy-md: ## Copy markdown sources into build dir
 	    echo "  copying $$d/"; \
 	    rsync -a --exclude='.obsidian' --exclude='raw' --exclude='_archive' \
 	          --exclude='*.tex' --exclude='*.bash' \
+	          --exclude='SCHEMA.md' --exclude='log.md' \
 	          $$d/ $(OUT_DIR)/$$d/; \
 	  fi; \
 	done
