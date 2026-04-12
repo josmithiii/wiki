@@ -18,7 +18,7 @@ TARBALL      := $(WIKI_NAME).tgz
 BUILD_STAMP  := $(BUILD_DIR)/.BUILD_TIMESTAMP
 
 # Sub-wikis to include (each is a top-level directory with SCHEMA.md/index.md/log.md)
-SUBWIKIS     := waveguide_synthesis modal_synthesis
+SUBWIKIS     := waveguide_synthesis modal_synthesis spectral_processing
 
 # Top-level files to include
 TOPFILES     := README.md
@@ -101,9 +101,9 @@ upload: build check ## Tar build and copy to CCRMA staging area
 	@if [ -d $(CCRMA_STAGE) ]; then \
 	  cp $(BUILD_DIR)/$(TARBALL) $(CCRMA_STAGE)/ && \
 	  echo "Copied to $(CCRMA_STAGE)/$(TARBALL)"; \
-	  /w/scripts/webupd $(WIKI_NAME).tgz \
-	  echo "Ran webupd $(WIKI_NAME).tgz"; \
-	  ssh ccrma-gate.stanford.edu webinst $(WIKI_NAME) \
+	  /w/scripts/webupd $(WIKI_NAME).tgz && \
+	  echo "Ran webupd $(WIKI_NAME).tgz" && \
+	  ssh ccrma-gate.stanford.edu webinst $(WIKI_NAME) && \
 	  echo "Ran webinst $(WIKI_NAME) at CCRMA - test it now"; \
 	else \
 	  echo ""; \
