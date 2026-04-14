@@ -45,11 +45,40 @@ sources:
 ```
 
 ## Source Attribution
-- When ingesting PDFs or web sources, keep the raw file in `raw/` AND record
-  the original DOI/URL in the page's `sources:` frontmatter list.
-- In the page body, cite sources using markdown footnotes.
-- Raw PDFs must be converted to text via `pdf2txt.py` before distilling —
-  never read PDFs directly.
+
+See the top-level [`~/wiki/README.md`](../README.md) "PDF ingestion convention"
+section for the cross-wiki rules. In summary for this wiki:
+
+- Original PDFs live on the host at `/l/dttd/`, symlinked into
+  `/l/dttd/ANC-Stuff/`. They are **not in this repo**.
+- Text extractions live in `raw/` and are produced by `pdf2txt.py`.
+  `raw/` is `.gitignore`d — it is local-only state, never committed.
+- `raw/MANIFEST.md` is the text-file ↔ original-PDF mapping.
+- `raw/SUMMARIES.md` holds dense per-source distillation notes keyed to
+  planned entity pages.
+- When ingesting a new source, record the original DOI/URL in the page's
+  `sources:` YAML frontmatter list AND cite with markdown footnotes in the
+  page body.
+- **Never use `Read` on a PDF directly** — always go through `pdf2txt.py`.
+
+### Staging free-to-download PDFs
+
+When an agent locates free PDFs on the web (arXiv, author pages, open-access
+mirrors), stage them in `incoming-pdfs/` inside this sub-wiki. The PDFs
+themselves are **not committed**, but `incoming-pdfs/README.md` — which
+maps each filename to its source URL and to the concept/entity page it
+feeds — *is* committed so the provenance is visible in git history even
+after the staging directory is deleted. JOS moves the PDFs into `/l/dttd/`,
+symlinks into `ANC-Stuff/`, runs `pdf2txt.py` to populate `raw/`, and then
+the staging directory is removed.
+
+### Excluded-from-distillation sources
+
+Some items in `raw/` are kept as raw context but intentionally **not**
+distilled into entity pages (e.g., internal project working documents for
+the rooftop-fan effort). These are enumerated in
+[`raw/MANIFEST.md`](raw/MANIFEST.md) under "Excluded from wiki distillation"
+and must not be promoted to entity pages without explicit instruction.
 
 ## Tag Taxonomy
 

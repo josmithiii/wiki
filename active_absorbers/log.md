@@ -96,3 +96,7 @@
   - DRL-ANC-adjacent — 2 files (GFANC + DRL-in-control survey) → deep-rl-anc.md
 - README.md in incoming-pdfs/ has the full file-to-page mapping + move-and-ingest bash recipe.
 - Morgan 1980 and Burgess 1981 remain paywalled; no legitimate free source surfaced. Recommended secondary citations: Kuo & Morgan 1996, Elliott 2001.
+
+## [2026-04-14] doc | PDF ingestion convention for future agents
+- Top-level ~/wiki/README.md: added "PDF ingestion convention (all wikis)" section documenting /l/dttd/ host location, raw/ gitignore policy, MANIFEST.md / SUMMARIES.md conventions, Read-a-PDF prohibition, and the incoming-pdfs/ staging protocol (commit README only, not binaries).
+- active_absorbers/SCHEMA.md: rewrote "Source Attribution" to point at the README section plus document this wiki's specific details (raw/ contents, staging, excluded-from-distillation list in MANIFEST.md).
