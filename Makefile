@@ -18,7 +18,7 @@ TARBALL      := $(WIKI_NAME).tgz
 BUILD_STAMP  := $(BUILD_DIR)/.BUILD_TIMESTAMP
 
 # Sub-wikis to include (each is a top-level directory with SCHEMA.md/index.md/log.md)
-SUBWIKIS     := waveguide_synthesis modal_synthesis spectral_processing
+SUBWIKIS     := waveguide_synthesis modal_synthesis spectral_processing active_absorbers
 
 # Top-level files to include
 TOPFILES     := README.md
