@@ -6,6 +6,7 @@ type: concept
 tags: [anc, feedforward, secondary-path, loudspeaker, causality, comparison]
 sources:
   - raw/DeepANC-nihms-1690502.txt
+  - raw/DeepANC-SpeechPreserving-Reverberant-2604.10979.txt
 ---
 
 # Deep ANC (CRN-Based)
@@ -95,6 +96,36 @@ still applies — the network does not magically get future samples.
   (Sarkar et al. 2025, see [[fxlms-algorithm]]) offers one path to
   *adaptive* neural ANC by keeping the online gradient step.
 
+## Follow-up: speech-preserving Deep ANC in reverberant environments
+
+A 2026 thesis from Dai Shuning (advisor Gan Woon Seng)[^dai26] extends
+Zhang & Wang 2021 in two directions relevant to real deployments:
+
+- **Reverberant-environment training.** The Image Source Method (ISM)
+  generates training rooms with configurable geometry and $RT_{60}$,
+  directly addressing the "trained on anechoic, deployed in rooms" gap
+  in the original Deep ANC.
+- **Speech-preservation loss.** A selective-retention term identifies
+  speech-like time-frequency regions and penalizes their suppression
+  while still cancelling environmental noise. Framing: "semantic
+  separation," not pure power minimization. For hearing-aid and
+  communication-headset applications this is critical — you want the
+  fan noise gone *and* the voice untouched.
+- **Architecture.** Still a CRN with LSTM, but using complex spectrum
+  mapping (CSM) that processes STFT real and imaginary channels jointly
+  rather than estimating a magnitude mask.
+- **Metrics.** Beyond NR (dB), the evaluation includes PESQ (speech
+  quality) and STOI (intelligibility), confirming that the preservation
+  loss actually preserves speech.
+- **Scenarios.** Pure noise, speech+noise, transients — all on ESC-50 and
+  a custom dataset.
+
+This is the clearest published evidence that end-to-end neural ANC can
+*simultaneously* suppress broadband non-stationary noise and preserve
+speech better than linear FxLMS — the gap the Gaikwad 2021 hearing-aid
+paper claimed but did not rigorously demonstrate. See `raw/SUMMARIES.md`
+for the per-paper distillation.
+
 ## Relation to other AI-ANC approaches
 
 See [[ai-anc-overview]] for the full taxonomy. Deep ANC sits in category 1
@@ -102,3 +133,4 @@ See [[ai-anc-overview]] for the full taxonomy. Deep ANC sits in category 1
 complementary rather than competing idea.
 
 [^zhang21]: Zhang, H., Wang, D., "Deep ANC: A Deep Learning Approach to Active Noise Control," *Neural Networks*, vol. 141, pp. 1–10, Sep 2021. See `raw/DeepANC-nihms-1690502.txt`.
+[^dai26]: Dai, S., "Speech-preserving Active Noise Control: a Deep Learning Approach in Reverberant Environments," thesis (advisor: Gan, W. S.), arXiv:2604.10979, 2026. See `raw/DeepANC-SpeechPreserving-Reverberant-2604.10979.txt`.

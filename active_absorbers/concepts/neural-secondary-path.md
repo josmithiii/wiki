@@ -1,18 +1,24 @@
 ---
 title: Neural Secondary-Path Modeling for ANC
 created: 2026-04-14
-updated: 2026-04-14
+updated: 2026-04-15
 type: concept
-tags: [anc, secondary-path, fxlms, stability, loudspeaker, comparison]
+tags: [anc, secondary-path, fxlms, stability, loudspeaker, headphones, comparison]
 sources:
   - raw/DeepANC-nihms-1690502.txt
+  - raw/MetaLearning-CoInit-2601.13849.txt
 ---
 
 # Neural Secondary-Path Modeling
 
-**Status: stub** (one primary source so far — Deep ANC — which *implicitly*
-learns $S(z)$; explicit online neural identification papers not yet in
-`raw/`).
+Two primary sources in the wiki cover this topic from opposite ends of the
+"how radically should we replace classical $\hat{S}(z)$?" spectrum: Zhang &
+Wang 2021 *Deep ANC* (implicit — no explicit plant model at runtime) and
+Yang et al. 2026 *co-initialization* (classical FIR plant model, but with
+meta-learned starting coefficients and runtime algorithm unchanged). Pure
+online neural identification (black-box MLP/RNN tracking $\hat{S}$ at
+runtime) is still an open slot — no dedicated primary source has been
+ingested yet.
 
 ## The problem
 
@@ -48,11 +54,50 @@ Upside: simple, nothing to identify online. Downside: the network freezes
 the (training distribution of) $S(z)$, so large deployment drift forces
 retraining.
 
-### 2. Explicit online neural identification
+### 2. Meta-learned FIR initialization — Yang et al. 2026
 
-A small MLP or RNN is trained online to map the control-signal history
-to the observed error-mic signal, tracking $\hat{S}$ as the plant changes.
-This can be done with or without probe injection:
+Yang et al.[^yang26] propose the minimal-intrusion neural approach:
+**keep the classical FIR plant model and the classical runtime algorithm,
+but meta-learn their starting coefficients across a library of measured
+plants.** At deployment, initialize $\hat{\mathbf{s}} \gets \Psi$ (the
+meta-learned secondary-path FIR) and $\mathbf{w}\gets\Phi$ (the meta-learned
+controller), then run standard online secondary-path modeling (OSPM) and
+standard FxLMS. The update equations are unchanged — this is **pure
+initialization**, not architectural substitution.
+
+The meta-training inner loop has two phases per task:
+
+- **Phase A** ($T_A$ steps): secondary-path identification with auxiliary
+  noise $v(n)$, updating $\hat{\mathbf{s}}$ toward the task's true $\mathbf{s}$.
+- **Phase B** ($T_B$ steps): FxLMS control-filter update, using the
+  freshly-adapted $\hat{\mathbf{s}}$.
+
+Meta-gradients $\nabla_\Phi, \nabla_\Psi$ are accumulated with separate
+forgetting factors $\lambda_w, \lambda_s$ that down-weight older tasks.
+
+At deployment, an **error-jump detector** (threshold on canceller norm)
+triggers re-initialization when the acoustic environment changes — e.g.
+in-ear headphones refitted.
+
+Dataset: **RWTH Aachen IKS PANDAR** — 46 measured in-ear paths (23
+subjects × 3 fit conditions), band-limited 200–2000 Hz, $F_s = 16$ kHz.
+Generalization on unseen in-ear paths improves with training-set diversity,
+measured via log-spectral distance.
+
+Why this matters: Yang et al. preserves every stability and convergence
+guarantee of classical FxLMS while still getting a meta-learning speedup,
+because the runtime algorithm is literally the same. For conservative
+deployments — certified hearing aids, medical devices — this is a much
+easier sell than a learned update rule or a neural plant surrogate.
+
+Cross-referenced on [[meta-learning-anc]] as the initialization-only
+extreme of the meta-learning-for-ANC spectrum.
+
+### 3. Explicit online neural identification *(no dedicated primary source yet)*
+
+A small MLP or RNN trained online to map the control-signal history to the
+observed error-mic signal, tracking $\hat{S}$ as the plant changes. This
+can be done with or without probe injection:
 
 - **With probe:** same as classical online ID, but with a nonlinear
   (hence more capacity) identifier; handles driver nonlinearity.
@@ -60,7 +105,10 @@ This can be done with or without probe injection:
   signal itself; well-defined only when the control signal is sufficiently
   rich (broadband residuals during adaptation).
 
-### 3. Generative secondary-path priors (NNSI-style)
+Candidate primary sources to ingest: see the `[stub]` slot for this page
+in [[ai-anc-overview]] category 3.
+
+### 4. Generative secondary-path priors (NNSI-style)
 
 Train an autoencoder on a dataset of secondary paths collected across the
 expected operating envelope (temperatures, positions, fit conditions).
@@ -68,7 +116,14 @@ Online, identify $\hat{S}$ by latent-space adaptation over the decoder —
 the same NNSI trick that [[neural-system-identification]] applies to the
 *controller* filter, here applied to the *plant* filter.
 
-### 4. Physics-informed plant models
+This is speculative — Helwani 2023 applies NNSI to acoustic IR tracking
+but not to a plant-in-the-loop ANC setting, and Yang 2026 uses a flat FIR
+rather than a neural-manifold parameterization. The natural experiment
+is to stack Yang-style meta-learning with Helwani-style manifold
+constraints: meta-learn the *manifold* across plants rather than the FIR
+coefficients directly.
+
+### 5. Physics-informed plant models
 
 Encode the loudspeaker's Thiele–Small small-signal model and the acoustic
 path's Helmholtz propagation as differentiable blocks, and learn only the
@@ -94,6 +149,11 @@ the physics is partially known.
 - [[fxlms-algorithm]] — classical secondary-path requirement and the 90°
   phase-error bound.
 - [[deep-anc-crn]] — the implicit / end-to-end alternative.
+- [[meta-learning-anc]] — Yang 2026 co-init is cross-listed; this page
+  treats the plant-model half of the contribution, the meta-learning page
+  treats the controller-initialization half.
 - [[neural-system-identification]] — the manifold-constrained ID framework
-  that this page's item 3 instantiates.
+  that this page's item 4 instantiates.
 - [[ai-anc-overview]] category 3 — where this page sits in the taxonomy.
+
+[^yang26]: Yang et al., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.

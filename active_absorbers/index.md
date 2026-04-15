@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-14 | Total pages: 10 concepts + 21 pending entities
+> Last updated: 2026-04-15 | Total pages: 10 concepts + 21 pending entities
 
 ## Entities
 *Stubs — one line per source in `raw/`. Distilled summaries live in `raw/SUMMARIES.md`;*
@@ -54,12 +54,12 @@
 
 ### AI-based ANC approaches *(project focus)*
 - [ai-anc-overview](concepts/ai-anc-overview.md) — **Map of the territory**: 7 categories of AI in ANC; start here
-- [deep-anc-crn](concepts/deep-anc-crn.md) — NN *replaces* the adaptive filter: Zhang & Wang 2021 CRN predicts anti-noise spectrogram end-to-end
-- [neural-system-identification](concepts/neural-system-identification.md) — NN *guides* the filter: autoencoder-constrained adaptation (parent framework of Latent FxLMS)
-- [meta-learning-anc](concepts/meta-learning-anc.md) — NN *is* the update rule: learned optimizer replaces FxLMS weight update
-- [neural-secondary-path](concepts/neural-secondary-path.md) — NN *learns the plant*: online / implicit / NNSI-based secondary-path modeling `[stub]`
-- [pinn-virtual-sensing](concepts/pinn-virtual-sensing.md) — NN *replaces the sensor*: Helmholtz-constrained neural fields for virtual error signals `[stub]`
-- [deep-rl-anc](concepts/deep-rl-anc.md) — NN *replaces the controller*: deep RL policies for constrained ANC arrays `[stub]`
+- [deep-anc-crn](concepts/deep-anc-crn.md) — NN *replaces* the adaptive filter: Zhang & Wang 2021 CRN + Dai 2026 speech-preserving reverberant follow-up
+- [neural-system-identification](concepts/neural-system-identification.md) — NN *guides* the filter: Helwani 2023 topology-aware VAE + retraction, parent framework of Latent FxLMS
+- [meta-learning-anc](concepts/meta-learning-anc.md) — NN *is* the update rule: Feng & So 2024 attention-RNN gradient predictor + Xiao 2025 MAML-SFANC + Yang 2026 co-init
+- [neural-secondary-path](concepts/neural-secondary-path.md) — NN *learns the plant*: implicit (Deep ANC) + meta-learned FIR init (Yang 2026); pure online neural ID slot still open
+- [pinn-virtual-sensing](concepts/pinn-virtual-sensing.md) — NN *replaces the sensor*: Zhang 2023 canonical PINN-ANC + 5 supporting PINN papers
+- [deep-rl-anc](concepts/deep-rl-anc.md) — NN *replaces the controller*: design prospectus + GFANC-as-contrast + DRL-in-control background `[partial stub]`
 - [transformer-se-anc](concepts/transformer-se-anc.md) — Transformer / Conformer / Mamba architectures for SE and selective NC — transfer points to neural ANC
 
 ## Comparisons
