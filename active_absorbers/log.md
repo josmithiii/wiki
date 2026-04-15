@@ -100,3 +100,14 @@
 ## [2026-04-14] doc | PDF ingestion convention for future agents
 - Top-level ~/wiki/README.md: added "PDF ingestion convention (all wikis)" section documenting /l/dttd/ host location, raw/ gitignore policy, MANIFEST.md / SUMMARIES.md conventions, Read-a-PDF prohibition, and the incoming-pdfs/ staging protocol (commit README only, not binaries).
 - active_absorbers/SCHEMA.md: rewrote "Source Attribution" to point at the README section plus document this wiki's specific details (raw/ contents, staging, excluded-from-distillation list in MANIFEST.md).
+
+## [2026-04-14] ingest | AI-ANC batch of 13 PDFs
+- JOS moved incoming-pdfs/ contents to /l/dttd/ and created symlinks in /l/dttd/ANC-Stuff/.
+- Ran pdf2txt.py in parallel on all 13, producing raw/*.txt extractions (738–2110 lines each, 41720 lines total).
+- Delegated per-paper distillation to an Explore subagent; applied taxonomy-compliant tags.
+- MANIFEST.md: appended 13 rows with arXiv IDs and short provenance notes.
+- SUMMARIES.md: added new "AI-ANC Ingestion Batch (2026-04-14)" section grouped by target concept page (NNSI / PINN / meta-learning / deep ANC / deep RL); dense bullet summaries with architecture, loss, experimental setup, and key numeric results where reported.
+- index.md: added "AI-ANC ingestion batch" subsection under Entities with 12 pending entity stubs, grouped by the same concept-page clusters. Pending-entities count 9 → 21.
+- Decision: **DRL-Control-Survey-2507.08196** does NOT get an entity page — verified extraction contains no ANC/acoustic content. Flagged for use as inline background reference only in concepts/deep-rl-anc.md.
+- **Promotion of stub concept pages deferred** to a separate pass. This commit is scoped purely to ingestion; the concept pages still carry their [stub] markers and sources:[] lists until they're rewritten from the new primary sources.
+- Deleted active_absorbers/incoming-pdfs/ staging directory (PDFs now in /l/dttd/, README's job is done).
