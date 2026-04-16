@@ -28,7 +28,7 @@ Pipeline:
 1. **Analysis filter bank** — uniform or hybrid cosine-modulated
    (MPEG-1 Layer 3: 32-band + MDCT; AAC: pure MDCT; Opus: CELT MDCT).
 2. **Psychoacoustic model** — compute masking threshold per band
-   from a separate FFT using [[loudness]] / masking theory.
+   from a separate FFT using loudness / masking theory.
 3. **Quantization** — allocate bits so quantization noise sits under
    the masking threshold.
 4. **Entropy coding** — Huffman, arithmetic, range coding.
@@ -89,8 +89,8 @@ compression, and mixing tools.
 ## Physical Modeling Intersection
 
 Spectral methods supply analysis data to physical models:
-- Tune waveguide loop filters to measured tone partials ([[waveguide_synthesis]]).
-- Fit modal data from QIFFT to modal synthesizer ([[modal_synthesis]]).
+- Tune waveguide loop filters to measured tone partials (see sibling wiki [waveguide_synthesis](../../waveguide_synthesis/index.md)).
+- Fit modal data from QIFFT to modal synthesizer (see sibling wiki [modal_synthesis](../../modal_synthesis/index.md)).
 - Estimate excitation signals by inverse-filtering through modeled
   resonators.
 

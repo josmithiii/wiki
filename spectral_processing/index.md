@@ -32,6 +32,6 @@
 - [[gaussian-and-chirp-windows]] — Gaussian optimality, chirplets, uncertainty principle
 
 ## Comparisons
-<!-- See also [[waveguide_synthesis]] and [[modal_synthesis]] sibling wikis -->
+<!-- See also sibling wikis: ../waveguide_synthesis/ and ../modal_synthesis/ -->
 
 ## Queries

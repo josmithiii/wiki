@@ -59,8 +59,8 @@ with window $w$, hop size $R$, and frame index $m$.
   non-uniform (auditory, wavelet) partitions.
 
 ## Related Wikis
-- [[waveguide_synthesis]] — physical modeling companion volume (PASP)
-- [[modal_synthesis]] — modal / resonator view of the same signals
+- [waveguide_synthesis](../../waveguide_synthesis/index.md) — physical modeling companion volume (PASP)
+- [modal_synthesis](../../modal_synthesis/index.md) — modal / resonator view of the same signals
 
 ## References
 [^1]: Smith, J.O. III. *Spectral Audio Signal Processing*, W3K, 2011.
