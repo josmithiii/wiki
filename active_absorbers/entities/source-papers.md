@@ -1,7 +1,7 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-04-15
+updated: 2026-04-16
 type: entity
 tags: [reference, comparison]
 ---
@@ -330,6 +330,38 @@ reference only.
   - **Novel applications:** ANC windows and sound barriers, machinery enclosures, pillows, fMRI scanners, wireless distributed ANC.
 - **Overclaim caveat:** the review pre-dates Latent FxLMS (2025), the PINN-ANC literature (2023–2025), and everything in the meta-learning ingestion batch. Always cite as "as of 2023."
 - Tags: anc, lms, fxlms, secondary-path, causality, history, reference, tutorial, headphones, duct, room
+
+---
+
+## Classical ANC Reviews (2026-04-16)
+
+### paper-kuo-morgan-anc-tutorial-1999
+
+**"Active Noise Control: A Tutorial Review"** — Kuo & Morgan · *Proc. IEEE* 87(6):943–973, June 1999 · `raw/ANC-Tutorial-Review-1999-2010913102917710.txt` · canonical ANC tutorial
+
+**The** foundational ANC tutorial review. Co-author Dennis R. Morgan independently derived FxLMS; his treatment here is authoritative.
+
+- **Coverage:** broadband/narrowband feedforward ANC, feedback ANC, multichannel ($J \times K \times M$) ANC, online secondary-path modeling (Eriksson additive-noise method, delay-compensated LMS), lattice/frequency-domain/subband/RLS structures, DSP implementation, applications (duct, automotive exhaust, headphones, transformer, vibration).
+- **FxLMS derivation:** from mean-square cost function via steepest descent; secondary-path compensation is the key difference from standard LMS; convergence bound $0 < \mu < 2/(\lambda_{\max} S_{\max}^2)$.
+- **Causality constraint:** electrical delay must not exceed acoustic delay from reference mic to cancelling speaker; when violated, only narrowband/periodic noise can be controlled.
+- **Coherence bound:** $\text{NR}(f) = -10\log_{10}(1 - \gamma_{dx}^2(f))$ — same formula as [Wise & Leventhall 2010](#paper-wise-leventhall-lf-anc).
+- **Applications demonstrated:** 20 dB broadband duct attenuation; automobile exhaust system; active headset; transformer hum; telephone ringer cancellation.
+- **Position in the wiki:** the classical "textbook" that [[fxlms-algorithm]], [[lms-algorithm]], and [[neural-secondary-path]] build upon. Shi 2023 and Lu et al. 2021 both cite this as the standard reference.
+- Tags: anc, fxlms, lms, secondary-path, feedback, feedforward, duct, stability, causality, tutorial, reference, history, person
+
+### paper-lu-anc-survey-part1-2021
+
+**"A survey on active noise control in the past decade—Part I: Linear systems"** — Lu, Yin, de Lamare, Zheng, Yu, Yang, Chen · *Signal Processing* 183:108039, 2021 · DOI [10.1016/j.sigpro.2021.108039](https://doi.org/10.1016/j.sigpro.2021.108039) · `raw/ANC-Survey-Part1-1-s2.0-S0165168421000785-main.txt`
+
+Comprehensive decade survey (2009–2020) of linear ANC algorithms. Companion Part II covers nonlinear ANC and applications.
+
+- **Algorithm families reviewed:** filtered-x (FxLMS + 8 variants, FxAP, FxRLS, subband SAF, lattice), filtered-e (FeLMS), filtered-u (FuLMS/FuRLS for IIR controllers). Includes detailed timeline tables tracing each variant's origin.
+- **Practical considerations:** 21 online secondary-path estimation methods cataloged; acoustic feedback solutions; virtual error sensing; frequency mismatch; analog ANC; ASAC (active structural acoustic control); GPU/PU complexity reduction.
+- **Novel 2010s methods:** psychoacoustic ANC (perceptual loudness weighting), sparse ANC (zero-attracting / proportionate NLMS), convex combination (fast + slow filter mixing $\lambda(n)$), fractional-order calculus updates (Grünwald–Letnikov), 3-D zone-of-quiet via spherical harmonics, **selective ANC** (pre-tuned filter bank — direct precursor to SFANC/GFANC), distributed ANC over WASNs (incremental IFxLMS + diffusion DFxNLMS).
+- **Bridges** Kuo & Morgan 1999 and Shi et al. 2023: covers the decade of algorithmic refinement between them. Explicitly cites Kuo & Morgan 1999 as ref [36].
+- **Selective ANC note:** Sec. 4.6 describes the pre-tuned filter-bank selection paradigm later scaled up by [Luo et al. 2023](#paper-luo-gfanc) and [Luo et al. 2024](#paper-luo-gfanc-rl).
+- **Part II not yet ingested** — covers FLANN-based nonlinear ANC, neural-network-based ANC (pre-deep-learning), genetic/PSO heuristic algorithms, and recent applications.
+- Tags: anc, fxlms, lms, nlms, rls, secondary-path, stability, feedback, feedforward, hybrid-control, duct, room, industrial, reference, tutorial
 
 ---
 

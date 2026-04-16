@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-15 | Concepts: 10 · Source papers in catalog: 25
+> Last updated: 2026-04-16 | Concepts: 10 · Source papers in catalog: 27
 
 ## Entities
 
@@ -66,6 +66,13 @@ cross-link.
 - [paper-li-rl-secondary-path](entities/source-papers.md#paper-li-rl-secondary-path) — Li, Wu, Bai *AIP Advances* 2025: PPO/DDPG/DQN/GRPO head-to-head on nonlinear $\hat{S}(z)$ ID; closed-loop on real ZSL-92 armored vehicle; GRPO wins
 - [paper-wang-metric-vs](entities/source-papers.md#paper-wang-metric-vs) — Wang et al. 2024: cosine-similarity classifier over pre-trained auxiliary filters; 92.6% cross-system transfer without conv-layer retraining
 - [paper-shi-anc-review-2023](entities/source-papers.md#paper-shi-anc-review-2023) — Shi, Lam, Gan, Cheer, Elliott *IEEE SPM* 2023: canonical modern classical-ANC review; no DRL/PINN coverage (use as 2023 snapshot only)
+
+### Classical ANC reviews batch (2026-04-16)
+
+*Two foundational review/tutorial papers covering 1999–2020 classical ANC.*
+
+- [paper-kuo-morgan-anc-tutorial-1999](entities/source-papers.md#paper-kuo-morgan-anc-tutorial-1999) — Kuo & Morgan *Proc. IEEE* 1999: **the** canonical ANC tutorial; FxLMS derivation, secondary-path modeling, multichannel, duct/automotive/headphone applications
+- [paper-lu-anc-survey-part1-2021](entities/source-papers.md#paper-lu-anc-survey-part1-2021) — Lu et al. *Signal Processing* 2021: decade survey (2009–2020) of linear ANC; FxLMS/FeLMS/FuLMS families, 21 online secondary-path methods, selective ANC precursor to SFANC/GFANC, distributed ANC
 
 ## Concepts
 

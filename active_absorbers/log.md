@@ -140,3 +140,14 @@
 - Content: all 25 distilled blocks copied verbatim from raw/SUMMARIES.md plus a short intro explaining the "promote to dedicated entity page on demand" protocol. DRL-Control-Survey-2507.08196 intentionally excluded (no ANC content). Added a "Pending ingestion" section listing Morgan 1980, Burgess 1981, Ryu 2024.
 - index.md: rewrote Entities section; every [paper-foo](entities/paper-foo.md) [pending] link now points at entities/source-papers.md#paper-foo. Header bumped to "Concepts: 10 · Source papers in catalog: 25" — pending-entity count retired.
 - Stub promotions later: when a concept page needs deeper treatment of one paper, promote that section to its own entities/paper-<slug>.md file and leave a cross-link in the catalog.
+
+## [2026-04-16] ingest | Classical ANC reviews batch — Kuo & Morgan 1999 + Lu et al. 2021
+- PDFs: `/l/dttd/ANC-Tutorial-Review-1999-2010913102917710.pdf` (Kuo & Morgan, *Proc. IEEE* 1999) and `/l/dttd/ANC-Survey-Part1-1-s2.0-S0165168421000785-main.pdf` (Lu et al., *Signal Processing* 2021).
+- Extracted via pdf2txt.py: `raw/ANC-Tutorial-Review-1999-2010913102917710.txt` (4556 lines) and `raw/ANC-Survey-Part1-1-s2.0-S0165168421000785-main.txt` (3693 lines).
+- MANIFEST.md: appended 2 rows.
+- SUMMARIES.md: added "Classical ANC Reviews Batch (2026-04-16)" section with dense summaries for both papers.
+- entities/source-papers.md: added "Classical ANC Reviews (2026-04-16)" section with `paper-kuo-morgan-anc-tutorial-1999` and `paper-lu-anc-survey-part1-2021`.
+- index.md: added "Classical ANC reviews batch (2026-04-16)" subsection under Entities; paper count 25 → 27; date bumped to 2026-04-16.
+- **Kuo & Morgan 1999:** THE canonical ANC tutorial; Morgan co-derived FxLMS; covers broadband/narrowband feedforward, feedback, multichannel, online secondary-path modeling, lattice/freq-domain/subband/RLS, applications. Complements existing Widrow 1975 (LMS foundation) and Shi 2023 (modern review).
+- **Lu et al. 2021:** Decade survey (2009–2020) of linear ANC; three filter families (FxLMS/FeLMS/FuLMS), 21 online secondary-path methods, and novel methods (psychoacoustic, sparse, convex combination, fractional-order, 3-D, selective ANC, distributed). Bridges Kuo & Morgan 1999 and Shi 2023 temporally. Selective ANC (Sec. 4.6) is the direct precursor to SFANC/GFANC.
+- No concept-page updates needed — these are classical reference papers that strengthen the citation foundation; existing concept pages already cover the relevant algorithms.

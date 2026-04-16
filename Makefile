@@ -112,6 +112,8 @@ upload u: build check ## Tar build and copy to CCRMA staging area
 	  echo "  webupd $(WIKI_NAME).tgz"; \
 	fi
 
+rbu: rb u
+
 check: ## Verify build dir exists
 	@if [ ! -d $(OUT_DIR) ]; then \
 	  echo "*** $(OUT_DIR) does not exist — run 'make build' first"; exit 1; \
