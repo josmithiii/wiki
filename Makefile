@@ -40,13 +40,13 @@ help: ## Show this help (default target)
 	@echo "Usage: make <target>"
 	@echo ""
 	@echo "Targets:"
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@grep -E '^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)?:.*##' $(MAKEFILE_LIST) | awk -F ':.*## ' '{n=split($$1,a," "); name=(n>1)?a[1]", "a[2]:a[1]; printf "  \033[36m%-22s\033[0m %s\n", name, $$2}'
 
 all: build ## Alias for build
 
 # ---- Build ----
 
-build: ## Render wiki to HTML (reuses existing build if present)
+build b: ## Render wiki to HTML (reuses existing build if present)
 	@if [ -f $(BUILD_STAMP) ]; then \
 	  echo "Build already present ($(BUILD_STAMP) — $$(date -r $(BUILD_STAMP)))."; \
 	  echo "Run 'make rebuild' or 'make clean build' to force a rebuild."; \
@@ -54,7 +54,7 @@ build: ## Render wiki to HTML (reuses existing build if present)
 	  $(MAKE) rebuild; \
 	fi
 
-rebuild: clean copy-md render-md index ## Force a clean rebuild
+rebuild rb: clean copy-md render-md index ## Force a clean rebuild
 	@touch $(BUILD_STAMP)
 	@echo ""
 	@echo "Built $(OUT_DIR)"
