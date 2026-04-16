@@ -1,7 +1,7 @@
 ---
 title: WDF Applications
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-15
 type: concept
 tags: [waveguide, dsp, physical-modeling, nonlinear, guitar, string]
 sources:
@@ -10,6 +10,7 @@ sources:
   - /l/dttd/SMC_2022_Diff_WDFs.pdf
   - /l/dttd/WDF-NeuralK-Benardini-IEEE-OpenSigProc-2025.pdf
   - /l/dttd/PyWDF-DAFx23.pdf
+  - /l/dttd/Automatic_Generation_of_Virtual_Analog_Audio_Plug_ins_based_on_WDFs_RG.pdf
 ---
 
 # WDF Applications
@@ -51,6 +52,12 @@ A major modern application: real-time emulation of vintage audio gear.
 - Fender Bassman 5F6-A preamplifier (Dunkel et al., 2016)
 - Triode/pentode stages as nonlinear WDF elements
 - Tone stack as passive WDF network
+
+### VIOLA — Automatic SPICE-to-Plugin (Giampiccolo et al., 2025)
+- End-to-end: SPICE netlist → WDF → MATLAB Audio Toolbox → VST/AU
+- General junction-port adaptation formula (closes WDF literature gap)
+- Diode consolidation + SIM + DSR for multi-nonlinearity circuits
+- See [[viola-wdf-plugin-generator]] for details
 
 ### General Approach
 1. Draw the analog circuit schematic

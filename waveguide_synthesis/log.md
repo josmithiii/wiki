@@ -71,3 +71,16 @@
 ## [2026-04-11] create | concepts/wdf-applications.md
 - Piano hammer, tonehole, analog circuits, differentiable/neural WDFs
 ## [2026-04-11] update | index.md — 17 pages
+
+## [2026-04-15] ingest | Giampiccolo et al. JAES 2025 — VIOLA framework
+- Source: /l/dttd/Automatic_Generation_of_Virtual_Analog_Audio_Plug_ins_based_on_WDFs_RG.pdf
+- Saved raw text to raw/papers/automatic-generation-va-plugins-wdf.txt
+- Created concepts/viola-wdf-plugin-generator.md — SPICE→WDF→VST pipeline, arbitrary port adaptation, SIM+DSR, Big Muff Pi & OD-250 results
+- Updated concepts/wdf-applications.md — added VIOLA section + wikilink
+## [2026-04-15] update | index.md — 18 pages
+
+## [2026-04-15] create | concepts/wdf-arbitrary-port-adaptation.md
+- Detailed explanation of the gap (symbolic S_nn=0) and new MNA-based formula
+- Worked delta-network example showing both old and new methods
+- Linked from viola-wdf-plugin-generator.md
+## [2026-04-15] update | index.md — 19 pages

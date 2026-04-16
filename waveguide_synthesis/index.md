@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-11 | Total pages: 17
+> Last updated: 2026-04-15 | Total pages: 19
 
 ## Entities
 
@@ -24,6 +24,8 @@
 - [[wdf-adaptors]] — parallel/series adaptors; one-multiply form; N-port; dependent port
 - [[wdf-elements]] — mass, spring, dashpot, transformer, gyrator, nonlinear elements; K-method
 - [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, differentiable/neural WDFs
+- [[viola-wdf-plugin-generator]] — VIOLA: automatic SPICE-to-VST pipeline via WDFs (Giampiccolo et al., JAES 2025)
+- [[wdf-arbitrary-port-adaptation]] — general formula for adapting any junction port via MNA/Thévenin resistance
 
 ## Comparisons
 - See [[modal_synthesis/comparisons/waveguide-vs-modal]] for waveguide vs. modal synthesis comparison
