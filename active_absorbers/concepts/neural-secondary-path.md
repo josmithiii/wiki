@@ -44,7 +44,7 @@ deployments $S(z)$ drifts:
   mechanical parameters.
 - **Wind and airflow** modulate the acoustic path, especially outdoors
   (rooftop fans, HVAC outlets).
-- **Fit and placement** (active [[headphones]], in-ear) change with every
+- **Fit and placement** (active headphones, in-ear) change with every
   wear.
 - **Nonlinear effects** (voice-coil heating, cone excursion, port
   compression) break the LTI assumption at high drive.

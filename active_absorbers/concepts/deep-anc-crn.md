@@ -89,7 +89,7 @@ still applies — the network does not magically get future samples.
   is the motivation for [[neural-secondary-path]] and for combining Deep ANC
   with online adaptation.
 - **Latency.** STFT framing adds algorithmic delay. For applications like
-  active [[headphones]] with tight causality budgets, frame size and hop
+  active headphones with tight causality budgets, frame size and hop
   size dominate feasibility.
 - **No adaptation.** Unlike [[fxlms-algorithm]], Deep ANC does not
   self-correct if deployment conditions deviate from training. Latent FxLMS

@@ -70,7 +70,7 @@ expected discounted reward, typically with PPO, SAC, or TD3.
   layers (projection onto a stabilizing set, CBFs) become necessary for
   real deployments.
 - **Latency.** Large policy networks are too slow for sample-rate inference
-  in active [[headphones]]; DRL-ANC is more plausible for duct / enclosure
+  in active headphones; DRL-ANC is more plausible for duct / enclosure
   / room-scale problems where block processing at 100–1000 Hz is acceptable.
 
 ## Architectures to track

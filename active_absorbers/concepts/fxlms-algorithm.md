@@ -12,14 +12,14 @@ sources:
 
 # Filtered-x LMS (FxLMS)
 
-FxLMS is the standard adaptive algorithm for feedforward [[active-noise-control]]. It extends the Widrow–Hoff [[lms-algorithm]] to the case where a linear **secondary path** $S(z)$ (DAC, amplifier, loudspeaker, acoustic propagation, microphone, ADC) sits between the adaptive filter output and the error sensor. Without the "filtered-x" correction, the ordinary LMS update is biased by $S(z)$ and can diverge. The extension is due to Morgan (1980)[^morgan80] and Burgess (1981)[^burgess81], not the Widrow 1975 paper — see [[lms-algorithm]] for the underlying LMS machinery.
+FxLMS is the standard adaptive algorithm for feedforward active noise control. It extends the Widrow–Hoff [[lms-algorithm]] to the case where a linear **secondary path** $S(z)$ (DAC, amplifier, loudspeaker, acoustic propagation, microphone, ADC) sits between the adaptive filter output and the error sensor. Without the "filtered-x" correction, the ordinary LMS update is biased by $S(z)$ and can diverge. The extension is due to Morgan (1980)[^morgan80] and Burgess (1981)[^burgess81], not the Widrow 1975 paper — see [[lms-algorithm]] for the underlying LMS machinery.
 
 ## Setup
 
 - Reference signal: $x(n)$ (correlated with the noise at the error mic)
 - Adaptive FIR filter: $\mathbf{w}(n) = [w_0, w_1, \ldots, w_{L-1}]^T$
 - Control (anti-noise) output: $y(n) = \mathbf{w}^T(n)\,\mathbf{x}(n)$
-- Secondary path: $S(z)$, with estimate $\hat{S}(z)$ (see [[secondary-path-modeling]])
+- Secondary path: $S(z)$, with estimate $\hat{S}(z)$ (see [[neural-secondary-path]])
 - Primary-path noise at error mic: $d(n)$
 - Error signal: $e(n) = d(n) - \big(s * y\big)(n)$
 
@@ -60,7 +60,7 @@ across the adaptation bandwidth (Morgan 1980). Beyond $90^\circ$ the update has 
 
 ## Causality constraint
 
-For feedforward cancellation to work, the electrical path (reference mic → $\mathbf{w}$ → $S(z)$ → error mic) must be *faster* than the acoustic path (reference mic → error mic). If it is not, the adaptive filter would need to be non-causal. This is why FxLMS is typically applied to [[duct]] and [[headphones]] geometries where a reference can be taken upstream of the error sensor with adequate acoustic delay.
+For feedforward cancellation to work, the electrical path (reference mic → $\mathbf{w}$ → $S(z)$ → error mic) must be *faster* than the acoustic path (reference mic → error mic). If it is not, the adaptive filter would need to be non-causal. This is why FxLMS is typically applied to duct and headphone geometries where a reference can be taken upstream of the error sensor with adequate acoustic delay.
 
 [^morgan80]: Morgan, D. R., "An Analysis of Multiple Correlation Cancellation Loops with a Filter in the Auxiliary Path," *IEEE Trans. Acoustics, Speech, Signal Processing*, vol. 28, no. 4, pp. 454–467, Aug. 1980. *(pending ingestion into `raw/`)*
 [^burgess81]: Burgess, J. C., "Active Adaptive Sound Control in a Duct: A Computer Simulation," *J. Acoust. Soc. Am.*, vol. 70, no. 3, pp. 715–726, Sep. 1981. *(pending ingestion into `raw/`)*
