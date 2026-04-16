@@ -34,7 +34,7 @@ EXE / DLL usable in any DAW.[^1]
 4. **Adaptation** — see below; adapts one junction port to the single
    nonlinear element.
 5. **Solver instantiation** — explicit tree if one nonlinearity (after
-   consolidation); otherwise [[#scattering-iterative-method-sim|SIM]].
+   consolidation); otherwise SIM (see below).
 6. **MATLAB Audio Toolbox** — wraps the WDF as a plug-in with auto-laid-out
    knob GUI and compiles to C++.
 

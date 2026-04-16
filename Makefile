@@ -75,7 +75,7 @@ copy-md: ## Copy markdown sources into build dir
 	    echo "  copying $$d/"; \
 	    rsync -a --exclude='.obsidian' --exclude='raw' --exclude='_archive' \
 	          --exclude='*.tex' --exclude='*.bash' \
-	          --exclude='SCHEMA.md' --exclude='log.md' \
+	          --exclude='log.md' \
 	          $$d/ $(OUT_DIR)/$$d/; \
 	  fi; \
 	done
@@ -90,7 +90,7 @@ index: ## Generate top-level index.html
 
 # ---- Upload ----
 
-upload: build check ## Tar build and copy to CCRMA staging area
+upload u: build check ## Tar build and copy to CCRMA staging area
 	@cd $(BUILD_DIR) && \
 	tar --no-xattrs -czf $(TARBALL) $(WIKI_NAME) && \
 	echo "Created $(BUILD_DIR)/$(TARBALL)"

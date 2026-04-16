@@ -21,6 +21,16 @@ def read_first_line_after(path: Path, marker: str) -> str:
     return m.group(1).strip() if m else ""
 
 
+def display_title(sw_dir: Path, fallback: str) -> str:
+    schema = sw_dir / "SCHEMA.md"
+    if schema.is_file():
+        text = schema.read_text()
+        m = re.search(r"## Title\s*\n(.+)$", text, re.MULTILINE)
+        if m:
+            return m.group(1).strip()
+    return fallback
+
+
 def domain_summary(sw_dir: Path) -> str:
     schema = sw_dir / "SCHEMA.md"
     if not schema.is_file():
@@ -84,7 +94,7 @@ markdown sources designed for both human and LLM consumption.</p>
         domain = domain_summary(sw_dir)
         n_pages = page_count(sw_dir)
         index_html = f"{sw}/index.html"
-        title = sw.replace("_", " ").title()
+        title = display_title(sw_dir, sw.replace("_", " ").title())
         print(f"""<div class="subwiki">
 <h2><a href="{index_html}">{title}</a></h2>
 <p>{domain}</p>

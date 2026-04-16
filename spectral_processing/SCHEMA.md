@@ -8,7 +8,7 @@ the STFT, sinusoidal and sines-plus-noise (SMS) modeling, peak detection and
 QIFFT, phase vocoder and time-scale modification, multirate filter banks,
 FIR/window design, and spectral modeling applications (cross-synthesis,
 spectral envelope, f0 estimation, audio coding). Adjacent: physical modeling
-([[waveguide_synthesis]], [[modal_synthesis]]), general DSP.
+(waveguide_synthesis, modal_synthesis), general DSP.
 
 Primary source: Julius O. Smith III, *Spectral Audio Signal Processing* (SASP),
 LaTeX source at `/w/sasp/`.

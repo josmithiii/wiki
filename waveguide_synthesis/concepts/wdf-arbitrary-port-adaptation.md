@@ -54,7 +54,7 @@ $$\check{Y} = \check{A}\,\check{Z}^{-1}\check{A}^T, \qquad
   Z_n = e_\beta^T\,\check{R}_\alpha\,e_\beta$$
 
 (With op-amps/nullors, $\check{R}_\alpha$ gains a Schur-complement
-correction — see [[viola-wdf-plugin-generator#arbitrary-port-adaptation-new-result]].)
+correction — see [[viola-wdf-plugin-generator]].)
 
 No symbolic algebra. The matrix $\check{Y}$ is $(O{-}1)\times(O{-}1)$
 where $O$ is the number of nodes — typically much smaller than $N$ —
