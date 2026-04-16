@@ -100,9 +100,10 @@ A major modern application: real-time emulation of vintage audio gear.
 - Guarantees passivity / stability of the neural WDF element
 
 ### Multiple Nonlinearities
-- Grouped nonlinear WDFs (Werner et al., 2015+)
-- Olsen (2016): resolving multiple multiport nonlinearities
-- Yeh et al. (2010, 2012): general formulation for complicated topologies
+- Werner et al. (2015): SPQR-tree + R-type root + K-method framework —
+  see [[wdf-multiple-nonlinearities]] for details
+- Olsen et al. (2016): iterative techniques for grouped nonlinearities
+- Yeh et al. (2010, 2012): general NLSS formulation for complicated topologies
 
 ## Comparison: WDF vs. Direct Circuit Simulation
 

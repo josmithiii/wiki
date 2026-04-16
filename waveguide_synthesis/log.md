@@ -84,3 +84,10 @@
 - Worked delta-network example showing both old and new methods
 - Linked from viola-wdf-plugin-generator.md
 ## [2026-04-15] update | index.md — 19 pages
+
+## [2026-04-15] ingest | Werner et al. DAFx-15 — Multiple/multiport nonlinearities
+- Source: /l/dttd/WDF/RESOLVING_WAVE_DIGITAL_FILTERS_WITH_MULTIPLE_MULTIPORT_NONLINEARITIES.pdf
+- Saved raw text to raw/papers/resolving-wdf-multiple-multiport-nonlinearities.txt
+- Created concepts/wdf-multiple-nonlinearities.md — SPQR tree, R-type root, K-method, NLSS consolidation, Big Muff Pi case study
+- Updated concepts/wdf-applications.md — linked Multiple Nonlinearities section
+## [2026-04-15] update | index.md — 20 pages
