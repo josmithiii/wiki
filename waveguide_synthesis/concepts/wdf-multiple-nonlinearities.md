@@ -6,6 +6,7 @@ type: concept
 tags: [scattering, nonlinear, dsp, impedance]
 sources:
   - raw/papers/resolving-wdf-multiple-multiport-nonlinearities.txt
+  - raw/papers/werner-dissertation-2016.txt
 ---
 
 # WDF Multiple/Multiport Nonlinearities
@@ -151,3 +152,7 @@ transformed to $g(\cdot)$. WDF output matches SPICE to within a few mV.
     Networks Containing Multiport Elements." *IEEE TCAS-I*, 2005.
 [^5]: Werner, K.J. et al. "Wave Digital Filter Adaptors for Arbitrary
     Topologies and Multiport Linear Elements." *DAFx-15*, 2015.
+[^6]: Werner, K.J. *Virtual Analog Modeling of Audio Circuitry Using
+    Wave Digital Filters.* Ph.D. diss., Stanford, 2016. Ch. 4 gives
+    the comprehensive treatment; also adds Newton-Raphson as an
+    alternative to lookup-table resolution.

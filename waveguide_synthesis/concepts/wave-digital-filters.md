@@ -1,13 +1,14 @@
 ---
 title: Wave Digital Filters
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-15
 type: concept
 tags: [waveguide, scattering, dsp, physical-modeling, impedance]
 sources:
   - /l/l420/WaveDigitalFiltersIntro/wdfi-content.tex
   - /l/l420/WaveDigitalFilters/WDFIntro.tex
   - /w/pasp/adaptors.tex
+  - raw/papers/werner-dissertation-2016.txt
 ---
 
 # Wave Digital Filters
@@ -96,11 +97,30 @@ See [[wdf-adaptors]] for full derivation and N-port generalization.
 | **WDF (bilinear + waves)** | **Yes** | **$= 1$ (perfect)** | **Yes** |
 
 WDFs achieve the best of all worlds: explicit, stable, energy-conserving,
-and modular.
+and modular. Werner (2016)[^4] shows that Forward Euler is not merely
+inaccurate but **structurally non-realizable** in the WDF framework — the
+wave variable construction requires the discretization to produce a
+unit-delay reflectance, which Forward Euler cannot.
+
+## WDF vs. State-Space Cost
+
+For non-time-varying circuits (Werner 2016)[^4]:
+- **WDF cost grows linearly** as circuit components or topological
+  connections are added
+- **State-space cost grows quadratically** with the number of reactive
+  elements (capacitors, inductors) that hold state — modulo sparsity
+
+WDFs are more efficient for circuits with many reactive elements (e.g.
+Hammond organ vibrato/chorus). State-space is more efficient for circuits
+with few states but many resistive elements. A non-computational
+advantage of WDFs: they preserve the topology and the voltage/current at
+each component, enabling modding and circuit-bending.
 
 ## Related Concepts
 - [[wdf-adaptors]] — parallel/series adaptors, N-port, one-multiply form
+- [[wdf-r-type-adaptors]] — R-type adaptors for non-series/parallel topologies
 - [[wdf-elements]] — mass, spring, dashpot, transformer, gyrator, nonlinear
+- [[wdf-multiple-nonlinearities]] — multiple/multiport nonlinearities via K-method
 - [[wdf-applications]] — audio circuits, piano hammer, tonehole, nonlinear FX
 - [[scattering-junctions]] — same math, different domain (DWG vs. WDF)
 - [[waveguide-overview]] — distributed vs. lumped: DWG vs. WDF
@@ -109,3 +129,4 @@ and modular.
 [^1]: Fettweis, A. (1986). "Wave Digital Filters: Theory and Practice." Proc. IEEE 74(2).
 [^2]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford, Appendix on WDFs.
 [^3]: Smith, J.O. III. MUS420 Lectures: "Introduction to Wave Digital Filters" and "Wave Digital Filters."
+[^4]: Werner, K.J. (2016). *Virtual Analog Modeling of Audio Circuitry Using Wave Digital Filters.* Ph.D. dissertation, Stanford University.

@@ -8,6 +8,7 @@ sources:
   - /l/l420/WaveDigitalFiltersIntro/wdfi-content.tex
   - /l/l420/WaveDigitalFilters/WDFIntro.tex
   - /l/dttd/WDF
+  - raw/papers/werner-dissertation-2016.txt
 ---
 
 # WDF Elements

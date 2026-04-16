@@ -6,6 +6,7 @@ type: concept
 tags: [scattering, impedance, dsp, reference]
 sources:
   - raw/papers/werner-wdf-adaptors-arbitrary-topologies-dafx15.txt
+  - raw/papers/werner-dissertation-2016.txt
 ---
 
 # WDF R-Type Adaptors for Arbitrary Topologies
@@ -128,3 +129,6 @@ by inspection (no systematic procedure); no multiport element support.
     *Proc. DAFx-15*, Trondheim, 2015.
 [^2]: Fränken, D. et al. "Generation of Wave Digital Structures for
     Networks Containing Multiport Elements." *IEEE TCAS-I*, 2005.
+[^3]: Werner, K.J. *Virtual Analog Modeling of Audio Circuitry Using
+    Wave Digital Filters.* Ph.D. diss., Stanford, 2016. Ch. 2 gives
+    the comprehensive treatment with TR-808 bridged-T case studies.

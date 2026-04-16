@@ -97,3 +97,10 @@
 - Saved raw text to raw/papers/werner-wdf-adaptors-arbitrary-topologies-dafx15.txt
 - Created concepts/wdf-r-type-adaptors.md — MNA-derived scattering, ring resolution, Bassman & Tube Screamer case studies
 ## [2026-04-15] update | index.md — 21 pages
+
+## [2026-04-15] ingest | Werner dissertation (Stanford, 2016)
+- Source: /Users/jos/Documents/Students/KurtWerner/KurtJamesWernerDissertation-augmented.pdf
+- Saved raw text to raw/papers/werner-dissertation-2016.txt (38k lines)
+- No new concept page — content enriches existing pages
+- Updated wave-digital-filters.md: Forward Euler structurally non-realizable (not just unstable); WDF vs state-space cost comparison
+- Updated wdf-r-type-adaptors.md, wdf-multiple-nonlinearities.md, wdf-elements.md: added dissertation as source with chapter pointers
