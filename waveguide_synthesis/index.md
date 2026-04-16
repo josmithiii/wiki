@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-15 | Total pages: 20
+> Last updated: 2026-04-15 | Total pages: 21
 
 ## Entities
 
@@ -26,6 +26,7 @@
 - [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, differentiable/neural WDFs
 - [[viola-wdf-plugin-generator]] — VIOLA: automatic SPICE-to-VST pipeline via WDFs (Giampiccolo et al., JAES 2025)
 - [[wdf-arbitrary-port-adaptation]] — general formula for adapting any junction port via MNA/Thévenin resistance
+- [[wdf-r-type-adaptors]] — MNA-derived scattering for arbitrary (non-series/parallel) topologies (Werner et al., DAFx 2015)
 - [[wdf-multiple-nonlinearities]] — SPQR + R-type root + K-method framework for multiple/multiport NLs (Werner et al., DAFx 2015)
 
 ## Comparisons

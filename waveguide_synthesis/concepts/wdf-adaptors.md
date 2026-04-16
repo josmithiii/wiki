@@ -120,6 +120,8 @@ The difference:
 - [[wave-digital-filters]] — the framework these adaptors serve
 - [[wdf-elements]] — the elements being connected
 - [[scattering-junctions]] — DWG equivalent of WDF adaptors
+- [[wdf-r-type-adaptors]] — R-type (non-series/parallel) adaptors via MNA
+- [[wdf-arbitrary-port-adaptation]] — general port adaptation formula
 
 ## References
 [^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford, §Adaptors.

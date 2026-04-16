@@ -91,3 +91,9 @@
 - Created concepts/wdf-multiple-nonlinearities.md — SPQR tree, R-type root, K-method, NLSS consolidation, Big Muff Pi case study
 - Updated concepts/wdf-applications.md — linked Multiple Nonlinearities section
 ## [2026-04-15] update | index.md — 20 pages
+
+## [2026-04-15] ingest | Werner, Smith & Abel DAFx-15 — R-type adaptors for arbitrary topologies
+- Source: /l/va/WDF/WernerEtAlLinearDAFx15.pdf
+- Saved raw text to raw/papers/werner-wdf-adaptors-arbitrary-topologies-dafx15.txt
+- Created concepts/wdf-r-type-adaptors.md — MNA-derived scattering, ring resolution, Bassman & Tube Screamer case studies
+## [2026-04-15] update | index.md — 21 pages
