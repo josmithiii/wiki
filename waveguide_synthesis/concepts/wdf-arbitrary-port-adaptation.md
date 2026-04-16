@@ -73,8 +73,10 @@ Three resistors in a delta — the simplest topology requiring a general
     0
 ```
 
-Suppose the nonlinear element is at port 1 ($R_1$, nodes $\alpha{=}0$,
-$\beta{=}1$). We want the adaptation resistance $Z_1$.
+Port 1 ($R_1$, nodes $\alpha{=}0$, $\beta{=}1$) is the root of the
+connection tree — the one port we need to adapt. (In practice this is
+where the nonlinear element sits, since it's the only element that
+can't self-adapt.) We want the adaptation resistance $Z_1$.
 
 ### Old Method — Symbolic
 
