@@ -65,12 +65,12 @@ Three resistors in a delta — the simplest topology requiring a general
 2-port series/parallel adaptors).
 
 ```
-         R₂
-    1 --------→ 2       Nodes: 0, 1, 2
-    ↑         ╱         R₁: 0 → 1
- R₁ |       ╱ R₃        R₂: 1 → 2
-    |     ╱              R₃: 0 → 2
-    0 --→
+       R₂
+    1 ----- 2           Nodes: 0, 1, 2
+    |     /              R₁: 0 — 1
+ R₁ |   / R₃             R₂: 1 — 2
+    | /                  R₃: 0 — 2
+    0
 ```
 
 Suppose the nonlinear element is at port 1 ($R_1$, nodes $\alpha{=}0$,
