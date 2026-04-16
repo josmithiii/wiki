@@ -17,31 +17,33 @@ In a WDF with one nonlinear element, the entire structure can be solved
 connected to that element is **adapted**: its free parameter $Z_n$ is
 chosen so that the diagonal entry $S_{nn} = 0$, eliminating the
 delay-free loop at that port. For simple series or parallel junctions,
-adaptation formulas are textbook. For a **general N-port topological
-junction** — any circuit topology that doesn't decompose into a tree
-of 2-port series/parallel adaptors — no closed-form adaptation formula
-existed until Giampiccolo et al. (2025).
+adaptation formulas are textbook. For **R-type topological junctions**
+— those that can't decompose into series/parallel adaptors —
+Werner et al. (2015) solved the scattering matrix derivation via MNA
+(see [[wdf-r-type-adaptors]]), but adaptation still required symbolic
+algebra until Giampiccolo et al. (2025).
 
-## The Gap: Why This Was Hard
+## Prior Approaches to Adaptation
 
-To adapt port $n$ of a general junction, one had to:
+Werner's MNA stamp method (2015) computes $S$ numerically for any given
+set of port resistances, and notes that adaptation requires "solving for
+$R_n$" such that $S_{nn}=0$, without specifying a method. This could be
+done by:
 
-1. Form the scattering matrix $S$ **symbolically**, leaving $Z_n$ as a
-   free variable — this requires inverting an $(l\times l)$ or
-   $(q\times q)$ matrix symbolically (Eqs. 9–12 in [[viola-wdf-plugin-generator]]).
-2. Expand $S_{nn}$ into a rational expression in $Z_n$.
-3. Set $S_{nn} = 0$ and solve for $Z_n$ with a symbolic algebra system.
+1. **Symbolic algebra** — keep $Z_n$ as a free variable, invert
+   symbolically, expand $S_{nn}$, solve. Works but doesn't scale well
+   to large circuits.
+2. **Numerical root-finding** — evaluate $S_{nn}(Z_n)$ for trial values,
+   bisect or Newton. Automatable but iterative.
 
-For a 3-port delta this is manageable; for a 25-port circuit like the
-Big Muff Pi, the symbolic expression is enormous. This manual,
-tool-dependent step blocked any fully automatic SPICE-to-WDF pipeline.
+Both are viable. Giampiccolo et al. (2025) contribute a third option:
 
-## The New Result: Adaptation via Thévenin Resistance
+## Direct Formula: Adaptation via Thévenin Resistance
 
 The key insight: **the port resistance that makes $S_{nn}=0$ is the
 Thévenin equivalent resistance seen looking into the network from port
-$n$'s terminals.** This can be computed purely numerically via Modified
-Nodal Analysis (MNA).
+$n$'s terminals.** This can be computed in closed form via Modified
+Nodal Analysis (MNA) — no iteration, no symbolic manipulation.
 
 Let port $n$ have terminal nodes $\alpha$ (reference) and $\beta$.
 Remove port $n$'s column from the incidence matrix $A$ and node
@@ -78,17 +80,17 @@ connection tree — the one port we need to adapt. (In practice this is
 where the nonlinear element sits, since it's the only element that
 can't self-adapt.) We want the adaptation resistance $Z_1$.
 
-### Old Method — Symbolic
+### Via Scattering Matrix (symbolic or root-finding)
 
 The 3-port scattering matrix (via loop analysis with
 $B = [1,\ {-}1,\ {-}1]$) gives:
 
 $$S_{11} = \frac{Z_2 + Z_3 - Z_1}{Z_1 + Z_2 + Z_3}$$
 
-Setting $S_{11}=0$ yields $Z_1 = Z_2 + Z_3$. Easy here — but only
-because we could form and manipulate $S$ symbolically for a 3-port.
+Setting $S_{11}=0$ yields $Z_1 = Z_2 + Z_3$. Easy here — for larger
+circuits one would use symbolic algebra or numerical root-finding.
 
-### New Method — MNA (Numerical)
+### Via Thévenin Resistance (direct formula)
 
 **Step 1.** Full incidence matrix and reduction:
 
@@ -124,11 +126,14 @@ The adaptation result $Z_1=Z_2+Z_3$ happens to equal a series formula,
 but that's a consequence of the circuit (one loop), not of the topology
 being "series" in the WDF-tree sense. For larger non-decomposable
 topologies — Wheatstone bridges, op-amp feedback networks — the
-Thévenin resistance has no simple closed form, and the MNA formula
-becomes the only practical path.
+Thévenin resistance has no simple closed form, and the direct MNA
+formula is more convenient than root-finding.
 
 ## Related
 
+- [[wdf-r-type-adaptors]] — MNA-derived scattering for R-type junctions
+  (solves the linear problem; this page addresses the remaining
+  adaptation step)
 - [[viola-wdf-plugin-generator]] — the VIOLA framework that uses this result
 - [[wdf-adaptors]] — standard 2-port series/parallel adaptation
 - [[wave-digital-filters]] — WDF fundamentals

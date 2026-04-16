@@ -55,8 +55,9 @@ A major modern application: real-time emulation of vintage audio gear.
 
 ### VIOLA — Automatic SPICE-to-Plugin (Giampiccolo et al., 2025)
 - End-to-end: SPICE netlist → WDF → MATLAB Audio Toolbox → VST/AU
-- General junction-port adaptation formula (closes WDF literature gap)
-- Diode consolidation + SIM + DSR for multi-nonlinearity circuits
+- Builds on Werner's MNA scattering; adds numerical port adaptation
+- Diode consolidation often reduces to explicit single-NL solution
+- SIM + DSR as table-free solver for irreducible multi-NL circuits
 - See [[viola-wdf-plugin-generator]] for details
 
 ### General Approach

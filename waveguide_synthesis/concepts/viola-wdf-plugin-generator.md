@@ -40,11 +40,15 @@ EXE / DLL usable in any DAW.[^1]
 
 ## Arbitrary Port Adaptation (new result)
 
-A general formula for adapting *any* port of a topological junction
-without symbolic solvers — previously a gap in the WDF literature. Using
-Modified Nodal Analysis, let $\check{A},\check{Z}$ be the reduced
-incidence and port-resistance matrices (remove port $n$'s column and
-node $\alpha$'s row). Then
+Werner et al. (2015) solved the linear scattering problem for arbitrary
+topologies via MNA stamps (see [[wdf-r-type-adaptors]]), noting that
+adaptation requires "solving for $R_n$" such that $S_{nn}=0$ without
+specifying a method (symbolic algebra or numerical root-finding would
+both work). VIOLA contributes a **direct closed-form formula** — the
+Thévenin equivalent resistance — that gives $Z_n$ in one shot without
+iteration or symbolic manipulation. Using MNA, let $\check{A},\check{Z}$
+be the reduced incidence and port-resistance matrices (remove port $n$'s
+column and node $\alpha$'s row). Then
 
 $$\check{R}_\alpha = \check{Y}^{-1}\left(I + \check{U}\check{\Psi}^{-1}\check{O}\check{Y}^{-1}\right),
   \quad Z_n = e_\beta^T \check{R}_\alpha e_\beta$$
@@ -61,8 +65,11 @@ with a worked delta-network example, see
 Diodes use the Extended Shockley model (series $R_s$, shunt $R_p$)
 solved in closed form via the Wright $\omega$ function[^1]:
 $$b = \sigma(a) - \phi\,\omega\!\left(\ln\chi + \psi(a) + \sigma(a)/\phi\right).$$
-Series of $D$ identical diodes collapse by scaling $\eta,R_s,R_p$ by
-$D$; antiparallel identical pairs collapse via $b=\operatorname{sgn}(a)f(|a|)$.
+Following standard practice (Yeh & Smith 2008, Paiva et al. 2012,
+Werner et al. 2015), series of $D$ identical diodes collapse by scaling
+$\eta,R_s,R_p$ by $D$; antiparallel identical pairs collapse via
+$b=\operatorname{sgn}(a)f(|a|)$. VIOLA automates this detection during
+netlist parsing.
 
 ## Scattering Iterative Method (SIM)
 
@@ -85,15 +92,29 @@ Both RTRs $\ll 1$ on an Intel i7-11800H — real-time with wide headroom.
 
 ## Significance
 
-- First end-to-end SPICE → VA plug-in pipeline based on WDFs.
-- Closes the gap that had prevented fully automatic WDF generation:
-  general junction-port adaptation without symbolic tools.
+- **First end-to-end SPICE → VA plug-in pipeline** based on WDFs —
+  builds on Werner et al.'s MNA-based scattering (2015) and Bernardini
+  et al.'s reciprocal connection networks (2019), adding SPICE parsing,
+  automatic solver selection, and plug-in compilation.
+- **Direct port adaptation formula** — computes $Z_n$ in closed form as
+  the Thévenin resistance, more elegant than numerical root-finding
+  (which also works) but not strictly required for automation.
+- **Automatic diode consolidation** — the technique of collapsing
+  series/antiparallel diodes into a single element is well established
+  (Yeh & Smith 2008, Paiva et al. 2012, Werner et al. 2015). VIOLA
+  automates this as part of the SPICE parsing pipeline, often reducing
+  multi-NL circuits to explicit single-NL solutions (e.g. Big Muff Pi:
+  6 diodes → 1 element, RTR 0.039).
+- **SIM + DSR** as a table-free alternative to K-method for circuits
+  with irreducible multiple nonlinearities.
 - Constrained class: R, L, C, potentiometers, resistive sources, ideal
   op-amps, diodes. Future work: multi-port nonlinearities, JUCE backend,
   better iterative solvers.
 
 ## Related
 
+- [[wdf-r-type-adaptors]] — MNA-based scattering that VIOLA builds on
+- [[wdf-multiple-nonlinearities]] — K-method framework; SIM is an alternative
 - [[wave-digital-filters]] — theory
 - [[wdf-adaptors]] — scattering junctions
 - [[wdf-elements]] — one-port models including diode
