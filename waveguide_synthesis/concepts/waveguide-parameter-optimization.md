@@ -44,7 +44,7 @@ differentiable DSP.
 ## Genetic Algorithms
 
 - Random search; successful parameter sets survive
-- First applied to flute model (Vuori & Välimäki, 1993)
+- Applied to flute model as early as Vuori & Välimäki (1993)
 - Psychoacoustic weighting in fitness function (Riionheimo & Välimäki, 2003)
 - Scaled to 2D waveguide mesh vocal tract (Cooper et al., 2006)
 - Modern: Pink Trombone optimization competes with neural methods (Cámara, 2023-25)

@@ -57,7 +57,7 @@ The adaptive linear combiner operates on a delay-line state $\mathbf{x}(n) = [x(
 Widrow 1975 demonstrates adaptive cancelling across a spectrum of application domains, none of which involve an acoustic plant in the control path:
 - **ECG interference cancelling** — remove 60 Hz power-line hum from electrocardiograms using a reference taken from a wall outlet; the filter learns the small magnitude/phase mismatch between the two paths.
 - **Speech with noise** — cancel noise in a cockpit/factory environment given a reference mic in the noise field.
-- **Antenna sidelobe cancelling** — suppress jammers using an auxiliary antenna and a two-weight combiner (one of the earliest adaptive-array applications).
+- **Antenna sidelobe cancelling** — suppress jammers using an auxiliary antenna and a two-weight combiner (one of the earliest known adaptive-array applications).
 - **Echo/reverberation suppression**, **maternal ECG removal from fetal ECG**, and **plant-noise reduction in speech**.
 
 ## Why this is not yet FxLMS

@@ -33,7 +33,7 @@ reference only.
 
 **"Adaptive Noise Cancelling: Principles and Applications"** — Widrow, Glover, McCool, Kaunitz, Williams, Hearn, Zeidler, Dong, Goodlin · *Proc. IEEE* 63(12), Dec 1975 · `raw/ANC-Widrow-j1975adaptivenoise.txt` · distilled at [[lms-algorithm]]
 
-- Foundational LMS adaptive-filter paper; introduces primary/reference architecture with the Widrow–Hoff update.
+- Foundational LMS adaptive-filter paper; describes the primary/reference architecture with the Widrow–Hoff update.
 - Wiener-optimal analysis for stationary and non-stationary inputs; single and multiple reference channels.
 - Demonstration applications: ECG 60 Hz hum removal, maternal-ECG cancellation, antenna sidelobe cancelling, speech-in-noise.
 - **Does not** address a plant between filter output and error sensor — FxLMS (see [[fxlms-algorithm]]) is the later extension.
@@ -276,7 +276,7 @@ reference only.
 
 **"GFANC-RL: Reinforcement Learning-based Generative Fixed-Filter Active Noise Control"** — Luo, Ma, Shi, Gan · *Neural Networks* 178, 2024, DOI [10.1016/j.neunet.2024.106687](https://doi.org/10.1016/j.neunet.2024.106687) · `raw/GFANC-RL-Luo-NeuralNetworks-2024.txt` · primary source for [[deep-rl-anc]]
 
-**Bottom line:** the first ingested paper that genuinely models ANC as a Markov decision process and trains with a standard DRL algorithm (SAC). Eliminates the labelling burden of supervised GFANC and the non-differentiable binary-weight problem through RL's stochastic policy.
+**Bottom line:** the earliest ingested paper that genuinely models ANC as a Markov decision process and trains with a standard DRL algorithm (SAC). Eliminates the labelling burden of supervised GFANC and the non-differentiable binary-weight problem through RL's stochastic policy.
 
 - **Algorithm:** Soft Actor-Critic with discrete-action stochastic policy $\pi(\mathbf{g}\mid\mathbf{x})$. Dual critics, experience replay, entropy regularization with automatic temperature tuning.
 - **MDP formulation:** state $s_t = \mathbf{x}_t$ (1-second noise reference frame). Action $a_t = \mathbf{g}_t \in \{0,1\}^{15}$ (binary selection vector over $M = 15$ sub-filters spanning 20–7980 Hz). Transition $T(\mathbf{x}_{t+1}\mid\mathbf{x}_t,\mathbf{g}_t) = T(\mathbf{x}_{t+1}\mid\mathbf{x}_t)$ — next frame is action-independent. Discount $\gamma = 0$. **Effectively a contextual bandit, not a full RL problem.**
@@ -337,6 +337,6 @@ reference only.
 
 These are referenced in concept-page footnotes but have no `raw/` extraction:
 
-- **Morgan 1980** — "An Analysis of Multiple Correlation Cancellation Loops with a Filter in the Auxiliary Path," *IEEE Trans. ASSP* 28(4):454–467. Paywalled at IEEE. Original FxLMS filtered-x analysis, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Kuo & Morgan, *Active Noise Control Systems*, Wiley 1996.
-- **Burgess 1981** — "Active Adaptive Sound Control in a Duct: A Computer Simulation," *J. Acoust. Soc. Am.* 70(3):715–726. Paywalled at AIP/ASA. First full adaptive duct-ANC simulation, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Elliott, *Signal Processing for Active Control*, Academic Press 2001.
+- **Morgan 1980** — "An Analysis of Multiple Correlation Cancellation Loops with a Filter in the Auxiliary Path," *IEEE Trans. ASSP* 28(4):454–467. Paywalled at IEEE. Earliest known FxLMS filtered-x analysis, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Kuo & Morgan, *Active Noise Control Systems*, Wiley 1996.
+- **Burgess 1981** — "Active Adaptive Sound Control in a Duct: A Computer Simulation," *J. Acoust. Soc. Am.* 70(3):715–726. Paywalled at AIP/ASA. Earliest known full adaptive duct-ANC simulation, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Elliott, *Signal Processing for Active Control*, Academic Press 2001.
 - **Ryu, Lim, Lee 2024** — "Narrowband Active Noise Control with DDPG Based on Reinforcement Learning," *International Journal of Automotive Technology*. Paywalled at Springer; no arXiv preprint surfaced. Would fill the continuous-drive DRL-ANC gap on [[deep-rl-anc]].

@@ -85,6 +85,11 @@ h1 {{ border-bottom: 2px solid #ccc; padding-bottom: 0.3em; }}
 synthesis, signal processing, and adjacent topics. Each sub-wiki is an
 independent collection with its own SCHEMA, index, and log. Built from
 markdown sources designed for both human and LLM consumption.</p>
+
+<p><b>Note:</b> This wiki is based on a small number of references,
+biased toward most recent.  As a result, references cited as prior
+work are often not the original reference, but rather a more recent
+predating reference.</p>
 """)
 
     for sw in subwikis:

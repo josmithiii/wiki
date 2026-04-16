@@ -44,8 +44,8 @@ Typical $\Delta f$: a fraction of the bin spacing, e.g. $0.1\cdot f_s/M$.
 
 ## PARSHL
 
-**PA**rtial **R**esynthesis **SH**ell (Smith & Serra, 1987) — the
-original sinusoidal analyzer/synthesizer that set the template for
+**PA**rtial **R**esynthesis **SH**ell (Smith & Serra, 1987) — an
+early sinusoidal analyzer/synthesizer that helped set the template for
 modern sinusoidal and SMS systems. Key ideas:
 - Zero-padded FFT + parabolic peak interpolation.
 - Guide-track matching with frequency tolerance.

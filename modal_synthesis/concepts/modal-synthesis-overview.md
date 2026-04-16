@@ -37,10 +37,10 @@ This is exact for linear systems; works well for mildly nonlinear ones.
   changing a_k moves the mic/pickup; changing d_k changes material damping
 
 ## Historical Roots
-- Introduced to computer music by Jean-Marie Adrien (IRCAM, 1991)
-- Independently developed in mechanical engineering for structural analysis
+- Applied to computer music by Jean-Marie Adrien (IRCAM, 1991)
+- Also developed in mechanical engineering for structural analysis
 - Related to Risset's additive synthesis but with physically motivated parameters
-- Cook (1995, 2002) expanded to impact models and perceptual work
+- Cook (1995, 2002) applied modal synthesis to impact models and perceptual work
 - Rath & Rocchesso (2005) demonstrated efficient CPU-based real-time contact sound
 - James, Barbic & Pai (2006) showed real-time GPU modal synthesis using OpenGL fragment shaders
 

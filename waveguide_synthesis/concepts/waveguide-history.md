@@ -19,9 +19,9 @@ century of DSP. This page traces the key milestones.
 - **1759**: Lagrange — first calculation of reflection/transmission at string junction
 - **1823**: Fresnel — scattering theory in optics
 - **1871**: Lord Rayleigh — proportionality of pressure and velocity in traveling waves
-- **1886**: Heaviside — "telegrapher's equations"; coined "impedance"
+- **1886**: Heaviside — "telegrapher's equations"; introduced the term "impedance"
 - **1947**: Tustin — bilinear transform (later used in wave digital filters)
-- **1962**: Kelly & Lochbaum — first digital scattering vocal-tract model (Bell Labs)
+- **1962**: Kelly & Lochbaum — earliest known digital scattering vocal-tract model (Bell Labs)
   - Computer-music accompaniment by Max Mathews
 
 ## Pre-Waveguide DSP (1961-1983)

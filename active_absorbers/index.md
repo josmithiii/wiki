@@ -97,6 +97,6 @@ cross-link.
 
 ## Pending ingestion
 
-- **Morgan 1980** (IEEE TASSP) — original FxLMS filtered-x analysis; referenced by [[fxlms-algorithm]]
-- **Burgess 1981** (JASA) — first full adaptive duct-ANC simulation; referenced by [[fxlms-algorithm]]
+- **Morgan 1980** (IEEE TASSP) — earliest known FxLMS filtered-x analysis; referenced by [[fxlms-algorithm]]
+- **Burgess 1981** (JASA) — earliest known full adaptive duct-ANC simulation; referenced by [[fxlms-algorithm]]
 - **Ryu, Lim, Lee 2024** (IJAT Springer) — DDPG for narrowband ANC without path model; would fill the continuous-drive DRL gap on [[deep-rl-anc]]

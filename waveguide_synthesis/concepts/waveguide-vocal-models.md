@@ -11,7 +11,7 @@ sources:
 
 # Waveguide Vocal Models
 
-The vocal tract was the first acoustic system modeled with digital scattering
+The vocal tract was among the earliest acoustic systems modeled with digital scattering
 theory (Kelly & Lochbaum, 1962). Modern waveguide vocal models range from
 1D piecewise-cylindrical tubes to 3D waveguide meshes driven by MRI geometry.
 

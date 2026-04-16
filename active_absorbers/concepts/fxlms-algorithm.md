@@ -12,7 +12,7 @@ sources:
 
 # Filtered-x LMS (FxLMS)
 
-FxLMS is the standard adaptive algorithm for feedforward active noise control. It extends the Widrow–Hoff [[lms-algorithm]] to the case where a linear **secondary path** $S(z)$ (DAC, amplifier, loudspeaker, acoustic propagation, microphone, ADC) sits between the adaptive filter output and the error sensor. Without the "filtered-x" correction, the ordinary LMS update is biased by $S(z)$ and can diverge. The extension is due to Morgan (1980)[^morgan80] and Burgess (1981)[^burgess81], not the Widrow 1975 paper — see [[lms-algorithm]] for the underlying LMS machinery.
+FxLMS is the standard adaptive algorithm for feedforward active noise control. It extends the Widrow–Hoff [[lms-algorithm]] to the case where a linear **secondary path** $S(z)$ (DAC, amplifier, loudspeaker, acoustic propagation, microphone, ADC) sits between the adaptive filter output and the error sensor. Without the "filtered-x" correction, the ordinary LMS update is biased by $S(z)$ and can diverge. The extension is attributed to Morgan (1980)[^morgan80] and Burgess (1981)[^burgess81], not the Widrow 1975 paper — see [[lms-algorithm]] for the underlying LMS machinery.
 
 ## Setup
 

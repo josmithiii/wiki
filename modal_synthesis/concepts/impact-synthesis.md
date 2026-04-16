@@ -13,7 +13,7 @@ sources:
 ## Overview
 Impact synthesis models the sound produced when two objects collide.
 Most common excitation model for modal synthesis — a struck or dropped object.
-Pioneered by Perry Cook (1995) and later made real-time by James, Barbic, Pai (2006).
+Early work by Perry Cook (1995); later made real-time by James, Barbic, Pai (2006).
 
 ## Physics of Impact
 Two contact phases:

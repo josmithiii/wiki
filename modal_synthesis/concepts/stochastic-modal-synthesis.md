@@ -33,7 +33,7 @@ SEA models energy flow between coupled subsystems at high frequencies:
 - Energy balance: $P_{\text{in}} = P_{\text{diss}} + P_{\text{coupled}}$
 - Coupling loss factors $\eta_{ij}$ govern energy exchange between subsystems
 - Output: average energy per subsystem, not individual mode amplitudes
-- Originally developed for aerospace vibro-acoustics (Lyon, 1975)
+- Developed for aerospace vibro-acoustics as early as Lyon (1975)
 
 ### Connection to Modal Synthesis
 - SEA gives the spectral envelope (energy density vs. frequency)

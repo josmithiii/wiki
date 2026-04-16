@@ -16,7 +16,7 @@ sources:
 
 # String Modeling
 
-The vibrating string was the first application of digital waveguide synthesis
+The vibrating string was the earliest known application of digital waveguide synthesis
 (Karplus-Strong, 1983; Smith, 1992) and remains the most developed.
 
 ## Basic Plucked-String Model

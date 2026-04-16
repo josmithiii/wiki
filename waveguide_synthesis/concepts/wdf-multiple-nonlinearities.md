@@ -14,7 +14,7 @@ sources:
 Classical WDFs support only **one nonlinear one-port element**,
 placed at the root of a binary connection tree where its junction port
 is adapted (see [[wdf-arbitrary-port-adaptation]]). Werner, Nangia,
-Smith & Abel (DAFx 2015)[^1] introduced a general framework that
+Smith & Abel (DAFx 2015)[^1] presented a general framework that
 removes this limitation, accommodating **any number** of nonlinear
 elements with **any number of ports** each, in **arbitrary topologies**.
 
