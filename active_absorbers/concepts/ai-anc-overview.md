@@ -1,7 +1,7 @@
 ---
 title: AI-Based Approaches to Active Noise Control (Overview)
 created: 2026-04-14
-updated: 2026-04-14
+updated: 2026-04-15
 type: concept
 tags: [anc, comparison, tutorial, reference, fxlms, secondary-path]
 sources:
@@ -9,7 +9,16 @@ sources:
   - raw/LatentFxLMS-2507.03854v1.txt
   - raw/DeepLearningSelectiveNoiseCancellation-2507.07043v2.txt
   - raw/DeepLearningHearingAids-10-1055-s-0041-1735134.txt
+  - raw/ANC-NewCentury-Review-Shi-2306.01425.txt
 ---
+
+> **2023 context citation:** the Shi, Lam, Gan, Cheer & Elliott IEEE SPM
+> review of ANC[^shi23] is the canonical modern *classical* ANC survey.
+> It predates Latent FxLMS, the PINN-ANC literature, the meta-learning-
+> for-ANC wave, and the DRL-ANC papers ingested here, and it contains
+> **no DRL coverage**. Cite it for history, causality bottlenecks, MCANC
+> trade-offs, and as a snapshot of deep-learning-for-ANC as of 2023 —
+> but never as an up-to-date source for the AI-ANC frontier.
 
 # AI-Based Approaches to Active Noise Control
 
@@ -130,6 +139,8 @@ Wiener/spectral-subtraction stage after an adaptive beamformer or ANC loop.
 
 These are not yet represented in `raw/` and will become `[stub]` pages as
 soon as we have a primary source.
+
+[^shi23]: Shi, D., Lam, B., Gan, W.-S., Cheer, J., Elliott, S. J., "Active Noise Control in The New Century: The Role and Prospect of Signal Processing," *IEEE Signal Processing Magazine*, 2023; arXiv:2306.01425. See `raw/ANC-NewCentury-Review-Shi-2306.01425.txt`.
 
 ## Reading map
 

@@ -7,18 +7,29 @@ tags: [anc, secondary-path, fxlms, stability, loudspeaker, headphones, compariso
 sources:
   - raw/DeepANC-nihms-1690502.txt
   - raw/MetaLearning-CoInit-2601.13849.txt
+  - raw/RL-SecondaryPathID-LiWuBai-AIPAdvances-2025.txt
 ---
 
 # Neural Secondary-Path Modeling
 
-Two primary sources in the wiki cover this topic from opposite ends of the
-"how radically should we replace classical $\hat{S}(z)$?" spectrum: Zhang &
-Wang 2021 *Deep ANC* (implicit — no explicit plant model at runtime) and
-Yang et al. 2026 *co-initialization* (classical FIR plant model, but with
-meta-learned starting coefficients and runtime algorithm unchanged). Pure
-online neural identification (black-box MLP/RNN tracking $\hat{S}$ at
-runtime) is still an open slot — no dedicated primary source has been
-ingested yet.
+Three primary sources in the wiki cover this topic across the
+"how radically should we replace classical $\hat{S}(z)$?" spectrum:
+
+- **Zhang & Wang 2021** *Deep ANC* — *implicit*; no explicit plant
+  model at runtime. The plant is absorbed into the end-to-end
+  controller network.
+- **Yang et al. 2026** *co-initialization* — classical FIR plant model,
+  but with **meta-learned** starting coefficients; runtime algorithm
+  unchanged.
+- **Li, Wu, Bai 2025** *RL plant identification* — explicit **nonlinear
+  neural-network** $\hat{S}(z)$ whose weights are fit by a deep RL
+  agent (DQN/DDPG/PPO/GRPO compared); runs inside a closed-loop
+  RL-FxLMS controller on a real ZSL-92 armored vehicle.
+
+The generative-prior route (NNSI-style manifold constraint on $\hat{S}$)
+is still speculative — none of the ingested papers apply NNSI directly
+to a plant model. Physics-informed plant models (Thiele–Small + Helmholtz
+differentiable blocks) are also still unrepresented.
 
 ## The problem
 
@@ -93,20 +104,65 @@ easier sell than a learned update rule or a neural plant surrogate.
 Cross-referenced on [[meta-learning-anc]] as the initialization-only
 extreme of the meta-learning-for-ANC spectrum.
 
-### 3. Explicit online neural identification *(no dedicated primary source yet)*
+### 3. Explicit nonlinear neural identification — Li, Wu, Bai 2025
 
-A small MLP or RNN trained online to map the control-signal history to the
-observed error-mic signal, tracking $\hat{S}$ as the plant changes. This
-can be done with or without probe injection:
+Li, Wu & Bai[^liwubai25] parameterize the secondary path as a **3-layer
+fully-connected nonlinear neural network** $\hat{S}_\theta$
+(64 → 64 → 32) and fit $\theta$ using deep reinforcement learning. This
+is the canonical "black-box nonlinear online ID" approach that the
+previous version of this page flagged as an empty slot.
 
-- **With probe:** same as classical online ID, but with a nonlinear
-  (hence more capacity) identifier; handles driver nonlinearity.
-- **Probe-free:** exploit the natural excitation provided by the control
-  signal itself; well-defined only when the control signal is sufficiently
-  rich (broadband residuals during adaptation).
+**What the RL agent learns.** $\theta$ — the weights of the plant
+model. The state is the reference signal $\mathbf{x}(n)$, the action is
+a weight update (discrete for DQN, continuous for DDPG / PPO / GRPO),
+and the reward is the negative absolute error between the network's
+prediction $\hat{y}(n)$ and the desired output $d(n)$ at the error
+microphone:
+$$
+r_t = -\,|d(n) - \hat{y}(n)|.
+$$
+Experience replay with random minibatches stabilizes training.
 
-Candidate primary sources to ingest: see the `[stub]` slot for this page
-in [[ai-anc-overview]] category 3.
+**Algorithm comparison.** Four RL algorithms tested on real vehicle
+data; the order of merit on relative modeling error (lower is better):
+
+| Algorithm | RME |
+| --- | --- |
+| **GRPO** (their contribution) | **87.02%** |
+| PPO | 89.36% (fast, unstable) |
+| DQN | 89.40% |
+| DDPG | 92.04% |
+
+**GRPO** = Group Relative Policy Optimization with a periodic-prediction
+auxiliary module. A second FFT-based agent extracts frequency-regularity
+features from the reference noise and feeds them to the primary
+actor-critic via a KL-divergence constraint and a regularized-advantage
+term. See [[deep-rl-anc]] for the RL-algorithm discussion in more depth.
+
+**Closed-loop deployment.** The identified $\hat{S}_\theta$ is plugged
+into a closed-loop FxLMS variant they call "RL-FxLMS" and tested on a
+real **ZSL-92 armored vehicle** at idle / 1500 / 2100 / 2700 rpm, with
+front and rear error mics. Reported NR: **6.5 dB idle, 8.8 dB at
+2700 rpm**, MSE reduction 53.1%, SNR improvement 5.1 dB. This is the
+first evidence in the wiki that a fully-neural $\hat{S}$ can close a
+real-vehicle ANC loop better than a classical linear FIR identifier.
+
+**Probe signal.** The paper exercises the plant with the natural ANC
+reference signal — no explicit auxiliary white-noise probe. Probe-free
+operation is well-defined because the engine noise already has
+broadband content at every tested RPM.
+
+**What it does *not* establish.**
+
+- **Single platform** — all results are on the ZSL-92 vehicle. No
+  cross-vehicle or cross-environment transfer tested.
+- **No Volterra baseline** — the natural classical nonlinear-ID baseline
+  for comparison (Volterra series, NLMS variants) is not run. The only
+  baseline is an unspecified LMS-based linear plant ID.
+- **No ablation** separating GRPO's periodic-prediction module from its
+  KL constraint, so we can't attribute the improvement to either alone.
+- **Real-time feasibility on embedded hardware** is not discussed;
+  training is offline, deployment uses a PC-scale inference environment.
 
 ### 4. Generative secondary-path priors (NNSI-style)
 
@@ -157,3 +213,4 @@ the physics is partially known.
 - [[ai-anc-overview]] category 3 — where this page sits in the taxonomy.
 
 [^yang26]: Yang et al., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.
+[^liwubai25]: Li, W., Wu, C., Bai, F., "Reinforcement learning algorithm for secondary path identification in active noise control systems," *AIP Advances*, vol. 15, no. 8, 085021, 2025. DOI [10.1063/5.0285877](https://doi.org/10.1063/5.0285877). See `raw/RL-SecondaryPathID-LiWuBai-AIPAdvances-2025.txt`.

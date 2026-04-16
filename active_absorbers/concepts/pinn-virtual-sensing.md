@@ -11,6 +11,7 @@ sources:
   - raw/PINN-PermutationInvariant-2601.19491.txt
   - raw/PINN-Volumetric-2403.09524.txt
   - raw/PINN-1D-ParamSources-2109.11313.txt
+  - raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt
 ---
 
 # Physics-Informed Neural Networks for Virtual Sensing in ANC
@@ -177,14 +178,87 @@ source and time-domain RIR-ESM baselines.
 
 ## Alternatives worth benchmarking against
 
+- **Classical Moreau / Cazzolato / Kestell virtual sensing** — the
+  established transfer-function-based method; critical comparison point.
+- **Metric-learning selective virtual sensing** (Wang et al. 2024,
+  see detail below) — a non-PINN data-driven approach that stays on top
+  of classical Moreau-style auxiliary filters.
 - **Gaussian-process virtual sensing** with a Matérn or wave-equation
   kernel — closed-form posterior, no training.
 - **Kirchhoff–Helmholtz integral** with measured boundary pressures.
 - **Equivalent-source methods** (ESM) with spherical or plane-wave bases.
 - **Black-box neural regression** without the physics loss — the ablation
   baseline that isolates the value of the PDE term.
-- **Classical Moreau / Cazzolato / Kestell virtual sensing** — the
-  established transfer-function-based method; critical comparison point.
+
+## Non-PINN neural alternative: metric-learning selective VS
+
+Wang et al. 2024[^wang24] take a very different path from the PINNs
+above: they **keep the classical Moreau-style auxiliary-filter
+machinery** and use a small neural network only to *select* which
+pre-trained filter to apply at runtime. The filters themselves are
+produced offline by running FxLMS with an error microphone at the
+virtual target — this is classical virtual sensing. The neural network
+is just a transferable frame-classifier on top.
+
+**Architecture.** A tiny 1-D CNN (3 conv layers of 10, 20, 20 filters;
+residual block; max pool; two FC layers). **12 955 parameters** total —
+roughly 1/20th to 1/300th the size of competing architectures and
+deliberately sized for a co-processor.
+
+**The "metric learning" clarification.** Despite the name, this is
+*not* a triplet loss or contrastive learning in the usual sense. The
+CNN's feature-extraction head produces embeddings $E_x$ of the
+reference signal and $E_q$ of each stored auxiliary-filter training
+noise. Match score is plain cosine similarity
+$$
+S_q = \frac{E_x^\top E_q}{\max(\|E_x\|_2 \|E_q\|_2,\,\alpha)},
+$$
+and the selected filter is $\arg\max_q S_q$. "Metric learning" here
+means "the similarity is computed in a learned embedding space," not
+"the network is trained with a metric loss." No loss-function ablation
+is reported.
+
+**Auxiliary filters.** For each of $K$ target noise classes, the
+offline stage computes
+$$
+H_o(z) = P_p(z) - S_p(z)\,W_{\text{opt}}(z),
+$$
+the difference between the primary path $P_p$ to the virtual target
+and the secondary-path-to-optimal-controller product. This $H_o$
+generates a virtual error signal at runtime; standard FxLMS runs on
+that signal.
+
+**Transferability claim.** Trained on "System I" (15 AF classes,
+80 000 synthetic training waveforms), the in-domain classification
+accuracy is 95.6%. Deployed on "System II" (5 AF classes, different
+acoustic paths, SNR 30 dB) **without retraining the conv layers**,
+accuracy drops only to **92.6%** — versus 36.6–79.9% for several
+competing architectures. On an unseen real-world noise (genset +
+compressor) the transferable VS nearly matches an oracle full-virtual-mic
+performance.
+
+**Positioning against Zhang 2023 PINN-ANC.** Both target the
+inaccessible-error-mic problem, but the decompositions are orthogonal:
+
+| | Zhang 2023 (PINN-ANC) | Wang 2024 (metric-learning VS) |
+| --- | --- | --- |
+| Underlying sensor | PINN field model $p_\theta(\mathbf{r}, t)$ | Classical Moreau-style auxiliary filter bank |
+| Network's job | *Represent* the field (predict pressure at virtual target) | *Select* which pre-trained filter to apply |
+| Physics prior | Helmholtz residual in the loss | None in the network; physics lives in the offline AF computation |
+| Compute budget | Hundreds of thousands of epochs on a small MLP | 1-D CNN inference per noise frame |
+| Runs through FxLMS? | Yes (virtual error signal into multichannel FxLMS) | Yes (selected AF produces virtual error into standard FxLMS) |
+| Transferability across acoustic systems | Online re-training of the PINN | **Cross-system transfer without retraining conv layers** |
+
+For the rooftop-fan research project, the natural experiment is to run
+**both** as virtual sensors on the same geometry and compare: Zhang's
+approach should win under sparse monitoring mics where the wave
+equation's extrapolation power matters most; Wang's should win under
+deployment drift where the training set of auxiliary filters already
+captures the conditions of interest.
+
+**Gaps.** Cosine similarity is not ablated against other distance
+metrics. Transfer is tested only across two simulated systems. No
+domain-adaptation baseline.
 
 ## Role in the AI-ANC project
 
@@ -212,3 +286,4 @@ See [[ai-anc-overview]] category 4 for the surrounding taxonomy.
 [^olivieri24]: Olivieri, M., Karakonstantis, X., Pezzoli, M., Antonacci, F., Sarti, A., Fernandez-Grande, E., "Physics-Informed Neural Network for Volumetric Sound Field Reconstruction of Speech Signals," arXiv:2403.09524, 2024. See `raw/PINN-Volumetric-2403.09524.txt`.
 [^borrel21]: Borrel-Jensen, N., Engsig-Karup, A. P., Jeong, C.-H., "Physics-Informed Neural Networks for One-Dimensional Sound Field Predictions with Parameterized Sources and Impedance Boundaries," arXiv:2109.11313, 2021. See `raw/PINN-1D-ParamSources-2109.11313.txt`.
 [^koyama24]: Koyama, S. et al. (attribution tentative), "Physics-Informed Machine Learning for Sound Field Estimation," *IEEE Signal Processing Magazine* invited paper, arXiv:2408.14731, 2024. See `raw/PINN-SoundField-Survey-2408.14731.txt`.
+[^wang24]: Wang et al. (NTU), "Transferable Selective Virtual Sensing Active Noise Control Technique Based on Metric Learning," arXiv:2409.05470, 2024. See `raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt`.

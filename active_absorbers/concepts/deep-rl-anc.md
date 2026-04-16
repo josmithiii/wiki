@@ -5,20 +5,27 @@ updated: 2026-04-15
 type: concept
 tags: [anc, feedforward, feedback, array, loudspeaker, stability, comparison]
 sources:
+  - raw/GFANC-RL-Luo-NeuralNetworks-2024.txt
+  - raw/RL-SecondaryPathID-LiWuBai-AIPAdvances-2025.txt
   - raw/GFANC-Luo-2303.05788.txt
   - raw/DRL-Control-Survey-2507.08196.txt
+  - raw/ANC-NewCentury-Review-Shi-2306.01425.txt
 ---
 
 # Deep Reinforcement Learning for ANC
 
-**Status: partial stub.** We do not yet have a primary source that applies
-*genuine* deep reinforcement learning (PPO, SAC, TD3, TD-MPC2) to an ANC
-problem. The two closest papers ingested so far — GFANC (2023) and a
-general DRL-in-control survey (2025) — are adjacent but not central, and
-are treated below as *contrast* examples that sharpen the definition of
-what a true DRL-ANC paper would look like. The positive framing in the
-rest of this page is therefore still a design prospectus for the research
-project, not a review of established practice.
+Two primary sources in `raw/` now apply standard deep RL algorithms to
+real ANC subproblems: **GFANC-RL** (Luo et al. *Neural Networks* 2024) uses
+Soft Actor-Critic to train a CNN policy over a binary sub-filter
+selection, and **Li, Wu, Bai** (*AIP Advances* 2025) benchmarks PPO, DDPG,
+DQN, and a new GRPO variant on nonlinear secondary-path identification and
+plugs the result into a closed-loop RL-FxLMS controller on a real armored
+vehicle. Together they cover two of the three roles the taxonomy on
+[[ai-anc-overview]] category 5 anticipates: *policy over a filter basis*
+and *RL-guided plant identification*. What is **still missing** is a paper
+where a DRL agent emits **continuous loudspeaker drive directly** on a
+full acoustic plant — the purest "NN replaces the controller" instantiation
+is not yet in the wiki.
 
 ## Framing
 
@@ -97,13 +104,150 @@ DRL-ANC is the most radical departure from classical adaptive filtering in
 - [[meta-learning-anc]]: classical loop + NN update rule.
 - **Deep RL (this page):** no classical loop, policy network from scratch.
 
+## Primary sources ingested
+
+### GFANC-RL (Luo, Ma, Shi, Gan — *Neural Networks* 2024)
+
+The first truly-RL paper in the wiki. Luo et al.[^luorl24] reformulate
+the supervised GFANC architecture (described below as
+[the 2023 precursor](#gfanc-2023--the-supervised-precursor)) as a
+Markov decision process and train it with **Soft Actor-Critic**.
+
+**MDP formulation.**
+
+- **State** $s_t = \mathbf{x}_t$: a 1-second noise reference frame.
+- **Action** $a_t = \mathbf{g}_t \in \{0,1\}^{M}$ with $M = 15$: a
+  binary selection vector over the pre-decomposed sub-filter bank
+  (same orthogonal-subband decomposition as supervised GFANC, spanning
+  20–7980 Hz).
+- **Reward**
+$$
+r_t = 10\log_{10}\!\frac{\sum_n d_t^2(n)}{\sum_n e_t^2(n)} \quad [\mathrm{dB}]
+$$
+  — instantaneous noise reduction at the error microphone over the
+  1-second frame.
+- **Transition** $T(\mathbf{x}_{t+1} \mid \mathbf{x}_t, \mathbf{g}_t) = T(\mathbf{x}_{t+1} \mid \mathbf{x}_t)$: the next observation is independent of the action.
+- **Discount** $\gamma = 0$.
+
+The last two facts together mean this is **effectively a contextual
+bandit**, not a full sequential-decision problem. There is no
+value-function bootstrapping — the SAC algorithm is used for its
+entropy-regularized exploration and its discrete-action stochastic
+policy, not for temporal credit assignment. This matters: GFANC-RL
+proves that RL's *exploration* is useful for ANC labelling, but it does
+not yet exercise the *credit-assignment* machinery that would let a
+policy learn long-horizon behavior.
+
+**Algorithm.** SAC with dual critics, experience replay, entropy
+regularization with automatic temperature tuning, and a stochastic
+policy $\pi(\mathbf{g}\mid\mathbf{x})$ over the discrete action space.
+No comparison with PPO, DDPG, or TD3 is presented.
+
+**Training.** 80 000 synthetic 1-second noise instances (white noise
+passed through random bandpass filters), SNR = 5 dB for robustness.
+Offline training. At deployment the control filter
+$\mathbf{w}(n) = \sum_m g_m(n)\mathbf{c}_m$ runs at the audio sample rate
+while the SAC policy $\pi$ runs at frame rate on a co-processor — this
+inherits the latency-friendly architecture of the supervised GFANC.
+
+**Results.** On real recorded traffic, aircraft, and drill noise,
+GFANC-RL reaches **14.4 / 13.3 / 9.2 dB NR** versus adaptive FxLMS's
+**7.1 / 4.2 / 3.9 dB**. Roughly 7–9 dB over classical adaptive control,
+comparable to or slightly better than supervised GFANC, and ~5 dB over
+SFANC in the frames where SFANC mispredicts a category.
+
+**Significance.**
+
+- First evidence that RL's unlabelled exploration can substitute for the
+  auto-labelling step of supervised GFANC without sacrificing control
+  quality.
+- Solves the non-differentiability of GFANC's binary weight vector by
+  using a stochastic policy rather than a hard classification head.
+- Keeps the computationally-attractive "policy on a co-processor, control
+  filter on the audio loop" split, which is what makes GFANC-family
+  methods viable on real devices.
+
+**What GFANC-RL does *not* prove.**
+
+- It is not evidence that RL helps when the plant is nonlinear or when
+  the source statistics are non-stationary on a timescale longer than
+  one frame — $\gamma = 0$ precludes any learning beyond single-frame
+  classification.
+- It does not test whether a continuous-action policy (PPO/SAC over
+  speaker drive) would do better than the binary-selection formulation.
+- The sub-filter bank is fixed at train time; there is no adaptation of
+  the basis itself. Combining this with NNSI-style manifold learning
+  ([[neural-system-identification]]) is an obvious next step.
+
+### RL for secondary-path identification (Li, Wu, Bai — *AIP Advances* 2025)
+
+Li, Wu & Bai[^liwubai25] give the first clean
+**PPO-vs-DDPG-vs-DQN** comparison on a real ANC task. Their target is
+not the controller but the *plant model*: they parameterize the
+secondary path $\hat{S}(z)$ as a **3-layer fully-connected nonlinear
+neural network** (64 → 64 → 32) and treat its weight fitting as an RL
+problem, then run a closed-loop RL-FxLMS control system on a real
+ZSL-92 armored vehicle.
+
+**MDP specifics.**
+
+- **State** $s_t = \mathbf{x}(n)$: the noise reference signal.
+- **Action** $a_t$: either the discrete Q-network output (DQN) or
+  continuous parameter updates (DDPG / PPO / GRPO).
+- **Reward** $r_t = -\,|d(n) - \hat{y}(n)|$: negative absolute error
+  between the desired output $d$ and the NN's prediction $\hat{y}$.
+- Experience replay with random minibatch sampling.
+- Sampling rate $F_s = 16$ kHz.
+
+**Algorithms compared (relative modeling error on real vehicle data):**
+
+| Algorithm | RME |
+| --- | --- |
+| DQN | 89.40% |
+| DDPG | 92.04% |
+| PPO | 89.36% |
+| **GRPO** | **87.02%** |
+
+**PPO is the fastest to converge but has large reward-curve fluctuations**
+— empirical confirmation of the "PPO stability in applied control" concern
+flagged in the Agyei 2025 DRL-in-control survey (see below). **DDPG is
+the worst performer.** **GRPO gives the best speed–stability balance.**
+
+**GRPO — the paper's novel contribution.** Group Relative Policy
+Optimization with a periodic-prediction auxiliary module: a second agent
+(FFT-based) extracts frequency-regularity features from the reference
+noise and feeds them back into the primary actor-critic via a
+KL-divergence constraint and a regularized-advantage term. No ablation
+isolates the periodic module from the KL constraint, so the contribution
+is not fully decomposed.
+
+**Full-loop deployment.** The identified $\hat{S}$ is plugged into a
+closed-loop FxLMS variant they call "RL-FxLMS" and tested on real
+ZSL-92 cabin noise at idle / 1500 / 2100 / 2700 rpm with front and rear
+error mics. Reported max NR: **6.5 dB at idle, 8.8 dB at 2700 rpm**,
+MSE reduction 53.1% (0.32 → 0.15), SNR improvement 5.1 dB.
+
+**Where it belongs.** This paper sits on *two* concept pages. Its
+**RL-algorithm comparison** belongs here — it's the only PPO/DDPG/DQN
+benchmark on an ANC task in the wiki, and the instability result on PPO
+is important. Its **nonlinear plant-ID** contribution belongs on
+[[neural-secondary-path]], where it fills the "explicit online neural ID"
+slot that was explicitly flagged as open in the previous pass.
+
+**What it does *not* prove.** Only one platform, no comparison with
+classical nonlinear ID (Volterra, NLMS variants), and no analysis of
+real-time feasibility on embedded controllers.
+
 ## Adjacent sources already ingested
 
-### GFANC (Luo et al. 2023) — *not* true DRL, a useful contrast
+### GFANC 2023 — the supervised precursor to GFANC-RL
 
-Luo, Shi, Shen, Ji & Gan's "Deep Generative Fixed-filter ANC"[^luo23] is
-sometimes framed as a "policy over filters," which invites confusion with
-DRL. It is not:
+The 2023 supervised version of GFANC[^luo23] is worth contrasting
+against the 2024 GFANC-RL version above. The architecture and the
+sub-filter decomposition are the same; only the training signal
+differs. In the supervised version, label vectors are auto-generated
+by running LMS on training segments to convergence and thresholding.
+The result is a classifier rather than a policy:
 
 - **Architecture.** A small 1-D CNN (~0.22 M parameters) takes a frame of
   the incoming noise reference and outputs a binary weight vector
@@ -127,13 +271,14 @@ $$
   structure that would benefit from value-function bootstrapping, and the
   training signal is dense supervision, not a reward to be maximized.
 
-GFANC belongs on this page only because it is the closest paper in the
-literature to a "neural policy over ANC filters" framing, and the
-distinction is worth spelling out precisely. For rooftop-fan ANC, the
-same fixed-filter-bank idea could be *generalized* to a real policy that
-outputs continuous weights (not just binary) over subfilters and is
-trained with PPO/SAC — that would be a natural first DRL-ANC experiment
-to run.
+The 2023 version stayed here in the original "adjacent sources" list
+because it was the closest we had to a neural policy over ANC filters.
+GFANC-RL (2024) replaced the classifier with a SAC policy and moved into
+the "primary sources" section above. For the rooftop-fan research
+project, the next natural experiment is to generalize the binary action
+space $\{0,1\}^M$ to a **continuous simplex** of sub-filter weights and
+train with PPO/SAC/TD3 to get the first DRL-ANC variant with a truly
+continuous action space.
 
 ### DRL-Control-Survey (Agyei et al. 2025) — background reference only
 
@@ -154,17 +299,35 @@ advantage under delays and disturbances. Treat this as the "which
 algorithm should I start with?" reference for a future true DRL-ANC
 study, not as evidence about ANC itself.
 
-## Candidate primary sources to ingest (still missing)
+## Still missing from `raw/`
 
-Still nothing in `raw/` for:
+Even with GFANC-RL and Li/Wu/Bai, the DRL-ANC row of
+[[ai-anc-overview]] is incomplete. The gaps:
 
-- Surveys of DRL **specifically for acoustic control** (any post-2022).
-- Application papers on duct ANC, open-plan offices, or HVAC systems
-  using PPO/SAC/TD3 with real or high-fidelity simulated plants.
-- Constrained-RL papers (CPO / Lagrangian methods) applied to SPL bounds
-  or radiation-shaping constraints.
-- Sim-to-real studies for acoustic RL — randomization protocols, gap
-  quantification, deployment reports.
+- A paper where the RL agent's **action space is the continuous
+  loudspeaker drive vector**, not a discrete filter selection. This is
+  the purest "NN replaces the controller" instantiation and the one
+  that would most benefit from sim-to-real randomization, CBF-based
+  safety layers, and perceptual rewards.
+- **Ryu, Lim, Lee 2024** "Narrowband Active Noise Control with DDPG"
+  (International Journal of Automotive Technology, DOI
+  10.1007/s12239-024-00102-x) applies DDPG directly to narrowband ANC
+  without a secondary-path model. Paywalled at Springer; no arXiv
+  preprint surfaced. This would fill part of the gap — narrowband only,
+  continuous action space, no path model.
+- **Constrained-RL** papers (CPO, Lagrangian-PPO) applied to SPL bounds
+  or radiation-shaping constraints — central to the rooftop-fan use
+  case, where the objective must include an upward-radiation constraint
+  in addition to the community-side reduction goal.
+- **Sim-to-real** studies for acoustic RL — randomization protocols,
+  gap quantification, deployment reports.
+- Post-2022 **survey** explicitly covering DRL for acoustic control.
+  The Shi et al. 2023 review[^shi23] covers every other modern ANC
+  direction but does not address DRL at all, which is why this page
+  has no umbrella citation for its "why RL?" section.
 
+[^luorl24]: Luo, Z., Ma, H., Shi, D., Gan, W. S., "GFANC-RL: Reinforcement Learning-based Generative Fixed-filter Active Noise Control," *Neural Networks*, vol. 178, article 106687, 2024. DOI [10.1016/j.neunet.2024.106687](https://doi.org/10.1016/j.neunet.2024.106687). See `raw/GFANC-RL-Luo-NeuralNetworks-2024.txt`.
+[^liwubai25]: Li, W., Wu, C., Bai, F., "Reinforcement learning algorithm for secondary path identification in active noise control systems," *AIP Advances*, vol. 15, no. 8, 085021, 2025. DOI [10.1063/5.0285877](https://doi.org/10.1063/5.0285877). See `raw/RL-SecondaryPathID-LiWuBai-AIPAdvances-2025.txt`.
 [^luo23]: Luo, Z., Shi, D., Shen, X., Ji, J., Gan, W. S., "Deep Generative Fixed-filter Active Noise Control," arXiv:2303.05788, 2023. See `raw/GFANC-Luo-2303.05788.txt`.
 [^agyei25]: Agyei, A., Sarhadi, P., Polani, D., "Deep Reinforcement Learning in Applied Control: Challenges, Analysis, and Insights," arXiv:2507.08196, 2025. See `raw/DRL-Control-Survey-2507.08196.txt`.
+[^shi23]: Shi, D., Lam, B., Gan, W.-S., Cheer, J., Elliott, S. J., "Active Noise Control in The New Century: The Role and Prospect of Signal Processing," *IEEE Signal Processing Magazine*, 2023; arXiv:2306.01425. See `raw/ANC-NewCentury-Review-Shi-2306.01425.txt`.

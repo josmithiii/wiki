@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-15 | Total pages: 10 concepts + 21 pending entities
+> Last updated: 2026-04-15 | Total pages: 10 concepts + 25 pending entities
 
 ## Entities
 *Stubs — one line per source in `raw/`. Distilled summaries live in `raw/SUMMARIES.md`;*
@@ -42,9 +42,17 @@
 
 #### Deep ANC / generative
 - [paper-dai-speech-preserving-anc](entities/paper-dai-speech-preserving-anc.md) `[pending]` — Dai (thesis, Gan adv.) 2026: CRN + speech-preservation loss in reverberant environments
-- [paper-luo-gfanc](entities/paper-luo-gfanc.md) `[pending]` — Luo et al. 2023: 1-D CNN outputs binary sub-filter selector; "generative fixed-filter" ANC
+- [paper-luo-gfanc](entities/paper-luo-gfanc.md) `[pending]` — Luo et al. 2023: 1-D CNN outputs binary sub-filter selector; "generative fixed-filter" ANC (supervised precursor to GFANC-RL)
 
 *(DRL-Control-Survey-2507.08196.txt is **not** promoted to an entity page — it contains no ANC content and is cited inline in `concepts/deep-rl-anc.md` as a general-DRL background reference only.)*
+
+### DRL-ANC ingestion batch (2026-04-15)
+*Four new papers: 2 genuine DRL-ANC, 1 metric-learning virtual sensing, 1 comprehensive 2023 review.*
+
+- [paper-luo-gfanc-rl](entities/paper-luo-gfanc-rl.md) `[pending]` — Luo et al. *Neural Networks* 2024: SAC over $M{=}15$ binary sub-filter selection; 7-9 dB over FxLMS on real noise; $\gamma{=}0$ so effectively contextual bandit
+- [paper-li-rl-secondary-path](entities/paper-li-rl-secondary-path.md) `[pending]` — Li, Wu, Bai *AIP Advances* 2025: PPO/DDPG/DQN/GRPO head-to-head on nonlinear $\hat{S}(z)$ ID; closed-loop on real ZSL-92 armored vehicle; GRPO wins
+- [paper-wang-metric-vs](entities/paper-wang-metric-vs.md) `[pending]` — Wang et al. 2024: cosine-similarity classifier over pre-trained auxiliary filters; 92.6% cross-system transfer without conv-layer retraining
+- [paper-shi-anc-review-2023](entities/paper-shi-anc-review-2023.md) `[pending]` — Shi, Lam, Gan, Cheer, Elliott *IEEE SPM* 2023: canonical modern classical-ANC review; no DRL/PINN coverage (use as 2023 snapshot only)
 
 ## Concepts
 
@@ -59,7 +67,7 @@
 - [meta-learning-anc](concepts/meta-learning-anc.md) — NN *is* the update rule: Feng & So 2024 attention-RNN gradient predictor + Xiao 2025 MAML-SFANC + Yang 2026 co-init
 - [neural-secondary-path](concepts/neural-secondary-path.md) — NN *learns the plant*: implicit (Deep ANC) + meta-learned FIR init (Yang 2026); pure online neural ID slot still open
 - [pinn-virtual-sensing](concepts/pinn-virtual-sensing.md) — NN *replaces the sensor*: Zhang 2023 canonical PINN-ANC + 5 supporting PINN papers
-- [deep-rl-anc](concepts/deep-rl-anc.md) — NN *replaces the controller*: design prospectus + GFANC-as-contrast + DRL-in-control background `[partial stub]`
+- [deep-rl-anc](concepts/deep-rl-anc.md) — NN *replaces the controller*: GFANC-RL (SAC over binary filter selection) + Li/Wu/Bai PPO/DDPG/DQN/GRPO plant-ID benchmark; continuous-drive DRL still open
 - [transformer-se-anc](concepts/transformer-se-anc.md) — Transformer / Conformer / Mamba architectures for SE and selective NC — transfer points to neural ANC
 
 ## Comparisons
