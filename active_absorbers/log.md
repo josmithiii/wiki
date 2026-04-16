@@ -133,3 +133,10 @@
 - **concepts/ai-anc-overview.md**: added a 2023-context citation block referencing the Shi review as canonical classical-ANC survey, with a warning not to use it as an up-to-date AI-ANC source.
 - **index.md**: added "DRL-ANC ingestion batch (2026-04-15)" subsection under Entities with 4 new pending stubs; deep-rl-anc.md blurb updated to reflect its promoted status (no more [partial stub]); pending-entities count 21 → 25.
 - Deleted incoming-pdfs/ staging directory.
+
+## [2026-04-15] catalog | replace 25 [pending] entity stubs with single source-papers.md catalog
+- Rationale: 25 broken entity links in the published HTML build (raw/SUMMARIES.md is gitignored so its content never reached the build). Creating 25 individual entity pages was the "proper" option but would be ~25 files of mechanical transcription.
+- Chose option 1: one `entities/source-papers.md` file with H2 headings keyed to the `paper-<slug>` IDs already used in index.md, so every existing link in the form `[paper-foo](entities/source-papers.md#paper-foo)` resolves via a GitHub-flavored-markdown anchor.
+- Content: all 25 distilled blocks copied verbatim from raw/SUMMARIES.md plus a short intro explaining the "promote to dedicated entity page on demand" protocol. DRL-Control-Survey-2507.08196 intentionally excluded (no ANC content). Added a "Pending ingestion" section listing Morgan 1980, Burgess 1981, Ryu 2024.
+- index.md: rewrote Entities section; every [paper-foo](entities/paper-foo.md) [pending] link now points at entities/source-papers.md#paper-foo. Header bumped to "Concepts: 10 · Source papers in catalog: 25" — pending-entity count retired.
+- Stub promotions later: when a concept page needs deeper treatment of one paper, promote that section to its own entities/paper-<slug>.md file and leave a cross-link in the catalog.
