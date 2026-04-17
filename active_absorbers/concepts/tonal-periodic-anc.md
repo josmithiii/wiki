@@ -125,6 +125,101 @@ Neglecting them makes the residual subjectively worse than raw.
   tonal controller must handle $(f_0 \pm f_m)$ or spectrum leakage
   defeats it.
 
+## 8. Robustness: Doppler, amplitude fluctuation, lock loss
+
+**Governing rule — first, do no harm.** A tonal ANC system running
+with stale weights against a shifted or faded disturbance radiates an
+essentially uncorrelated signal that **adds** ~3 dB on average. For a
+community-noise rooftop application, any controller must be able to
+detect loss of tracking and **mute itself gracefully** rather than
+continue cancelling a target it is no longer locked to.
+
+### 8.1 Sources of frequency drift and modulation
+
+| Mechanism | Timescale | Typical magnitude at 118 Hz |
+|---|---|---|
+| VFD / thermal-load RPM change | minutes | ±1–5 Hz (systematic) |
+| Mean-wind convective shift | seconds | ~Mach·$f_0$ ≲ 2 Hz at 5 m/s |
+| Turbulent path scintillation | 0.1–1 s | line broadening of ~0.5–2 Hz |
+| Gusts (fluctuating advection) | 1–10 s | FM excursions ±1–3 Hz |
+| Multi-fan BPF beating | seconds | sideband comb at $\Delta f$ |
+
+Classical Doppler (moving source / moving receiver) is **not** the
+issue — the fan and the community receiver are both stationary. The
+relevant physics is **propagation through a moving, turbulent
+medium**: the received signal at a remote error mic has time-varying
+path delay, which manifests as frequency *broadening* (and often
+amplitude scintillation) rather than a clean single-valued shift. See
+**ISO 9613-2** (outdoor propagation) and the atmospheric-acoustics
+literature (Ostashev & Wilson).
+
+### 8.2 Tacho-ref is only half the solution
+
+A shaft tachometer gives a clean $\theta(n)$ locked to the fan rotor,
+so the **synthesized reference** is immune to VFD drift. But the
+observation at the error mic is not — propagation through the
+turbulent / windy path imparts FM and AM that the reference does not
+see. Consequences:
+
+- $(w_c, w_s)$ must continue to adapt on the error-mic residual, not
+  stay frozen at a batch-computed optimum.
+- Adaptation bandwidth must exceed the *path-induced* FM bandwidth
+  (§8.1 rows 2–4), not just the source RPM slew rate.
+- A PLL locked purely to the error mic (no tacho) adds its own
+  tracking lag and jitter; always prefer tacho + short
+  $(w_c, w_s)$ adaptation over all-acoustic PLL.
+
+### 8.3 Lock-loss indicators
+
+Any of the following signals should trigger a **fail-safe mute**:
+
+- **Coherence** $\gamma^2_{xe}(f_0) < \gamma_{\min}^2$ between reference
+  and error at the target frequency (see
+  `entities/source-papers.md#paper-wise-leventhall-lf-anc` for the
+  coherence-bounded achievable reduction).
+- **Residual power ratio** — $P_e(f_0) / P_e(\text{baseline})$ rising
+  above 1 (i.e. the controller is making it louder at $f_0$).
+- **Weight-norm runaway** — $\|(w_c, w_s)\|$ exceeding a plausible
+  bound implied by the driver / primary SPL.
+- **Tacho dropout** — missed pulses on the optical encoder.
+- **Error-signal clipping** — mic or ADC saturated.
+- **Sideband energy** — $P_e(f_0 \pm \Delta)$ dominating $P_e(f_0)$
+  indicates the tonal has shifted outside the notch.
+
+### 8.4 Graceful mute
+
+Do not hard-zero the controller output — that produces a click that
+can itself be a complaint trigger. Ramp $(w_c, w_s) \to 0$ with a
+time constant of ~30–100 ms, hold muted, and re-engage only after
+a sustained window (several seconds) of good lock indicators.
+Related design techniques:
+
+- **Leaky FxLMS** — continuous weight decay; natural fail-safe bias
+  toward zero output when the reference is uncorrelated with the error.
+- **Output clipping / authority limits** — hard cap on
+  $\|y(n)\|_\infty$ below the passive primary SPL at the error mic,
+  so even a worst-case mis-adaptation can only partially un-cancel.
+- **Watchdog supervisor** — independent microcontroller monitoring
+  the indicators in §8.3 and cutting the amplifier relay on fault.
+
+### 8.5 AM tracking
+
+Wind-driven amplitude fluctuations are slower than the tonal period
+and do *not* require changing the reference frequency — they just
+require the two-weight adaptation to keep up. FxNLMS (step size
+normalised by $P_{x'}$) naturally handles this. Large amplitude drops
+can look like partial lock loss; distinguish by coherence (§8.3) not
+by amplitude alone.
+
+## Pending sources (robustness)
+
+- Wise & Leventhall 2010 — coherence bound on achievable LF reduction
+  (already ingested as `paper-wise-leventhall-lf-anc`).
+- Ostashev, V. E. & Wilson, D. K., *Acoustics in Moving Inhomogeneous
+  Media*, 2nd ed. 2015 — outdoor-propagation FM/AM theory.
+- Kajikawa, Y. et al. — moving-source ANC / Doppler-tracking ANC
+  literature.
+
 ## Pending sources
 
 - Kuo & Morgan 1996 (book) — dedicated narrowband-ANC chapter.

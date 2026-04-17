@@ -162,6 +162,23 @@
 - index.md: added entry under "Classical ANC reviews batch"; paper count 27 → 28.
 - No concept-page updates needed — this is a classical-era survey; the nonlinear algorithms it covers (Volterra, FLANN, etc.) predate the AI-ANC concept pages. The paper's coverage window (2009–2020) ends before the deep-learning ANC wave.
 
+## [2026-04-17] update+stage | tonal-periodic-anc §8 robustness; 8 free PDFs staged
+- **tonal-periodic-anc.md:** added §8 "Robustness: Doppler, amplitude fluctuation, lock loss" per JOS's rooftop-specific requirement that a mis-locked tonal canceller must mute rather than radiate uncorrelated anti-sound (first-do-no-harm rule).
+  - §8.1 sources of frequency drift/modulation table — VFD, mean-wind convective shift, turbulent scintillation, gust-driven FM, multi-fan BPF beating — with timescales and typical magnitudes at 118 Hz. Notes that classical Doppler is not the mechanism (source & receiver are both stationary); it's propagation through a moving turbulent medium (Ostashev & Wilson 2015).
+  - §8.2 tacho-ref is immune to VFD drift but path FM/AM still requires continuous error-mic-driven adaptation.
+  - §8.3 lock-loss indicators: coherence $\gamma^2_{xe}$ below threshold, residual-power ratio >1, weight-norm runaway, tacho dropout, ADC clipping, sideband dominance.
+  - §8.4 graceful mute: 30-100 ms ramp of $(w_c, w_s)\to 0$, sustained good-lock window before re-engage, leaky FxLMS as continuous fail-safe bias, hard output-authority cap, independent watchdog supervisor with amp-relay cutout.
+  - §8.5 AM tracking via FxNLMS; distinguish amplitude fade from lock loss by coherence.
+  - Cross-reference to `paper-wise-leventhall-lf-anc` (coherence bound).
+- **Pending sources block** updated with Ostashev & Wilson 2015, Kajikawa moving-source ANC literature.
+- **Staged 8 free-to-download PDFs** in `incoming-pdfs/` (downloaded in parallel via curl; all verified as real PDFs with `file`):
+  - tonal-periodic-anc: Kuo & Tsai APSIPA 2011 quick-review, Elliott & Nelson IEEE SPM 1993.
+  - hybrid-active-passive: Galland 2005 flow-duct hybrid, Betgen & Galland 2012 hybrid liner, Guicking patents overview, Mei 2012 *Nat Commun* dark acoustic metamaterial, Ghaffarivardavagh arXiv 1801.03613 ventilated metamaterial preprint.
+  - psychoacoustic-anc: Rivera, Papantoni & Zölzer ICSV25 2018 Zwicker-weighted hybrid ANC.
+- **NASA NTRS download failed** (504 Gateway Timeout on 3 retries for Brooks 1989, Sutliff 1997, Sutliff 2019). Moved to "JOS to fetch by browser" list in `incoming-pdfs/README.md`.
+- **`incoming-pdfs/README.md` committed** with full file→page mapping, move-and-extract bash recipe, and an expanded "Still pending — grab via Stanford proxy" list covering Kuo & Morgan 1996 book, Elliott 2001 book, Swinbanks 1973, Chaplin 1983, Bodson/Sacks/Khosla 1994, Hara 1988, Olson & May 1953, Guicking 1984 papers, Furstoss 1997, Beyene & Burdisso 1997, Fang 2006, Ma 2014, Ma & Sheng 2016, Ghaffarivardavagh 2019 final, Zwicker & Fastl book, Aures 1985, Kuo & Tsai SPL, Rees & Elliott 2004, Zhou & DeBrunner 2007, ISO 1996-2 / DIN 45681 / ISO 532-1 / ANSI S12.9 Pt 3 standards, Beranek & Vér book, Hansen-Snyder book, Tyler & Sofrin 1962, Neise 1976, Neise & Koopmann 1980, Howe 1991.
+- Next: after JOS fetches remaining PDFs and moves everything into `/l/dttd/`, run `pdf2txt.py` and promote the four scaffold pages from primary sources.
+
 ## [2026-04-17] create | 4 rooftop-fan ANC scaffold pages
 - Context: JOS asked whether the wiki was missing major contenders for data-center rooftop fan noise reduction (primary concern ~118 Hz BPF). Identified four topic gaps and created scaffold concept pages (sources: [] to be filled as primary literature is ingested).
 - New pages under concepts/:
