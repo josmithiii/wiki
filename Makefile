@@ -32,7 +32,7 @@ PANDOC_OPTS  := --from=gfm --to=html5 --standalone --toc --toc-depth=2 \
 # CCRMA staging — matches /w/scripts/webupd convention
 CCRMA_STAGE  := /w/h/josn
 
-.PHONY: help all build rebuild html index render-md copy-md upload clean check
+.PHONY: help all build rebuild html index render-md copy-md upload clean check obsidian open
 
 .DEFAULT_GOAL := help
 
@@ -122,3 +122,8 @@ check: ## Verify build dir exists
 clean: ## Remove build/ directory
 	@rm -rf $(BUILD_DIR)
 	@echo "Cleaned $(BUILD_DIR)/"
+
+# ---- Obsidian ----
+
+obsidian open o: ## Open this wiki as an Obsidian vault (macOS)
+	@open "obsidian://open?path=$$(python3 -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))' "$$PWD")"
