@@ -1,5 +1,8 @@
 # Wiki Schema
 
+## Domain One-Line Summary
+Physics-based synthesis using measured or computed modes of vibration.
+
 ## Domain
 Physics-based synthesis using measured or computed modes of vibration.  Covers modal analysis, resonator networks, impact synthesis, physical modeling, instrument acoustics, room acoustics, and perceptual/computational aspects.  Adjacent: waveguide synthesis, FEM/BEM methods, signal processing, AI/ML for modal data.
 

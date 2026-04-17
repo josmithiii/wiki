@@ -1,5 +1,8 @@
 # Wiki Schema
 
+## Domain One-Line Summary
+Active absorbers and active noise control (ANC) -- cancelling or reshaping acoustic energy with loudspeakers, sensors, and real-time control.
+
 ## Domain
 Active absorbers and active noise control (ANC) -- using loudspeakers, sensors, and real-time control to cancel or reshape acoustic energy rather than absorbing it passively. Covers active absorbers, active impedance control, ANC headphones, feedforward/feedback controllers, adaptive filters (LMS/FxLMS), secondary-path modeling, stability, causality constraints, and acoustic metamaterial/hybrid approaches.  Adjacent: room acoustics, loudspeaker design, adaptive signal processing, feedback control theory.
 

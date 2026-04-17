@@ -3,6 +3,9 @@
 ## Title
 Waveguide and Wave Digital Synthesis and Effects
 
+## Domain One-Line Summary
+Digital-waveguide and wave-digital synthesis and effects for strings, winds, voice, reverb, and related physical models.
+
 ## Domain
 Digital-waveguide and wave-digital synthesis and effects -- modeling acoustic wave propagation using bidirectional delay lines, scattering junctions, and related structures.  Covers string, wind, and vocal-tract instruments, artificial reverberation, waveguide meshes, mass-spring systems, virtual analog, and modern extensions (differentiable, ML-optimized). Adjacent: modal synthesis, finite-difference methods, spectral modeling, DDSP.
 

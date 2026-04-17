@@ -45,6 +45,19 @@ def domain_summary(sw_dir: Path) -> str:
     return ""
 
 
+def one_line_summary(sw_dir: Path) -> str:
+    schema = sw_dir / "SCHEMA.md"
+    if not schema.is_file():
+        return ""
+    text = schema.read_text()
+    m = re.search(r"## Domain One-Line Summary\s*\n(.+?)(?=\n##|\Z)", text, re.DOTALL)
+    if m:
+        for line in m.group(1).strip().splitlines():
+            if line.strip():
+                return line.strip()
+    return ""
+
+
 def page_count(sw_dir: Path) -> int:
     return sum(1 for _ in sw_dir.rglob("*.md"))
 
@@ -73,6 +86,10 @@ h1 {{ border-bottom: 2px solid #ccc; padding-bottom: 0.3em; }}
 .subwiki h2 {{ margin-top: 0; }}
 .subwiki h2 a {{ text-decoration: none; color: #4a90e2; }}
 .subwiki h2 a:hover {{ text-decoration: underline; }}
+.overview {{ margin: 0.5em 0 1.5em 0; padding-left: 1.4em; }}
+.overview li {{ margin: 0.25em 0; }}
+.overview a {{ text-decoration: none; color: #4a90e2; font-weight: 600; }}
+.overview a:hover {{ text-decoration: underline; }}
 .meta {{ color: #666; font-size: 0.9em; }}
 .footer {{ margin-top: 3em; color: #888; font-size: 0.85em; border-top: 1px solid #ddd;
          padding-top: 1em; }}
@@ -92,6 +109,23 @@ work are often not the original reference, but rather a more recent
 predating reference.</p>
 """)
 
+    # Tight one-line overview list, each linking to the expanded block below
+    overview_rows = []
+    for sw in subwikis:
+        sw_dir = out_dir / sw
+        if not sw_dir.is_dir():
+            continue
+        title = display_title(sw_dir, sw.replace("_", " ").title())
+        one_line = one_line_summary(sw_dir) or domain_summary(sw_dir)
+        overview_rows.append((sw, title, one_line))
+
+    if overview_rows:
+        print("<h2>Overview</h2>")
+        print('<ul class="overview">')
+        for sw, title, one_line in overview_rows:
+            print(f'<li><a href="#{sw}">{title}</a> — {one_line}</li>')
+        print("</ul>")
+
     for sw in subwikis:
         sw_dir = out_dir / sw
         if not sw_dir.is_dir():
@@ -100,7 +134,7 @@ predating reference.</p>
         n_pages = page_count(sw_dir)
         index_html = f"{sw}/index.html"
         title = display_title(sw_dir, sw.replace("_", " ").title())
-        print(f"""<div class="subwiki">
+        print(f"""<div class="subwiki" id="{sw}">
 <h2><a href="{index_html}">{title}</a></h2>
 <p>{domain}</p>
 <p class="meta">{n_pages} pages · <a href="{index_html}">browse index</a></p>

@@ -1,5 +1,8 @@
 # Wiki Schema
 
+## Domain One-Line Summary
+Spectral audio signal processing -- FFT-based analysis, modification, and resynthesis of music and audio.
+
 ## Domain
 Spectral audio signal processing -- FFT-based analysis, modification, and resynthesis of music and audio signals. Covers the DFT/DTFT/STFT, spectrum analysis windows, overlap-add (OLA) and filter-bank summation (FBS) views of the STFT, sinusoidal and sines-plus-noise (SMS) modeling, peak detection and QIFFT, phase vocoder and time-scale modification, multirate filter banks, FIR/window design, and spectral modeling applications (cross-synthesis, spectral envelope, f0 estimation, audio coding). Adjacent: physical modeling (waveguide_synthesis, modal_synthesis), general DSP.
 
