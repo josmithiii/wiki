@@ -4,16 +4,29 @@ created: 2026-04-17
 updated: 2026-04-17
 type: concept
 tags: [anc, tonal, fan-noise, feedforward, feedback, fxlms, repetitive-control, industrial, reference]
-sources: []
+sources:
+  - raw/Elliott-Nelson-ANC-IEEE-SPM-1993.txt
+  - raw/Kuo-Tsai-FxLMS-QuickReview-APSIPA2011.txt
+  - raw/ANC-Widrow-j1975adaptivenoise.txt
+  - raw/ANC-for-LF.txt
 ---
 
 # Tonal and Periodic ANC
 
-**Scaffold page — sources pending.** Dedicated home for the special
-case where the disturbance is (nearly) a single sinusoid or a discrete
-harmonic comb locked to a rotating-machinery shaft. Broadband [[fxlms-algorithm]]
-is overkill here; the narrowband case admits dedicated controllers that
-converge faster, use fewer taps, and are much easier to stabilize.
+Dedicated home for the special case where the disturbance is (nearly)
+a single sinusoid or a discrete harmonic comb locked to a
+rotating-machinery shaft. Broadband [[fxlms-algorithm]] is overkill
+here; the narrowband case admits dedicated controllers that converge
+faster, use fewer taps, and are much easier to stabilize.
+
+Canonical published references for this specialization are Elliott &
+Nelson's IEEE SPM tutorial[^elliott-nelson-1993] — which includes the
+foundational Conover 1956 transformer-hum harmonic-decomposition
+system — and Ardekani & Abdulla's APSIPA
+survey[^ardekani-abdulla-2011], which derives an *exact* FxLMS
+convergence-rate analysis in the sinusoidal-input limit. See
+[[classical-anc-overview]] §8 for placement within the larger ANC
+landscape.
 
 Applies to cooling-fan blade-passing-frequency (BPF) hum, compressor
 whine, pump-vane tones, transformer hum, and any other disturbance whose
@@ -61,10 +74,16 @@ frequency.
   $f_0$; $f_0$ itself adapts via a gradient on the residual.
 - **FxLMS-SF** — the filtered-x correction is applied only at $f_0$;
   $\hat{S}(e^{j2\pi f_0})$ is a single complex gain, trivial to
-  estimate.
+  estimate. Ardekani & Abdulla[^ardekani-abdulla-2011] derive an
+  *exact* FxLMS convergence rate for sinusoidal input, making this
+  the case in which FxLMS step-size selection is best-understood.
 - Suffers if $f_0$ drifts faster than the estimator bandwidth (e.g.
   VFD-driven fan changing RPM mid-adaptation) — hence tacho (§2) is
   preferred when available.
+- Elliott & Nelson[^elliott-nelson-1993] give the foundational
+  precision requirement: adaptation must hold $(w_c, w_s)$ to
+  **±0.6 dB amplitude / ±5° phase** to achieve 20 dB tonal
+  reduction; this is the design target, not a soft goal.
 
 ## 4. Repetitive control (RC) and iterative learning control (ILC)
 
@@ -220,6 +239,25 @@ by amplitude alone.
 - Kajikawa, Y. et al. — moving-source ANC / Doppler-tracking ANC
   literature.
 
+## Sources ingested
+
+- **Elliott & Nelson 1993** (IEEE SPM) — foundational tutorial;
+  history (Lueg 1934, Olson-May 1953, **Conover 1956 transformer-hum**
+  — first published harmonic-decomposition periodic ANC), three
+  acoustic objectives (zone-of-quiet / power-absorption /
+  total-radiated-power), ±0.6 dB / ±5° precision requirement for
+  20 dB tonal reduction. See
+  `entities/source-papers.md#paper-elliott-nelson-spm-1993`.
+- **Ardekani & Abdulla 2011** (APSIPA, misfiled as "Kuo-Tsai") —
+  FxLMS quick review with exact sinusoidal-input convergence-rate
+  analysis; directly grounds the narrowband case (§3). See
+  `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.
+- **Widrow 1975** (*Proc. IEEE*) — sinusoidal-reference canceller
+  ancestry. See [[lms-algorithm]].
+- **Wise & Leventhall 2010** — coherence-bound on achievable LF
+  reduction; frames the §8 lock-loss indicators. See
+  `entities/source-papers.md#paper-wise-leventhall-lf-anc`.
+
 ## Pending sources
 
 - Kuo & Morgan 1996 (book) — dedicated narrowband-ANC chapter.
@@ -230,3 +268,6 @@ by amplitude alone.
 
 See also: [[classical-anc-overview]] §8 (periodic-noise row),
 [[fxlms-algorithm]] (generic FxLMS update), [[ai-anc-overview]].
+
+[^elliott-nelson-1993]: S.J. Elliott & P.A. Nelson, "Active Noise Control," *IEEE Signal Processing Magazine*, Oct 1993, pp. 12–35. Distilled in `entities/source-papers.md#paper-elliott-nelson-spm-1993`.
+[^ardekani-abdulla-2011]: I. T. Ardekani & W. H. Abdulla, "FxLMS-based Active Noise Control: A Quick Review," *APSIPA ASC 2011*, Xi'an (filename inherited as "Kuo-Tsai" from staging — authors are Ardekani & Abdulla). Distilled in `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.

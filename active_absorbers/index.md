@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-17 | Concepts: 15 · Source papers in catalog: 28
+> Last updated: 2026-04-17 | Concepts: 15 · Source papers in catalog: 37
 
 ## Entities
 
@@ -75,6 +75,28 @@ cross-link.
 - [paper-lu-anc-survey-part1-2021](entities/source-papers.md#paper-lu-anc-survey-part1-2021) — Lu et al. *Signal Processing* 2021: decade survey (2009–2020) of linear ANC; FxLMS/FeLMS/FuLMS families, 21 online secondary-path methods, selective ANC precursor to SFANC/GFANC, distributed ANC
 - [paper-lu-anc-survey-part2-2021](entities/source-papers.md#paper-lu-anc-survey-part2-2021) — Lu et al. *Signal Processing* 2021: decade survey (2009–2020) of **nonlinear ANC**; Volterra/FLANN/Hammerstein/bilinear/spline/kernel algorithms, GA/PSO/BFO heuristics, fMRI/headphone/vehicle/transformer applications
 
+### Classical ANC & hybrid-absorber batch (2026-04-17)
+
+*Nine free-to-download papers promoting the 2026-04-17 scaffold concept pages.*
+
+#### Tonal / periodic ANC
+
+- [paper-elliott-nelson-spm-1993](entities/source-papers.md#paper-elliott-nelson-spm-1993) — Elliott & Nelson *IEEE SPM* 1993: canonical ANC tutorial; Lueg/Olson-May/Conover history, three acoustic objectives, ±0.6 dB / ±5° precision benchmark for 20 dB tonal reduction
+- [paper-ardekani-fxlms-quickreview](entities/source-papers.md#paper-ardekani-fxlms-quickreview) — Ardekani & Abdulla *APSIPA 2011* (staged as "Kuo-Tsai"): FxLMS quick review; **exact** sinusoidal-input convergence analysis
+
+#### Hybrid active-passive absorbers
+
+- [paper-galland-hybrid-flowduct-2005](entities/source-papers.md#paper-galland-hybrid-flowduct-2005) — Galland, Mazeaud & Sellen *Appl. Acoust.* 2005: 5-step flow-duct hybrid-liner design; cell-by-cell feedback FxLMS; piezo + wire-mesh <0.03 m cells
+- [paper-betgen-galland-hybrid-liner-2012](entities/source-papers.md#paper-betgen-galland-hybrid-liner-2012) — Betgen, Galland, Piot & Simon *Appl. Acoust.* 2012: basic vs complex hybrid cells; LDV non-intrusive characterization with grazing flow; TL up to 20 dB
+- [paper-guicking-patents-overview](entities/source-papers.md#paper-guicking-patents-overview) — Guicking 2009: overview of ~1740 ANVC patent families in 17 sections (incl. §8.2 fan/turbine); patent-landscape reference
+- [paper-mei-dark-metamaterial-2012](entities/source-papers.md#paper-mei-dark-metamaterial-2012) — Mei et al. *Nat. Commun.* 2012: dark acoustic metamaterial; near-unity LF absorption with 200 µm membrane, λ/t ≳ 10³
+- [paper-wu-ventilated-metamaterial-2018](entities/source-papers.md#paper-wu-ventilated-metamaterial-2018) — Wu et al. arXiv 1801.03613 (staged as "Ghaffarivardavagh"): split-tube ventilated metamaterial; >90% absorption <500 Hz with airflow preserved
+- [paper-ma-sheng-metamaterials-review-2016](entities/source-papers.md#paper-ma-sheng-metamaterials-review-2016) — Ma & Sheng *Sci. Adv.* 2016: 15-year acoustic-metamaterials review; bridge to active/tunable variants
+
+#### Psychoacoustic ANC
+
+- [paper-rivera-psychoacoustic-hybrid-anc-2018](entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018) — Rivera Benois, Papantoni & Zölzer *ICSV25* 2018: hybrid FeLMS-psy (ITU-R 468) + MVC feedback; FPGA headphone prototype; Zwicker/Aures metric evaluation
+
 ## Concepts
 
 ### Classical adaptive filtering
@@ -83,12 +105,12 @@ cross-link.
 - [lms-algorithm](concepts/lms-algorithm.md) — Widrow–Hoff LMS + adaptive noise-cancelling architecture (distilled from Widrow 1975)
 - [fxlms-algorithm](concepts/fxlms-algorithm.md) — Filtered-x LMS: LMS with secondary-path compensation for feedforward ANC; includes Latent FxLMS variant
 
-### Rooftop-fan / tonal ANC *(project focus — scaffolds)*
+### Rooftop-fan / tonal ANC *(project focus)*
 
-- [tonal-periodic-anc](concepts/tonal-periodic-anc.md) — **BPF-tonal ANC**: tacho-referenced synchronous reference, FxLMS-SF, adaptive notch, RC/ILC, harmonic bank — the narrowband specialization for rotating machinery
-- [hybrid-active-passive](concepts/hybrid-active-passive.md) — **Hybrid absorbers**: active impedance control, active duct liners, tunable / piezo-coupled metamaterials, semi-active Helmholtz
-- [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, differentiable perceptual losses
-- [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page**: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods
+- [tonal-periodic-anc](concepts/tonal-periodic-anc.md) — **BPF-tonal ANC**: tacho-referenced synchronous reference, FxLMS-SF, adaptive notch, RC/ILC, harmonic bank — the narrowband specialization for rotating machinery; sourced from Elliott-Nelson 1993, Ardekani-Abdulla 2011
+- [hybrid-active-passive](concepts/hybrid-active-passive.md) — **Hybrid absorbers**: active impedance control, Galland/Betgen active duct liners, Mei/Wu/Ma-Sheng metamaterials (including ventilated), semi-active Helmholtz, tunable piezo
+- [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, Rivera/Zölzer ITU-R 468 hybrid, differentiable perceptual losses
+- [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page** *(still scaffold — awaits NASA NTRS trio)*: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods
 
 ### AI-based ANC approaches *(project focus)*
 
@@ -113,6 +135,7 @@ cross-link.
 
 ## Pending ingestion
 
-- **Morgan 1980** (IEEE TASSP) — earliest known FxLMS filtered-x analysis; referenced by [[fxlms-algorithm]]
-- **Burgess 1981** (JASA) — earliest known full adaptive duct-ANC simulation; referenced by [[fxlms-algorithm]]
-- **Ryu, Lim, Lee 2024** (IJAT Springer) — DDPG for narrowband ANC without path model; would fill the continuous-drive DRL gap on [[deep-rl-anc]]
+See [pending-sources.md](pending-sources.md) — consolidated wishlist of
+paywalled / book / standards / NASA NTRS references we still want to
+track down, grouped by the concept page that needs them. Contributors
+welcome.

@@ -1,7 +1,7 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-04-16
+updated: 2026-04-17
 type: entity
 tags: [reference, comparison]
 ---
@@ -381,6 +381,130 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 
 ---
 
+## Classical ANC & Hybrid Absorbers (2026-04-17 batch)
+
+### paper-ardekani-fxlms-quickreview
+
+**"FxLMS-based Active Noise Control: A Quick Review"** — Iman Tabatabaei Ardekani & Waleed H. Abdulla (Univ. of Auckland) · *APSIPA ASC 2011*, Xi'an · `raw/Kuo-Tsai-FxLMS-QuickReview-APSIPA2011.txt`
+
+*Filename caveat:* staged as "Kuo-Tsai" but the authors are Ardekani & Abdulla — staging README mis-attributed it.
+
+- Short FxLMS survey: physical principles (superposition → destructive interference), how a silence zone is created (digital control driving a secondary source) and how it is expanded (multichannel + virtual sensing).
+- Covers SISO feedforward, feedback, and multichannel FxLMS configurations with filtered-reference via $\hat{S}(z)$.
+- Reviews Morgan/Elliott step-size bound $\mu < 2/[L_x \sigma^2_{x'}]$ and its limitations.
+- Authors' contribution: **exact** FxLMS convergence-rate analysis under sinusoidal input — directly applicable to the narrowband / tonal limit.
+- Useful concise ingress reference; complements Kuo & Morgan 1999 and Lu et al. 2021 Part I.
+- Tags: anc, fxlms, feedforward, secondary-path, tonal, tutorial, reference
+
+### paper-elliott-nelson-spm-1993
+
+**"Active Noise Control"** — S.J. Elliott & P.A. Nelson (ISVR Southampton) · *IEEE Signal Processing Magazine*, Oct 1993 · `raw/Elliott-Nelson-ANC-IEEE-SPM-1993.txt`
+
+- **Foundational ANC tutorial** — often the most accessible pre-Kuo-Morgan-1999 introduction.
+- History: Lueg 1934/1936 (duct ANC, 1-D + 3-D), Olson & May 1953 (electronic sound absorber — zone-of-quiet feedback near a secondary source; aside on power absorption by phase adjustment), **Conover 1956 transformer-hum cancellation** (first published harmonic-decomposition periodic ANC — amplitude + phase per sinusoid, manually re-tuned for wind / temperature).
+- Kido 1975 + Chaplin 1978 → first digital implementations; adaptation accuracy **±0.6 dB / ±5°** required for 20 dB reduction of a pure tone.
+- Separates **three acoustic objectives** (zone-of-quiet / acoustic-power absorption / total-radiated-power minimization) from the orthogonal choice of control strategy (feedforward / feedback).
+- Covers 3-D radiation, causality and secondary-path modeling, and applications (aircraft propeller cabin, exhaust, HVAC, headphones).
+- Cited as the quantitative benchmark for tonal rooftop-fan ANC precision in [[tonal-periodic-anc]].
+- Tags: anc, feedforward, feedback, tonal, fan-noise, history, tutorial, reference
+
+### paper-galland-hybrid-flowduct-2005
+
+**"Hybrid passive/active absorbers for flow ducts"** — M.-A. Galland, B. Mazeaud, N. Sellen (ECL Lyon) · *Applied Acoustics* 66:691, 2005 · `raw/Galland-HybridPassiveActive-FlowDuct-AppAcoust2005.txt`
+
+- Complete design + validation of a hybrid passive/active duct liner: porous face + rear-face digital feedback fixing $p_\text{rear}=0$ → purely real surface impedance $Z_s = re$ at LF; active off at HF, air-gap $\lambda/4$ tuning takes over.
+- **5-step design recipe:** (1) optimal frequency-dependent impedance for target duct, (2) porous material + cut-off frequency, (3) actuator + controller design, (4) standing-wave-tube single-cell validation, (5) multi-cell duct test.
+- Tester (1970) cited: optimal impedance for semi-infinite duct with one treated wall is frequency-dependent (weak LF resistance, increasing negative reactance) — neither pure passive nor pure active absorbers can realize this alone.
+- **Cell-by-cell feedback FxLMS** (independent per cell) enables trivial surface scaling by adding cells — no global MIMO coupling.
+- Hardware: wire-mesh porous + piezo actuators → hybrid cell **<0.03 m thick** with approximately real, constant impedance up to 2500 Hz.
+- Validated on ECL MATISSE flow duct (anechoic termination); measured TL vs predicted agree.
+- Successor of Olson & May 1953 → Guicking & Karcher 1984 → Mechel; generalizes to flow-duct applications.
+- Tags: active-absorber, active-impedance, hybrid-passive, feedback, fxlms, duct, impedance, industrial
+
+### paper-betgen-galland-hybrid-liner-2012
+
+**"Implementation and non-intrusive characterization of a hybrid active–passive liner with grazing flow"** — Benjamin Betgen, M.-A. Galland, Estelle Piot, Frank Simon (ECL Lyon / ONERA) · *Applied Acoustics* 73:624, 2012 · `raw/Betgen-Galland-HybridLiner-AppAcoust2012.txt`
+
+- Extension of Galland 2005: contrasts **basic** (1 mic, real-impedance) vs **complex** (2 mics, arbitrary complex-impedance) hybrid cells.
+- Basic cell's error mic behind the screen is protected from grazing flow → fast convergence, excellent stability.
+- Complex cell has front-face mic exposed to flow → additional flow-induced noise; more capability at stability cost.
+- **Transmission loss up to 20 dB** without flow; both cells degrade with increasing Mach grazing flow.
+- **Non-intrusive LDV characterization** at ONERA aeroacoustic bench — Laser Doppler Velocimetry measures near-surface acoustic velocity without disturbing the field.
+  - No flow: both cells behave as a near-homogeneous liner (global duct-mode effect).
+  - Grazing flow: each cell's influence becomes local — the homogeneous-impedance picture breaks down, explaining TL reduction with Mach.
+- Cites Kanev & Mironov 2008 (passive-electrical shunt) and Lissek et al. 2011 (unified electroacoustic-absorber theory) as complementary approaches without external sensors.
+- Tags: active-absorber, active-impedance, hybrid-passive, feedback, duct, impedance, industrial
+
+### paper-guicking-patents-overview
+
+**"Patents on Active Control of Sound and Vibration — an Overview"** (2nd ed.) — Dieter Guicking, emeritus, Drittes Physikalisches Institut, Universität Göttingen · May 2009 · `raw/Guicking-ActiveControl-Patents-Overview.txt`
+
+- Curated overview of **~1740 ANVC patent families** (from ~2060) in 17 sections. Patent titles/abstracts are often uninformative — Guicking's summaries capture what each patent teaches.
+- Section map includes (§2) **algorithms**, (§3) ducts/mufflers, (§4) interior spaces incl. vehicle and aircraft cabins, (§5) communication/echo, (§6) personal-protection (headsets, hearing aids), (§7) domestic appliances, (§8) **exterior — §8.1 propeller/helicopter, §8.2 jet/turbine/fan, §8.3 road traffic**, (§9) ASAC structural-acoustic control, (§10-16) AVC, (§17) transducers.
+- Patent-history section covers Coanda (acoustically incorrect), **Lueg 1934/1936** (the correct 1-D and 3-D basic-cancellation patents), Olson & May 1953, and the active-impedance-control thread from Guicking's own group.
+- **Directly relevant for rooftop fans** — §8.2 is the dedicated fan-noise patent section.
+- Use as an *index* into the patent literature — not a research paper; the body text for any single sub-topic is 1–3 pages.
+- Tags: anc, active-impedance, active-absorber, feedback, feedforward, fan-noise, duct, headphones, history, reference
+
+### paper-mei-dark-metamaterial-2012
+
+**"Dark acoustic metamaterials as super absorbers for low-frequency sound"** — Jun Mei, Guancong Ma, Min Yang, Zhiyu Yang, Weijia Wen, Ping Sheng (HKUST) · *Nature Communications* 3:756, 2012 · `raw/Mei-DarkAcousticMetamaterial-NatComm2012.txt`
+
+- Thin-film metamaterial: 200 µm elastic membrane + **asymmetric iron platelets** (6 mm radius, 1 mm thick) fixed by a rigid grid.
+- Near-unity absorption at resonances in 100–1000 Hz with two stacked layers; $\lambda/t \gtrsim 10^3$ (λ ≈ 2 m at 172 Hz, t = 0.2 mm).
+- Mechanism: flapping motion of asymmetric platelets concentrates **elastic curvature energy** at platelet perimeters; these modes couple only weakly to radiation, so energy density inside the structure is 2–3 orders above incident — effectively an open cavity.
+- Sample A (two platelets on 31 × 15 mm membrane): 3 peaks at 172 / 340 / 813 Hz; 70%+ absorption at 172 Hz.
+- Sample B (8-platelet arrays with central gap): near-unity absorption at multiple LF peaks.
+- FEM simulations of displacement profiles in excellent agreement with experiment; slope discontinuities at platelet perimeters confirm the mechanism.
+- Foundational for the "dark acoustic" family — Ma 2014 hybrid-resonance metasurface and Ghaffarivardavagh 2019 ultra-open silencer build on the same weak-radiation-coupling principle.
+- Limitations: narrowband at discrete fixed resonances; solid-wall — motivates tunable (active) and ventilated (Wu 2018) variants for rooftop-fan use.
+- Tags: metamaterial, acoustics, impedance, passive, reference
+
+### paper-wu-ventilated-metamaterial-2018
+
+**"High-efficiency Ventilated Metamaterial Absorber at Low Frequency"** — Xiaoxiao Wu, Ka Yan Au-Yeung, Xin Li, R. Christopher Roberts, Jingxuan Tian, Chuandeng Hu, Yingzhou Huang, Shuxia Wang, Zhiyu Yang, Weijia Wen (HKUST / Chongqing / HKU) · arXiv 1801.03613, 2018 (*APL* 2018) · `raw/Ghaffarivardavagh-VentilatedMetamaterial-arxiv1801.03613.txt`
+
+*Filename caveat:* staged as "Ghaffarivardavagh" (whose *2019 Phys. Rev. B* ultra-open silencer is the better-known canonical reference). arXiv 1801.03613 is actually **Wu et al. 2018** — different group, same genre. Kept because it solves the same ventilation-vs-LF-absorption problem relevant to rooftop fans.
+
+- **Ventilated metamaterial absorber (VMA):** unit = two identical but oppositely-oriented split-tube resonators; gaps between units permit air or water flow.
+- Hybridization of the two resonators' degenerate eigenmodes breaks the **50% upper bound** on reflector-free symmetric absorbers.
+- Demonstrated **>90% absorption** for one-sided incidence with only 2 layers of units, operating <500 Hz.
+- Works in both waveguides and free-space arrays.
+- Compared to coherent-perfect absorbers (CPAs, which need dynamically-generated counter-incident beams) and to membrane-based ventilated absorbers (Yang 2017, which are <3 Hz narrow and prestress-sensitive): VMA is purely passive, manufacturable, and broader-band.
+- Directly applicable to duct treatment where airflow must not be blocked — complements (not replaces) active cancellation in a rooftop-fan design.
+- Tags: metamaterial, acoustics, duct, impedance, passive, reference
+
+### paper-ma-sheng-metamaterials-review-2016
+
+**"Acoustic metamaterials: from local resonances to broad horizons"** — Guancong Ma & Ping Sheng (HKUST) · *Science Advances* 2:e1501595, 2016 · `raw/Ma-Sheng-AcousticMetamaterials-SciAdv2016.txt`
+
+- **15-year retrospective review** from the authors who defined the field — essential cross-cutting reference.
+- Trajectory: mass-density/bulk-modulus frequency dispersion in locally-resonant structures → negative-$\rho$ / negative-$\kappa$ regimes → compact phase-manipulation (acoustic lenses, coding metasurfaces) → **super-absorption** → **actively-controllable metamaterials**.
+- New directions surveyed: moving-fluid acoustics, elastic/mechanical metamaterials, graphene-inspired analogues, non-Hermitian Hamiltonians (PT-symmetry, exceptional points — loss/gain engineering).
+- Broadens "metamaterial" beyond the original locally-resonant manifesto to include any subwavelength wave-manipulating structure.
+- Physical anchor: $\nabla^2 P - (\rho/\kappa)\partial^2_t P = 0$; negative effective $\rho$ or $\kappa$ produces evanescent solutions.
+- Most relevant sections here: **active/tunable metamaterials** (bridge to hybrid active-passive), super-absorption (Mei 2012 lineage), phase manipulation (directional radiation control).
+- Use as a citation hub — don't re-distill; point readers here for broader context.
+- Tags: metamaterial, active-absorber, acoustics, impedance, reference, tutorial
+
+### paper-rivera-psychoacoustic-hybrid-anc-2018
+
+**"Psychoacoustic Hybrid Active Noise Control Structure for Application in Headphones"** — Piero Rivera Benois, Veatriki Papantoni, Udo Zölzer (HSU Hamburg / DLR Braunschweig) · *ICSV25*, Hiroshima, July 2018 · `raw/Rivera-Zoelzer-PsychoacousticHybridANC-ICSV25-2018.txt`
+
+- Hybrid architecture: **perceptually-weighted feedforward FeLMS** (Bao & Panahi 2013) + **classical MVC feedback**, coupled via Foudhaili 2008 connection (subtract filtered adaptive control from the feedback input → isolates the feedback substructure's residual).
+- Feedforward FeLMS uses **ITU-R 468 noise weighting** $H_{nw}(z)$ on both reference and error → matches human ear sensitivity, prioritises mid-band reduction.
+- Feedback MVC: low-order, stable, effective below 1 kHz — exactly the band where perceptually-weighted FeLMS alone leaves noise unattenuated.
+- Closed-form transfer function shows FF optimal solution depends on $1/(1 + S(z) W_b(z))$; stability tied to accurate $\hat{S}(z)$.
+- **FPGA implementation** on Beyerdynamic DT 770 prototype (custom electret mics) at 48 kHz; $W_f$ is 1024-tap adaptive FIR, $\mu_f = 2 \times 10^{-12}$.
+- Excitation: 82.3 dB SPL AM Gaussian white noise (70 Hz mod, 30% depth) — generates roughness for realistic evaluation.
+- Spectral: FeLMS-psy leaves ~20–650 Hz almost unattenuated; hybrid adds substantial LF attenuation up to 300 Hz.
+- **Zwicker / Aures psychoacoustic metrics** — hybrid gives lowest loudness (11.06 sone), lowest roughness (0.130 asper), highest pleasantness (0.140). Best among tested structures.
+- Key design insight: spectral separation between MVC (<300 Hz) and FeLMS-psy (>650 Hz) bands means the substructures barely couple — each operates near its isolated optimum.
+- Caveat: 6300 Hz amplification peak appears in FeLMS-psy and hybrid — possibly $S/\hat S$ mismatch or weighting-implementation artifact; could destabilize at larger $\mu$. Leaky FeLMS + triggered online $\hat S$ re-estimation suggested as future work.
+- Tags: anc, psychoacoustic, feedforward, feedback, hybrid-control, fxlms, headphones, industrial
+
+---
+
 ## Pending ingestion (no PDF in `/l/dttd/` yet)
 
 These are referenced in concept-page footnotes but have no `raw/` extraction:
@@ -388,3 +512,4 @@ These are referenced in concept-page footnotes but have no `raw/` extraction:
 - **Morgan 1980** — "An Analysis of Multiple Correlation Cancellation Loops with a Filter in the Auxiliary Path," *IEEE Trans. ASSP* 28(4):454–467. Paywalled at IEEE. Earliest known FxLMS filtered-x analysis, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Kuo & Morgan, *Active Noise Control Systems*, Wiley 1996.
 - **Burgess 1981** — "Active Adaptive Sound Control in a Duct: A Computer Simulation," *J. Acoust. Soc. Am.* 70(3):715–726. Paywalled at AIP/ASA. Earliest known full adaptive duct-ANC simulation, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Elliott, *Signal Processing for Active Control*, Academic Press 2001.
 - **Ryu, Lim, Lee 2024** — "Narrowband Active Noise Control with DDPG Based on Reinforcement Learning," *International Journal of Automotive Technology*. Paywalled at Springer; no arXiv preprint surfaced. Would fill the continuous-drive DRL-ANC gap on [[deep-rl-anc]].
+- **NASA NTRS trio** — Brooks, Pope & Marcolini 1989 *Airfoil Self-Noise and Prediction* (RP-1218); Sutliff et al. 1997 *Active Noise Control of Low Speed Fan Rotor-Stator Modes* (TM-107458); Sutliff 2019 *A 20-Year Retrospective of the Advanced Noise Control Fan*. All three NTRS downloads returned 504 Gateway Time-out HTML pages (including the `Sutliff-AdvancedNoiseControlFan-20yrRetro-NASA-2019.pdf` that briefly appeared in staging — caught on extraction and removed). JOS to fetch via browser. Needed to promote the `rooftop-fan-contenders` scaffold concept page.
