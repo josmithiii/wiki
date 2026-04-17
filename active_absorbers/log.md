@@ -229,3 +229,16 @@
 - Updated `index.md` "Pending ingestion" block to a one-line pointer at pending-sources.md (absorbs Morgan 1980, Burgess 1981, Ryu/Lim/Lee 2024, NASA NTRS trio, plus the scaffold-page shopping lists previously only tracked inside each scaffold page's "Pending sources" block).
 - Saved just in time — the other-terminal ingestion agent deleted `incoming-pdfs/` shortly after.
 - Dedup: deleted `REFERENCES_WE_STILL_WANT.md` (other agent's rescue copy of JOS's plain-text list); `pending-sources.md` is the canonical wiki form (frontmatter, wikilinks, index.md pointer).
+
+## [2026-04-17] rename | fix two misfiled PDFs to correct author attributions
+- **`Kuo-Tsai-FxLMS-QuickReview-APSIPA2011.pdf` → `Ardekani-Abdulla-FxLMS-QuickReview-APSIPA2011.pdf`** — actual authors are Iman Tabatabaei Ardekani & Waleed H. Abdulla (Univ. of Auckland); original staging README misattributed. Renamed PDF in `/l/dttd/`, recreated `/l/dttd/ANC-Stuff/` symlink to the new name, renamed `raw/*.txt` extraction.
+- **`Ghaffarivardavagh-VentilatedMetamaterial-arxiv1801.03613.pdf` → `Wu-VentilatedMetamaterial-arxiv1801.03613.pdf`** — arXiv 1801.03613 is actually Wu, Au-Yeung et al. 2018 (HKUST/Chongqing/HKU); Ghaffarivardavagh's 2019 *Phys. Rev. B* ultra-open silencer is a closely-related but distinct paper that remains pending. Same rename procedure.
+- Reference updates:
+  - `raw/MANIFEST.md` — both rows updated; kept "Renamed 2026-04-17 from `<old>`" notes inline for history.
+  - `raw/SUMMARIES.md` — both "File:" lines updated; "Filename caveat" blocks rewritten as "Filename history" with the rename note.
+  - `entities/source-papers.md` — both paper sections updated (File: path + Filename history note).
+  - `concepts/tonal-periodic-anc.md` — frontmatter `sources:` list + footnote cleaned (removed "misfiled as Kuo-Tsai" aside; real filename in use).
+  - `concepts/hybrid-active-passive.md` — frontmatter `sources:` list + §3 Wu 2018 bullet simplified (parenthetical about the mismatch removed now that filename matches authorship); §Pending sources entry for Ghaffarivardavagh 2019 reworded to reflect it's a distinct paper, not just "the published version" of Wu 2018.
+  - `index.md` — removed "(staged as Kuo-Tsai)" / "(staged as Ghaffarivardavagh)" annotations from the 2026-04-17 batch entries.
+- Paper slugs (`paper-ardekani-fxlms-quickreview`, `paper-wu-ventilated-metamaterial-2018`) unchanged — they already reflect the correct authors.
+- Left `log.md` historical entries verbatim (original attributions in earlier 2026-04-17 entries preserved — renaming is documented here, not retroactively in prior log entries).

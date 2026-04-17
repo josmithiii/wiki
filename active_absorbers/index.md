@@ -82,7 +82,7 @@ cross-link.
 #### Tonal / periodic ANC
 
 - [paper-elliott-nelson-spm-1993](entities/source-papers.md#paper-elliott-nelson-spm-1993) — Elliott & Nelson *IEEE SPM* 1993: canonical ANC tutorial; Lueg/Olson-May/Conover history, three acoustic objectives, ±0.6 dB / ±5° precision benchmark for 20 dB tonal reduction
-- [paper-ardekani-fxlms-quickreview](entities/source-papers.md#paper-ardekani-fxlms-quickreview) — Ardekani & Abdulla *APSIPA 2011* (staged as "Kuo-Tsai"): FxLMS quick review; **exact** sinusoidal-input convergence analysis
+- [paper-ardekani-fxlms-quickreview](entities/source-papers.md#paper-ardekani-fxlms-quickreview) — Ardekani & Abdulla *APSIPA 2011*: FxLMS quick review; **exact** sinusoidal-input convergence analysis
 
 #### Hybrid active-passive absorbers
 
@@ -90,7 +90,7 @@ cross-link.
 - [paper-betgen-galland-hybrid-liner-2012](entities/source-papers.md#paper-betgen-galland-hybrid-liner-2012) — Betgen, Galland, Piot & Simon *Appl. Acoust.* 2012: basic vs complex hybrid cells; LDV non-intrusive characterization with grazing flow; TL up to 20 dB
 - [paper-guicking-patents-overview](entities/source-papers.md#paper-guicking-patents-overview) — Guicking 2009: overview of ~1740 ANVC patent families in 17 sections (incl. §8.2 fan/turbine); patent-landscape reference
 - [paper-mei-dark-metamaterial-2012](entities/source-papers.md#paper-mei-dark-metamaterial-2012) — Mei et al. *Nat. Commun.* 2012: dark acoustic metamaterial; near-unity LF absorption with 200 µm membrane, λ/t ≳ 10³
-- [paper-wu-ventilated-metamaterial-2018](entities/source-papers.md#paper-wu-ventilated-metamaterial-2018) — Wu et al. arXiv 1801.03613 (staged as "Ghaffarivardavagh"): split-tube ventilated metamaterial; >90% absorption <500 Hz with airflow preserved
+- [paper-wu-ventilated-metamaterial-2018](entities/source-papers.md#paper-wu-ventilated-metamaterial-2018) — Wu et al. arXiv 1801.03613: split-tube ventilated metamaterial; >90% absorption <500 Hz with airflow preserved
 - [paper-ma-sheng-metamaterials-review-2016](entities/source-papers.md#paper-ma-sheng-metamaterials-review-2016) — Ma & Sheng *Sci. Adv.* 2016: 15-year acoustic-metamaterials review; bridge to active/tunable variants
 
 #### Psychoacoustic ANC

@@ -6,7 +6,7 @@ type: concept
 tags: [anc, tonal, fan-noise, feedforward, feedback, fxlms, repetitive-control, industrial, reference]
 sources:
   - raw/Elliott-Nelson-ANC-IEEE-SPM-1993.txt
-  - raw/Kuo-Tsai-FxLMS-QuickReview-APSIPA2011.txt
+  - raw/Ardekani-Abdulla-FxLMS-QuickReview-APSIPA2011.txt
   - raw/ANC-Widrow-j1975adaptivenoise.txt
   - raw/ANC-for-LF.txt
 ---
@@ -248,9 +248,9 @@ by amplitude alone.
   total-radiated-power), ±0.6 dB / ±5° precision requirement for
   20 dB tonal reduction. See
   `entities/source-papers.md#paper-elliott-nelson-spm-1993`.
-- **Ardekani & Abdulla 2011** (APSIPA, misfiled as "Kuo-Tsai") —
-  FxLMS quick review with exact sinusoidal-input convergence-rate
-  analysis; directly grounds the narrowband case (§3). See
+- **Ardekani & Abdulla 2011** (APSIPA) — FxLMS quick review with
+  exact sinusoidal-input convergence-rate analysis; directly grounds
+  the narrowband case (§3). See
   `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.
 - **Widrow 1975** (*Proc. IEEE*) — sinusoidal-reference canceller
   ancestry. See [[lms-algorithm]].
@@ -270,4 +270,4 @@ See also: [[classical-anc-overview]] §8 (periodic-noise row),
 [[fxlms-algorithm]] (generic FxLMS update), [[ai-anc-overview]].
 
 [^elliott-nelson-1993]: S.J. Elliott & P.A. Nelson, "Active Noise Control," *IEEE Signal Processing Magazine*, Oct 1993, pp. 12–35. Distilled in `entities/source-papers.md#paper-elliott-nelson-spm-1993`.
-[^ardekani-abdulla-2011]: I. T. Ardekani & W. H. Abdulla, "FxLMS-based Active Noise Control: A Quick Review," *APSIPA ASC 2011*, Xi'an (filename inherited as "Kuo-Tsai" from staging — authors are Ardekani & Abdulla). Distilled in `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.
+[^ardekani-abdulla-2011]: I. T. Ardekani & W. H. Abdulla, "FxLMS-based Active Noise Control: A Quick Review," *APSIPA ASC 2011*, Xi'an. Distilled in `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.

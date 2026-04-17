@@ -9,7 +9,7 @@ sources:
   - raw/Betgen-Galland-HybridLiner-AppAcoust2012.txt
   - raw/Guicking-ActiveControl-Patents-Overview.txt
   - raw/Mei-DarkAcousticMetamaterial-NatComm2012.txt
-  - raw/Ghaffarivardavagh-VentilatedMetamaterial-arxiv1801.03613.txt
+  - raw/Wu-VentilatedMetamaterial-arxiv1801.03613.txt
   - raw/Ma-Sheng-AcousticMetamaterials-SciAdv2016.txt
 ---
 
@@ -150,11 +150,10 @@ through the absorber):**
   with only two layers, ventilation preserved through gaps between
   units. Purely passive, so more practical than CPA schemes (which
   need dynamically-generated counter-incident beams) and more robust
-  than prestress-sensitive membrane absorbers. (Filename staged as
-  "Ghaffarivardavagh" but arXiv 1801.03613 is Wu et al.;
-  Ghaffarivardavagh 2019 is a different, closely related group.)
+  than prestress-sensitive membrane absorbers.
 - **Ghaffarivardavagh et al. 2019** — final ultra-open silencer
-  (*Phys. Rev. B*). Pending PDF.
+  (*Phys. Rev. B*) — closely related but distinct group from Wu 2018.
+  Pending PDF.
 
 **Tunable-active families:**
 
@@ -238,7 +237,7 @@ produce a step increase in community noise.
 - Furstoss, M., Thenail, D., Galland, M.-A., *JSV* 1997 — earlier active duct liner.
 - Fang, N. et al., "Ultrasonic metamaterials with negative modulus," *Nature Materials* 2006.
 - Ma, Yang, Xiao, Yang & Sheng, *Nature Materials* 13:873, 2014 — hybrid-resonance metasurface.
-- Ghaffarivardavagh et al. 2019 (*Phys. Rev. B*) — final ultra-open silencer (the 2018 arXiv preprint ingested is Wu et al.).
+- Ghaffarivardavagh et al. 2019 (*Phys. Rev. B*) — final ultra-open silencer; closely related to but distinct from the 2018 arXiv preprint already ingested (Wu et al.).
 
 See also: [[classical-anc-overview]] §2–3 (adaptive filters and
 secondary-path modeling that still apply to the active layer),

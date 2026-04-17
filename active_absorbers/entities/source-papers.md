@@ -385,9 +385,9 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 
 ### paper-ardekani-fxlms-quickreview
 
-**"FxLMS-based Active Noise Control: A Quick Review"** — Iman Tabatabaei Ardekani & Waleed H. Abdulla (Univ. of Auckland) · *APSIPA ASC 2011*, Xi'an · `raw/Kuo-Tsai-FxLMS-QuickReview-APSIPA2011.txt`
+**"FxLMS-based Active Noise Control: A Quick Review"** — Iman Tabatabaei Ardekani & Waleed H. Abdulla (Univ. of Auckland) · *APSIPA ASC 2011*, Xi'an · `raw/Ardekani-Abdulla-FxLMS-QuickReview-APSIPA2011.txt`
 
-*Filename caveat:* staged as "Kuo-Tsai" but the authors are Ardekani & Abdulla — staging README mis-attributed it.
+*Filename history:* originally staged as "Kuo-Tsai-..." (staging README misattributed authors); renamed to `Ardekani-Abdulla-*` on 2026-04-17.
 
 - Short FxLMS survey: physical principles (superposition → destructive interference), how a silence zone is created (digital control driving a secondary source) and how it is expanded (multichannel + virtual sensing).
 - Covers SISO feedforward, feedback, and multichannel FxLMS configurations with filtered-reference via $\hat{S}(z)$.
@@ -462,9 +462,9 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 
 ### paper-wu-ventilated-metamaterial-2018
 
-**"High-efficiency Ventilated Metamaterial Absorber at Low Frequency"** — Xiaoxiao Wu, Ka Yan Au-Yeung, Xin Li, R. Christopher Roberts, Jingxuan Tian, Chuandeng Hu, Yingzhou Huang, Shuxia Wang, Zhiyu Yang, Weijia Wen (HKUST / Chongqing / HKU) · arXiv 1801.03613, 2018 (*APL* 2018) · `raw/Ghaffarivardavagh-VentilatedMetamaterial-arxiv1801.03613.txt`
+**"High-efficiency Ventilated Metamaterial Absorber at Low Frequency"** — Xiaoxiao Wu, Ka Yan Au-Yeung, Xin Li, R. Christopher Roberts, Jingxuan Tian, Chuandeng Hu, Yingzhou Huang, Shuxia Wang, Zhiyu Yang, Weijia Wen (HKUST / Chongqing / HKU) · arXiv 1801.03613, 2018 (*APL* 2018) · `raw/Wu-VentilatedMetamaterial-arxiv1801.03613.txt`
 
-*Filename caveat:* staged as "Ghaffarivardavagh" (whose *2019 Phys. Rev. B* ultra-open silencer is the better-known canonical reference). arXiv 1801.03613 is actually **Wu et al. 2018** — different group, same genre. Kept because it solves the same ventilation-vs-LF-absorption problem relevant to rooftop fans.
+*Filename history:* originally staged as "Ghaffarivardavagh-..." because Ghaffarivardavagh's *2019 Phys. Rev. B* ultra-open silencer is the better-known canonical reference in the same genre; arXiv 1801.03613 is actually **Wu et al. 2018**, a different group. Renamed to `Wu-VentilatedMetamaterial-*` on 2026-04-17. Kept in the catalog because it solves the same ventilation-vs-LF-absorption problem.
 
 - **Ventilated metamaterial absorber (VMA):** unit = two identical but oppositely-oriented split-tube resonators; gaps between units permit air or water flow.
 - Hybridization of the two resonators' degenerate eigenmodes breaks the **50% upper bound** on reflector-free symmetric absorbers.
