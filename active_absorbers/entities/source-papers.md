@@ -360,8 +360,24 @@ Comprehensive decade survey (2009–2020) of linear ANC algorithms. Companion Pa
 - **Novel 2010s methods:** psychoacoustic ANC (perceptual loudness weighting), sparse ANC (zero-attracting / proportionate NLMS), convex combination (fast + slow filter mixing $\lambda(n)$), fractional-order calculus updates (Grünwald–Letnikov), 3-D zone-of-quiet via spherical harmonics, **selective ANC** (pre-tuned filter bank — direct precursor to SFANC/GFANC), distributed ANC over WASNs (incremental IFxLMS + diffusion DFxNLMS).
 - **Bridges** Kuo & Morgan 1999 and Shi et al. 2023: covers the decade of algorithmic refinement between them. Explicitly cites Kuo & Morgan 1999 as ref [36].
 - **Selective ANC note:** Sec. 4.6 describes the pre-tuned filter-bank selection paradigm later scaled up by [Luo et al. 2023](#paper-luo-gfanc) and [Luo et al. 2024](#paper-luo-gfanc-rl).
-- **Part II not yet ingested** — covers FLANN-based nonlinear ANC, neural-network-based ANC (pre-deep-learning), genetic/PSO heuristic algorithms, and recent applications.
+- **Companion:** Part II (below) covers nonlinear ANC and applications.
 - Tags: anc, fxlms, lms, nlms, rls, secondary-path, stability, feedback, feedforward, hybrid-control, duct, room, industrial, reference, tutorial
+
+### paper-lu-anc-survey-part2-2021
+
+**"Active noise control techniques for nonlinear systems"** — Lu, Yin, de Lamare, Zheng, Yu, Yang, Chen · arXiv [2110.09672v2](https://arxiv.org/abs/2110.09672) / *Signal Processing* 181:107929, 2021 · `raw/ANC-Survey-Part2-NonlinearSystems-2110.09672v2.txt` · companion Part II to [Part I](#paper-lu-anc-survey-part1-2021)
+
+Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algorithms, heuristic methods, novel approaches, implementations, and applications that Part I's linear coverage does not reach.
+
+- **NLANC algorithm families (Sec. 3):** Volterra series (VFxLMS and robust variants — exponential cost growth), Hammerstein / Wiener / Hammerstein-Wiener block models, **FLANN** (trigonometric expansion — most popular NLANC controller), Chebyshev / Legendre / EMFN orthogonal polynomial filters, bilinear filters with diagonal-channel structure.
+- **Heuristic global optimization (Sec. 4):** GA, BSA, PSO, BFO, firefly, fireworks algorithms — many bypass secondary-path estimation entirely. PSO with Wilcoxon norm gains ~5 dB over MSE-based methods.
+- **Novel NLANC methods (Sec. 5):** spline adaptive filters (LUT-based, low cost, FIR/IIR variants), kernel adaptive filters (RKHS mapping via Gaussian/logistic kernels — good modeling but growing network size), nonlinear distributed ANC over WASNs.
+- **Implementations (Sec. 6):** DSP (fixed-point ~2 dB degradation), FPGA (filtered-weight FxLMS, parallel folding), VLSI (compact folded FsLMS).
+- **Applications (Sec. 6):** fMRI (>40 dB), open-window ANC (16-channel, 5 dB), headphones (feedback FxLMS, virtual sensing, CBBANC), zone-of-quiet, spatial ANC (mode-domain), periodic/repetitive noise (ILC+RC for exhaust), transformer hum (15 dB, 84–97% energy density reduction), vehicle ANC.
+- **Future challenges:** theoretical gaps for impulsive-noise convergence, KAF sparsification, IoT-ANC integration, computational complexity barrier for real-time NLANC, optimal parameter selection.
+- **Neural networks:** pre-deep-learning NN methods (RBF, RNN, fuzzy) mentioned from 1995–2008 but marginal in the 2009–2020 survey decade. The deep ANC wave (CRN, meta-learning, PINN, DRL) came after this paper's coverage window.
+- **Position in the wiki:** completes the Lu et al. 2021 two-part survey. Part I → linear foundations → Part II → nonlinear extensions. Together they bridge [[paper-kuo-morgan-anc-tutorial-1999]] (1999) and [[paper-shi-anc-review-2023]] (2023).
+- Tags: anc, fxlms, lms, secondary-path, stability, feedback, feedforward, duct, room, headphones, industrial, reference, tutorial
 
 ---
 

@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-16 | Concepts: 10 · Source papers in catalog: 27
+> Last updated: 2026-04-16 | Concepts: 11 · Source papers in catalog: 28
 
 ## Entities
 
@@ -73,11 +73,13 @@ cross-link.
 
 - [paper-kuo-morgan-anc-tutorial-1999](entities/source-papers.md#paper-kuo-morgan-anc-tutorial-1999) — Kuo & Morgan *Proc. IEEE* 1999: **the** canonical ANC tutorial; FxLMS derivation, secondary-path modeling, multichannel, duct/automotive/headphone applications
 - [paper-lu-anc-survey-part1-2021](entities/source-papers.md#paper-lu-anc-survey-part1-2021) — Lu et al. *Signal Processing* 2021: decade survey (2009–2020) of linear ANC; FxLMS/FeLMS/FuLMS families, 21 online secondary-path methods, selective ANC precursor to SFANC/GFANC, distributed ANC
+- [paper-lu-anc-survey-part2-2021](entities/source-papers.md#paper-lu-anc-survey-part2-2021) — Lu et al. *Signal Processing* 2021: decade survey (2009–2020) of **nonlinear ANC**; Volterra/FLANN/Hammerstein/bilinear/spline/kernel algorithms, GA/PSO/BFO heuristics, fMRI/headphone/vehicle/transformer applications
 
 ## Concepts
 
 ### Classical adaptive filtering
 
+- [classical-anc-overview](concepts/classical-anc-overview.md) — **Map of the territory**: all classical (non-AI) ANC methods — linear/nonlinear algorithms, heuristic optimization, control topologies, secondary-path modeling, applications, hardware; companion to ai-anc-overview
 - [lms-algorithm](concepts/lms-algorithm.md) — Widrow–Hoff LMS + adaptive noise-cancelling architecture (distilled from Widrow 1975)
 - [fxlms-algorithm](concepts/fxlms-algorithm.md) — Filtered-x LMS: LMS with secondary-path compensation for feedforward ANC; includes Latent FxLMS variant
 

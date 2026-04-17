@@ -151,3 +151,21 @@
 - **Kuo & Morgan 1999:** THE canonical ANC tutorial; Morgan co-derived FxLMS; covers broadband/narrowband feedforward, feedback, multichannel, online secondary-path modeling, lattice/freq-domain/subband/RLS, applications. Complements existing Widrow 1975 (LMS foundation) and Shi 2023 (modern review).
 - **Lu et al. 2021:** Decade survey (2009–2020) of linear ANC; three filter families (FxLMS/FeLMS/FuLMS), 21 online secondary-path methods, and novel methods (psychoacoustic, sparse, convex combination, fractional-order, 3-D, selective ANC, distributed). Bridges Kuo & Morgan 1999 and Shi 2023 temporally. Selective ANC (Sec. 4.6) is the direct precursor to SFANC/GFANC.
 - No concept-page updates needed — these are classical reference papers that strengthen the citation foundation; existing concept pages already cover the relevant algorithms.
+
+## [2026-04-16] ingest | Lu et al. 2021 Part II — nonlinear ANC decade survey
+- PDF: `/l/dttd/ANC-Survey-Part2-NonlinearSystems-2110.09672v2.pdf` (arXiv 2110.09672v2 / *Signal Processing* 181:107929, 2021)
+- Extracted via pdf2txt.py: `raw/ANC-Survey-Part2-NonlinearSystems-2110.09672v2.txt` (3996 lines)
+- Note: initial PDF (`ANC-Survey-Part2-NonlinearSystems-2021.pdf`) was only 1 page (a summary table image); second attempt (`2110.00531v1`) was Part I mislabeled; third attempt correct.
+- MANIFEST.md: appended 1 row.
+- SUMMARIES.md: added "Nonlinear ANC Survey Batch (2026-04-16)" section with dense summary covering NLANC algorithm families (Volterra, FLANN, Hammerstein, bilinear, Chebyshev/Legendre), heuristic methods (GA/PSO/BFO/BSA/FF/FWA), novel methods (spline, kernel, distributed), implementations (DSP/FPGA/VLSI), and applications (fMRI, headphones, vehicle, transformer, open-window, spatial ANC). Updated Part I cross-reference.
+- entities/source-papers.md: added `paper-lu-anc-survey-part2-2021` section; updated Part I entry to cross-reference Part II.
+- index.md: added entry under "Classical ANC reviews batch"; paper count 27 → 28.
+- No concept-page updates needed — this is a classical-era survey; the nonlinear algorithms it covers (Volterra, FLANN, etc.) predate the AI-ANC concept pages. The paper's coverage window (2009–2020) ends before the deep-learning ANC wave.
+
+## [2026-04-16] create | concepts/classical-anc-overview.md
+- New concept page: companion to ai-anc-overview.md covering all classical (non-AI) ANC methods.
+- Organizing axis: what type of model sits in the control path (linear FIR/IIR, nonlinear expansion, heuristic optimizer).
+- Sections: control topologies (feedforward/feedback/hybrid), linear algorithms (FxLMS family + FeLMS + FuLMS + lattice/convex/sparse/fractional), secondary-path modeling (21 methods), NLANC algorithms (Volterra, FLANN, Hammerstein, orthogonal polynomials, bilinear, spline, KAF), heuristic optimization (GA/PSO/BSA/BFO/FF/FWA), distributed ANC, novel 2010s methods (selective ANC, psychoacoustic, 3-D ZoQ, IoT), applications (10 domains), hardware implementations (DSP/FPGA/VLSI), open challenges.
+- Sources: all four ingested survey papers (Kuo & Morgan 1999, Lu Part I 2021, Lu Part II 2021, Shi 2023).
+- Index updated: Concepts 10 → 11; new entry at top of "Classical adaptive filtering" section.
+- Wikilinks: links to ai-anc-overview, lms-algorithm, fxlms-algorithm, neural-secondary-path, deep-rl-anc (≥2 outbound links satisfied).
