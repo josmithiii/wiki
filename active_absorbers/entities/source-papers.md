@@ -376,7 +376,7 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 - **Applications (Sec. 6):** fMRI (>40 dB), open-window ANC (16-channel, 5 dB), headphones (feedback FxLMS, virtual sensing, CBBANC), zone-of-quiet, spatial ANC (mode-domain), periodic/repetitive noise (ILC+RC for exhaust), transformer hum (15 dB, 84–97% energy density reduction), vehicle ANC.
 - **Future challenges:** theoretical gaps for impulsive-noise convergence, KAF sparsification, IoT-ANC integration, computational complexity barrier for real-time NLANC, optimal parameter selection.
 - **Neural networks:** pre-deep-learning NN methods (RBF, RNN, fuzzy) mentioned from 1995–2008 but marginal in the 2009–2020 survey decade. The deep ANC wave (CRN, meta-learning, PINN, DRL) came after this paper's coverage window.
-- **Position in the wiki:** completes the Lu et al. 2021 two-part survey. Part I → linear foundations → Part II → nonlinear extensions. Together they bridge [[paper-kuo-morgan-anc-tutorial-1999]] (1999) and [[paper-shi-anc-review-2023]] (2023).
+- **Position in the wiki:** completes the Lu et al. 2021 two-part survey. Part I → linear foundations → Part II → nonlinear extensions. Together they bridge [Kuo & Morgan 1999](#paper-kuo-morgan-anc-tutorial-1999) and [Shi et al. 2023](#paper-shi-anc-review-2023).
 - Tags: anc, fxlms, lms, secondary-path, stability, feedback, feedforward, duct, room, headphones, industrial, reference, tutorial
 
 ---
