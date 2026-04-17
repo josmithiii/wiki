@@ -179,6 +179,14 @@
 - **`incoming-pdfs/README.md` committed** with full file→page mapping, move-and-extract bash recipe, and an expanded "Still pending — grab via Stanford proxy" list covering Kuo & Morgan 1996 book, Elliott 2001 book, Swinbanks 1973, Chaplin 1983, Bodson/Sacks/Khosla 1994, Hara 1988, Olson & May 1953, Guicking 1984 papers, Furstoss 1997, Beyene & Burdisso 1997, Fang 2006, Ma 2014, Ma & Sheng 2016, Ghaffarivardavagh 2019 final, Zwicker & Fastl book, Aures 1985, Kuo & Tsai SPL, Rees & Elliott 2004, Zhou & DeBrunner 2007, ISO 1996-2 / DIN 45681 / ISO 532-1 / ANSI S12.9 Pt 3 standards, Beranek & Vér book, Hansen-Snyder book, Tyler & Sofrin 1962, Neise 1976, Neise & Koopmann 1980, Howe 1991.
 - Next: after JOS fetches remaining PDFs and moves everything into `/l/dttd/`, run `pdf2txt.py` and promote the four scaffold pages from primary sources.
 
+## [2026-04-17] stage | Ma & Sheng 2016 Science Advances (9th free PDF)
+- Delegated follow-up search for free-to-download versions of paywalled items to an Explore subagent.
+- Net win: Ma, G. & Sheng, P., "Acoustic metamaterials: from local resonances to broad horizons," *Science Advances* 2:e1501595, 2016 — author-hosted copy at HKUST Sheng-group page (Sci Adv is OA by policy).
+- Downloaded: `incoming-pdfs/Ma-Sheng-AcousticMetamaterials-SciAdv2016.pdf` (2.06 MB, verified real PDF).
+- README.md updated: new staged row under hybrid-active-passive, and "Still pending" entry struck through.
+- All other paywalled items confirmed paywalled (no legitimate open copy found for Fang 2006, Ma 2014, Ghaffarivardavagh 2019 PRB, Bodson/Sacks/Khosla 1994, Furstoss 1997, Zhou & DeBrunner 2007, Kuo & Tsai 1994, Hansen/Snyder/Qiu 2012, Rees & Elliott 2004). JOS to fetch via Stanford proxy.
+- NASA NTRS download retried with longer timeouts, still returned 504 HTML stubs. Stubs deleted; NTRS trio remains on "JOS to fetch by browser" list.
+
 ## [2026-04-17] create | 4 rooftop-fan ANC scaffold pages
 - Context: JOS asked whether the wiki was missing major contenders for data-center rooftop fan noise reduction (primary concern ~118 Hz BPF). Identified four topic gaps and created scaffold concept pages (sources: [] to be filled as primary literature is ingested).
 - New pages under concepts/:

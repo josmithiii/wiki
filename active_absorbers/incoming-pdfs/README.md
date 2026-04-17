@@ -50,6 +50,7 @@ After the files are moved and extracted, I (Claude) will:
 | `Guicking-ActiveControl-Patents-Overview.pdf` | https://www.guicking.de/dieter/Ov-oK16.pdf | Guicking personal page — patents overview covering active-impedance-control lineage |
 | `Mei-DarkAcousticMetamaterial-NatComm2012.pdf` | https://www.nature.com/articles/ncomms1758.pdf | *Nature Communications* open access — membrane locally-resonant metamaterial for LF absorption |
 | `Ghaffarivardavagh-VentilatedMetamaterial-arxiv1801.03613.pdf` | https://arxiv.org/pdf/1801.03613 | arXiv preprint — Fano-like ventilated sub-wavelength silencer (precursor to 2019 *Phys. Rev. B*) |
+| `Ma-Sheng-AcousticMetamaterials-SciAdv2016.pdf` | http://sheng.people.ust.hk/wp-content/uploads/2017/08/Acoustic-metamaterials-from-local-resonances-to-broad-horizons.pdf | HKUST Sheng-group page — *Science Advances* acoustic-metamaterials review (OA by Sci Adv policy; also at science.org + PMC) |
 
 ### → psychoacoustic-anc
 
@@ -89,7 +90,7 @@ blocks.
 - Beyene & Burdisso, *JASA* 101(3):1512, 1997 — hybrid passive/active absorber.
 - Fang et al., *Nature Materials* 5:452, 2006 — negative-modulus acoustic metamaterial.
 - Ma, Yang, Xiao, Yang & Sheng, *Nature Materials* 13:873, 2014 — hybrid-resonance metasurface.
-- Ma & Sheng, *Science Advances* 2:e1501595, 2016 — acoustic metamaterials review (likely open; worth checking).
+- ~~Ma & Sheng, *Science Advances* 2:e1501595, 2016~~ — **grabbed** from HKUST page (see staged files above).
 - Ghaffarivardavagh et al., *Phys. Rev. B* 99:024302, 2019 — final ultra-open silencer (preprint is staged above).
 
 ### psychoacoustic-anc
