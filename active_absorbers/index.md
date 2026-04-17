@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-16 | Concepts: 11 · Source papers in catalog: 28
+> Last updated: 2026-04-17 | Concepts: 15 · Source papers in catalog: 28
 
 ## Entities
 
@@ -82,6 +82,13 @@ cross-link.
 - [classical-anc-overview](concepts/classical-anc-overview.md) — **Map of the territory**: all classical (non-AI) ANC methods — linear/nonlinear algorithms, heuristic optimization, control topologies, secondary-path modeling, applications, hardware; companion to ai-anc-overview
 - [lms-algorithm](concepts/lms-algorithm.md) — Widrow–Hoff LMS + adaptive noise-cancelling architecture (distilled from Widrow 1975)
 - [fxlms-algorithm](concepts/fxlms-algorithm.md) — Filtered-x LMS: LMS with secondary-path compensation for feedforward ANC; includes Latent FxLMS variant
+
+### Rooftop-fan / tonal ANC *(project focus — scaffolds)*
+
+- [tonal-periodic-anc](concepts/tonal-periodic-anc.md) — **BPF-tonal ANC**: tacho-referenced synchronous reference, FxLMS-SF, adaptive notch, RC/ILC, harmonic bank — the narrowband specialization for rotating machinery
+- [hybrid-active-passive](concepts/hybrid-active-passive.md) — **Hybrid absorbers**: active impedance control, active duct liners, tunable / piezo-coupled metamaterials, semi-active Helmholtz
+- [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, differentiable perceptual losses
+- [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page**: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods
 
 ### AI-based ANC approaches *(project focus)*
 

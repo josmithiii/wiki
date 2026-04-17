@@ -89,6 +89,9 @@ and must not be promoted to entity pages without explicit instruction.
 - feedforward — feedforward controller topology
 - feedback — feedback controller topology
 - hybrid-control — combined feedforward + feedback
+- hybrid-passive — combined active + passive treatment (not a controller topology)
+- tonal — narrowband / periodic (e.g. BPF) noise control
+- repetitive-control — RC / ILC / IMC for strictly periodic disturbances
 
 ### Algorithms / Adaptive DSP
 - lms — least-mean-square adaptive filter
@@ -118,6 +121,9 @@ and must not be promoted to entity pages without explicit instruction.
 - enclosure — active sound package, cabin noise
 - room — room-mode control, active bass traps
 - industrial — industrial / machinery noise
+- fan-noise — rotating-machinery / cooling-fan / blade-passing-frequency noise
+- psychoacoustic — perceptual weighting, tonality penalty, loudness-based cost
+- passive — passive absorbers / silencers / barriers (used as context for hybrid and out-of-scope pointer pages)
 
 ### Meta
 - comparison — side-by-side analysis

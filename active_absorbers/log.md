@@ -162,6 +162,17 @@
 - index.md: added entry under "Classical ANC reviews batch"; paper count 27 → 28.
 - No concept-page updates needed — this is a classical-era survey; the nonlinear algorithms it covers (Volterra, FLANN, etc.) predate the AI-ANC concept pages. The paper's coverage window (2009–2020) ends before the deep-learning ANC wave.
 
+## [2026-04-17] create | 4 rooftop-fan ANC scaffold pages
+- Context: JOS asked whether the wiki was missing major contenders for data-center rooftop fan noise reduction (primary concern ~118 Hz BPF). Identified four topic gaps and created scaffold concept pages (sources: [] to be filled as primary literature is ingested).
+- New pages under concepts/:
+  - `tonal-periodic-anc.md` — BPF-tonal ANC: tacho-referenced synchronous reference generation, single-frequency FxLMS-SF, adaptive notch, Internal-Model Principle / Repetitive Control / ILC, harmonic ANC (BPF + k·BPF), AI-era extensions (meta-learning, RL, selective).
+  - `hybrid-active-passive.md` — Active impedance control (Olson 1953, Guicking), hybrid active duct liners (Beyene/Burdisso, Furstoss), tunable / piezo-coupled metamaterials (Fang/Mei/Ma lineage), semi-active Helmholtz. Motivation: passive λ/4 ≈ 0.7 m at 118 Hz vs thin active layer.
+  - `psychoacoustic-anc.md` — Tonality and loudness cost functions: ISO 1996-2 $K_T$, DIN 45681, ANSI S12.9 Pt 3, Zwicker loudness, Aures sharpness, roughness. Tonal-to-broadband reshaping. Differentiable perceptual losses for deep ANC.
+  - `rooftop-fan-contenders.md` — Explicit **out-of-scope pointer page**: source mods (uneven blade spacing, sweep, serrations), operational (staggered RPM, Abali 2007 phasing), passive (Helmholtz arrays, membrane AMs, metamaterials), silencers, distance/siting, receiver-side mitigation. Cross-linked to all four new in-scope pages and the existing Abali/Guerci entity entries.
+- SCHEMA.md taxonomy updated: added tags `hybrid-passive`, `tonal`, `repetitive-control` (Core ANC) and `fan-noise`, `psychoacoustic`, `passive` (Applications).
+- index.md: new subsection "Rooftop-fan / tonal ANC (project focus — scaffolds)" listing the 4 pages above; Concepts count 11 → 15; date 2026-04-16 → 2026-04-17.
+- No source ingestion this pass — pages are scaffolds with "Pending sources" blocks listing the primary literature to pursue (Kuo & Morgan 1996 book, Elliott 2001, Guicking tutorial, Beyene/Burdisso 1997, Furstoss 1997, Ma & Sheng 2016 Science Adv., Zwicker & Fastl textbook, Beranek & Vér, Neise 1980, Ghaffarivardavagh 2019, etc.).
+
 ## [2026-04-16] create | concepts/classical-anc-overview.md
 - New concept page: companion to ai-anc-overview.md covering all classical (non-AI) ANC methods.
 - Organizing axis: what type of model sits in the control path (linear FIR/IIR, nonlinear expansion, heuristic optimizer).
