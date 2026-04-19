@@ -15,6 +15,8 @@ Wikilink resolution rules:
   - [[subdir/bare-name]]          → match wikilinks ending in subdir/bare-name.md
   - [[subwiki/path/bare-name]]    → exact path under OUT_DIR
   - [[bare-name|Display Text]]    → use Display Text as link label
+  - [[bare-name#heading]]         → link to heading anchor in bare-name.md
+  - [[#heading]]                  → link to heading in the same file
 """
 import os
 import re
@@ -110,9 +112,19 @@ def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
                      by_bare, by_relpath) -> str:
     """Return a relative HTML path from source_md to the target .md."""
     target = target.strip()
+    # Split off optional "#anchor" fragment (Obsidian section link)
+    anchor = ""
+    if "#" in target:
+        target, anchor = target.split("#", 1)
     # Strip optional .md extension
     if target.endswith(".md"):
         target = target[:-3]
+
+    # Same-file anchor: [[#heading]]
+    if not target:
+        if anchor:
+            return f"#{anchor}"
+        return None
 
     # Try exact relative-path match first (e.g. "modal_synthesis/comparisons/waveguide-vs-modal")
     if target in by_relpath:
@@ -142,6 +154,8 @@ def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
     # Compute relative HTML path from source_md's directory to dst (with .html)
     dst_html = dst.with_suffix(".html")
     rel = os.path.relpath(dst_html, source_md.parent)
+    if anchor:
+        rel = f"{rel}#{anchor}"
     return rel
 
 
@@ -196,7 +210,11 @@ def convert_wikilinks(content: str, source_md: Path, out_dir: Path,
             target, display = inner.split("|", 1)
         else:
             target = inner
-            display = inner.split("/")[-1]
+            file_part, _, anchor = inner.partition("#")
+            if file_part:
+                display = file_part.split("/")[-1]
+            else:
+                display = anchor or inner
         rel = resolve_wikilink(target, source_md, out_dir, by_bare, by_relpath)
         if rel is None:
             broken.append(target)
