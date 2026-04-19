@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-17 | Concepts: 15 · Source papers in catalog: 37
+> Last updated: 2026-04-18 | Concepts: 15 · Source papers in catalog: 44
 
 ## Entities
 
@@ -97,6 +97,29 @@ cross-link.
 
 - [paper-rivera-psychoacoustic-hybrid-anc-2018](entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018) — Rivera Benois, Papantoni & Zölzer *ICSV25* 2018: hybrid FeLMS-psy (ITU-R 468) + MVC feedback; FPGA headphone prototype; Zwicker/Aures metric evaluation
 
+### NASA NTRS + classical-ANC batch (2026-04-18)
+
+*Eight papers: NASA NTRS trio (Brooks airfoil self-noise + Sutliff ANC + ANCF 20-year retrospective), Bodson-group adaptive periodic-disturbance pair, Guicking bilingual ANVC overview, and one renamed metamaterials review.*
+
+#### NASA fan-noise literature (promotes [[rooftop-fan-contenders]] from scaffold)
+
+- [paper-brooks-pope-marcolini-airfoil-selfnoise-1989](entities/source-papers.md#paper-brooks-pope-marcolini-airfoil-selfnoise-1989) — Brooks, Pope, Marcolini *NASA RP-1218* 1989: canonical BPM airfoil self-noise; 5 mechanisms on NACA 0012 setting broadband floor for tonal-ANC analyses
+- [paper-sutliff-ancf-ge-anc-1997](entities/source-papers.md#paper-sutliff-ancf-ge-anc-1997) — Sutliff, Hu, Pla, Heidelberg *NASA TM-107458 / AIAA-97-1641* 1997: first full modal-control ANC on 48-inch ANCF — (6,0) eliminated at 920 Hz, 9.4 dB 2BPF farfield PWL reduction
+- [paper-sutliff-ancf-20yr-retrospective-2019](entities/source-papers.md#paper-sutliff-ancf-20yr-retrospective-2019) — Sutliff *AIAA* 2019: ANCF 1994–2016 history, ~100 publications, Rotating Rake + CFANS, HQ-tubes & Over-the-Rotor Foam Metal Liner path to flight
+
+#### Adaptive periodic-disturbance rejection (extends [[tonal-periodic-anc]] §3)
+
+- [paper-bodson-douglas-sinusoidal-rejection](entities/source-papers.md#paper-bodson-douglas-sinusoidal-rejection) — Bodson & Douglas *Automatica* 1997: indirect vs direct PLL-style adaptive algorithms for unknown-frequency sinusoidal disturbance
+- [paper-bodson-jensen-douglas-anc-periodic](entities/source-papers.md#paper-bodson-jensen-douglas-anc-periodic) — Bodson, Jensen, Douglas *IEEE TCST* 2001: multi-harmonic extension with integer-tied frequency estimates; single-mic feedback ANC validated on testbed
+
+#### ANVC overview pair
+
+- [paper-guicking-anvc-overview](entities/source-papers.md#paper-guicking-anvc-overview) — Guicking 2008 bilingual overview of *Active Control of Sound and Vibration*: ANC+AVC+flow-control history, JMC theory, algorithms, active-impedance thread from his own Göttingen group (closest open-access coverage of Guicking & Karcher 1984)
+
+#### Metamaterials (renamed)
+
+- [paper-song-acoustic-metamaterials-review-2021](entities/source-papers.md#paper-song-acoustic-metamaterials-review-2021) — Song, Ding, Cui, Hu *Molecules* 2021: acoustic-metamaterials review by meta-atom / meta-molecule taxonomy (staged as "Fang-2006" by mistake; renamed 2026-04-18 — Fang 2006 primary paper remains pending)
+
 ## Concepts
 
 ### Classical adaptive filtering
@@ -110,7 +133,7 @@ cross-link.
 - [tonal-periodic-anc](concepts/tonal-periodic-anc.md) — **BPF-tonal ANC**: tacho-referenced synchronous reference, FxLMS-SF, adaptive notch, RC/ILC, harmonic bank — the narrowband specialization for rotating machinery; sourced from Elliott-Nelson 1993, Ardekani-Abdulla 2011
 - [hybrid-active-passive](concepts/hybrid-active-passive.md) — **Hybrid absorbers**: active impedance control, Galland/Betgen active duct liners, Mei/Wu/Ma-Sheng metamaterials (including ventilated), semi-active Helmholtz, tunable piezo
 - [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, Rivera/Zölzer ITU-R 468 hybrid, differentiable perceptual losses
-- [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page** *(still scaffold — awaits NASA NTRS trio)*: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods
+- [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page**: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods; now includes §4.5 NASA fan-noise literature distilled from the Brooks 1989 / Sutliff 1997 / Sutliff 2019 NTRS trio
 
 ### AI-based ANC approaches *(project focus)*
 

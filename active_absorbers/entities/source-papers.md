@@ -1,7 +1,7 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-04-17
+updated: 2026-04-18
 type: entity
 tags: [reference, comparison]
 ---
@@ -505,6 +505,114 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 
 ---
 
+## NASA NTRS + classical-ANC batch (2026-04-18)
+
+Eight PDFs staged by JOS after the 2026-04-17 batch: the NASA NTRS trio (Brooks, Sutliff 1997, Sutliff 2019 — all three recovered via browser), two Bodson-group papers on adaptive periodic-disturbance rejection, a Guicking bilingual pair covering the full ANVC history/state-of-the-art, and one misfiled file that turned out to be the Song et al. 2021 acoustic-metamaterials review (renamed).
+
+### paper-brooks-pope-marcolini-airfoil-selfnoise-1989
+
+**"Airfoil Self-Noise and Prediction"** — Thomas F. Brooks, D. Stuart Pope, Michael A. Marcolini (NASA Langley / PRC Kentron) · *NASA Reference Publication 1218*, July 1989 · `raw/Brooks-Pope-Marcolini-NASA-RP1218-1989.txt`
+
+- **The** canonical NACA 0012 airfoil self-noise report; BPM prediction method is named after these authors and is still the default broadband airfoil-noise source model in aeroacoustic codes (e.g., NAFNoise, OpenFAST).
+- Five separable mechanisms identified and modeled:
+  1. **Turbulent boundary-layer trailing-edge (TBL-TE) noise** — dominant at moderate Reynolds numbers; separate pressure- and suction-side contributions.
+  2. **Separation-stall noise** — broadband rise at high angle of attack when flow separates.
+  3. **Laminar-boundary-layer vortex-shedding (LBL-VS) noise** — tonal; occurs on untripped blades at low Re.
+  4. **Tip-vortex formation noise** — 3-D broadband contribution from finite-span tip flows.
+  5. **Trailing-edge-bluntness vortex-shedding noise** — tonal; suppressed by sharp TE.
+- Empirical prediction directivity and spectra fitted to anechoic-wind-tunnel data across a chord × velocity × α matrix; full empirical equations in §5–7.
+- Relevance for rooftop fans: fan blade self-noise sets the **broadband floor** that active cancellation cannot reduce. A rooftop-fan active controller targets the BPF-tonal component on top of this broadband self-noise, so BPM predictions bound the achievable SPL reduction when the tonal is removed. Also the foundation for trailing-edge serration / brush / porous-TE passive mitigations surveyed in [[rooftop-fan-contenders]].
+- Not an ANC paper; used as a source-mechanism reference.
+- Tags: fan-noise, acoustics, reference, tutorial
+
+### paper-sutliff-ancf-ge-anc-1997
+
+**"Active Noise Control of Low Speed Fan Rotor-Stator Modes"** — Daniel L. Sutliff (AYT), Ziqiang Hu & Frederic G. Pla (GE Corporate R&D), Laurence J. Heidelberg (NASA Lewis) · *NASA Technical Memorandum 107458 / AIAA-97-1641*, 3rd AIAA/CEAS Aeroacoustics Conference, Atlanta, May 1997 · `raw/Sutliff-ANC-LowSpeedFan-TM107458-1997.txt`
+
+- **First full modal-control ANC demonstration** on the NASA Lewis 48-inch Active Noise Control Fan (ANCF). Controller designed and built by GE; rig operated by NASA.
+- **Modal-control approach:** each propagating acoustic duct mode (spinning $(m,n)$ from Tyler-Sofrin) is cancelled by a dedicated canceling modal signal driven onto a ring of flush-mounted in-duct loudspeakers — not a waveform-level FxLMS, but per-mode amplitude/phase adaptation referenced to a shaft encoder (tonal, rotor-locked) and sensed by an in-duct error-mic array.
+- **Headline results at 2BPF:**
+  - (6,0) mode **completely eliminated** at 920 Hz; 13 dB reduction at 2BPF modal level.
+  - Simultaneous (4,0) + (4,1) control → **15 dB modal PWL reduction**.
+  - Total 2BPF farfield sound power reduced **9.4 dB**.
+- **Actuator/sensor design trade:** ring-source simulation shows that for high solidity (>0.5) adding more actuators hardly helps; for low solidity (<0.5) more actuators help substantially. Chosen array minimizes actuator count + solidity + spillover into uncontrolled higher-order modes.
+- Test fan: 16 blades × 26 vanes at 1886 RPM, BPF ≈ 503 Hz (cut-off), 2BPF ≈ 1006 Hz with cut-on modes (6,0) and (6,1). Duct I.D. 4 ft, center-body 2 ft.
+- **Directly relevant to rooftop fans:** the modal-control topology is the canonical "many-speaker ring inside the duct" configuration that rooftop-fan designers consider; 9.4 dB total 2BPF reduction is a realistic upper bound for multimode in-duct cancellation at a single harmonic. For the rooftop-fan problem (low BPF, short duct, few modes) a simpler SISO/FxLMS may suffice, but this paper is the benchmark for the ring-source-array alternative.
+- Part of the ANCF program whose two decades of results are retrospectively surveyed in [[paper-sutliff-ancf-20yr-retrospective-2019]].
+- Tags: anc, fan-noise, duct, loudspeaker, microphone, array, tonal, feedforward, reference
+
+### paper-sutliff-ancf-20yr-retrospective-2019
+
+**"A 20 Year Retrospective of the Advanced Noise Control Fan — Contributions to Turbofan Noise Research"** — Daniel L. Sutliff (NASA Glenn) · *25th AIAA/CEAS Aeroacoustics Conf.*, 2019 · `raw/Sutliff-ANCF-20Year-Retrospective-2019.txt`
+
+- History and contribution summary of the **Advanced Noise Control Fan (ANCF)** — originally **Active** Noise Control Fan — a 4-ft-diameter ducted low-speed fan testbed conceived by Heidelberg at NASA Glenn (nee Lewis) in the early 1990s and operated there 1994–2016 before transfer to the University of Notre Dame.
+- Nominal: 1886 RPMc, tip speed ~400 ft/s, $M_\text{inlet} \approx 0.15$, BPF ≈ 500 Hz. Range 100–2400 RPMc; 250 Hz – 2.5 kHz band of interest for EPNL.
+- 16 variable-pitch blades (18°/28°/38°), configurable stator-vane count (13/14/15/26/28/30) at 0.5/1/2-chord spacings, interchangeable rotor/stator/ICD/spinner, inlet-rod disturbance generators.
+- **Rotating Rake** is the sine qua non: combined with Tyler-Sofrin modal theory, it gives a complete map of propagating spinning modes in a ducted fan — the diagnostic tool that made ANCF's ANC and liner studies possible.
+- **CFANS** (Configurable Fan Artificial Noise System): 4 × 16 ring-array of in-wall electromagnetic drivers; lets experimenters generate / control specific $(m, n)$ circumferential modes independently of the real fan ($|m|\le 7$, $f \le 1500$ Hz).
+- **Programmatic impact:** ~100 publications; tested essentially all NASA fan-noise-reduction concepts. Two that went straight from ANCF proof-of-concept to full-engine validation: HQ-tubes on Honeywell TECH7000 and Over-the-Rotor Foam Metal Liner on Williams International FJ44. Manufacturing for an advanced liner flown on a 737 MAX was validated on ANCF first.
+- TRL ≈ 2–3 — explicitly a low-cost, "Fail-Smart" early-stage testbed.
+- **For the rooftop-fan problem:** ANCF is the closest publicly-documented aeroacoustic analog — same modal-duct physics, same BPF regime, documented outcomes of ANC + liner + source-modification interventions over 20 years. Single best entry point into the NASA fan-noise literature for an open-source wiki.
+- Tags: fan-noise, duct, anc, history, reference
+
+### paper-bodson-douglas-sinusoidal-rejection
+
+**"Adaptive Algorithms for the Rejection of Sinusoidal Disturbances with Unknown Frequency"** — Marc Bodson & Scott C. Douglas (Univ. of Utah) · *Automatica* 33(12):2213–2221, 1997 (this extraction is the preprint) · `raw/Bodson-AdaptiveAlgorithms-SinusoidalRejection.txt`
+
+- Problem: cancel $d(t) = \theta_1^* \cos(\alpha_d(t))$ where frequency $\omega_1^* = \dot\alpha_d$ is **unknown and time-varying**; plant $P(s)$ is stable LTI and known (not adapted).
+- **Two complementary algorithms:**
+  1. *Indirect* — separate frequency estimator (notch/phase-locked gradient) supplies $\hat\omega_1(t)$ to an amplitude/phase adaptation loop that drives the control magnitude/phase to the inverted $P(j\omega)$.
+  2. *Direct* — single PLL-style recursion that updates frequency, amplitude, and phase jointly (continuous-time gradient).
+- **Trade-off** (the paper's core contribution): indirect has a **larger capture region** (global frequency estimation); direct has **superior local convergence** around the true estimate. Hybrid initializer → local switcher is the obvious engineering recipe.
+- Closed-form approximate analyses give design-parameter guidelines for both algorithms and simulations verify the predictions.
+- Background lineage cited: Emborg & Ross 1993 (turboprop cabin ANC), Shoureshi & Knurek 1996 (automotive engine ANC), Eriksson 1988 (HVAC feedback ANC), and the internal-model-principle (IMP) + adaptive pole-placement thread (Bodson/Sacks/Khosla 1994 etc.).
+- **Not** the pending Bodson/Sacks/Khosla 1994 *IEEE TAC* paper, but closely related by authorship and scope; covers the same conceptual space — single-tone, unknown-frequency, adaptive rejection — with explicit PLL-style algorithms and analyses that the 1994 paper does not provide. Good substitute primary source for [[tonal-periodic-anc]] §adaptive-notch and §harmonic-tracking discussions.
+- Tags: anc, tonal, feedback, lms, stability, reference
+
+### paper-bodson-jensen-douglas-anc-periodic
+
+**"Active Noise Control for Periodic Disturbances"** — Marc Bodson, Jonathan S. Jensen, Scott C. Douglas (Univ. of Utah) · *IEEE Trans. Control Systems Technology* 9(1):200–205, Jan 2001 (this extraction is the preprint) · `raw/Bodson-ANC-Application.txt`
+
+- Extension of [[paper-bodson-douglas-sinusoidal-rejection]] from a single sinusoid to a **multi-harmonic periodic disturbance** $d(t) = \sum_{k=1}^{n} d_k \cos(\alpha_{k,d}(t))$ with $\dot\alpha_{k,d} = k\omega_1$ and all $d_k, \omega_1, \alpha_{k,d}(0)$ unknown.
+- Key design choice: **tie the per-harmonic frequency estimates together via the integer-multiple constraint**, rather than running $n$ independent frequency estimators. A single $\omega_1$ update derives from a weighted sum of the harmonic-channel gradients.
+- Only a **single error microphone** is used — pure *feedback* configuration, in contrast to the feedforward FxLMS canon. No reference sensor, no secondary-path pre-identification (beyond the known stable $P(s)$).
+- Closed-loop dynamic analysis via an averaged approximation; experimentally validated on a laboratory ANC testbed on fundamental + 3rd harmonic (authors note other harmonics can be masked out as known-small a priori).
+- **Directly relevant to rooftop fans** — the tonal hum at BPF and its first few harmonics, with frequency drifting as RPM varies with ambient load/temperature, is exactly this paper's problem. Single-mic feedback bypasses the upstream-reference-sensor challenge of a rooftop HVAC duct.
+- Companion to Bodson/Douglas 1997 on the continuous-time side; together they are a strong alternative to the FxLMS-SF + adaptive-notch line for the tonal rooftop-fan problem.
+- Tags: anc, tonal, feedback, lms, duct, industrial, reference
+
+### paper-guicking-anvc-overview
+
+**"Active Control of Sound and Vibration — History, Fundamentals, and State of the Art"** (English) & **"Aktive Lärm- und Schwingungsminderung — Ein Überblick"** (German, Dec 2008) — Dieter Guicking (Drittes Physikalisches Institut, Univ. Göttingen) · `raw/Guicking-Festschrift-ActiveImpedance.txt` · `raw/Guicking-ANVC-Overview.txt`
+
+- **Bilingual pair of the same broad ANVC overview** — English and German versions were ingested together; content is parallel. Complements the earlier 2009 patents overview ([[paper-guicking-patents-overview]]) with a research-literature-focused survey.
+- Coverage (both versions):
+  - **Active Noise Control** — early investigations (Rayleigh 1878, Coanda, **Lueg 1933/1934**, Olson 1953, Olson & May 1956); the *energy objection* and its resolution (secondary sources can absorb primary-field energy when properly placed/driven; Nelson/Elliott absorption cross-section $A = \lambda^2/4\pi$); **JMC theory** (Jessel-Mangiante-Canevet) — Huygens-surface formulation with tripoles (monopole + dipole = cardioid) acting as perfectly-matched absorbers; 1-D duct algorithms (FxLMS, feedback cancellation, error-path ID); interaction of primary/secondary sources; **waveform synthesis for (quasi)periodic noise**; small-volume / personal-protection ANC; local cancellation; 3-D fields in enclosures; free-field ANC.
+  - **Active Vibration Control** — early applications, beams/plates/structures, vibration isolation, civil-engineering structures, active/adaptive optics, ASAC (active structural-acoustic control), sound-transmission control, control of nonlinear dynamical systems.
+  - **Active Flow Control** — brief; plasma actuators, jet-edge flow, separation control.
+- **On active impedance control:** traces the concept to Guicking's own Göttingen group — GUICKING/KARCHER 1984 "Active Impedance Control for One-Dimensional Sound" and GUICKING/MELCHER/WIMMEL 1989 "Active Impedance Control in Mechanical Systems" — cited inline and in the reference list. This is the **closest open-access version** of the Guicking & Karcher 1984 content requested in the pending list; the full 1984 paper remains behind a paywall.
+- **Precision benchmark** restated: 20 dB reduction of a pure tone requires the compensation amplitude within 1 dB and phase within 6° across **all frequency components** — matches the Elliott-Nelson 1993 benchmark and confirms it as the canonical number.
+- **Reference list** (~400 entries, German version has a few more) is a high-density pointer to the ANC/AVC literature through mid-2008, including many German-only references hard to reach otherwise.
+- Tags: anc, active-impedance, active-absorber, feedback, feedforward, fan-noise, history, tutorial, reference
+
+### paper-song-acoustic-metamaterials-review-2021
+
+**"Research Progress and Development Trends of Acoustic Metamaterials"** — Hao Song, Xiaodong Ding, Zixian Cui, Haohao Hu (Systems Engineering Research Institute, Beijing; JUST) · *Molecules* 26:4018, 2021 · `raw/Song-AcousticMetamaterials-Review-Molecules2021.txt`
+
+*Filename history:* originally staged as `Fang-NegativeModulus-Metamaterial-NatMat-2006.pdf` (JOS was reaching for the Fang 2006 *Nature Materials* negative-modulus paper, which remains pending). On extraction the content was identified as the Song et al. 2021 *Molecules* review (Fang 2006 appears as its reference [33]). PDF, symlink, and `.txt` renamed to `Song-AcousticMetamaterials-Review-Molecules2021.*` on 2026-04-18; the Fang 2006 primary source stays on the pending list.
+
+- Decade-and-a-half acoustic-metamaterials review organized by a **meta-atom / meta-molecule taxonomy** rather than chronologically. Complements [[paper-ma-sheng-metamaterials-review-2016]] (Ma & Sheng 2016 *Sci. Adv.*) with more recent (2017–2020) papers and with a more structural classification.
+- Taxonomy:
+  - **Meta-atomic (MAAM)** — single locally-resonant unit. *Split hollow sphere (SHS)* → negative modulus. *Hollow tube (HT)* with open ends → negative mass density. Both modeled as lumped L-C circuits.
+  - **Meta-molecular (MMAM)** — SHS embedded in HT ("flute-like" perforated tube) gives **double-negative** AM at a single resonance.
+  - **Meta-atom cluster / meta-molecule cluster** — arrays of different-sized units broaden the double-negative band.
+- Applications surveyed: negative refraction, subwavelength imaging (acoustic super-lens + hyperlens), acoustic cloaks (3-D carpet cloak, broadband ultrasonic cloak), anomalous Doppler, acoustic diodes, **perfect/super absorbers** (Mei et al. 2012 dark acoustic metamaterial is the canonical example), acoustic metasurfaces for wavefront manipulation.
+- Uses simple L-C resonance formulas — $f_0 = 1/(2\pi\sqrt{LC})$ with $L = \rho_0 l / S$, $C = V / (\rho_0 c_0^2)$ — as a unifying design language across SHS, HT, and meta-molecule units.
+- Positioning for this wiki: a **second metamaterials reference** to pair with Ma & Sheng 2016 on [[hybrid-active-passive]]. Use Ma & Sheng for physics depth; use Song for the meta-atom/meta-molecule vocabulary and a more 2019-2020-heavy reference list. Does **not** replace Fang 2006, Mei 2012, Wu 2018 as primary sources.
+- Tags: metamaterial, acoustics, impedance, passive, reference, tutorial
+
+---
+
 ## Pending ingestion (no PDF in `/l/dttd/` yet)
 
 These are referenced in concept-page footnotes but have no `raw/` extraction:
@@ -512,4 +620,6 @@ These are referenced in concept-page footnotes but have no `raw/` extraction:
 - **Morgan 1980** — "An Analysis of Multiple Correlation Cancellation Loops with a Filter in the Auxiliary Path," *IEEE Trans. ASSP* 28(4):454–467. Paywalled at IEEE. Earliest known FxLMS filtered-x analysis, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Kuo & Morgan, *Active Noise Control Systems*, Wiley 1996.
 - **Burgess 1981** — "Active Adaptive Sound Control in a Duct: A Computer Simulation," *J. Acoust. Soc. Am.* 70(3):715–726. Paywalled at AIP/ASA. Earliest known full adaptive duct-ANC simulation, referenced by [[fxlms-algorithm]]. Secondary-source fallback: Elliott, *Signal Processing for Active Control*, Academic Press 2001.
 - **Ryu, Lim, Lee 2024** — "Narrowband Active Noise Control with DDPG Based on Reinforcement Learning," *International Journal of Automotive Technology*. Paywalled at Springer; no arXiv preprint surfaced. Would fill the continuous-drive DRL-ANC gap on [[deep-rl-anc]].
-- **NASA NTRS trio** — Brooks, Pope & Marcolini 1989 *Airfoil Self-Noise and Prediction* (RP-1218); Sutliff et al. 1997 *Active Noise Control of Low Speed Fan Rotor-Stator Modes* (TM-107458); Sutliff 2019 *A 20-Year Retrospective of the Advanced Noise Control Fan*. All three NTRS downloads returned 504 Gateway Time-out HTML pages (including the `Sutliff-AdvancedNoiseControlFan-20yrRetro-NASA-2019.pdf` that briefly appeared in staging — caught on extraction and removed). JOS to fetch via browser. Needed to promote the `rooftop-fan-contenders` scaffold concept page.
+- **Fang et al. 2006** — "Ultrasonic metamaterials with negative modulus," *Nature Materials* 5:452–456. Paywalled at Springer Nature. Original negative-modulus acoustic-metamaterial paper; second-hand coverage in Ma & Sheng 2016 and Song 2021 is available in the wiki but the original experimental derivation is not.
+- **Bodson/Sacks/Khosla 1994** — "Harmonic Generation in Adaptive Feedforward Cancellation Schemes," *IEEE Trans. Automatic Control* 39(9):1939–1944. Paywalled at IEEE. IMP-based adaptive harmonic cancellation. Partial coverage now via Bodson/Douglas 1997 + Bodson/Jensen/Douglas 2001 in this catalog.
+- **Guicking & Karcher 1984** — "Active Impedance Control for One-Dimensional Sound," *ASME J. Vibration, Acoustics, Stress, and Reliability in Design* 106:393. Paywalled at ASME. The foundational experimental active-impedance paper. Covered indirectly via [[paper-guicking-anvc-overview]].

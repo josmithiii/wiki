@@ -1,10 +1,13 @@
 ---
 title: Rooftop-Fan Noise — Out-of-Scope Contenders (pointer page)
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-04-18
 type: concept
 tags: [fan-noise, passive, metamaterial, industrial, reference]
-sources: []
+sources:
+  - raw/Brooks-Pope-Marcolini-NASA-RP1218-1989.txt
+  - raw/Sutliff-ANC-LowSpeedFan-TM107458-1997.txt
+  - raw/Sutliff-ANCF-20Year-Retrospective-2019.txt
 ---
 
 # Rooftop-Fan Noise — Out-of-Scope Contenders
@@ -118,6 +121,29 @@ Last resort, but occasionally cheapest.
 - **Regulatory / schedule change** — noise-sensitive hours
   curtailment.
 
+## 4.5 NASA fan-noise literature (now distilled)
+
+NASA's Advanced Noise Control Fan (ANCF) is the closest publicly-
+documented aeroacoustic analog of the rooftop-fan problem — 4-ft ducted
+low-speed fan, BPF ≈ 500 Hz, documented ANC + liner + source-modification
+outcomes over two decades.
+
+- **Broadband-noise floor reference** — Brooks, Pope & Marcolini 1989
+  NASA RP-1218: canonical BPM airfoil self-noise prediction with 5
+  mechanisms (TBL-TE, separation-stall, LBL-VS, tip-vortex,
+  TE-bluntness). Sets the broadband floor that tonal ANC cannot
+  reduce. See [paper-brooks-pope-marcolini-airfoil-selfnoise-1989](../entities/source-papers.md#paper-brooks-pope-marcolini-airfoil-selfnoise-1989).
+- **In-duct modal ANC benchmark** — Sutliff, Hu, Pla, Heidelberg 1997
+  NASA TM-107458: modal-control ring-array drove (6,0) to zero at
+  920 Hz; (4,0)+(4,1) gave 15 dB modal PWL; **9.4 dB** total 2BPF
+  farfield PWL reduction. Benchmark for a multi-actuator in-duct
+  solution on a rooftop fan. See [paper-sutliff-ancf-ge-anc-1997](../entities/source-papers.md#paper-sutliff-ancf-ge-anc-1997).
+- **20-year programmatic retrospective** — Sutliff 2019:
+  ANCF 1994–2016 at NASA Glenn, ~100 publications, Rotating Rake +
+  CFANS diagnostic toolset, Over-the-Rotor Foam Metal Liner path to
+  flight (FJ44, 737 MAX). Single best entry point into the NASA
+  fan-noise literature. See [paper-sutliff-ancf-20yr-retrospective-2019](../entities/source-papers.md#paper-sutliff-ancf-20yr-retrospective-2019).
+
 ## 5. Covered in this wiki (cross-links)
 
 - **Active noise control (all variants)** — [[classical-anc-overview]],
@@ -155,6 +181,9 @@ Last resort, but occasionally cheapest.
   *JSV* 1980 — classic fan-noise source treatment.
 - Ghaffarivardavagh, R. et al., "Ultra-open metamaterial silencer,"
   *Phys. Rev. B* 2019.
+- Tyler, J. M. & Sofrin, T. G., "Axial Flow Compressor Noise Studies,"
+  *SAE Trans.* 70:309, 1962 — rotor-stator interaction mode cutoff
+  theory underlying the NASA ANCF modal-control work (§4.5).
 
 See also: [[classical-anc-overview]], [[tonal-periodic-anc]],
 [[hybrid-active-passive]], [[psychoacoustic-anc]].

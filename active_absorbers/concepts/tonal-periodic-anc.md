@@ -1,7 +1,7 @@
 ---
 title: Tonal and Periodic ANC (BPF / rotating machinery)
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-04-18
 type: concept
 tags: [anc, tonal, fan-noise, feedforward, feedback, fxlms, repetitive-control, industrial, reference]
 sources:
@@ -9,6 +9,8 @@ sources:
   - raw/Ardekani-Abdulla-FxLMS-QuickReview-APSIPA2011.txt
   - raw/ANC-Widrow-j1975adaptivenoise.txt
   - raw/ANC-for-LF.txt
+  - raw/Bodson-AdaptiveAlgorithms-SinusoidalRejection.txt
+  - raw/Bodson-ANC-Application.txt
 ---
 
 # Tonal and Periodic ANC
@@ -84,6 +86,32 @@ frequency.
   precision requirement: adaptation must hold $(w_c, w_s)$ to
   **±0.6 dB amplitude / ±5° phase** to achieve 20 dB tonal
   reduction; this is the design target, not a soft goal.
+
+### 3a. Unknown-frequency alternative: Bodson direct/indirect PLL adaptation
+
+Bodson & Douglas (*Automatica* 1997)[^bodson-douglas-1997] give
+a more control-theoretic treatment of the unknown-$f_0$ case:
+
+- **Indirect algorithm** — a separate frequency estimator (notch or
+  PLL-style gradient) supplies $\hat\omega_1(t)$ to an
+  amplitude/phase adaptation loop. **Larger capture region** (global
+  frequency estimation).
+- **Direct algorithm** — one PLL-style recursion updates frequency,
+  amplitude, and phase jointly. **Superior local convergence** around
+  the true estimate.
+- Engineering recipe: use indirect to acquire, switch to direct once
+  tracking.
+
+The multi-harmonic extension is Bodson, Jensen, Douglas (*IEEE TCST*
+2001)[^bodson-tcst-2001]: periodic disturbance $d(t) = \sum_k d_k
+\cos(\alpha_{k,d}(t))$ with $\dot\alpha_{k,d} = k\omega_1$, all
+unknown; per-harmonic estimates are tied through the integer-multiple
+constraint (one $\omega_1$ update from a weighted sum of harmonic
+gradients), and a **single error microphone** suffices in a pure
+feedback configuration. Experimentally validated on an ANC testbed.
+Directly applicable to the rooftop fan: single mic (no upstream-
+reference problem in a short duct), BPF + 2-3 harmonics, and drifting
+$\omega_1$ with load/temperature.
 
 ## 4. Repetitive control (RC) and iterative learning control (ILC)
 
@@ -257,6 +285,14 @@ by amplitude alone.
 - **Wise & Leventhall 2010** — coherence-bound on achievable LF
   reduction; frames the §8 lock-loss indicators. See
   `entities/source-papers.md#paper-wise-leventhall-lf-anc`.
+- **Bodson & Douglas 1997** (*Automatica*) — indirect + direct
+  adaptive algorithms for unknown-frequency sinusoid rejection;
+  capture-region vs local-convergence trade. See §3a and
+  `entities/source-papers.md#paper-bodson-douglas-sinusoidal-rejection`.
+- **Bodson, Jensen, Douglas 2001** (*IEEE TCST*) — multi-harmonic
+  periodic-disturbance ANC with integer-tied frequency estimates and
+  single-mic feedback. See §3a and
+  `entities/source-papers.md#paper-bodson-jensen-douglas-anc-periodic`.
 
 ## Pending sources
 
@@ -271,3 +307,5 @@ See also: [[classical-anc-overview]] §8 (periodic-noise row),
 
 [^elliott-nelson-1993]: S.J. Elliott & P.A. Nelson, "Active Noise Control," *IEEE Signal Processing Magazine*, Oct 1993, pp. 12–35. Distilled in `entities/source-papers.md#paper-elliott-nelson-spm-1993`.
 [^ardekani-abdulla-2011]: I. T. Ardekani & W. H. Abdulla, "FxLMS-based Active Noise Control: A Quick Review," *APSIPA ASC 2011*, Xi'an. Distilled in `entities/source-papers.md#paper-ardekani-fxlms-quickreview`.
+[^bodson-douglas-1997]: M. Bodson & S. C. Douglas, "Adaptive Algorithms for the Rejection of Sinusoidal Disturbances with Unknown Frequency," *Automatica* 33(12):2213–2221, 1997. Distilled in `entities/source-papers.md#paper-bodson-douglas-sinusoidal-rejection`.
+[^bodson-tcst-2001]: M. Bodson, J. S. Jensen, S. C. Douglas, "Active Noise Control for Periodic Disturbances," *IEEE Trans. Control Systems Technology* 9(1):200–205, Jan 2001. Distilled in `entities/source-papers.md#paper-bodson-jensen-douglas-anc-periodic`.

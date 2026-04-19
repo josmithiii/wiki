@@ -242,3 +242,27 @@
   - `index.md` — removed "(staged as Kuo-Tsai)" / "(staged as Ghaffarivardavagh)" annotations from the 2026-04-17 batch entries.
 - Paper slugs (`paper-ardekani-fxlms-quickreview`, `paper-wu-ventilated-metamaterial-2018`) unchanged — they already reflect the correct authors.
 - Left `log.md` historical entries verbatim (original attributions in earlier 2026-04-17 entries preserved — renaming is documented here, not retroactively in prior log entries).
+
+## [2026-04-18] ingest | NASA NTRS + classical-ANC batch (8 PDFs)
+- JOS staged 10 PDFs in `active_absorbers/incoming-pdfs/` on 2026-04-18 around 22:18–22:21 local. Two were duplicates of already-ingested papers (`Galland-Mazeaud-Sellen-HybridFlowDuct-ApplAcoust-2005.pdf` = `paper-galland-hybrid-flowduct-2005`; `Guicking-ANVC-Patents-Overview-2009.pdf` = `paper-guicking-patents-overview`) and were dropped. The remaining 8 were moved to `/l/dttd/`, symlinked into `/l/dttd/ANC-Stuff/`, and extracted via `pdf2txt.py` into `raw/`.
+- **NASA NTRS trio** (all three recovered via browser after Apr 17 504 timeouts):
+  - Brooks, Pope, Marcolini 1989 NASA RP-1218 "Airfoil Self-Noise and Prediction" → `paper-brooks-pope-marcolini-airfoil-selfnoise-1989`.
+  - Sutliff, Hu, Pla, Heidelberg 1997 NASA TM-107458 / AIAA-97-1641 "Active Noise Control of Low Speed Fan Rotor-Stator Modes" → `paper-sutliff-ancf-ge-anc-1997`.
+  - Sutliff 2019 "A 20 Year Retrospective of the Advanced Noise Control Fan" → `paper-sutliff-ancf-20yr-retrospective-2019`.
+- **Bodson adaptive periodic-disturbance pair**:
+  - Bodson & Douglas 1997 *Automatica* "Adaptive Algorithms for the Rejection of Sinusoidal Disturbances with Unknown Frequency" → `paper-bodson-douglas-sinusoidal-rejection`.
+  - Bodson, Jensen, Douglas 2001 *IEEE TCST* "Active Noise Control for Periodic Disturbances" → `paper-bodson-jensen-douglas-anc-periodic`.
+  - Note: these are related to but distinct from the Bodson/Sacks/Khosla 1994 *IEEE TAC* entry on the pending list. The pending-sources entry retains the 1994 paper but annotates that this pair covers the same problem space.
+- **Guicking bilingual overview pair** — both the English "Active Control of Sound and Vibration — History, Fundamentals, and State of the Art" (file: `Guicking-Festschrift-ActiveImpedance.*`) and the Dec 2008 German "Aktive Lärm- und Schwingungsminderung — Ein Überblick" (file: `Guicking-ANVC-Overview.*`) were distilled jointly into `paper-guicking-anvc-overview`. Both versions cover the same Göttingen overview material; the English is the Festschrift contribution, German is the same content republished as a standalone broschure.
+- **Renamed: staged "Fang 2006" was actually Song 2021 *Molecules***. `Fang-NegativeModulus-Metamaterial-NatMat-2006.{pdf,txt}` content is the Song, Ding, Cui, Hu *Molecules* 26:4018 2021 review on acoustic metamaterials; Fang 2006 appears only as reference [33] inside it. Renamed `/l/dttd/Fang-NegativeModulus-Metamaterial-NatMat-2006.pdf` → `/l/dttd/Song-AcousticMetamaterials-Review-Molecules2021.pdf`, recreated `/l/dttd/ANC-Stuff/` symlink, renamed `raw/*.txt`. Distilled as `paper-song-acoustic-metamaterials-review-2021`; the Fang 2006 original remains pending and is noted as such in `pending-sources.md`.
+- Concept-page updates:
+  - `concepts/rooftop-fan-contenders.md` — promoted from "scaffold (awaits NASA NTRS trio)" with a new §4.5 *NASA fan-noise literature (now distilled)* covering Brooks 1989, Sutliff 1997, Sutliff 2019; frontmatter `sources:` list extended; added Tyler & Sofrin 1962 to pending references.
+  - `concepts/tonal-periodic-anc.md` — new §3a *Unknown-frequency alternative: Bodson direct/indirect PLL adaptation*; "Sources ingested" + footnotes + frontmatter `sources:` extended with the Bodson pair.
+  - `concepts/hybrid-active-passive.md` — Guicking 1980s–90s active-impedance paragraph now points to the new bilingual overview (closest open-access coverage of Guicking & Karcher 1984); §3 Fang bullet notes Ma & Sheng 2016 / Song 2021 second-hand coverage; "Sources ingested" + footnotes + frontmatter `sources:` extended.
+- Catalog / reference-book updates:
+  - `raw/MANIFEST.md` — 8 new rows + extraction-date footer updated.
+  - `raw/SUMMARIES.md` — new "NASA NTRS + Classical-ANC Batch (2026-04-18)" section with 7 catalog pointers (Guicking pair shares one entry); pending-ingestion section expanded with Fang 2006, Bodson/Sacks/Khosla 1994, Guicking & Karcher 1984 statuses.
+  - `entities/source-papers.md` — new "NASA NTRS + classical-ANC batch (2026-04-18)" section with 7 paper-slug entries (Guicking pair consolidated under `paper-guicking-anvc-overview`); "Pending ingestion" list extended with Fang 2006, Bodson/Sacks/Khosla 1994, Guicking & Karcher 1984.
+  - `index.md` — "Last updated" bumped 2026-04-17 → 2026-04-18; paper count 37 → 44 (7 new slugs; Guicking bilingual pair shares `paper-guicking-anvc-overview`); rooftop-fan-contenders description updated from "still scaffold — awaits NASA NTRS trio" to reflect §4.5 addition; new "NASA NTRS + classical-ANC batch (2026-04-18)" block under Entities.
+  - `pending-sources.md` — NTRS section crossed through with pointers to the three new paper slugs; notes added that Bodson 1994 and Guicking & Karcher 1984 are partially covered by the 2026-04-18 ingestions (primary papers still wanted).
+- Cleanup: removed `active_absorbers/incoming-pdfs/` after successful ingestion (per SCHEMA.md staging rule — PDFs not in git; staging directory is discarded once files are in `/l/dttd/`).

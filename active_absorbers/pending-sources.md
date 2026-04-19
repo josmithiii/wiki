@@ -1,7 +1,7 @@
 ---
 title: Pending Sources — Wishlist
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-04-18
 type: summary
 tags: [reference, anc]
 sources: []
@@ -13,6 +13,14 @@ References we still want to track down. Paywalled journal articles,
 books, and standards require a Stanford library proxy; NASA NTRS items
 needed a browser (the NTRS endpoint kept returning 504 Gateway Timeout
 to `curl`). Contributions welcome.
+
+**2026-04-18 ingestion update** — the NASA NTRS trio (Brooks 1989,
+Sutliff 1997, Sutliff 2019) was recovered via browser and distilled;
+these entries are removed from the NTRS section below. Eight new
+PDFs total were ingested in the 2026-04-18 batch; see
+[`entities/source-papers.md` "NASA NTRS + classical-ANC batch
+(2026-04-18)"](entities/source-papers.md#nasa-ntrs--classical-anc-batch-2026-04-18)
+for the full list.
 
 ### How to contribute a PDF
 
@@ -37,15 +45,16 @@ ln -sf ../YourFile.pdf /l/dttd/ANC-Stuff/YourFile.pdf
 cd ~/wiki/active_absorbers/raw && pdf2txt.py /l/dttd/ANC-Stuff/YourFile.pdf > YourFile.txt
 ```
 
-## NASA NTRS (fetch via browser)
+## NASA NTRS (all three recovered 2026-04-18 via browser)
 
-NTRS `curl` kept timing out — browser download is the reliable path.
-
-- Brooks, Pope & Marcolini, *Airfoil Self-Noise and Prediction*, NASA RP-1218, 1989 — <https://ntrs.nasa.gov/citations/19890016302>
-- Sutliff, Nallasamy, Heidelberg et al., *Active Noise Control of Low Speed Fan Rotor-Stator Modes*, NASA TM-107458, 1997 — <https://ntrs.nasa.gov/citations/19970017613>
-- Sutliff, *A 20-Year Retrospective of the Advanced Noise Control Fan*, NASA 2019 — <https://ntrs.nasa.gov/citations/20190030361>
-
-All three required to promote [[rooftop-fan-contenders]] from scaffold.
+~~Brooks, Pope & Marcolini, RP-1218 1989~~ → ingested (see
+[paper-brooks-pope-marcolini-airfoil-selfnoise-1989](entities/source-papers.md#paper-brooks-pope-marcolini-airfoil-selfnoise-1989)).
+~~Sutliff, Nallasamy, Heidelberg et al., TM-107458 1997~~ → ingested (see
+[paper-sutliff-ancf-ge-anc-1997](entities/source-papers.md#paper-sutliff-ancf-ge-anc-1997)).
+~~Sutliff, 20-year retrospective 2019~~ → ingested (see
+[paper-sutliff-ancf-20yr-retrospective-2019](entities/source-papers.md#paper-sutliff-ancf-20yr-retrospective-2019)).
+[[rooftop-fan-contenders]] promoted from scaffold with §4.5 on the
+NASA fan-noise literature.
 
 ## For [[tonal-periodic-anc]]
 
@@ -54,6 +63,9 @@ All three required to promote [[rooftop-fan-contenders]] from scaffold.
 - Swinbanks, *JSV* 27(3):411–436, 1973 — earliest sync-ref periodic ANC
 - Chaplin & Smith, *Engineering* 223:672, 1983 — Essex waveform synthesis
 - Bodson, Sacks & Khosla, *IEEE TAC* 39(9):1939, 1994 — harmonic adaptive IMP
+  *(partially covered 2026-04-18 via Bodson & Douglas 1997 Automatica
+  and Bodson, Jensen & Douglas 2001 IEEE TCST — same author group,
+  same problem class; see `entities/source-papers.md#paper-bodson-douglas-sinusoidal-rejection` and `paper-bodson-jensen-douglas-anc-periodic`. The 1994 TAC primary paper itself remains paywalled.)*
 - Hara, Yamamoto, Omata & Nakano, *IEEE TAC* 33(7):659, 1988 — foundational RC
 - Ostashev & Wilson, *Acoustics in Moving Inhomogeneous Media*, 2nd ed. 2015 — outdoor-propagation FM/AM theory for the §8 robustness discussion
 
@@ -61,10 +73,12 @@ All three required to promote [[rooftop-fan-contenders]] from scaffold.
 
 - Olson & May, *JASA* 25(6):1130, 1953 — electronic sound absorber
 - Guicking & Karcher, *ASME JVA* 106:393, 1984 — active impedance control
+  *(indirectly covered 2026-04-18 via the Guicking bilingual overview pair; see `entities/source-papers.md#paper-guicking-anvc-overview`. Original paywalled 1984 paper still wanted for primary citation.)*
 - Guicking & Lorenz, *JVA* 106:389, 1984 — porous-plate active absorber
 - Furstoss, Thenail & Galland, *JSV* 203(2):219, 1997 — surface impedance control
 - Beyene & Burdisso, *JASA* 101(3):1512, 1997 — hybrid passive/active absorber
 - Fang et al., *Nature Materials* 5:452, 2006 — negative-modulus metamaterial
+  *(a file staged as "Fang 2006" on 2026-04-18 turned out to be Song et al. 2021 Molecules and was renamed; the original Fang 2006 is still paywalled and still wanted. Second-hand coverage available via Ma & Sheng 2016 and Song 2021.)*
 - Ma, Yang, Xiao, Yang & Sheng, *Nature Materials* 13:873, 2014 — hybrid-resonance metasurface
 - Ghaffarivardavagh et al., *Phys. Rev. B* 99:024302, 2019 — final ultra-open silencer (arXiv preprint is already ingested; fetch only for the published version)
 
