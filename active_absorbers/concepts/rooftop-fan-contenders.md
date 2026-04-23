@@ -1,13 +1,14 @@
 ---
 title: Rooftop-Fan Noise — Out-of-Scope Contenders (pointer page)
 created: 2026-04-17
-updated: 2026-04-18
+updated: 2026-04-22
 type: concept
 tags: [fan-noise, passive, metamaterial, industrial, reference]
 sources:
   - raw/Brooks-Pope-Marcolini-NASA-RP1218-1989.txt
   - raw/Sutliff-ANC-LowSpeedFan-TM107458-1997.txt
   - raw/Sutliff-ANCF-20Year-Retrospective-2019.txt
+  - raw/LowFrequencyNoise-ijerph-20-03916.txt
 ---
 
 # Rooftop-Fan Noise — Out-of-Scope Contenders
@@ -22,6 +23,44 @@ Use this page as a checklist: before committing to an ANC solution
 for data-center rooftop fan hum (primary concern: ~118 Hz BPF), verify
 that the cheaper / simpler contenders in §1–§4 are either already in
 place or ruled out on engineering grounds.
+
+## 0. Why this matters (community-health evidence)
+
+Erdélyi et al. 2023[^erdelyi-2023] surveyed $n{=}190$ Dutch adults who
+self-report perceiving LFN, plus $n{=}371$ demographically-matched
+controls. Findings directly relevant to the rooftop-fan case:
+
+- **Air-conditioning / ventilation is the most commonly assumed source**
+  (20% of respondents who named a source) — ahead of machinery,
+  pumps, electrical, traffic, and heating.
+- **Reported frequencies span 5–140 Hz** (51 respondents measured or
+  were told of a frequency), squarely overlapping the ≈118 Hz BPF
+  band that motivates this page.
+- **Self-rated impact on daily life averages $7.1/10$** (SD 2.4; 71%
+  score $\ge 7$), versus $2.0/10$ for ordinary noise in the
+  comparison group.
+- Top complaints: sleep difficulties (90%), fatigue (75%), annoyance
+  (63%), restlessness (63%), pressing/pulsing in/on the ear (63%),
+  stress (61%), concentration difficulties (60%), body vibrations
+  (58%). 98% of LFN perceivers reported at least one complaint.
+- **60% reported social / societal consequences** — housing problems
+  or intent to move (27%), relationship difficulties (23%),
+  work-related problems (20%).
+- **Passive mitigation is saturated.** Earplugs, closing/opening
+  windows, repositioning the bed, and even *switching off the
+  suspected source* were rated unsuccessful by 72–86% of those who
+  tried each. This is the strongest recent empirical argument that
+  an active-control answer is genuinely needed.
+- LFN perception did **not** correlate with urbanization level or
+  dwelling type, i.e., it is not primarily a "quiet rural"
+  phenomenon — consistent with modern data-center sites in
+  mixed-use areas.
+
+See [paper-erdelyi-lfn-perceptions-2023](../entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023)
+for the full distillation. Pair with
+[paper-wise-leventhall-lf-anc](../entities/source-papers.md#paper-wise-leventhall-lf-anc)
+(the LF ANC coherence-bound tutorial) for the "how much can be done"
+technical companion.
 
 ## 1. Source modifications (attack the fan)
 
@@ -187,3 +226,5 @@ outcomes over two decades.
 
 See also: [[classical-anc-overview]], [[tonal-periodic-anc]],
 [[hybrid-active-passive]], [[psychoacoustic-anc]].
+
+[^erdelyi-2023]: K. H. Erdélyi, A. B. M. Fuermaier, L. Tucha, O. Tucha & J. Koerts, "Low-Frequency Noise: Experiences from a Low-Frequency Noise Perceiving Population," *Int. J. Environ. Res. Public Health* 20:3916, 2023. [DOI](https://doi.org/10.3390/ijerph20053916). Distilled in [paper-erdelyi-lfn-perceptions-2023](../entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023).

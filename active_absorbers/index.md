@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-18 | Concepts: 15 · Source papers in catalog: 44
+> Last updated: 2026-04-22 | Concepts: 15 · Source papers in catalog: 45
 
 ## Entities
 
@@ -119,6 +119,12 @@ cross-link.
 #### Metamaterials (renamed)
 
 - [paper-song-acoustic-metamaterials-review-2021](entities/source-papers.md#paper-song-acoustic-metamaterials-review-2021) — Song, Ding, Cui, Hu *Molecules* 2021: acoustic-metamaterials review by meta-atom / meta-molecule taxonomy (staged as "Fang-2006" by mistake; renamed 2026-04-18 — Fang 2006 primary paper remains pending)
+
+### Community-health / LFN perception batch (2026-04-22)
+
+*Singleton: first community-health / exposure-response paper in the wiki — motivation reference, not ANC methods.*
+
+- [paper-erdelyi-lfn-perceptions-2023](entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023) — Erdélyi et al. *IJERPH* 2023: Dutch survey of $n{=}190$ LFN perceivers; ventilation is the #1 assumed source, impact averages $7.1/10$, passive mitigation unsuccessful for 72–86%. Empirical "why bother" anchor for [[rooftop-fan-contenders]] and [[psychoacoustic-anc]].
 
 ## Concepts
 

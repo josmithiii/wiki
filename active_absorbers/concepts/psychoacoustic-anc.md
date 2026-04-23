@@ -1,11 +1,12 @@
 ---
 title: Psychoacoustic ANC (tonality, loudness, annoyance)
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-04-22
 type: concept
 tags: [anc, psychoacoustic, tonal, fan-noise, industrial, reference]
 sources:
   - raw/Rivera-Zoelzer-PsychoacousticHybridANC-ICSV25-2018.txt
+  - raw/LowFrequencyNoise-ijerph-20-03916.txt
 ---
 
 # Psychoacoustic ANC
@@ -151,13 +152,30 @@ Design insights transferable to rooftop-fan ANC:
   guidelines, UK BS 4142) include tonality / impulsive penalties.
 - An ANC system optimised for dB(A) alone can *increase* complaints
   if it narrows the spectrum further.
+- **Empirical corroboration.** Erdélyi et al. 2023[^erdelyi-2023]
+  surveyed $n{=}190$ Dutch LFN-perceivers vs. $n{=}371$ controls.
+  Air-conditioning / ventilation was the **most commonly assumed
+  source** (20%). Self-rated impact on daily life averaged
+  **$7.1/10$** (vs. $2.0/10$ for ordinary noise in the comparison
+  group); dominant complaints are sleep difficulties (90%), fatigue
+  (75%), annoyance (63%), stress, concentration loss, and body
+  vibrations. The passive-mitigation ladder (earplugs, closing
+  windows, switching off the suspected source) was rated
+  *unsuccessful* by 72–86% of those who tried each action — the
+  strongest recent empirical argument that LFN community complaints
+  need an active-control answer rather than more passive treatment.
 
 ## Sources ingested
 
 - **Rivera Benois, Papantoni & Zölzer 2018** (ICSV25) — hybrid
   FeLMS-psy + MVC headphone architecture, FPGA evaluation with
   Zwicker/Aures metrics. See
-  `entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018`.
+  [paper-rivera-psychoacoustic-hybrid-anc-2018](../entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018).
+- **Erdélyi et al. 2023** (*IJERPH*) — survey of $n{=}190$ Dutch LFN
+  perceivers: ventilation is the top assumed source, impact averages
+  $7.1/10$, and passive mitigation is rated unsuccessful by 72–86% of
+  those who tried it. Empirical "why bother" anchor for this page. See
+  [paper-erdelyi-lfn-perceptions-2023](../entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023).
 
 ## Pending sources
 
@@ -171,4 +189,6 @@ See also: [[classical-anc-overview]] §7 ("Psychoacoustic ANC" row),
 [[tonal-periodic-anc]] (the tonal component this targets),
 [[ai-anc-overview]] (differentiable perceptual losses).
 
-[^rivera-2018]: P. Rivera Benois, V. Papantoni & U. Zölzer, "Psychoacoustic Hybrid Active Noise Control Structure for Application in Headphones," *ICSV25*, Hiroshima, July 2018. Distilled in `entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018`.
+[^rivera-2018]: P. Rivera Benois, V. Papantoni & U. Zölzer, "Psychoacoustic Hybrid Active Noise Control Structure for Application in Headphones," *ICSV25*, Hiroshima, July 2018. Distilled in [paper-rivera-psychoacoustic-hybrid-anc-2018](../entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018).
+
+[^erdelyi-2023]: K. H. Erdélyi, A. B. M. Fuermaier, L. Tucha, O. Tucha & J. Koerts, "Low-Frequency Noise: Experiences from a Low-Frequency Noise Perceiving Population," *Int. J. Environ. Res. Public Health* 20:3916, 2023. [DOI](https://doi.org/10.3390/ijerph20053916). Distilled in [paper-erdelyi-lfn-perceptions-2023](../entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023).

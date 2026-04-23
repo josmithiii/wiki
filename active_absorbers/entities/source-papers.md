@@ -1,7 +1,7 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-04-18
+updated: 2026-04-22
 type: entity
 tags: [reference, comparison]
 ---
@@ -610,6 +610,31 @@ Eight PDFs staged by JOS after the 2026-04-17 batch: the NASA NTRS trio (Brooks,
 - Uses simple L-C resonance formulas — $f_0 = 1/(2\pi\sqrt{LC})$ with $L = \rho_0 l / S$, $C = V / (\rho_0 c_0^2)$ — as a unifying design language across SHS, HT, and meta-molecule units.
 - Positioning for this wiki: a **second metamaterials reference** to pair with Ma & Sheng 2016 on [[hybrid-active-passive]]. Use Ma & Sheng for physics depth; use Song for the meta-atom/meta-molecule vocabulary and a more 2019-2020-heavy reference list. Does **not** replace Fang 2006, Mei 2012, Wu 2018 as primary sources.
 - Tags: metamaterial, acoustics, impedance, passive, reference, tutorial
+
+---
+
+## Community-health / LFN perception batch (2026-04-22)
+
+*Singleton: first community-health / exposure-response paper in the wiki.*
+*Not an ANC methods paper — ingested as the empirical motivation reference
+for the rooftop-fan ANC project.*
+
+### paper-erdelyi-lfn-perceptions-2023
+
+**"Low-Frequency Noise: Experiences from a Low-Frequency Noise Perceiving Population"** — Kristina H. Erdélyi, Anselm B. M. Fuermaier, Lara Tucha, Oliver Tucha, Janneke Koerts (Univ. of Groningen + Univ. Medical Center Rostock + NUI Maynooth) · *Int. J. Environ. Res. Public Health* 20:3916, 2023 · DOI [10.3390/ijerph20053916](https://doi.org/10.3390/ijerph20053916) · open access (CC BY 4.0) · `raw/LowFrequencyNoise-ijerph-20-03916.txt`
+
+- **Design:** cross-sectional questionnaire study of Dutch adults; self-reported LFN-perceiving group ($n{=}190$, recruited via *Stichting Laagfrequentgeluid* + snowball, 2018–2021) vs. demographically-matched comparison group ($n{=}371$, online panel). No acoustic measurements — explicitly a subjective-experience mapping. Dutch RIVM LFN definition: 20–125 Hz (infrasound $<$20 Hz); other definitions extend to 200–250 Hz.
+- **Perceived frequencies** self-reported by 51 participants: range **5–140 Hz** (23% in RIVM LFN band, 9% infrasound, 1% above 125 Hz). Notably includes the $\approx\!118$ Hz BPF band that motivates the rooftop-fan work in this wiki.
+- **Assumed sources (rank-ordered):** air-conditioning/ventilation (20%), machinery/household appliances (17%), pumps (16%), electrical installations (15%), traffic (13%), heating (12%), gas (10%). One-third of participants could not identify a source at all.
+- **Complaint profile** (26-item checklist, multiple answers, 98% report $\ge 1$): sleep difficulties 89.5%, fatigue 75.3%, annoyance 63.2%, restlessness 62.6%, pressing/pulsing in/on ear 62.6%, stress 61.1%, concentration difficulties 59.5%, body vibrations 58.4%, irritability 57.4%, depressed mood 46.3%, headache 41.6%, heart complaints 36.8%. Mean 9.33 different complaints per person (SD 4.7).
+- **Self-rated LFN impact on daily life:** mean $7.1/10$ (SD 2.4; 71% score $\ge 7$). Comparison-group impact from ordinary (non-LFN) noise: $2.0/10$. Effect size is not subtle.
+- **Social / societal consequences** (60% of LFN group): housing problems or intent to move 27%, relationship/family difficulties 23%, work-related problems 20%, job loss / study stop 10%. Individual reports include loss of hobby, inability to host visitors indoors, and (in extreme cases) euthanasia requests.
+- **Mitigation attempts rated *unsuccessful* by 72–86%** of those who tried them: earplugs/headphones, closing/opening windows, repositioning bed, and — most strikingly — **switching off the suspected source** (86% unsuccessful). Small-$n$ individually-tried actions with higher success: noise-cancelling headphones (86% of $n{=}7$), something placed in/on ears (86% of $n{=}7$), ventilation-masking (70% of $n{=}10$). The passive-mitigation ladder is effectively saturated for this population, which is the most direct empirical argument for taking active control of LFN seriously.
+- **Demographic profile of LFN perceivers:** older (mean 57.6 yr vs. 49.6 yr Dutch adult pop.), predominantly female (68% vs. 51%), more highly educated (60% high-ed vs. 28% pop.), fewer full-time workers (16% vs. 27%), more unable-to-work / on sick leave (16% vs. 3%). Greater use of calming medication (23% vs. 3%) and total medication (57% vs. 42%).
+- **Non-acoustic factor finding:** LFN perception did **not** correlate with urbanization level, dwelling type, or household size in this sample — contrary to the common "rural quiet reveals LFN" hypothesis ([Vasudevan & Gordon 1977]). Suggests a complex personal-factor / exposure-map reality that pure source-level reduction cannot fully address; reinforces the psychoacoustic-ANC case for tonality-weighted objectives rather than $E[p^2]$ alone (see [[psychoacoustic-anc]]).
+- **Limitations (stated by authors):** subjective self-report only, no acoustic measurement, volunteer-organization recruitment biases toward highly affected individuals, Dutch-only sample, comorbid tinnitus not excluded (20% diagnosed + 9% suspected).
+- **Positioning for this wiki:** complement to [[#paper-wise-leventhall-lf-anc]] (Wise & Leventhall 2010 coherence bound — the "how much can be done" technical reference). Erdélyi et al. 2023 is the "why bother" side: who suffers, from what, and with what daily-life impact. Cited from [[rooftop-fan-contenders]] and [[psychoacoustic-anc]].
+- Tags: psychoacoustic, fan-noise, industrial, reference
 
 ---
 
