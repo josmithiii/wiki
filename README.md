@@ -59,19 +59,22 @@ author-hosted copies) on JOS's behalf, the canonical staging location is
 
 ## Links
 
-### Usage in Obsidian Vault (source) versus Web Browser (build)
+### Obsidian vaults versus web build
 
-- For links inside spectral_processing/, use vault-local paths like:
-[[entities/source-papers#paper-laroche-dolson-improved-pv-1999]]
-- Avoid bare ambiguous links like:
-[[source-papers#...]]
-because the web build sees multiple source-papers.md files across subwikis.
-- Avoid root-prefixed links like:
-[[spectral_processing/entities/source-papers#...]]
-if opening spectral_processing/ itself as the Obsidian vault.
-- That vault-local entities/source-papers#... form works in both places: Obsidian resolves it from the spectral_processing/ vault root, and make rebuild resolves it to the same subwiki for the web build.
+Each subdirectory is both an independent wiki and part of the generated
+multi-wiki site. For links that should work when a subwiki is opened as its
+own Obsidian vault and when rendered by `make rebuild`:
 
-**Caveat:** cross-subwiki links cannot fully work in Obsidian if you
-open only a subwiki, e.g., spectral_processing/, as the vault, because
-sibling subwikis are outside that vault. For those, opening
-/Users/jos/wiki as the vault gives Obsidian access to everything.
+- Use subwiki-root-relative wikilinks inside that subwiki, e.g.,
+  `[[entities/source-papers#paper-laroche-dolson-improved-pv-1999|Laroche-Dolson 1999 source note]]`.
+- Avoid bare ambiguous links like `[[source-papers#...]]`, because the web
+  build sees multiple `source-papers.md` files across subwikis.
+- Avoid prefixing same-subwiki links with the subwiki name, e.g.,
+  `[[spectral_processing/entities/source-papers#...]]`, because that fails
+  when `spectral_processing/` itself is the Obsidian vault root.
+
+**Caveat:** no single wikilink form is perfect for every Obsidian vault root.
+The convention above targets "one subwiki opened as a vault" plus the generated
+web build. Cross-subwiki links work in the web build when written with the
+target subwiki prefix, but they cannot resolve in Obsidian when only a single
+subwiki is open as the vault because sibling subwikis are outside that vault.

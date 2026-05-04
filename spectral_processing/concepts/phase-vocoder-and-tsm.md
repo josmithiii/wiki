@@ -1,7 +1,7 @@
 ---
 title: Phase Vocoder and Time-Scale Modification
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-05-04
 type: concept
 tags: [phase-vocoder, tsm, stft, phase-unwrap, modifications]
 sources:
@@ -10,6 +10,7 @@ sources:
   - /w/sasp/tsmpv.tex
   - /w/sasp/unwrap.tex
   - /w/sasp/phasewrap.tex
+  - spectral_processing/raw/Improved_phase_vocoder_time-scale_modification_of_audio.txt
 ---
 
 # Phase Vocoder and Time-Scale Modification
@@ -57,19 +58,19 @@ resample by $\beta$.
 
 ## Phasiness and Phase Locking
 
-Classical phase vocoder treats bins independently, which destroys
-cross-bin phase relationships around peaks $\Rightarrow$ the dreaded
-**phasiness** (reverberant, loose artifact).
+Classical phase vocoder treats bins independently. Laroche and Dolson
+diagnose the resulting **phasiness** as loss of vertical phase coherence:
+phase is coherent over time inside each bin, but no longer coherent
+across neighboring bins in the same frame when sinusoids cross channels.[^laroche-dolson-1999]
 
-**Phase-locked PV** (Puckette, Laroche-Dolson):
+**Phase-locked PV**:
 - Detect peaks in $|X_m(k)|$ each frame.
-- Lock phases of bins inside a peak's main lobe to the phase of the
-  peak bin, preserving rigid-body phase structure.
-- Dramatically reduces phasiness.
-
-**Rigid phase locking**: all bins in a peak region share the peak's
-phase offset. **Scaled phase locking**: offsets scale with distance
-from peak center.
+- Propagate phase only at peak bins, then lock bins inside each peak's
+  region of influence to the peak.
+- **Identity locking** copies analysis-frame phase offsets around the
+  peak; **scaled locking** tracks corresponding peaks and scales offsets.
+- Peak-only unwrapping permits 50% overlap for Hann/Hamming windows,
+  roughly halving cost relative to the 75% overlap classic recipe.
 
 ## Transient Handling
 
@@ -93,3 +94,6 @@ stationarity. Mitigations:
 - [[sinusoidal-modeling]] — peak model view
 - [[sms-sines-plus-noise]] — alternative TSM framework
 - [[stft-modifications]] — general safe-modification rules
+- [[entities/source-papers#paper-laroche-dolson-improved-pv-1999|Laroche-Dolson 1999 source note]]
+
+[^laroche-dolson-1999]: Jean Laroche and Mark Dolson, "Improved Phase Vocoder Time-Scale Modification of Audio," *IEEE Transactions on Speech and Audio Processing* 7(3):323-332, May 1999. Distilled in [[entities/source-papers#paper-laroche-dolson-improved-pv-1999]].

@@ -3,10 +3,12 @@
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
 > Source book: Julius O. Smith III, *Spectral Audio Signal Processing* (`/w/sasp/`).
-> Last updated: 2026-04-11 | Total pages: 20
+> Last updated: 2026-05-04 | Total pages: 21
 
 ## Entities
 <!-- specific methods, tools, historical items -->
+- [[source-papers]] — distilled source-paper catalog for spectral-processing research PDFs
+- [paper-laroche-dolson-improved-pv-1999](entities/source-papers.md#paper-laroche-dolson-improved-pv-1999) — Laroche & Dolson 1999: vertical phase coherence diagnosis, identity/scaled phase locking, 50% overlap phase-vocoder TSM
 
 ## Concepts
 <!-- core theory pages -->
