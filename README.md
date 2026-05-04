@@ -19,13 +19,13 @@ uniformly to every sub-wiki that cites papers.
 
 Each sub-wiki has a `raw/` directory containing **text extractions** of those
 PDFs, produced by `pdf2txt.py` (pdfminer.six). `raw/` is globally
-`.gitignore`d — extractions are local-only and never committed. The canonical
+`.gitignore`d -- extractions are local-only and never committed. The canonical
 mapping from extraction file to original PDF lives in `raw/MANIFEST.md`, and
 short distillation notes per source live in `raw/SUMMARIES.md`. Both of
 those markdown files *are* part of the wiki's local state but are still
 gitignored along with the rest of `raw/`.
 
-**Never use the `Read` tool on a PDF directly** — always convert with
+**Never use the `Read` tool on a PDF directly** -- always convert with
 `pdf2txt.py` first and read the `.txt` instead. This is enforced by the
 [PDF convert first](~/.claude/projects/-Users-jos-wiki/memory/feedback_pdf_convert_first.md)
 feedback memory.
@@ -56,3 +56,22 @@ author-hosted copies) on JOS's behalf, the canonical staging location is
 - Placing text extractions outside `raw/` (they will not be gitignored).
 - Distilling a source into a wiki page without adding a `sources:` entry
   to that page's YAML frontmatter and a row to `raw/MANIFEST.md`.
+
+## Links
+
+### Usage in Obsidian Vault (source) versus Web Browser (build)
+
+- For links inside spectral_processing/, use vault-local paths like:
+[[entities/source-papers#paper-laroche-dolson-improved-pv-1999]]
+- Avoid bare ambiguous links like:
+[[source-papers#...]]
+because the web build sees multiple source-papers.md files across subwikis.
+- Avoid root-prefixed links like:
+[[spectral_processing/entities/source-papers#...]]
+if opening spectral_processing/ itself as the Obsidian vault.
+- That vault-local entities/source-papers#... form works in both places: Obsidian resolves it from the spectral_processing/ vault root, and make rebuild resolves it to the same subwiki for the web build.
+
+**Caveat:** cross-subwiki links cannot fully work in Obsidian if you
+open only a subwiki, e.g., spectral_processing/, as the vault, because
+sibling subwikis are outside that vault. For those, opening
+/Users/jos/wiki as the vault gives Obsidian access to everything.
