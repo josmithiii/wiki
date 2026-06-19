@@ -1,7 +1,7 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-04-22
+updated: 2026-06-18
 type: entity
 tags: [reference, comparison]
 ---
@@ -635,6 +635,64 @@ for the rooftop-fan ANC project.*
 - **Limitations (stated by authors):** subjective self-report only, no acoustic measurement, volunteer-organization recruitment biases toward highly affected individuals, Dutch-only sample, comorbid tinnitus not excluded (20% diagnosed + 9% suspected).
 - **Positioning for this wiki:** complement to [[#paper-wise-leventhall-lf-anc]] (Wise & Leventhall 2010 coherence bound — the "how much can be done" technical reference). Erdélyi et al. 2023 is the "why bother" side: who suffers, from what, and with what daily-life impact. Cited from [[rooftop-fan-contenders]] and [[psychoacoustic-anc]].
 - Tags: psychoacoustic, fan-noise, industrial, reference
+
+---
+
+## Electroacoustic absorbers batch (2026-06-18)
+
+*Three foundational + modern active-impedance / electroacoustic-absorber papers
+ingested to support the new [[electroacoustic-absorbers]] concept page: the 1953
+Olson & May origin paper (closes a long-standing wishlist item), the 2011 Lissek
+shunt/feedback unifying theory, and the 2017 Rivet broadband-LF current-driven
+realization. Directly motivated by the rooftop-fan project's question of whether
+a loudspeaker (or electrostatic panel) can present a $\rho c$-matched termination
+to absorb low-frequency fan tones.*
+
+### paper-olson-may-electronic-sound-absorber-1953
+
+**"Electronic Sound Absorber"** — Harry F. Olson & Everett G. May (RCA Laboratories, Princeton) · *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953 · `raw/Olson-May-ElectronicSoundAbsorber-JASA1953.txt` (declassified CIA scan CIA-RDP78-03300A001900110032-3; OCR failed, distilled from a visual read of the page images)
+
+- **The origin of active sound absorption.** A co-located microphone + amplifier + loudspeaker FEEDBACK system that reduces the sound pressure in the vicinity of the microphone; **10–25 dB reduction over three octaves** in the low-frequency audio range.
+- Motivation = the LF passive-absorption gap, quantified in Table I (1.5-inch wall material): absorption coefficient only **0.08 @ 64 Hz, 0.14 @ 128 Hz** (vs 0.99 @ 512 Hz). Passive resonator banks to cover 30–200 Hz would need ~20 units / ~40 ft³ — "tremendous bulk." This is the same LF argument the whole wiki reuses ([[hybrid-active-passive]], [[rooftop-fan-contenders]]).
+- Loudspeaker drive pressure $p_2 = Bli/S$ (B = gap flux density, l = voice-coil conductor length, i = coil current, S = cone area). Loudspeaker = enclosed zero-order radiator; 3-inch cone in ~½ ft³ cabinet, ~30 Hz limp sheet-rubber suspension, 200 Ω voice coil coupled directly to the tube (no transformer phase shift). "Electronic microphone" (Olson 1947) gives flat-to-DC response, resistive 10 kΩ source, <2° phase 20–400 Hz. Battery-powered, ten 3S4 tubes, 0.5 W max.
+- **Two operating modes.** (1) *Sound reducer* (Fig 13): minimize $p_3$ at the mic over a small volume. (2) *Sound absorber* (Fig 14): add a dissipative resistive **screen** $r_{AS}$ in front; with the air-load inertance $M_1 \to 0$, set the screen resistance equal to the radiation resistance $r_{A1}$, and if mic pressure $p_3 = 0$ then **"100 percent absorption is obtained."** = the prototype $\rho c$-matched active termination, i.e. JOS's pressure+velocity termination idea, 1953.
+- Performance (plane-wave bench, Fig 15–17): ~25 dB peak reduction around 80–120 Hz, high reduction held at B/C/D = 4/10/24 inches from the mic face.
+- Applications prefigure the project: seat-back vehicle reducer (Fig 18), machine-shop spot reducer (Fig 19), **air-conditioning duct outlet** + engine muffler "short-circuiting the source" (Fig 20), and three units in a room corner for broadband LF room absorption (Fig 21).
+- Caveat: all results LF, near-field / spot-type, plane-wave; no open free-field far-field cancellation claimed.
+- Cited as the origin of EA by both Lissek 2011 and Rivet 2017 (ref [2]/[10] respectively); closes the Olson & May wishlist item in [[hybrid-active-passive]] and `pending-sources.md`.
+- Tags: active-absorber, active-impedance, feedback, loudspeaker, microphone, transducer, impedance, acoustics, history, duct, industrial
+
+### paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011
+
+**"Electroacoustic absorbers: Bridging the gap between shunt loudspeakers and active sound absorption"** — Hervé Lissek, Romain Boulandet, Romain Fleury (EPFL LEMA) · *J. Acoust. Soc. Am.* 129(5):2968–2978, 2011 · DOI 10.1121/1.3569707 · `raw/Lissek-Boulandet-Fleury-ElectroacousticAbsorbers-JASA2011.txt`
+
+- **Unifying theory** of acoustic impedance control at a closed-box moving-coil loudspeaker diaphragm (plane-wave normal incidence in a waveguide). Shows passive **electrical shunts** and active **acoustic feedback** are two views of the same "electroacoustic absorber" (EA).
+- The EA behaves as a 1-DOF resonator with three independently settable parameters $(f_{EA}, \zeta_{EA}, Q_{EA})$ controlled by three knobs: source/shunt resistance $R_s$, velocity-feedback gain $C_v$, pressure-feedback gain $C_p$. Normalized admittance $Y(s) = -\rho c\, V(s)/P_+(s)$; reflection $r=(1-Y)/(1+Y)$; absorption $\alpha = 1-|r|^2$.
+- **Control cases** (Visaton AL170, $R_e$=5.6 Ω, $L_e$=0.9 mH, $Bl$=6.9 N/A, $M_{ms}$=15 g, $S$=133 cm², $V_b$=10 L, $f_s\approx75$ Hz):
+  - *Case 0* open-circuit (passive): $\alpha<1$ at resonance, mismatched ($R_{ms}\ll Z_{mc}$).
+  - *Case 1* shunt resistance: adds losses $(Bl)^2/(R_e+R_s)$; **optimal** $R_{opt}=(Bl)^2/(Z_{mc}-R_{ms})-R_e \approx 5\,\Omega$ gives perfect absorption *at resonance* but narrowband. "Semi-active" (intrinsic feedback force via back-EMF). Always stable (passive dipole).
+  - *Case 2* velocity feedback = negative-impedance shunt; high $C_v$ → rigid diaphragm (perfect reflection), but increasing gain lowers $Q$ → broadens band.
+  - *Case 3* **direct impedance control** (combined velocity+pressure feedback): the target acoustic resistance is set directly by the ratio $C_v/C_p = Z_c = \rho c = 413.3$ Pa·s/m for total absorption; raise both gains (fixed ratio) to widen the band → **broadband $\rho c$ matching**. This is the loudspeaker analog of JOS's matched termination.
+- **Shunt ⇔ feedback equivalence:** each feedback law = a negative R-L "neutralization" $-(sL_e+R_e)$ of the coil impedance in series with a synthesizable passive-looking shunt $Z_s(s)$ (worked example: $R_1=-R_2=8.5\,\Omega$, $L_1=-18.7$ mH, $L_2=17.4$ mH). Opens sensorless absorber design.
+- Stability via Routh: $-R_e<R_s$ and $C_v\ge 0$ ensure stability in the ideal lumped model; real limits set by $L_e,R_e$ frequency dependence and coil nonlinearity.
+- Experimental: ISO 10534-2 impedance tube (L=3.4 m, Ø=150 mm, anechoic horn termination); laser-velocimeter velocity feedback + PCB mic 5 mm from diaphragm. Cases 1/2c/3b validated; absorption tunable from near-total reflection to total absorption over a wide band. Free-field open-loop gain has *larger* stability margins than the tube (tube resonances dominate the measured margins).
+- Lineage cited: Lueg 1936 patent → Olson & May 1953 → Jessel & Mangiante 1972 → Guicking & Lorenz 1984 → Furstoss/Thenail/Galland 1997 (direct impedance control) → Bobber 1970 (transducer as transmission-line characteristic impedance) → Elliott et al. 1991 (power absorption) → Fleming 2007 (shunt loudspeakers). Already cited inside the wiki by Betgen & Galland 2012.
+- Tags: active-absorber, active-impedance, feedback, loudspeaker, transducer, impedance, acoustics, stability, reference
+
+### paper-rivet-karkar-lissek-broadband-lf-ea-2017
+
+**"Broadband Low-Frequency Electroacoustic Absorbers through Hybrid Sensor-/Shunt-Based Impedance Control"** — Etienne Rivet, Sami Karkar, Hervé Lissek (EPFL LTS2) · *IEEE Trans. Control Systems Technology* 25(1), 2017 · DOI 10.1109/TCST.2016.2547981 · `raw/Rivet-Karkar-Lissek-BroadbandLF-ElectroacousticAbsorbers-2017.txt`
+
+- Modern realization of the Lissek-2011 EA aimed at **stable, broadband, low-frequency** absorption for room modal equalization. Two key moves: **single pressure-sensor feedforward** control + **current drive** (transconductance amplifier).
+- Current drive bypasses Kirchhoff's electrical equation, removing the blocked coil impedance $Z_e=sL_e+R_e$ from the loop → kills the voice-coil-inductance roll-off and its instability above resonance (the main limit of prior voltage-drive / sensorless-shunt schemes).
+- Controller = transfer function from total diaphragm pressure to coil current: $\Theta(s)=I/P_t=(S_d Z_{st}-Z_m)/(Bl\,Z_{st})$, where $Z_m=sM_{ms}+R_{ms}+1/(sC_{mc})$.
+- **Target specific acoustic impedance** (parametric): $Z_{st}(s)= s\,\mu M_{ms}/S_d + R_{st} + \mu/(s S_d C_{mc})$, with $0<\mu<1$ scaling effective mass and stiffness *down together* to widen the band while $R_{st}$ sets the resistance. $\rho c$ match ⇒ $R_{st}=Z_c$.
+- **Bandwidth law:** $BW=\dfrac{S_d}{2\pi\mu M_{ms}}\dfrac{\sqrt{(\sqrt2-1)^2(R_{st}+Z_c)^2-(R_{st}-Z_c)^2}}{\sqrt{1-(\sqrt2-1)^2}}$, valid for $|R_{st}-\sqrt2 Z_c|\le Z_c$. Larger $S_d/M_{ms}$ → wider band; $C_{mc}$ (cabinet volume) sets center $f_0$.
+- Numbers (Peerless SDS-P830657, $S_d$=151 cm², $M_{ms}$=14.67 g, $Bl$=5.98 N/A, $V_b$=10 dm³, $f_0$=84 Hz): Case C ($\mu$=0.15, $R_{st}=\rho c$, i.e. mass+stiffness cut 85%) → **$\rho c$ match over ~410 Hz bandwidth** around 84 Hz.
+- Experiment: 1.97 m × Ø150 mm waveguide, ISO 10534-2, NI CompactRIO FPGA controller, "improved Howland" current pump; near-perfect broadband absorption confirmed. **Duct mode damping:** 44–300 Hz peak-to-dip range 51.3 dB (rigid) → 37.3 dB (open circuit) → **12.6 dB (controlled)** — a 4:1 collapse of the modal dynamics.
+- Application discussion = **room modal equalization**: place absorbers at pressure antinodes (corners of plane-parallel rooms); optimal target resistance can be frequency-dependent and per-mode (need not equal $\rho c$); total absorbing area kept small vs reflecting area.
+- **Aperture caveat relevant to the fan project:** the analysis assumes the absorber area ≈ the waveguide cross-section; if the absorber is much smaller than the duct section the uniform-pressure boundary assumption fails and a transverse-mode (or FEM) treatment is required. Mirrors the open-source aperture-coverage problem for an outdoor fan.
+- Tags: active-absorber, active-impedance, feedback, feedforward, loudspeaker, microphone, transducer, impedance, room, stability, duct, reference
 
 ---
 

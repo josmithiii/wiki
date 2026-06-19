@@ -1,7 +1,7 @@
 ---
 title: Pending Sources — Wishlist
 created: 2026-04-17
-updated: 2026-04-18
+updated: 2026-06-18
 type: summary
 tags: [reference, anc]
 sources: []
@@ -71,7 +71,10 @@ NASA fan-noise literature.
 
 ## For [[hybrid-active-passive]]
 
-- Olson & May, *JASA* 25(6):1130, 1953 — electronic sound absorber
+- ~~Olson & May, *JASA* 25(6):1130, 1953 — electronic sound absorber~~ →
+  **ingested 2026-06-18** (declassified CIA scan; see
+  [[electroacoustic-absorbers]] and
+  [paper-olson-may-electronic-sound-absorber-1953](entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953)).
 - Guicking & Karcher, *ASME JVA* 106:393, 1984 — active impedance control
   *(indirectly covered 2026-04-18 via the Guicking bilingual overview pair; see `entities/source-papers.md#paper-guicking-anvc-overview`. Original paywalled 1984 paper still wanted for primary citation.)*
 - Guicking & Lorenz, *JVA* 106:389, 1984 — porous-plate active absorber

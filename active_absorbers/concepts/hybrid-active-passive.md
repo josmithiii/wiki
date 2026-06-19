@@ -1,10 +1,11 @@
 ---
 title: Hybrid Active + Passive Absorbers
 created: 2026-04-17
-updated: 2026-04-18
+updated: 2026-06-18
 type: concept
 tags: [active-absorber, active-impedance, hybrid-passive, metamaterial, anc, feedback, industrial, reference]
 sources:
+  - raw/Olson-May-ElectronicSoundAbsorber-JASA1953.txt
   - raw/Galland-HybridPassiveActive-FlowDuct-AppAcoust2005.txt
   - raw/Betgen-Galland-HybridLiner-AppAcoust2012.txt
   - raw/Guicking-ActiveControl-Patents-Overview.txt
@@ -39,11 +40,18 @@ impedance in a much shallower package. Contrast with pure ANC in
 
 Goal: make the boundary surface present a prescribed acoustic
 impedance $Z_s(\omega)$ — typically $Z_s = \rho c$ (anechoic) or a
-specified frequency profile.
+specified frequency profile. When the *loudspeaker diaphragm itself* is
+the controlled surface (rather than a porous layer in front of it), this
+is the **electroacoustic-absorber** family — see the dedicated
+[[electroacoustic-absorbers]] page for the shunt⇔feedback unifying theory
+and broadband low-frequency realizations.
 
-- **Olson & May (1953)** — earliest electronic sound absorber; error
-  mic in front of a driver, feedback synthesizes a pressure-release
-  boundary locally.
+- **Olson & May (1953)**[^olson-1953] — the earliest electronic sound
+  absorber; error mic in front of a driver, feedback synthesizes a
+  pressure-release boundary locally. In its "absorber" mode a resistive
+  screen matched to the radiation resistance plus $p_3\to0$ control gives
+  "100% absorption" — the prototype $\rho c$-matched termination. Now
+  ingested (see [[electroacoustic-absorbers]] §4).
 - **Guicking (1980s–90s)** — formalised *active impedance control*;
   pressure + velocity sensing pair, feedback law sets $p/v$ at the
   surface. Guicking's 2009 patent overview[^guicking-patents-2009]
@@ -249,7 +257,9 @@ produce a step increase in community noise.
 
 ## Pending sources
 
-- Olson & May, *JASA* 1953 — electronic sound absorber (pre-digital).
+- ~~Olson & May, *JASA* 1953 — electronic sound absorber (pre-digital).~~
+  **Ingested 2026-06-18** — see [[electroacoustic-absorbers]] and
+  `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`.
 - Guicking & Karcher 1984 (*ASME JVA* 106:393) — primary active-impedance
   paper; still paywalled. Content indirectly covered via the 2008
   bilingual overview (above).
@@ -265,6 +275,7 @@ secondary-path modeling that still apply to the active layer),
 [[rooftop-fan-contenders]] (the passive side catalogued for the
 fan-hum application).
 
+[^olson-1953]: H. F. Olson & E. G. May, "Electronic Sound Absorber," *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953. Distilled in `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`; see also [[electroacoustic-absorbers]].
 [^galland-2005]: M.-A. Galland, B. Mazeaud & N. Sellen, "Hybrid passive/active absorbers for flow ducts," *Applied Acoustics* 66:691–708, 2005. Distilled in `entities/source-papers.md#paper-galland-hybrid-flowduct-2005`.
 [^betgen-2012]: B. Betgen, M.-A. Galland, E. Piot & F. Simon, "Implementation and non-intrusive characterization of a hybrid active–passive liner with grazing flow," *Applied Acoustics* 73:624–638, 2012. Distilled in `entities/source-papers.md#paper-betgen-galland-hybrid-liner-2012`.
 [^guicking-patents-2009]: D. Guicking, *Patents on Active Control of Sound and Vibration — an Overview*, 2nd ed., Göttingen, May 2009. Distilled in `entities/source-papers.md#paper-guicking-patents-overview`.

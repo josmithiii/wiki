@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-04-22 | Concepts: 15 · Source papers in catalog: 45
+> Last updated: 2026-06-18 | Concepts: 16 · Source papers in catalog: 48
 
 ## Entities
 
@@ -126,6 +126,14 @@ cross-link.
 
 - [paper-erdelyi-lfn-perceptions-2023](entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023) — Erdélyi et al. *IJERPH* 2023: Dutch survey of $n{=}190$ LFN perceivers; ventilation is the #1 assumed source, impact averages $7.1/10$, passive mitigation unsuccessful for 72–86%. Empirical "why bother" anchor for [[rooftop-fan-contenders]] and [[psychoacoustic-anc]].
 
+### Electroacoustic absorbers batch (2026-06-18)
+
+*Three active-impedance / electroacoustic-absorber papers promoting the new [[electroacoustic-absorbers]] concept page (1953 origin + 2011 unifying theory + 2017 broadband-LF realization).*
+
+- [paper-olson-may-electronic-sound-absorber-1953](entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953) — Olson & May *JASA* 1953: first electronic sound absorber; mic+amp+speaker feedback, 10–25 dB over 3 octaves; $p_3{=}0$ ⇒ "100% absorption" matched-termination mode. Closes a long-standing wishlist item.
+- [paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011](entities/source-papers.md#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011) — Lissek, Boulandet & Fleury *JASA* 2011: unifying theory — passive electric shunts ⇔ active acoustic feedback as one 1-DOF EA; direct impedance control matches $\rho c$ via $C_v/C_p$.
+- [paper-rivet-karkar-lissek-broadband-lf-ea-2017](entities/source-papers.md#paper-rivet-karkar-lissek-broadband-lf-ea-2017) — Rivet, Karkar & Lissek *IEEE TCST* 2017: broadband LF EA via pressure-sensor feedforward + current drive; ~410 Hz $\rho c$ match @ $f_0{=}84$ Hz; duct modal range 51.3→12.6 dB.
+
 ## Concepts
 
 ### Classical adaptive filtering
@@ -138,6 +146,7 @@ cross-link.
 
 - [tonal-periodic-anc](concepts/tonal-periodic-anc.md) — **BPF-tonal ANC**: tacho-referenced synchronous reference, FxLMS-SF, adaptive notch, RC/ILC, harmonic bank — the narrowband specialization for rotating machinery; sourced from Elliott-Nelson 1993, Ardekani-Abdulla 2011
 - [hybrid-active-passive](concepts/hybrid-active-passive.md) — **Hybrid absorbers**: active impedance control, Galland/Betgen active duct liners, Mei/Wu/Ma-Sheng metamaterials (including ventilated), semi-active Helmholtz, tunable piezo
+- [electroacoustic-absorbers](concepts/electroacoustic-absorbers.md) — **Electroacoustic absorbers**: loudspeaker diaphragm as the controlled $\rho c$-matched surface; shunt⇔feedback unifying theory (Lissek 2011), broadband-LF current-driven realization (Rivet 2017), Olson-May 1953 origin; the micron-excursion absorption argument relevant to the electrostatic-panel idea
 - [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, Rivera/Zölzer ITU-R 468 hybrid, differentiable perceptual losses
 - [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page**: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods; now includes §4.5 NASA fan-noise literature distilled from the Brooks 1989 / Sutliff 1997 / Sutliff 2019 NTRS trio
 
