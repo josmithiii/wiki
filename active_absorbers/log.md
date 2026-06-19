@@ -291,3 +291,9 @@
 - `pending-sources.md`: Olson & May 1953 line struck through (ingested), pointer to new slug; frontmatter `updated` → 2026-06-18. (Lissek 2011 / Rivet 2017 were not on the wishlist.)
 - `index.md`: header → "Last updated: 2026-06-18 | Concepts: 16 · Source papers in catalog: 48" (45 → 48; +1 concept); new "Electroacoustic absorbers batch (2026-06-18)" subsection under Entities; new `electroacoustic-absorbers` line under Concepts › Rooftop-fan / tonal ANC.
 - Note: SCHEMA tag taxonomy unchanged — all tags used (active-absorber, active-impedance, feedback, feedforward, loudspeaker, microphone, transducer, impedance, stability, room, duct, history, reference, acoustics, industrial) already exist.
+
+## [2026-06-19] edit | electroacoustic-absorbers — add §5 "Why an open (dipole) diaphragm caps at 50%"
+- Follow-up to JOS's question: why can't an open electrostatic panel just "punch a rectangular hole" the size of the diaphragm in a normally-incident bass wave?
+- New `concepts/electroacoustic-absorbers.md` §5 with the limp-resistive-sheet derivation: $t=2/(2+\rho)$, $\Gamma=\rho/(2+\rho)$, $A=4\rho/(\rho+2)^2$, max $A=1/2$ at $r=2\rho c$ — the **excursion-independent 50% ceiling** for a single open (two-sided) layer. Routes to beat it (seal back → one-port; two-layer CPA; active rear). Plus the sub-wavelength aperture/diffraction point ($\lambda$=3.4 m @ 100 Hz; shadow heals over $\sim S/\lambda$; $\sigma_{\max}=3\lambda^2/8\pi\approx1.4$ m²).
+- Sections renumbered (old 5/6/7 → 6/7/8); §4 excursion bullet and §7 feasibility bullet corrected — the earlier "open-back dipole is acceptable" claim was wrong (it implied one-port behavior). Frontmatter `updated`→2026-06-19, added `acoustics` tag.
+- Also wrote `~/w/absorbers/Discussion.md` (project-side, not in this wiki) — a reader-friendly Markdown writeup of the same ESL-absorber discussion for JOS.

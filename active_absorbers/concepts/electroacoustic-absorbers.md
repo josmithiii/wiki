@@ -1,9 +1,9 @@
 ---
 title: Electroacoustic Absorbers (shunt + feedback active impedance)
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-19
 type: concept
-tags: [active-absorber, active-impedance, feedback, feedforward, loudspeaker, transducer, impedance, stability, room, duct, history, reference]
+tags: [active-absorber, active-impedance, feedback, feedforward, loudspeaker, transducer, impedance, acoustics, stability, room, duct, history, reference]
 sources:
   - raw/Olson-May-ElectronicSoundAbsorber-JASA1953.txt
   - raw/Lissek-Boulandet-Fleury-ElectroacousticAbsorbers-JASA2011.txt
@@ -107,10 +107,76 @@ The idea is old and the physics is forgiving:
   small; displacement $\xi=p/(\rho c\,\omega)$ is **~1 µm at 80 dB / 100
   Hz**, scaling as $1/f$. The EA literature confirms this empirically —
   the drivers are ordinary small woofers, not high-excursion subs. The
-  electrostatic-panel idea for rooftop fans is therefore well-posed: the
-  ESL excursion limit bites for *radiating* bass, not for *absorbing* it.
+  electrostatic-panel idea for rooftop fans is therefore well-posed *on
+  excursion grounds*: the ESL excursion limit bites for *radiating* bass,
+  not for *absorbing* it. **But** the 100% result above assumes a
+  **one-port** surface (sealed back). An *open* diaphragm is a two-sided
+  scatterer and is capped at 50% — see §5.
 
-## 5. Bandwidth and numbers
+## 5. Why an open (dipole) diaphragm caps at 50%
+
+The matched-termination result of §4 — $Z_s=\rho c \Rightarrow \alpha=1$
+— is a **one-port** statement: it assumes the diaphragm radiates to the
+incident side *only*, i.e. its back is sealed (Olson's enclosed
+"zero-order radiator"; the closed boxes of Lissek and Rivet). Remove the
+enclosure — as in an open electrostatic panel — and the diaphragm
+radiates equally from both faces. It is then a symmetric two-port, and a
+single such layer can absorb **at most one half** of a normally incident
+plane wave, *regardless of excursion or control law*.
+
+Model the open diaphragm as a limp resistive sheet of normalized
+resistance $\rho = r/\rho c$: the velocity is continuous across it
+(impermeable), and the pressure drops by $r\,v$. With incident, reflected,
+and transmitted waves $p_i, p_r, p_t$ at $x=0$:
+
+$$
+\underbrace{p_i - p_r = p_t}_{\text{velocity continuity}},\qquad
+\underbrace{(p_i+p_r)-p_t = \tfrac{r}{\rho c}\,p_t}_{\text{resistive pressure drop}} .
+$$
+
+Solving gives the transmission, reflection, and absorption coefficients
+
+$$
+t=\frac{2}{2+\rho},\qquad
+\Gamma=\frac{\rho}{2+\rho},\qquad
+A = 1-\lvert\Gamma\rvert^2-\lvert t\rvert^2 = \frac{4\rho}{(\rho+2)^2},
+$$
+
+which is maximized at $\rho = 2$ (sheet resistance $r = 2\rho c$), giving
+
+$$
+A_{\max} = \tfrac12 .
+$$
+
+The cap is **excursion-independent**: even with unlimited stroke the open
+single layer re-radiates symmetrically and loses half the incident power
+to transmission + reflection. This is exactly why Olson & May enclosed the
+back and why every EA in §4 uses a closed box.
+
+**Beating 50% while keeping an open structure** needs a second degree of
+freedom so that *both* the reflected and transmitted waves can be nulled
+at once (coherent perfect absorption):
+
+- **Seal the back** → one-port → up to 100% (the EA route; excursion
+  still trivial, but you give up the open panel).
+- **Two independently driven layers** in tandem (two ESL diaphragms,
+  separate drive) → control $\Gamma$ and $t$ simultaneously → ~100%.
+- **Active rear termination** — a second active surface absorbing/nulling
+  the back radiation.
+
+A second, geometric limit applies on top of this: a diaphragm-sized patch
+is **sub-wavelength** at 100 Hz ($\lambda = 3.4$ m), so it cannot carve a
+wavelength-resolved "hole" in the wavefront — the shadow heals by
+diffraction within a Fresnel distance $\sim S/\lambda$, and the absorbed
+power is governed by the absorption *cross-section*, not the geometric
+area. The one consolation is that a resonant dipole absorber's maximum
+cross-section $\sigma_{\max}=3\lambda^2/8\pi \approx 1.4\ \mathrm{m}^2$ at
+100 Hz exceeds a typical panel — a small resonant panel can grab flux from
+wider than itself — but it remains under the 50% open-layer ceiling and is
+narrowband. See [[rooftop-fan-contenders]] for the open-source coverage
+problem this creates.
+
+## 6. Bandwidth and numbers
 
 Rivet 2017[^rivet-2017] parameterizes the target as
 $Z_{st}(s)=s\,\mu M_{ms}/S_d + R_{st} + \mu/(s S_d C_{mc})$, where
@@ -132,12 +198,13 @@ to 12.6 dB** — a 4:1 reduction. Lissek 2011 validated the same theory in
 an ISO 10534-2 impedance tube, tuning absorption from near-total
 reflection to near-total absorption.
 
-## 6. Relevance to the rooftop-fan / electrostatic-absorber project
+## 7. Relevance to the rooftop-fan / electrostatic-absorber project
 
 - **Feasibility of the ESL absorber.** §4 settles the excursion worry:
   micron-scale motion suffices to terminate ~100 Hz tones at realistic
-  SPL. An open-back (dipole) electrostatic panel is acceptable because a
-  matched termination *removes* the wave rather than re-radiating it.
+  SPL. The catch is structural, not excursion (§5): an *open* electrostatic
+  panel is a two-sided scatterer capped at 50%. To exceed that you must
+  seal the back (one-port) or run two independently driven layers (CPA).
 - **Sensorless / shunt route.** For an outdoor, many-unit, low-maintenance
   deployment, the shunt⇔feedback equivalence means a passive or
   synthesized **electrical network** can pull the driver toward $\rho c$
@@ -152,7 +219,7 @@ reflection to near-total absorption.
   the *hybrid passive+active* duct liners ([[hybrid-active-passive]] §2)
   and the pure anti-noise ANC of [[classical-anc-overview]].
 
-## 7. Open issues
+## 8. Open issues
 
 - **Stability vs. acoustic environment.** Gains are bounded by coil
   inductance, $R_e/L_e$ frequency dependence, and diaphragm higher-order
