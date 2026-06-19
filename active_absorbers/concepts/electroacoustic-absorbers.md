@@ -113,7 +113,7 @@ The idea is old and the physics is forgiving:
   **one-port** surface (sealed back). An *open* diaphragm is a two-sided
   scatterer and is capped at 50% — see §5.
 
-## 5. Why an open (dipole) diaphragm caps at 50%
+## 5. Two ceilings: the 50% open-dipole cap and the aperture-size limit
 
 The matched-termination result of §4 — $Z_s=\rho c \Rightarrow \alpha=1$
 — is a **one-port** statement: it assumes the diaphragm radiates to the
@@ -164,17 +164,35 @@ at once (coherent perfect absorption):
 - **Active rear termination** — a second active surface absorbing/nulling
   the back radiation.
 
-A second, geometric limit applies on top of this: a diaphragm-sized patch
-is **sub-wavelength** at 100 Hz ($\lambda = 3.4$ m), so it cannot carve a
-wavelength-resolved "hole" in the wavefront — the shadow heals by
-diffraction within a Fresnel distance $\sim S/\lambda$, and the absorbed
-power is governed by the absorption *cross-section*, not the geometric
-area. The one consolation is that a resonant dipole absorber's maximum
-cross-section $\sigma_{\max}=3\lambda^2/8\pi \approx 1.4\ \mathrm{m}^2$ at
-100 Hz exceeds a typical panel — a small resonant panel can grab flux from
-wider than itself — but it remains under the 50% open-layer ceiling and is
-narrowband. See [[rooftop-fan-contenders]] for the open-source coverage
-problem this creates.
+A **second, orthogonal limit — aperture size.** The 50% cap above is the
+*open-vs-sealed* axis. Independently, a panel **small compared to
+$\lambda$** (at 100 Hz $\lambda=3.4$ m; a $\sim0.5$ m² panel has
+$ka\approx0.7$, only marginally sub-wavelength) couples weakly to the
+propagating field. An energy-flux estimate: a compact source's radiation
+efficiency is $\eta\sim(ka)^2\sim A/\lambda^2$, so a free panel driven at
+the matched particle velocity $u_0=p_0/\rho c$ (volume velocity $Au_0$)
+absorbs only
+
+$$
+P_\text{abs}\;\sim\; I_0\,A\,\frac{A}{\lambda^2}\;=\;I_0\,\frac{A^2}{\lambda^2},
+\qquad I_0=\frac{p_0^2}{2\rho c},
+$$
+
+i.e. the geometric flux $I_0A$ knocked down by $\eta$ — at our numbers
+$A/\lambda^2\approx0.04$, a few percent of even its own area's flux. The
+rest of the matched volume velocity drives reactive near-field that
+carries no power away. This **size penalty afflicts open *and* sealed
+panels alike** (cured only by size $\sqrt A\gg\lambda$, a baffle
+$\gg\lambda$, resonance, or the source near-field) and is the quantitative
+form of the §7 aperture caveat. The **resonant escape** raises the
+absorption cross-section to the wave-limited ceiling
+$\sigma_{\max}=3\lambda^2/8\pi\approx 1.4\ \mathrm{m}^2$ (dipole;
+$\lambda^2/4\pi$ monopole) — independent of $A$, larger than the panel —
+but needs volume velocity $\gg Au_0$ (real excursion) and is narrowband.
+Capture efficiency $\sigma/A$ thus runs from $\sim A/\lambda^2$ up to
+$\sim\lambda^2/A$, crossing at $A\sim\lambda^2$ — exactly the
+geometric-optics (hole-punch) onset. See [[rooftop-fan-contenders]] for
+the open-source coverage problem.
 
 ## 6. Bandwidth and numbers
 
@@ -218,6 +236,34 @@ reflection to near-total absorption.
 - **Where it fits:** EAs are the *active-impedance* leg complementary to
   the *hybrid passive+active* duct liners ([[hybrid-active-passive]] §2)
   and the pure anti-noise ANC of [[classical-anc-overview]].
+
+### Would an Air Motion Transformer (AMT) do better?
+
+An AMT — pleated/accordion diaphragm that ejects air ~$5\times$ faster than
+the membrane moves, so a $1''$ strip radiates like an $8''$ cone — is a
+superb *radiator* transducer, but it relaxes **neither** ceiling above:
+
+| Property | Open ESL | Open AMT |
+|---|---|---|
+| Excursion for absorption | trivial | even more trivial (non-benefit) |
+| Open-dipole 50% cap (§5) | yes | **yes — same** |
+| Sub-$\lambda$ aperture @ 100 Hz (§6) | yes | yes, and $\gtrsim 650$ Hz native band |
+| Air–membrane coupling | modest | **better (its one plus)** |
+
+- **Still an open dipole** (front and rear equally exposed) → the 50% cap
+  of §5 applies unchanged; the velocity transformer does nothing to the
+  two-port topology.
+- **The $5\times$ velocity step-up optimizes a non-problem** — absorption
+  needs the surface to match the *small* particle velocity $u=p/\rho c$;
+  making an already-micron excursion $5\times$ smaller buys nothing.
+- **Worth borrowing, but only in a sealed (one-port) design:** the folds
+  concentrate air velocity and viscous loss scales as $u^2$, so AMT-style
+  pleating is an excellent *passive* resistive-loss geometry behind a
+  sealed diaphragm; and the AMT's high radiation resistance (good air
+  coupling — by reciprocity a good *receiver*) is the very property
+  Olson/Lissek otherwise add electrically.
+
+**Verdict:** a better transducer, not a better absorber topology.
 
 ## 8. Open issues
 
