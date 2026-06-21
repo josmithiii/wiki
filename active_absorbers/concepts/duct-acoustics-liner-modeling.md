@@ -79,7 +79,7 @@ Four-pole convention $\begin{bmatrix}p_1\\ U_1\end{bmatrix}=\begin{bmatrix}A&B\\
 | Hard-wall duct, length $L$ | $\begin{bmatrix}\cos kL & jY\sin kL\\ jY^{-1}\sin kL & \cos kL\end{bmatrix}$ | Munjal Ch.2 |
 | Side-branch resonator $Z_b$ | shunt $\begin{bmatrix}1&0\\ Z_b^{-1}&1\end{bmatrix}$, $Z_b=R+j(\omega M-\tfrac1{\omega C})$, $f_0=\tfrac{c}{2\pi}\sqrt{\tfrac{S_n}{l_{\rm eff}V}}$ | Ingard 1953 |
 | Lined section (wall admittance $\beta$) | complex axial $k_x(\beta)$ from the eigenvalue relation → propagation matrix | Munjal; Cremer/Tester |
-| MPP perforate wall (no flow) | $z=r+j\omega m$, $k=d\sqrt{f}/10$; $r=\tfrac{32\eta t}{\sigma\rho_0 c d^2}k_r$, $\omega m=\tfrac{\omega t}{\sigma c}k_m$ | [[paper-maa-mpp-1998]] |
+| MPP perforate wall (no flow) | $z=r+j\omega m$, $k=d\sqrt{f}/10$; $r=\tfrac{32\eta t}{\sigma\rho_0 c d^2}k_r$, $\omega m=\tfrac{\omega t}{\sigma c}k_m$ | [Maa 1998](../entities/source-papers.md#paper-maa-mpp-1998) |
 | Bias-flow perforate wall | orifice impedance from Howe conductivity $K_R(St)$, $St=\omega a/U$ | Howe 1979; Jing–Sun 2000 |
 
 MPP-over-cavity-$D$ surface absorption: $\alpha=\tfrac{4r}{(1+r)^2+(\omega m-\cot(\omega D/c))^2}$, perfect ($\alpha_0{=}1$) at the $r{=}1$ match. Headline duct output: $\mathrm{TL}=20\log_{10}\!\big[\tfrac12\,|A+B/Y+CY+D|\big]$ (equal inlet/outlet area).
