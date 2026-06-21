@@ -696,6 +696,23 @@ to absorb low-frequency fan tones.*
 
 ---
 
+## Duct-acoustics & liner modeling (2026-06-20)
+
+*E3/E4 build for the rooftop-fan confined-path strategy; feeds [[duct-acoustics-liner-modeling]].*
+
+### paper-maa-mpp-1998
+
+**"Potential of microperforated panel absorber"** — Dah-You Maa (Academia Sinica) · *J. Acoust. Soc. Am.* 104(5):2861, 1998 · DOI 10.1121/1.423870 · `raw/MicroperforatedPanelAbsorber-Maa-JASA1998.txt`
+
+- Canonical **MPP impedance model**: submillimetre holes ($d\approx0.1$–$1$ mm) supply viscous resistance + low mass reactance with no fibrous fill. The quantitative form of the §5b flow-resistive screen and the first liner element for the E3 duct.
+- Relative impedance $z=r+j\omega m$ keyed to the **perforate constant** $k=d\sqrt{f}/10$: $r=\frac{32\eta t}{\sigma\rho_0 c d^2}k_r$, $\omega m=\frac{\omega t}{\sigma c}k_m$, with $k_r=\sqrt{1+k^2/32}+\frac{\sqrt2}{32}k\frac{d}{t}$, $k_m=1+(1+k^2/2)^{-1/2}+0.85\frac{d}{t}$.
+- MPP + cavity $D$ over rigid backing: $\alpha=\frac{4r}{(1+r)^2+(\omega m-\cot(\omega D/c))^2}$; resonance $\omega_0 m=\cot(\omega_0 D/c)$ → $\alpha_0=\frac{4r}{(1+r)^2}$, **perfect at $r=1$** (matched). Bandwidth $f_2/f_1=\pi/\cot^{-1}(1+r)-1$ — resistance trades peak for width.
+- **Deep-subwavelength**: $D/\lambda$ falls below $1/4$ as $k$ grows → thin LF absorber, but still a $\lambda/4$-cavity resonator (examples: 250–2000 Hz @ $D{=}6$ cm; 125–1000 Hz @ $D{=}12$ cm). Reaching 118 Hz wants a deep or coiled cavity (→ [[hybrid-active-passive]] metamaterials).
+- Pairs with the bias-flow perforate (Howe 1979 / Jing–Sun 2000, [[electroacoustic-absorbers]] §9): same hole geometry, viscous-vs-vortex resistance.
+- Tags: hybrid-passive, active-absorber, acoustics, impedance, duct, reference
+
+---
+
 ## Pending ingestion (no PDF in `/l/dttd/` yet)
 
 These are referenced in concept-page footnotes but have no `raw/` extraction:

@@ -1,7 +1,7 @@
 ---
 title: Pending Sources — Wishlist
 created: 2026-04-17
-updated: 2026-06-18
+updated: 2026-06-20
 type: summary
 tags: [reference, anc]
 sources: []
@@ -103,6 +103,30 @@ NASA fan-noise literature.
 - Neise, *JSV* 45(3):375, 1976 — centrifugal fan noise literature survey
 - Neise & Koopmann, *JSV* 73(2):297, 1980 — fan-noise reduction by resonators
 - Howe, *J. Fluids Struct.* 5:33, 1991 — serrated trailing edge theory
+
+## For [[duct-acoustics-liner-modeling]] (E3/E4/E5 build)
+
+- **Munjal, *Acoustics of Ducts and Mufflers*, 2nd ed., Wiley 2014** — *the*
+  transfer-matrix / four-pole reference; TL/IL/NR definitions, lined ducts.
+  ISBN 978-1-118-44312-5. **Top priority; paywalled (library).**
+- ~~Rienstra & Hirschberg, *An Introduction to Acoustics*, TU Eindhoven~~ →
+  **staged 2026-06-20** in `incoming-pdfs/` (author-hosted, free). Duct modes,
+  impedance walls, Ingard–Myers BC, vortex sound.
+- ~~Maa, *JASA* 104:2861, 1998 — microperforated-panel impedance~~ →
+  **ingested 2026-06-20** (JOS supplied via AIP; see
+  [paper-maa-mpp-1998](entities/source-papers.md#paper-maa-mpp-1998) and
+  [[duct-acoustics-liner-modeling]]).
+- **Howe, *Proc. R. Soc. A* 366:205, 1979** — Rayleigh conductivity with mean
+  flow; bias-flow theory backbone. DOI 10.1098/rspa.1979.0046.
+- **Jing & Sun, *AIAA J.* 38:1573, 2000** — thick-plate bias-flow perforate
+  impedance (codeable). DOI 10.2514/2.1188.
+- **Tester, *JSV* 27(4):477, 1973** — Cremer optimum modal attenuation (no flow).
+  DOI 10.1016/0022-460X(73)90040-2.
+- **Ingard, *JASA* 25:1037, 1953** — orifice/resonator impedance + end corrections.
+- **Nelson & Elliott, *Active Control of Sound*, Academic 1992** — single-channel
+  duct ANC (E5). *(Galland 2005 flow-duct hybrid liner already in catalog.)*
+- **Ma & Sheng, *Sci. Adv.* 2:e1501595, 2016** — resonant-metasurface review
+  (open access).
 
 ## For [[fxlms-algorithm]] and [[deep-rl-anc]]
 

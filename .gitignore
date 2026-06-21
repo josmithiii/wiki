@@ -1,3 +1,5 @@
 raw/
 .obsidian/
 build/
+# Staged source PDFs are local-only; only incoming-pdfs/README.md is tracked
+**/incoming-pdfs/*.pdf

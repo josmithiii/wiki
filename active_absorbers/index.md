@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-18 | Concepts: 16 · Source papers in catalog: 48
+> Last updated: 2026-06-20 | Concepts: 17 · Source papers in catalog: 49
 
 ## Entities
 
@@ -134,6 +134,10 @@ cross-link.
 - [paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011](entities/source-papers.md#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011) — Lissek, Boulandet & Fleury *JASA* 2011: unifying theory — passive electric shunts ⇔ active acoustic feedback as one 1-DOF EA; direct impedance control matches $\rho c$ via $C_v/C_p$.
 - [paper-rivet-karkar-lissek-broadband-lf-ea-2017](entities/source-papers.md#paper-rivet-karkar-lissek-broadband-lf-ea-2017) — Rivet, Karkar & Lissek *IEEE TCST* 2017: broadband LF EA via pressure-sensor feedforward + current drive; ~410 Hz $\rho c$ match @ $f_0{=}84$ Hz; duct modal range 51.3→12.6 dB.
 
+### Duct-acoustics & liner modeling (2026-06-20)
+
+- [paper-maa-mpp-1998](entities/source-papers.md#paper-maa-mpp-1998) — Maa *JASA* 1998: canonical microperforated-panel impedance model ($z=r+j\omega m$ via perforate constant $k=d\sqrt f/10$); perfect absorption at $r{=}1$; deep-subwavelength LF liner; feeds [[duct-acoustics-liner-modeling]]
+
 ## Concepts
 
 ### Classical adaptive filtering
@@ -149,6 +153,7 @@ cross-link.
 - [electroacoustic-absorbers](concepts/electroacoustic-absorbers.md) — **Electroacoustic absorbers**: loudspeaker diaphragm as the controlled $\rho c$-matched surface; shunt⇔feedback unifying theory (Lissek 2011), broadband-LF current-driven realization (Rivet 2017), Olson-May 1953 origin; the micron-excursion absorption argument relevant to the electrostatic-panel idea
 - [psychoacoustic-anc](concepts/psychoacoustic-anc.md) — **Perceptual ANC**: tonality penalty (ISO/DIN), loudness-weighted cost, tonal-to-broadband reshaping, Rivera/Zölzer ITU-R 468 hybrid, differentiable perceptual losses
 - [rooftop-fan-contenders](concepts/rooftop-fan-contenders.md) — **Pointer page**: out-of-scope contenders (source mods, staggered RPM, passive absorbers, metamaterials, silencers) mapped to in-wiki active methods; now includes §4.5 NASA fan-noise literature distilled from the Brooks 1989 / Sutliff 1997 / Sutliff 2019 NTRS trio
+- [duct-acoustics-liner-modeling](concepts/duct-acoustics-liner-modeling.md) — **E3 reading note + spec**: plane-wave lined-duct transfer-matrix model (TL output), liner impedance sub-models (Maa MPP, Howe/Jing-Sun bias-flow, Helmholtz), Cremer optimum vs $\rho c$, element library; reading list Munjal / Rienstra-Hirschberg / Nelson-Elliott / Ma-Sheng
 
 ### AI-based ANC approaches *(project focus)*
 
