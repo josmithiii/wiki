@@ -1,6 +1,32 @@
 # LLM Wiki
 
+Persistent, interlinked markdown knowledge bases built and maintained by
+AI agents with human curation, following
+[Karpathy's LLM-wiki idea](https://x.com/karpathy/status/1938626382248149433):
+instead of re-deriving domain knowledge every session, agents read and
+extend a shared wiki that survives across sessions, agents, and models.
+
 Each subdirectory is an independent wiki with its own SCHEMA.md, index.md, and log.md.
+
+## Try it in 5 minutes
+
+1. Clone the repo and browse: every page is plain markdown with YAML
+   frontmatter and `[[wikilinks]]` -- readable as-is on GitHub or in any
+   editor.
+2. Open a subdirectory (e.g. `waveguide_synthesis/`) as an
+   [Obsidian](https://obsidian.md/) vault to get clickable link
+   navigation and graph view.
+3. Or build the static multi-wiki web site: `make rebuild` (see
+   `build/` and `scripts/`).
+4. To point an AI agent at it: have the agent read the target wiki's
+   `SCHEMA.md` (conventions), `index.md` (page catalog), and the tail of
+   `log.md` (recent activity), then only the pages relevant to its task.
+   That orientation ritual is the whole protocol.
+5. To start your own wiki: `mkdir <topic>/`, add `SCHEMA.md`,
+   `index.md`, and `log.md` (copy one of the existing ones as a
+   template), and list it below.
+
+Licensed MIT (see `LICENSE`).
 
 ## Active Wikis
 
