@@ -33,6 +33,7 @@ Licensed MIT (see `LICENSE`).
 - `waveguide_synthesis/` -- Digital waveguide modeling: traveling waves, scattering junctions, instrument models, reverb
 - `modal_synthesis/` -- Physics-based synthesis using measured or computed modes of vibration
 - `spectral_processing/` -- Spectral audio signal processing (JOS SASP book): STFT, windows, OLA/FBS, sinusoidal/SMS modeling, phase vocoder, filter banks
+- `virtual_analog/` -- Virtual analog modeling: VA filters and their time-varying stability, circuit/DAE solvers, antialiasing (ADAA), oscillators, neural VA, real-time deployment
 - `active_absorbers/` -- Active absorbers and active noise control (ANC): adaptive filters, feedforward/feedback control, active impedance, ANC headphones
 - `projects/` -- Cross-agent shared project state, decisions, and coordination
 

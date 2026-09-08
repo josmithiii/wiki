@@ -1,7 +1,7 @@
 ---
 title: Project State
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-09-08
 type: status
 tags: [shared]
 ---
@@ -30,3 +30,15 @@ tags: [shared]
 - **Status:** active
 - **Goal:** JUCE audio plugins with jos-modules subtree
 - **Current:** Unknown — needs status update from plugin sessions
+
+## dafx26-wiki-ingestion
+- **Status:** active (pass 1 complete)
+- **Goal:** Ingest the selected DAFx26 papers (29th Int. Conf. on Digital Audio Effects, Cambridge MA, 1-4 Sept 2026) into the shared LLM wiki
+- **Current (2026-09-08):** Pass 1 (catalog only) done. Sources at /l/dttd/DAFx26/ with the annotated bibliography at /l/dttd/DAFx26/README_JOS.md and pdftotext extractions in /l/dttd/DAFx26/txt/. Mapping:
+  - **virtual_analog/** - NEW sub-wiki. 16 catalog entries (papers 16, 18, 26, 27, 28, 29, 30, 31, 32, 33, 37, 45, 47, 49, demos 60, 67) plus cross-references to the three WDF papers. One concept page, concepts/virtual-analog-overview.md.
+  - **waveguide_synthesis/** - new entities/source-papers.md with 14 entries (papers 01, 04, 05, 10, 23, 24, 25, 36, 38, 39, 43, demos 61, 68, 71); DAFx26 pointers added to 6 concept pages.
+  - **modal_synthesis/** - new entities/source-papers.md with 13 full entries (papers 03, 06, 11, 40, 41, demo 72, challenges 76, 77, 82, 83, 86, 87, 88) plus one-line entries for challenges 78-81, 84, 85, 89-91; DAFx26 pointers added to 4 concept pages and the waveguide-vs-modal comparison.
+  - **spectral_processing/** - 4 entries appended to entities/source-papers.md (papers 02, 21, 34, 44) plus a cross-reference to paper 49; DAFx26 pointers added to 3 concept pages.
+- **Next:** Pass 2 - deep distillation of the three-star papers into dedicated concept pages (VA filter stability, ADAA, alias-free oscillator sync, differentiable FDNs, the plate-reverb challenge lessons, DDM polynomial AM-FM sinusoids).
+- **Decided:** New virtual_analog sub-wiki rather than folding VA into waveguide_synthesis (2026-09-08); wave digital filters stay in waveguide_synthesis and are cross-linked.
+
