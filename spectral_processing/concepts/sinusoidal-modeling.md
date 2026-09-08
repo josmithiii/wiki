@@ -1,7 +1,7 @@
 ---
 title: Sinusoidal Modeling
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-08
 type: concept
 tags: [sinusoidal, peak-detection, parshl, stft]
 sources:
@@ -9,6 +9,7 @@ sources:
   - /w/sasp/additivesynth.tex
   - /w/sasp/parshl.tex
   - /w/sasp/peaks.tex
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Sinusoidal Modeling
@@ -81,6 +82,11 @@ Window length ≥ 4 periods of the lowest partial being tracked.
 - Source separation guided by tracks
 - Spectral envelope estimation via partial amplitudes
 - Physical model calibration from recorded tones
+
+## DAFx26 additions
+
+- Caetano 2026 models instrument sounds with **polynomial AM-FM sinusoids** estimated by the **distribution derivative method**, capturing intra-frame modulation (especially in attacks) better than SM+ or eaQHM and scoring nearly indistinguishable from the originals in a MUSHRA test: [[entities/source-papers#paper-caetano-ddm-polynomial-amfm-2026]]
+- On the additive-synthesis side, alias-free oscillator synchronization is obtained by a linear **spectral-resampling transform** on the Fourier-series coefficients of a bandlimited waveform: [[virtual_analog/entities/source-papers#paper-roth-alias-free-oscillator-sync-2026]]
 
 ## Related Concepts
 - [[qifft-peak-estimation]] — the core estimator

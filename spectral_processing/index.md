@@ -3,12 +3,16 @@
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
 > Source book: Julius O. Smith III, *Spectral Audio Signal Processing* (`/w/sasp/`).
-> Last updated: 2026-05-04 | Total pages: 21
+> Last updated: 2026-09-08 | Total pages: 21
 
 ## Entities
 <!-- specific methods, tools, historical items -->
 - [[source-papers]] — distilled source-paper catalog for spectral-processing research PDFs
 - [paper-laroche-dolson-improved-pv-1999](entities/source-papers.md#paper-laroche-dolson-improved-pv-1999) — Laroche & Dolson 1999: vertical phase coherence diagnosis, identity/scaled phase locking, 50% overlap phase-vocoder TSM
+- [paper-caetano-ddm-polynomial-amfm-2026](entities/source-papers.md#paper-caetano-ddm-polynomial-amfm-2026) - Caetano 2026: polynomial AM-FM sinusoids via the distribution derivative method; beats SM+ and eaQHM, MUSHRA-transparent
+- [paper-apel-giant-fft-group-delay-2026](entities/source-papers.md#paper-apel-giant-fft-group-delay-2026) - Apel 2026: coherent temporal manipulation in the group-delay domain of a whole-file Giant FFT
+- [paper-nielsen-keyframe-extrema-tsm-2026](entities/source-papers.md#paper-nielsen-keyframe-extrema-tsm-2026) - Nielsen 2026: extrema-density-driven adaptive OLA time stretching for embedded hardware
+- [paper-badia-octave-filter-bank-parallelism-2026](entities/source-papers.md#paper-badia-octave-filter-bank-parallelism-2026) - Badia, Belloch & Valimaki 2026: parallel, energy-aware multistage linear-phase octave filter bank on an edge SoC
 
 ## Concepts
 <!-- core theory pages -->

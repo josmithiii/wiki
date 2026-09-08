@@ -1,7 +1,7 @@
 ---
 title: Phase Vocoder and Time-Scale Modification
 created: 2026-04-11
-updated: 2026-05-04
+updated: 2026-09-08
 type: concept
 tags: [phase-vocoder, tsm, stft, phase-unwrap, modifications]
 sources:
@@ -11,6 +11,7 @@ sources:
   - /w/sasp/unwrap.tex
   - /w/sasp/phasewrap.tex
   - spectral_processing/raw/Improved_phase_vocoder_time-scale_modification_of_audio.txt
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Phase Vocoder and Time-Scale Modification
@@ -95,5 +96,6 @@ stationarity. Mitigations:
 - [[sms-sines-plus-noise]] — alternative TSM framework
 - [[stft-modifications]] — general safe-modification rules
 - [[entities/source-papers#paper-laroche-dolson-improved-pv-1999|Laroche-Dolson 1999 source note]]
+- **DAFx26 additions (Sept 2026):** a content-adaptive OLA stretcher for embedded targets that drives crossfade duration from local extrema density, about an order of magnitude cheaper than PV or WSOLA - see [[entities/source-papers#paper-nielsen-keyframe-extrema-tsm-2026]]
 
 [^laroche-dolson-1999]: Jean Laroche and Mark Dolson, "Improved Phase Vocoder Time-Scale Modification of Audio," *IEEE Transactions on Speech and Audio Processing* 7(3):323-332, May 1999. Distilled in [[entities/source-papers#paper-laroche-dolson-improved-pv-1999]].

@@ -1,13 +1,14 @@
 ---
 title: Multirate Filter Banks
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-08
 type: concept
 tags: [multirate, filter-banks, wavelets, perfect-reconstruction]
 sources:
   - /w/sasp/mfb.tex
   - /w/sasp/wavelets.tex
   - /w/sasp/downsampling.tex
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Multirate Filter Banks
@@ -100,3 +101,5 @@ log-spaced above ~500 Hz. Built by:
 - [[filter-bank-summation-stft]] — uniform DFT bank is a special case
 - [[spectral-audio-applications]] — audio coding uses these banks
 - [[window-design-methods]] — prototype filter design
+- **DAFx26 additions (Sept 2026):** a cache-friendly blocked realization and OpenMP task pipeline for a multistage linear-phase octave filter bank on an edge SoC, with a throughput-versus-energy trade-off - see [[entities/source-papers#paper-badia-octave-filter-bank-parallelism-2026]]
+

@@ -31,3 +31,12 @@
 - create concepts/multirate-filter-banks.md — polyphase, noble ids, PR, wavelets
 - create concepts/spectral-audio-applications.md — coding, loudness, vocoders, effects
 - create concepts/gaussian-and-chirp-windows.md — Gaussian optimality, chirplets
+
+## [2026-09-08] ingest | DAFx26 proceedings - pass 1 (catalog only)
+- Source: /l/dttd/DAFx26/ (29th Int. Conf. on Digital Audio Effects, Cambridge MA, 1-4 Sept 2026), annotated bibliography at /l/dttd/DAFx26/README_JOS.md
+- Copied 4 pdftotext extractions into raw/ (gitignored); added a DAFx26 section to raw/MANIFEST.md and raw/SUMMARIES.md.
+- Appended 4 catalog entries to entities/source-papers.md: paper_34 (Caetano, distribution derivative method with polynomial AM-FM sinusoids), paper_02 (Apel, group delay manipulation with the Giant FFT), paper_21 (Nielsen, keyframe time stretching via extrema sampling), paper_44 (Badia, Belloch, Valimaki, parallel linear-phase octave filter bank).
+- Added a cross-reference to paper_49 (Roth et al., alias-free oscillator synchronization via additive synthesis), catalogued in the new virtual_analog sub-wiki.
+- Updated concepts/sinusoidal-modeling.md with a "DAFx26 additions" bullet list; added a DAFx26 see-also pointer plus a sources: entry to concepts/phase-vocoder-and-tsm.md and concepts/multirate-filter-banks.md (both at the 100-line limit, so the bullets stay in the source-papers entries).
+- Updated index.md Entities with the four new source-paper anchors.
+- Pass 2 (deep distillation of the three-star papers into concept pages) is pending.
