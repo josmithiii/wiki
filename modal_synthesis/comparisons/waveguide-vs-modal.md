@@ -1,12 +1,13 @@
 ---
 title: Waveguide vs. Modal Synthesis
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-09-08
 type: comparison
 tags: [waveguide, modal-synthesis, physical-modeling, dsp, comparison]
 sources:
   - /w/pasp/modal.tex
   - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Waveguide vs. Modal Synthesis
@@ -72,6 +73,12 @@ $$h(t) \;=\; \sum_k a_k\, e^{-d_k t}\, \sin(2\pi f_k t)$$
 Then synthesize: $y(t) = e(t) * h(t)$ (convolution)
 This is exactly a single convolution -- often cheaper than running N biquads
 for long-decay instruments (but loses flexibility of changing pickup or modes).
+
+## DAFx26 additions
+
+- DAFx26 offers a direct contrast case: a **finite-difference plus modal** bowed-string model of the Chinese yehu (two stiff strings, elastic bow hairs, a measured modal bridge, radiation as a parallel biquad bank) versus the delay-line route to the same instrument class - see [[waveguide_synthesis/entities/source-papers#paper-zheng-yehu-physical-model-2026]].
+- The **65-guitar** pipeline keeps the body as a modal load coupled at an interior bridge point rather than commuting it into the excitation, which is the modal counterpart of the commuted shortcut above: [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]]
+- On the reverb side, a **differentiable FDN** fitted to measured RIRs (waveguide wiki) and a **corpus-driven modal reverberator** (this wiki) attack the same problem from the two sides of this comparison: [[waveguide_synthesis/entities/source-papers#paper-ibnyahya-differentiable-fdn-rir-2026]] and [[entities/source-papers#paper-ducceschi-corpus-driven-modal-reverberator-2026]]
 
 ## Related Concepts
 - [[modal-synthesis-overview]] -- modal synthesis in full detail

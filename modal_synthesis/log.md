@@ -81,3 +81,23 @@
 
 ## [2026-04-10] update | sources fields on 12 existing pages
 ## [2026-04-10] update | index.md — added 5 pages (total 19)
+
+## [2026-09-08] ingest | DAFx26 proceedings - pass 1 (catalog only)
+- Source: /l/dttd/DAFx26/ (29th Int. Conf. on Digital Audio Effects, Cambridge MA, 1-4 Sept 2026), annotated bibliography at /l/dttd/DAFx26/README_JOS.md
+- Copied 22 pdftotext extractions into raw/ (gitignored) and created raw/MANIFEST.md and raw/SUMMARIES.md.
+- Created entities/source-papers.md with 13 full catalog entries plus a completeness list of the remaining 9 challenge reports:
+  paper_40 (Ducceschi, Russo, Webb - 65 classical guitars, SAV nonlinear string),
+  paper_41 (Giampiccolo et al. - ERA for violin bridge admittances),
+  paper_06 (Ducceschi et al. - corpus-driven parametric modal reverberator),
+  paper_03 (Bittner et al. - diagonal complex SSMs for plate reverbs),
+  paper_11 (Lee & Rau - Klein bottle / non-orientable plate modes),
+  demo_72 (Ducceschi & Webb - Bunkervik spatial reverb),
+  challenge_76 (Gabrielli & Ducceschi - the 1st DAFx Challenge overview, with Task A/B definitions and the Tables 3 and 4 rankings),
+  challenge_82 (Marttila et al. - Task A winner), challenge_83 (Park et al. - Task A 2nd, machine precision),
+  challenge_77 (Garofalo et al. - differentiable modal plate synthesis), challenge_87 (Diaz et al. - Task B winner),
+  challenge_86 (Bittner & Jantsch - matrix-pencil SSM), challenge_88 (Franchino et al. - subband AR pole harvesting).
+  Other challenge entries 78, 79, 80, 81, 84, 85, 89, 90, 91 are listed one line each with their PDF paths.
+- Updated concepts/modal-analysis-measurement.md and comparisons/waveguide-vs-modal.md with full "DAFx26 additions" bullet lists.
+- Updated concepts/ml-modal-parameter-estimation.md, coupled-structures.md and nonlinear-modal-synthesis.md with a DAFx26 see-also pointer plus a sources: entry (those pages are close enough to the 100-line limit that the bullets stay in the source-papers entries per SCHEMA).
+- Updated index.md: Entities now lists the source-paper catalog and 14 anchors; 20 pages.
+- Pass 2 (deep distillation of the three-star papers into concept pages) is pending.

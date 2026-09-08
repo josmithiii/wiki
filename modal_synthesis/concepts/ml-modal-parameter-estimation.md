@@ -1,7 +1,7 @@
 ---
 title: ML Modal Parameter Estimation
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-09-08
 type: concept
 tags: [modal-synthesis, ml, neural, differentiable, dsp, inference]
 sources:
@@ -9,6 +9,7 @@ sources:
   - /l/dttd/DiffImpact-294_diffimpact_differentiable_rend.pdf
   - /l/dttd/SynthMatch-DDSP-Diaz-Hayes-RigidBodyModal-ICASSP23.pdf
   - ~/wiki/modal_synthesis/raw/papers/DiffSound-2409.13486v1.pdf
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # ML Modal Parameter Estimation
@@ -89,6 +90,7 @@ from audio.
 - [[resonator-bank-implementation]] — the DSP structure being learned
 - [[gpu-modal-synthesis]] — GPU acceleration for large mode counts
 - [[rigid-body-sound-synthesis]] — application domain
+- **DAFx26 additions (Sept 2026):** the 1st DAFx plate-reverb parameter-estimation challenge and its entries - diagonal complex SSMs as modal banks, count-density networks, matrix-pencil initialization, differentiable modal plate synthesis, and the finding that neural nets work best as initializers for a local search - see [[entities/source-papers#the-1st-dafx-parameter-estimation-challenge-plate-reverb]]
 
 ## References
 [^1]: Jin, Xu, Gao, Wu, Wang & Li (2024). "DiffSound." SIGGRAPH Conference Papers.

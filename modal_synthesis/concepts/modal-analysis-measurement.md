@@ -1,12 +1,13 @@
 ---
 title: Modal Analysis Measurement
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-09-08
 type: concept
 tags: [modal, acoustics, measurement, impulse-response, vibration]
 sources:
   - /w/pasp/modal.tex
   - /l/dttd/modal-analysis-of-different-types-of-classical-guitar-bodies.pdf
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Modal Analysis Measurement
@@ -71,6 +72,13 @@ where $S_{xy}$ = cross-power spectrum, $S_{xx}$ = input power spectrum.
 - **Orchidea** (IRCAM): orchestral sound library with physics annotations
 - **RealImpact** (Georg et al., 2022): 150,000 impact recordings from 50 objects,
   synchronized video + audio, used for ML training on modal synthesis
+
+## DAFx26 additions
+
+- **Eigensystem Realization Algorithm (ERA)** applied to measured violin bridge admittance IRs gives a reduced-order state-space model in one algebraic step, beating modal and state-space baselines in time, frequency and energy decay - but without a passivity guarantee: [[entities/source-papers#paper-giampiccolo-era-violin-bridge-2026]]
+- Modal parameters of **bridge compliance and bridge-to-air radiation** extracted from measured IRs for all 65 guitars of the Mores dataset, then used to drive per-instrument synthesis: [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]]
+- The **1st DAFx Parameter Estimation Challenge** turned pole-fitting into a scored benchmark on synthetic plate IRs; every entry recovered frequencies and decays far better than gains (no method below 0.83 relative gain error), and a frequency-domain re-evaluation reordered the ranking: [[entities/source-papers#paper-gabrielli-dafx-challenge-overview-2026]]
+- Classical competitors that did well there: **matrix-pencil** initialization of a diagonal complex state-space model with closed-form least-squares gains, and **subband autoregressive pole harvesting** on the IR and its first two finite differences: [[entities/source-papers#paper-bittner-matrix-pencil-ssm-taskb-2026]], [[entities/source-papers#paper-franchino-subband-ar-pole-harvesting-2026]]
 
 ## Related Concepts
 - [[mode-shapes-and-eigenvalues]] — what we are measuring

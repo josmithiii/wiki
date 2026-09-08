@@ -1,7 +1,7 @@
 ---
 title: Nonlinear Modal Synthesis
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-09-08
 type: concept
 tags: [modal-synthesis, physical-modeling, vibration, impact, dsp]
 sources:
@@ -10,6 +10,7 @@ sources:
   - /l/dttd/BilbaoCollisions-ISMA-2024.pdf
   - /l/dttd/TunableCollisionsPianoHammerDAFx23.pdf
   - /l/dttd/QuadraticSplineCollisions-DAFx24.pdf
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Nonlinear Modal Synthesis
@@ -88,6 +89,7 @@ Modern approach avoiding iterative Newton-Raphson solvers:
 - [[impact-synthesis]] — excitation models for collisions
 - [[coupled-structures]] — multi-object energy transfer
 - [[resonator-bank-implementation]] — DSP realization of mode filters
+- **DAFx26 additions (Sept 2026):** Scalar Auxiliary Variable quadratization of a geometrically exact nonlinear string, inverted by two Sherman-Morrison rank-one updates for an O(N) step - see [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]]
 
 ## References
 [^1]: Poirot, Bilbao & Kronland-Martinet (2024). "A simplified and controllable model of mode coupling." EURASIP JASM.
