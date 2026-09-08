@@ -1,11 +1,12 @@
 ---
 title: Waveguide Parameter Optimization
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-08
 type: concept
 tags: [waveguide, optimization, ml, differentiable, dsp, physical-modeling]
 sources:
   - /l/wgr/Sections/Parameter Optimization/ParameterOptimisation.tex
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Waveguide Parameter Optimization
@@ -97,6 +98,7 @@ DWG embedded within neural network; backprop through differentiable DSP:
 - [[string-modeling]] — primary target for FDL optimization
 - [[commuted-synthesis]] — body separation enables independent optimization
 - [[waveguide-vocal-models]] — vocal tract as optimization target
+- **DAFx26 additions (Sept 2026):** differentiable Karplus-Strong sound matching, differentiable Kelly-Lochbaum copy-synthesis, differentiable FDN fitting to measured RIRs, and ADAC compilation of trained differentiable graphs to FAUST - see [[entities/source-papers]]
 
 ## References
 [^1]: Tablas de Paula, Smith, Välimäki & Reiss (2025). "Four Decades of Digital Waveguides." JAES.

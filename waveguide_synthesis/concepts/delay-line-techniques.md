@@ -1,7 +1,7 @@
 ---
 title: Delay-Line Techniques
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-08
 type: concept
 tags: [delay-line, dsp, waveguide, realtime]
 sources:
@@ -9,6 +9,7 @@ sources:
   - /w/pasp/delay-var.tex
   - /w/pasp/delay-lossy-prop.tex
   - /w/pasp/delay-allpass-waveguide.tex
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # Delay-Line Techniques
@@ -89,6 +90,7 @@ Stiff strings and other media have frequency-dependent propagation speed:
 - [[scattering-junctions]] — connecting waveguides requires delay management
 - [[string-modeling]] — primary application of fractional delay + loop filters
 - [[artificial-reverberation]] — delay lines as building blocks for reverb
+- **DAFx26 additions (Sept 2026):** loopback FM via a time-varying delay line, and evidence that time-domain fractional-delay interpolation is differentiable with no time-aliasing - see [[entities/source-papers#paper-smyth-loopback-fm-tvdl-2026]] and [[entities/source-papers#paper-tablas-differentiable-karplus-strong-2026]]
 
 ## References
 [^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.

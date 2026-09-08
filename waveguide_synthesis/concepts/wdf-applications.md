@@ -1,7 +1,7 @@
 ---
 title: WDF Applications
 created: 2026-04-11
-updated: 2026-04-15
+updated: 2026-09-08
 type: concept
 tags: [waveguide, dsp, physical-modeling, nonlinear, guitar, string]
 sources:
@@ -11,6 +11,7 @@ sources:
   - /l/dttd/WDF-NeuralK-Benardini-IEEE-OpenSigProc-2025.pdf
   - /l/dttd/PyWDF-DAFx23.pdf
   - /l/dttd/Automatic_Generation_of_Virtual_Analog_Audio_Plug_ins_based_on_WDFs_RG.pdf
+  - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
 # WDF Applications
@@ -122,6 +123,7 @@ A major modern application: real-time emulation of vintage audio gear.
 - [[wdf-adaptors]] — how elements connect
 - [[waveguide-parameter-optimization]] — DDSP techniques applied to WDFs
 - [[reed-and-bow-models]] — DWG models that interface with WDF components
+- **DAFx26 additions (Sept 2026):** compiled abstraction-free WDF code generation, an explicit CPWL wave digital model of the Fulltone OCD pedal, and KANs vs MLPs as the learned nonlinear-junction solver - see [[entities/source-papers#wave-digital-filters-and-circuit-emulation]]
 
 ## References
 [^1]: Van Duyne, S. & Smith, J.O. (1994). "A Simplified Approach to Modeling Dispersion..." ICMC.

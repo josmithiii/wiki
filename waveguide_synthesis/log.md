@@ -104,3 +104,20 @@
 - No new concept page — content enriches existing pages
 - Updated wave-digital-filters.md: Forward Euler structurally non-realizable (not just unstable); WDF vs state-space cost comparison
 - Updated wdf-r-type-adaptors.md, wdf-multiple-nonlinearities.md, wdf-elements.md: added dissertation as source with chapter pointers
+
+## [2026-09-08] ingest | DAFx26 proceedings - pass 1 (catalog only)
+- Source: /l/dttd/DAFx26/ (29th Int. Conf. on Digital Audio Effects, Cambridge MA, 1-4 Sept 2026), annotated bibliography at /l/dttd/DAFx26/README_JOS.md
+- Copied 14 pdftotext extractions into raw/ (gitignored) and created raw/MANIFEST.md (with a section for the pre-existing WDF extractions) and raw/SUMMARIES.md.
+- Created entities/source-papers.md with 14 catalog entries:
+  paper_38 (Tablas de Paula et al., differentiable Karplus-Strong), paper_39 (Camara et al., differentiable Kelly-Lochbaum sygyt),
+  paper_36 (Smyth, loopback FM via time-varying delay line), paper_43 (Zheng, Darabundit, Scavone, Chinese yehu),
+  paper_23 (Chowdhury & Rau, performance-oriented WDF codegen), paper_24 (Giampiccolo et al., Fulltone OCD CPWL WDF),
+  paper_25 (Giampiccolo et al., KANs vs MLPs in WDFs), paper_04 (Coppola, fast parametric lossless FDN matrices),
+  paper_05 (Dal Santo et al., nonlinear shimmer FDNs), paper_10 (Ibnyahya & Reiss, differentiable FDN RIR fitting),
+  demo_68 (St-Onge & Scavone, sfFDN / FDN Sandbox), demo_61 (Franchino & Schlecht, ADAC to FAUST),
+  paper_01 (Abate & Hansen, concatenation-driven convolution), demo_71 (Valentin et al., IRIS).
+- Updated concepts/artificial-reverberation.md, string-modeling.md, delay-line-techniques.md, wdf-applications.md and waveguide-parameter-optimization.md with a DAFx26 see-also pointer plus a sources: entry (these pages are at or over the 100-line limit, so the bullets stay in the source-papers entries per SCHEMA).
+- Updated concepts/waveguide-vocal-models.md with a full "DAFx26 additions" bullet list (page had headroom).
+- Updated index.md: Entities section now lists the source-paper catalog and 14 anchors; 22 pages.
+- The virtual analog context for paper_23/24/25 is catalogued in the new sibling wiki virtual_analog/.
+- Pass 2 (deep distillation of the three-star papers into concept pages) is pending.

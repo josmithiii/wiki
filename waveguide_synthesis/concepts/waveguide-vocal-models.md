@@ -1,12 +1,13 @@
 ---
 title: Waveguide Vocal Models
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-08
 type: concept
 tags: [voice, waveguide, physical-modeling, dsp, acoustics]
 sources:
   - /l/wgr/Sections/Advancements/SpeechProcessing.tex
   - /w/pasp/idealtubesummary.tex
+  - /l/dttd/DAFx26/DAFx26_paper_39.pdf
 ---
 
 # Waveguide Vocal Models
@@ -66,6 +67,12 @@ Advances beyond the 1D plane-wave assumption:
   surpasses neural audio synthesis for vowel reconstruction
 
 See [[waveguide-parameter-optimization]] for the full optimization taxonomy.
+
+## DAFx26 additions
+
+- Camara et al. 2026 fit a **differentiable Kelly-Lochbaum tract** to Tuvan sygyt biphonic singing, adding a sublingual second source, a cubic B-spline area function and spatially varying learnable damping, and cutting log-spectral distance by 30-38% versus an articulatory baseline: [[entities/source-papers#paper-camara-articulatory-biphonic-singing-2026]]
+- Their result that a DDSP harmonic-plus-noise model with direct per-harmonic control loses to the waveguide is the strongest recent evidence that explicit acoustic structure is a useful inductive bias for copy-synthesis.
+- The companion DAFx26 string paper reports that time-domain fractional-delay interpolation gives usable gradients without time-aliasing, which applies equally to gradient-based tract-length estimation: [[entities/source-papers#paper-tablas-differentiable-karplus-strong-2026]]
 
 ## Related Concepts
 - [[scattering-junctions]] — the area-change junctions in the vocal tract
