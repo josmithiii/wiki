@@ -1,7 +1,7 @@
 ---
 title: Sinusoidal Modeling
 created: 2026-04-11
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [sinusoidal, peak-detection, parshl, stft]
 sources:
@@ -90,6 +90,7 @@ Window length ≥ 4 periods of the lowest partial being tracked.
 
 ## Related Concepts
 - [[qifft-peak-estimation]] — the core estimator
+- [[nonstationary-sinusoidal-estimation-ddm]] - intra-frame AM-FM estimation (DAFx26)
 - [[sinusoidal-parameter-interpolation]] — resynthesis interpolation
 - [[sms-sines-plus-noise]] — sinusoidal + residual
 - [[f0-and-spectral-envelope]] — harmonic structure extraction

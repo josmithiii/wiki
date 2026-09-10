@@ -1,7 +1,7 @@
 ---
 title: STFT Modifications
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [stft, modifications, ola, fbs, perfect-reconstruction]
 sources:
@@ -86,3 +86,4 @@ to avoid clicks.
 - [[overlap-add-stft]], [[filter-bank-summation-stft]] — host frameworks
 - [[phase-vocoder-and-tsm]] — principled time/pitch modification
 - [[cross-synthesis-and-morphing]] — applications
+- [[giant-fft-group-delay-domain]] - whole-file DFT edits in the group-delay domain (DAFx26)

@@ -1,7 +1,7 @@
 ---
 title: QIFFT Peak Estimation
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [qifft, peak-detection, sinusoidal]
 sources:
@@ -88,3 +88,4 @@ QIFFT but more expensive; complementary.
 - [[spectrum-analysis-windows]] — window choice determines bias
 - [[zero-padding-and-interpolation]] — required for accurate peaks
 - [[gaussian-and-chirp-windows]] — QIFFT is exact for Gaussian
+- [[nonstationary-sinusoidal-estimation-ddm]] - DDM/PMS estimator for nonstationary partials

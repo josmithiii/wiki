@@ -40,3 +40,12 @@
 - Updated concepts/sinusoidal-modeling.md with a "DAFx26 additions" bullet list; added a DAFx26 see-also pointer plus a sources: entry to concepts/phase-vocoder-and-tsm.md and concepts/multirate-filter-banks.md (both at the 100-line limit, so the bullets stay in the source-papers entries).
 - Updated index.md Entities with the four new source-paper anchors.
 - Pass 2 (deep distillation of the three-star papers into concept pages) is pending.
+
+## [2026-09-10] ingest | DAFx26 proceedings - pass 2 (deep distillation)
+- Distilled four DAFx26 papers from /l/dttd/DAFx26/txt/ into new concept pages, one per paper, each citing its pass-1 catalog anchor in entities/source-papers.md.
+- create concepts/nonstationary-sinusoidal-estimation-ddm.md (paper_34, Caetano) - polynomial modulation sinusoid model, the DDM integration-by-parts identity and its windowed-DFT linear system, window-derivative transform, alpha_0 by least squares, peak-selection thresholds, model order Q=3, the 39-sound SM+/eaQHM comparison (RMS-LSM, ISD, SRR) and the MUSHRA/ANOVA result.
+- create concepts/giant-fft-group-delay-domain.md (paper_02, Apel) - group delay as temporal centre of gravity, the exactly invertible first-difference/cumulative-sum pair, zero padding against temporal aliasing after Valimaki et al., Gaussian-smoothed peak-region segmentation and group-delay grouping, and the three transformations (reordering, amplitude-proportional displacement, sinusoidal group-delay modulation).
+- create concepts/extrema-sampling-time-stretch.md (paper_21, Nielsen) - B-spline bandlimited derivative and thresholded extrema, tangent-free smoothstep reconstruction, the keyframe-leash adaptive splice, the Cortex-M7 cost table, passthrough fidelity/THD numbers and the webMUSHRA plus LAT results.
+- create concepts/linear-phase-octave-filter-bank-implementation.md (paper_44, Badia/Belloch/Valimaki) - stretched-FIR complementary cascade and its alignment shifts, blocked schedule with compact circular state, the OpenMP stage-block task graph with explicit dependencies and thread-local reduction, and the Jetson Orin Nano throughput/speedup/power/energy numbers.
+- Added one-line see-also pointers (and bumped updated) in concepts/sinusoidal-modeling.md, concepts/qifft-peak-estimation.md, concepts/sinusoidal-parameter-interpolation.md, concepts/phase-vocoder-and-tsm.md, concepts/stft-modifications.md and concepts/multirate-filter-banks.md.
+- index.md: four new Concepts entries; total pages 21 -> 25.

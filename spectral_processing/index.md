@@ -3,7 +3,7 @@
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
 > Source book: Julius O. Smith III, *Spectral Audio Signal Processing* (`/w/sasp/`).
-> Last updated: 2026-09-08 | Total pages: 21
+> Last updated: 2026-09-10 | Total pages: 25
 
 ## Entities
 <!-- specific methods, tools, historical items -->
@@ -36,6 +36,10 @@
 - [[multirate-filter-banks]] — polyphase, noble identities, PR FB, wavelets
 - [[spectral-audio-applications]] — audio coding, loudness, vocoders, effects
 - [[gaussian-and-chirp-windows]] — Gaussian optimality, chirplets, uncertainty principle
+- [[nonstationary-sinusoidal-estimation-ddm]] - polynomial AM-FM sinusoids estimated by the distribution derivative method
+- [[giant-fft-group-delay-domain]] - whole-file DFT edited in the group-delay domain: peak grouping and time displacement
+- [[extrema-sampling-time-stretch]] - sparse extrema keyframes driving an adaptive-crossfade OLA time stretcher
+- [[linear-phase-octave-filter-bank-implementation]] - blocked and OpenMP-task realization of a multistage IFIR octave bank on an edge SoC
 
 ## Comparisons
 <!-- See also sibling wikis: ../waveguide_synthesis/ and ../modal_synthesis/ -->

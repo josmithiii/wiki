@@ -1,7 +1,7 @@
 ---
 title: Sinusoidal Parameter Interpolation
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [sinusoidal, modifications]
 sources:
@@ -81,3 +81,4 @@ phase lock — causes **phasiness** in transparent resynthesis.
 - [[sinusoidal-modeling]] — upstream analysis
 - [[qifft-peak-estimation]] — provides the frame parameters
 - [[phase-vocoder-and-tsm]] — related phase management
+- [[nonstationary-sinusoidal-estimation-ddm]] - polynomial modulation inside the frame instead of between frames
