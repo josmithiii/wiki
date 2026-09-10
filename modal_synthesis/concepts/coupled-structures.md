@@ -1,7 +1,7 @@
 ---
 title: Coupled Structures
 created: 2026-04-10
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [modal-synthesis, physical-modeling, vibration, string, acoustics, dsp]
 sources:
@@ -92,6 +92,7 @@ Beyond instrument subcomponents:
 - [[friction-synthesis]] — continuous excitation coupling
 - [[impact-synthesis]] — impulsive excitation at coupling point
 - **DAFx26 additions (Sept 2026):** measured bridge compliance and radiation coupled to a nonlinear string for 65 classical guitars, and reduced-order state-space realization of measured violin bridge admittances - see [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]] and [[entities/source-papers#paper-giampiccolo-era-violin-bridge-2026]]
+- Distilled in full: [[sav-nonlinear-string-with-measured-body]] (guitar bridge coupling) and [[era-bridge-admittance-identification]] (violin bridge admittance)
 
 ## References
 [^1]: Bilbao, Russo, Webb & Ducceschi (2024). "Real-Time Guitar Synthesis." DAFx24.

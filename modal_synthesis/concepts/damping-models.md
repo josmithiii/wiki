@@ -1,7 +1,7 @@
 ---
 title: Damping Models
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-09-10
 type: concept
 tags: [damping, modal, vibration, physical-modeling, dsp, acoustics]
 sources:
@@ -77,6 +77,7 @@ simple viscous model.
 - Low Q (high damping): rubber mallets, felt, foam-covered objects
 - See [[material-properties-and-modes]] for per-material damping values
 - Damping affects resonator pole placement; see [[resonator-bank-implementation]]
+- Per-band damping regressed from a corpus of room IRs, anchored to $T_{60}$: see [[corpus-driven-parametric-modal-reverb]]
 
 ## References
 

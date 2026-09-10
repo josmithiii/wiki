@@ -1,7 +1,7 @@
 ---
 title: Mode Shapes and Eigenvalues
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-09-10
 type: concept
 tags: [eigenmode, modal, vibration, wave-equation, acoustics]
 sources:
@@ -78,3 +78,4 @@ $$p(t) \;\sim\; \sum_k \phi_k(r_{\text{excite}})\, \phi_k(r_{\text{pickup}})\, q
 - [[resonator-bank-implementation]] — DSP implementation of modal coordinates
 - [[fem-bem-for-modal-synthesis]] — computing phi_k and omega_k numerically
 - [[modal-analysis-measurement]] — measuring phi_k and omega_k experimentally
+- [[modes-of-non-orientable-surfaces]] — closed-form modes on quotient spaces (Mobius, Klein bottle, RP2)

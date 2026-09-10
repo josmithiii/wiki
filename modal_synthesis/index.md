@@ -2,7 +2,7 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-09-08 | Total pages: 20
+> Last updated: 2026-09-10 | Total pages: 27
 
 ## Entities
 - [[realimpact-dataset]] — 150k calibrated impact recordings from 50 objects; ML training resource
@@ -43,6 +43,15 @@
 - [[ml-modal-parameter-estimation]] — neural mode prediction, differentiable modal synthesizers, audio-domain training
 - [[radiation-and-directivity]] — radiation efficiency vs. mode shape, acoustic transfer, directivity patterns
 - [[stochastic-modal-synthesis]] — SEA, high-frequency mode density, noise-band synthesis above mode resolution limit
+
+### DAFx26 deep dives (pass 2)
+- [[sav-nonlinear-string-with-measured-body]] — geometrically exact string, SAV quadratisation, two Sherman-Morrison steps, 65 measured guitar bodies
+- [[era-bridge-admittance-identification]] — Hankel-SVD state-space realization of violin bridge admittances, versus two Maestre baselines
+- [[corpus-driven-parametric-modal-reverb]] — six perceptual controls regressed onto thousands of modal parameters; plus the Bunkervik shared-pole spatial reverb
+- [[state-space-models-as-modal-resonator-banks]] — a diagonal complex SSM is exactly a parallel biquad bank; matrix-pencil initialisation and closed-form gains
+- [[modes-of-non-orientable-surfaces]] — closed-form modes of the Mobius strip, Klein bottle and real projective plane by quotient-space tiling
+- [[plate-reverb-parameter-estimation-challenge]] — the Kirchhoff-Love benchmark, both task metrics, full rankings, and what the results actually showed
+- [[modal-pole-harvesting-from-irs]] — multi-view subband AR pole harvesting and count-density networks for unknown mode counts
 
 ## Comparisons
 - [[waveguide-vs-modal]] — delay-line waveguide vs. eigenmode resonator bank: equivalence, tradeoffs, hybrid use

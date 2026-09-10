@@ -1,7 +1,7 @@
 ---
 title: Resonator Bank Implementation
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-09-10
 type: concept
 tags: [resonator, dsp, modal-synthesis, realtime, filter]
 sources:
@@ -86,3 +86,5 @@ Not all N modes are audible at all times:
 - [[mode-shapes-and-eigenvalues]] — source of mode parameters
 - [[impact-synthesis]] — typical excitation signal
 - [[gpu-modal-synthesis]] — massively parallel implementations
+- [[state-space-models-as-modal-resonator-banks]] — a diagonal complex SSM is exactly this filter bank, and is trainable
+- [[corpus-driven-parametric-modal-reverb]] — driving thousands of these sections from six perceptual controls

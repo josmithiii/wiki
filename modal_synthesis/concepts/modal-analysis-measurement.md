@@ -1,7 +1,7 @@
 ---
 title: Modal Analysis Measurement
 created: 2026-04-09
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [modal, acoustics, measurement, impulse-response, vibration]
 sources:
@@ -79,6 +79,7 @@ where $S_{xy}$ = cross-power spectrum, $S_{xx}$ = input power spectrum.
 - Modal parameters of **bridge compliance and bridge-to-air radiation** extracted from measured IRs for all 65 guitars of the Mores dataset, then used to drive per-instrument synthesis: [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]]
 - The **1st DAFx Parameter Estimation Challenge** turned pole-fitting into a scored benchmark on synthetic plate IRs; every entry recovered frequencies and decays far better than gains (no method below 0.83 relative gain error), and a frequency-domain re-evaluation reordered the ranking: [[entities/source-papers#paper-gabrielli-dafx-challenge-overview-2026]]
 - Classical competitors that did well there: **matrix-pencil** initialization of a diagonal complex state-space model with closed-form least-squares gains, and **subband autoregressive pole harvesting** on the IR and its first two finite differences: [[entities/source-papers#paper-bittner-matrix-pencil-ssm-taskb-2026]], [[entities/source-papers#paper-franchino-subband-ar-pole-harvesting-2026]]
+- Distilled in full: [[era-bridge-admittance-identification]], [[plate-reverb-parameter-estimation-challenge]], [[modal-pole-harvesting-from-irs]] and [[state-space-models-as-modal-resonator-banks]]
 
 ## Related Concepts
 - [[mode-shapes-and-eigenvalues]] — what we are measuring
