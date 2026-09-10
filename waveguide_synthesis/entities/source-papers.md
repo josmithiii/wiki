@@ -1,7 +1,7 @@
 ---
 title: Source Papers -- Distilled Catalog
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-10
 type: entity
 tags: [reference, comparison, waveguide, reverb, fdn, differentiable]
 sources:
@@ -13,6 +13,7 @@ sources:
   - /l/dttd/DAFx26/DAFx26_paper_23.pdf
   - /l/dttd/DAFx26/DAFx26_paper_24.pdf
   - /l/dttd/DAFx26/DAFx26_paper_25.pdf
+  - /l/dttd/DAFx26/DAFx26_paper_35.pdf
   - /l/dttd/DAFx26/DAFx26_paper_36.pdf
   - /l/dttd/DAFx26/DAFx26_paper_38.pdf
   - /l/dttd/DAFx26/DAFx26_paper_39.pdf
@@ -20,6 +21,7 @@ sources:
   - /l/dttd/DAFx26/DAFx26_demo_61.pdf
   - /l/dttd/DAFx26/DAFx26_demo_68.pdf
   - /l/dttd/DAFx26/DAFx26_demo_71.pdf
+  - /l/dttd/DAFx26/DAFx26_demo_73.pdf
 ---
 
 # Source Papers -- Distilled Catalog
@@ -225,3 +227,31 @@ and [[wdf-applications]].
 - Demonstration: an FDN is trained and exported to a working plug-in. See [[artificial-reverberation]] and [[waveguide-parameter-optimization]].
 - Limitation: demo paper; the supported operator set of the IR and the classes of model that can be certified are not fully characterized.
 - Tags: faust, differentiable, ml, dsp, realtime, fdn, reference
+
+---
+
+## Theory, topology and measurement
+
+### paper-essl-circular-buffer-monodromy-2026
+
+**"Winding Numbers and Monodromy of Vector Bundles over a Circular Buffer"** - Georg Essl (University of Wisconsin - Milwaukee) - DAFx26, Cambridge MA, Sept 2026 - `raw/DAFx26_paper_35.txt`
+
+- Reinterprets the ordinary circular buffer as a **trivial real line bundle** over a discrete circle: each sample position is a fiber, and the transition map between neighbouring fibers is a scalar multiply.
+- A single $-1$ transition in the loop makes the bundle non-trivial - the **Mobius circular buffer**, the same object as the Johnson (twisted) ring counter and as Trautmann's twisted string; **monodromy** $\mu = A^n$ is the effect of going once around.
+- Generalises to the **$r$-circular shift matrix**; $r = 1$ gives the classic shift, $r = -1$ the skew-circulant, unimodular complex $r$ a circle bundle. The **winding number** $w$ is the least $k$ with $\mu^k = I$.
+- Explains the half fundamental and odd-harmonic spectrum of mixed Dirichlet-Neumann waveguides (capped organ pipe, clarinet) as monodromy modulation of the DFT spectrum. See [[concepts/circular-buffer-topology-monodromy]] for the full distillation.
+- Frames the Berdahl et al. chaotic-oscillator-in-a-delay-loop design as **variable monodromy** with a fixed winding number, and sketches braids as the vector-bundle generalisation.
+- Limitation: expository and structural; no synthesis results, listening tests, or FDN application (explicitly listed as future work).
+- Tags: delay-line, waveguide, wave-equation, reference, tutorial
+
+### paper-wieland-polymap-pickups-2026
+
+**"PolyMap: A 64-Channel Polyphonic Guitar Pickup System"** - David Wieland, Jonas Roth, Christoph Studer (ETH Zurich) - DAFx26 demo paper, Cambridge MA, Sept 2026 - `raw/DAFx26_demo_73.txt`
+
+- Master's-thesis hardware: an **8 x 8 grid of 64 active pickups** (Cycfi Nu Capsules) on a custom eight-string guitar - every string sensed individually at **eight positions** between bridge and neck.
+- All 64 channels are digitised inside the instrument (eight 8-channel ADCs, 48 kHz / 24 bit, simultaneous sampling) and shipped over a single coaxial cable as **MADI** from an FPGA; power is injected on the same cable.
+- Measured **5.4 ms** end-to-end latency at a 32-sample buffer, and channel noise floors of $-73$ to $-67$ dBFS (the pickups dominate; disabling them gives $-90$ dBFS).
+- Enables per-string effects, virtual (interpolated) pickup position, phase-inverted blending, and controlled measurement of comb-filter pickup-position effects on one instrument. See [[entities/polymap-pickup-system]].
+- Design files, plug-in and sample audio are open-source.
+- Limitation: demo paper; noise performance is pickup-limited, and 64-channel tracks are confirmed working only in Reaper.
+- Tags: guitar, string, dsp, realtime, reference

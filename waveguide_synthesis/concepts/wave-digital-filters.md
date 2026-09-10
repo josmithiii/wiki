@@ -1,7 +1,7 @@
 ---
 title: Wave Digital Filters
 created: 2026-04-11
-updated: 2026-04-15
+updated: 2026-09-10
 type: concept
 tags: [waveguide, scattering, dsp, physical-modeling, impedance]
 sources:
@@ -122,6 +122,7 @@ each component, enabling modding and circuit-bending.
 - [[wdf-elements]] — mass, spring, dashpot, transformer, gyrator, nonlinear
 - [[wdf-multiple-nonlinearities]] — multiple/multiport nonlinearities via K-method
 - [[wdf-applications]] — audio circuits, piano hammer, tonehole, nonlinear FX
+- [[wdf-code-generation]] — compiling a circuit description to abstraction-free WDF code
 - [[scattering-junctions]] — same math, different domain (DWG vs. WDF)
 - [[waveguide-overview]] — distributed vs. lumped: DWG vs. WDF
 

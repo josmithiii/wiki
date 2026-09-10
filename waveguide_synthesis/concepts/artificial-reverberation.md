@@ -1,7 +1,7 @@
 ---
 title: Artificial Reverberation
 created: 2026-04-11
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [reverb, fdn, sdn, waveguide, dsp, room]
 sources:
@@ -89,6 +89,7 @@ Bridges FDN and physical room modeling:
 - [[scattering-junctions]] — FDN feedback = scattering at virtual junction
 - [[waveguide-meshes]] — brute-force physical room simulation
 - [[delay-line-techniques]] — interpolation for tuning delay lengths
+- **Pass-2 pages:** [[fdn-kronecker-feedback-matrices]], [[nonlinear-and-time-varying-fdn-effects]], [[differentiable-fdn-design]]
 - **DAFx26 additions (Sept 2026):** fast parametric Kronecker FDN feedback matrices, nonlinear/shimmer FDNs, differentiable FDNs fitted to measured RIRs, concatenation-driven convolution, the sfFDN library and the IRIS IR-navigation plugin - see [[entities/source-papers#artificial-reverberation-fdns-differentiable-reverb-convolution]]
 
 ## References

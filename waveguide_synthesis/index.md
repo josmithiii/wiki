@@ -2,10 +2,12 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-09-08 | Total pages: 22
+> Last updated: 2026-09-10 | Total pages: 33
 
 ## Entities
 - [[entities/source-papers]] - distilled source-paper catalog (DAFx26 pass-1 ingestion)
+- [[entities/sffdn-library]] - sfFDN C++ FDN library and the FDN Sandbox GUI with nine ensmallen optimizers
+- [[entities/polymap-pickup-system]] - 64-channel polyphonic guitar pickup array over MADI; string-vibration measurement platform
 
 ### DAFx26 source-paper anchors
 - [paper-tablas-differentiable-karplus-strong-2026](entities/source-papers.md#paper-tablas-differentiable-karplus-strong-2026) - differentiable extended Karplus-Strong sound matching; time-domain fractional delay gradients
@@ -22,6 +24,8 @@
 - [paper-valentin-iris-ir-navigation-2026](entities/source-papers.md#paper-valentin-iris-ir-navigation-2026) - IRIS VST3 plugin for 2D navigation of impulse-response collections
 - [paper-stonge-fdn-sandbox-sffdn-2026](entities/source-papers.md#paper-stonge-fdn-sandbox-sffdn-2026) - sfFDN real-time C++ FDN library plus the FDN Sandbox GUI and optimizers
 - [paper-franchino-adac-differentiable-to-faust-2026](entities/source-papers.md#paper-franchino-adac-differentiable-to-faust-2026) - ADAC compiles trained differentiable audio graphs to FAUST with a stability certificate
+- [paper-essl-circular-buffer-monodromy-2026](entities/source-papers.md#paper-essl-circular-buffer-monodromy-2026) - circular buffers as line bundles; Mobius monodromy and winding numbers
+- [paper-wieland-polymap-pickups-2026](entities/source-papers.md#paper-wieland-polymap-pickups-2026) - PolyMap 64-channel polyphonic guitar pickup system over MADI
 
 ## Concepts
 - [[waveguide-overview]] — bidirectional delay line models for 1D wave propagation; d'Alembert solution
@@ -43,6 +47,15 @@
 - [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, differentiable/neural WDFs
 - [[viola-wdf-plugin-generator]] — VIOLA: automatic SPICE-to-VST pipeline via WDFs (Giampiccolo et al., JAES 2025)
 - [[wdf-arbitrary-port-adaptation]] — general formula for adapting any junction port via MNA/Thévenin resistance
+- [[fdn-kronecker-feedback-matrices]] — lossless FDN mixing from recursive 2x2 Kronecker kernels; $O(N\log N)$, stereo, freeze, modulation
+- [[nonlinear-and-time-varying-fdn-effects]] — shimmer reverb: five nonlinear/pitch-shifting blocks inside the FDN loop, with energy analysis
+- [[differentiable-fdn-design]] — frequency-sampling differentiable FDNs fitted to RIRs; proportional PEQ attenuation; ADAC export to FAUST
+- [[differentiable-karplus-strong]] — differentiable extended KS; time-domain Lagrange delay gradients; onsets get no spectral gradient
+- [[differentiable-kelly-lochbaum-tract]] — sygyt copy-synthesis: sublingual source, B-spline area function, learnable damping
+- [[loopback-fm-time-varying-delay]] — LBFM as a TVDL; wrapping and offsetting the delay function without phase distortion
+- [[bowed-string-finite-difference-models]] — yehu FD model: modal bridge, elastic bow hairs, energy-quadratised finger contact
+- [[wdf-code-generation]] — declarative circuit DSL compiled to abstraction-free WDF code near a theoretical bound
+- [[circular-buffer-topology-monodromy]] — delay loops as line bundles; Mobius monodromy, winding numbers, chaotic oscillators
 - [[wdf-r-type-adaptors]] — MNA-derived scattering for arbitrary (non-series/parallel) topologies (Werner et al., DAFx 2015)
 - [[wdf-multiple-nonlinearities]] — SPQR + R-type root + K-method framework for multiple/multiport NLs (Werner et al., DAFx 2015)
 

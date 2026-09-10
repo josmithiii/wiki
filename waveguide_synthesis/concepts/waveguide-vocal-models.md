@@ -1,7 +1,7 @@
 ---
 title: Waveguide Vocal Models
 created: 2026-04-11
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [voice, waveguide, physical-modeling, dsp, acoustics]
 sources:
@@ -79,6 +79,7 @@ See [[waveguide-parameter-optimization]] for the full optimization taxonomy.
 - [[bore-modeling]] — same waveguide principles applied to wind instruments
 - [[waveguide-meshes]] — 2D/3D meshes used for advanced vocal tract models
 - [[waveguide-parameter-optimization]] — calibrating vocal tract models
+- [[differentiable-kelly-lochbaum-tract]] — the DAFx26 sygyt copy-synthesis model in full
 
 ## References
 [^1]: Kelly, J. & Lochbaum, C. (1962). "Speech synthesis." 4th ICA, Copenhagen.

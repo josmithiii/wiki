@@ -1,7 +1,7 @@
 ---
 title: Digital Waveguide Overview
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [waveguide, physical-modeling, delay-line, traveling-wave, dsp]
 sources:
@@ -82,6 +82,7 @@ See [[waveguide-vs-modal]] in the modal_synthesis wiki for detailed comparison.
 - [[delay-line-techniques]] — interpolation, variable delay, allpass tuning
 - [[string-modeling]] — application to plucked/struck/bowed strings
 - [[bore-modeling]] — application to wind instrument tubes
+- [[circular-buffer-topology-monodromy]] — the delay loop as a line bundle; why mixed boundaries halve $f_0$
 
 ## References
 [^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.

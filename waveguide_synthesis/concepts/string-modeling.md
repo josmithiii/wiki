@@ -1,7 +1,7 @@
 ---
 title: String Modeling
 created: 2026-04-11
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [string, waveguide, physical-modeling, guitar, dsp, damping]
 sources:
@@ -96,6 +96,7 @@ If excitation and pickup are fixed, commute the body filter to the input:
 - [[delay-line-techniques]] — fractional delay, loop filter design
 - [[scattering-junctions]] — bridge coupling, termination modeling
 - [[bore-modeling]] — analogous waveguide approach for wind instruments
+- **Pass-2 pages:** [[differentiable-karplus-strong]], [[bowed-string-finite-difference-models]], and [[entities/polymap-pickup-system]] as a 64-channel measurement platform
 - **DAFx26 additions (Sept 2026):** a differentiable extended Karplus-Strong sound matcher and a finite-difference bowed-string model of the Chinese yehu - see [[entities/source-papers#paper-tablas-differentiable-karplus-strong-2026]] and [[entities/source-papers#paper-zheng-yehu-physical-model-2026]]
 
 ## References

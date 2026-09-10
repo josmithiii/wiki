@@ -1,7 +1,7 @@
 ---
 title: Scattering Junctions
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [scattering, waveguide, impedance, dsp, physical-modeling]
 sources:
@@ -90,6 +90,7 @@ Scattering is energy-conserving by construction:
 - [[delay-line-techniques]] — fractional delay at junctions
 - [[bore-modeling]] — piecewise cylindrical tubes with scattering junctions
 - [[artificial-reverberation]] — FDN feedback matrices as scattering
+- [[differentiable-kelly-lochbaum-tract]] — learnable three-way junctions and damping in a vocal tract
 
 ## References
 [^1]: Kelly, J. & Lochbaum, C. (1962). "Speech synthesis." 4th ICA, Copenhagen.

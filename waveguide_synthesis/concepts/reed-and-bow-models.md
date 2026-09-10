@@ -1,7 +1,7 @@
 ---
 title: Reed and Bow Models
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-09-10
 type: concept
 tags: [reed, nonlinear, waveguide, wind, string, physical-modeling]
 sources:
@@ -86,6 +86,7 @@ and produces an outgoing wave — a memoryless or low-order dynamic map.
 - [[bore-modeling]] — the cylindrical/conical tube being driven
 - [[scattering-junctions]] — the junction framework for excitation coupling
 - [[string-modeling]] — bowed-string waveguide models
+- [[bowed-string-finite-difference-models]] — the finite-difference alternative (yehu, elasto-plastic friction)
 
 ## References
 [^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.
