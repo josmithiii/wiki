@@ -1,7 +1,7 @@
 ---
 title: Virtual Analog Overview
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-10
 type: concept
 tags: [va-filters, circuit-modeling, antialiasing, neural-va, real-time, tutorial]
 sources:
@@ -32,21 +32,21 @@ rather than "just filter design" is that the interesting behavior is
 ### Trapezoidal / TPT / ZDF filters
 Discretize a continuous-time state-space filter prototype with the trapezoidal
 rule (bilinear transform), resolving the resulting delay-free loops
-algebraically. This "topology-preserving transform" / "zero-delay feedback"
-family covers the state-variable, Sallen-Key, Moog ladder and diode ladder
-filters. The open questions are stability under audio-rate parameter modulation
-and where to put the saturating nonlinearities:
+algebraically - [[tpt-zdf-filters]]. This "topology-preserving transform" /
+"zero-delay feedback" family covers the state-variable, Sallen-Key, Moog ladder
+and diode ladder filters. The open questions are stability under audio-rate
+parameter modulation and where to put the saturating nonlinearities:
 
-- [[entities/source-papers#paper-mcclellan-time-varying-va-stability-2026]] - common quadratic Lyapunov functions survive trapezoidal discretization, giving genuine BIBO proofs for time-varying VA filters.
-- [[entities/source-papers#paper-oyama-moog-ladder-nonlinearity-2026]] - SPICE-referenced comparison of five digital ladders, and which stage's nonlinearity actually matters.
-- [[entities/source-papers#paper-fontana-allpass-clipping-prevention-2026]] - keeping modulated allpass sections from overshooting unity.
+- [[time-varying-filter-stability]] - common quadratic Lyapunov functions survive trapezoidal discretization, giving genuine BIBO proofs for time-varying VA filters.
+- [[moog-ladder-filter-models]] and [[ladder-nonlinearity-ablation]] - SPICE-referenced comparison of five digital ladders, and which stage's nonlinearity actually matters.
+- [[allpass-clipping-prevention]] - keeping modulated allpass sections from overshooting unity.
 
 ### State-space and DAE circuit solvers
 Nodal or state-space formulations (MNA, DAE) solved per sample with Newton
 iteration or a surrogate. SPICE is the reference; the cost is the nonlinear
 solve.
 
-- [[entities/source-papers#paper-zea-adaptive-multirate-qp-2026]] - a quadratic program with a linear surrogate constraint replaces the Newton loop, with the residual driving adaptive step size.
+- [[state-space-circuit-solvers]] - a quadratic program with a linear surrogate constraint replaces the Newton loop, with the residual driving adaptive step size.
 
 ### Wave digital filters
 The scattering/wave-variable route to modular circuit emulation. WDFs are
@@ -62,8 +62,8 @@ correction functions (BLEP/BLAMP/polyBLEP) and **antiderivative antialiasing**
 (ADAA), which convolves the nonlinearity with a reconstruction kernel
 analytically.
 
-- [[entities/source-papers#paper-gabrielli-polyadaa-2026]] - ADAA beyond linear reconstruction, via Chebyshev approximation of the nonlinearity.
-- [[entities/source-papers#paper-roth-alias-free-oscillator-sync-2026]] - oscillator sync made alias-free by construction in the Fourier-series domain.
+- [[antiderivative-antialiasing]] and [[polyadaa]] - ADAA fundamentals, then ADAA beyond linear reconstruction via Chebyshev approximation of the nonlinearity.
+- [[alias-free-oscillator-sync]] and [[hasy-asic]] - oscillator sync made alias-free by construction in the Fourier-series domain, and the 65 nm chip that runs it.
 - [[entities/source-papers#paper-argentieri-arbitrary-polygon-oscillator-2026]] - polyBLAMP from runtime geometry plus adaptive oversampling.
 
 ### Black-box neural VA
@@ -71,8 +71,8 @@ Recurrent (LSTM/GRU) and convolutional (WaveNet-style) models trained on
 input/output recordings, conditioned on the device's controls. Open problems:
 artifacts under time-varying conditioning, sample-rate dependence, and cost.
 
-- [[entities/source-papers#paper-kallinen-deep-regularized-rnn-va-2026]] - stability-regularized deep conditioned LSTMs with a gammatone-filterbank loss.
-- [[entities/source-papers#paper-massi-fno-sample-rate-independent-va-2026]] - Fourier neural operators for sample-rate-independent inference.
+- [[neural-va-architectures]] - stability-regularized deep conditioned LSTMs with a gammatone-filterbank loss.
+- [[fourier-neural-operators-va]] - Fourier neural operators for sample-rate-independent inference.
 
 ### Grey-box hybrids
 Neural components embedded in a physical structure: an MLP or KAN solving the
@@ -88,9 +88,9 @@ A VA algorithm ships inside an audio callback. What decides feasibility is not
 average throughput but worst-case time per block, and whether the inference path
 is callback-safe at all.
 
-- [[entities/source-papers#paper-balasubramaniam-apple-silicon-neural-audio-2026]] - inference backends benchmarked under real DAW contention, by tail latency and deadline misses.
-- [[entities/source-papers#paper-huang-snapdragon-gpu-neural-audio-2026]] - when a mobile integrated GPU helps and when per-call overhead eats the gain.
-- [[entities/source-papers#paper-sato-wavenet-pruning-ios-2026]] - 90% magnitude pruning plus a sparse engine puts a WaveNet amp model on an iPhone CPU.
+- [[real-time-neural-inference-deployment]] - inference backends benchmarked under real DAW contention, by tail latency and deadline misses.
+- [[mobile-gpu-neural-audio]] - when a mobile integrated GPU helps and when per-call overhead eats the gain.
+- [[neural-model-compression]] - 90% magnitude pruning plus a sparse engine puts a WaveNet amp model on an iPhone CPU.
 
 ## See also
 

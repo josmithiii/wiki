@@ -3,10 +3,11 @@
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
 > Wave digital filters live in the sibling `waveguide_synthesis/` wiki (`wdf-*` pages).
-> Last updated: 2026-09-08 | Total pages: 2
+> Last updated: 2026-09-10 | Total pages: 17
 
 ## Entities
 - [[entities/source-papers]] - distilled source-paper catalog (DAFx26 pass-1 ingestion)
+- [[hasy-asic]] - 65 nm ASIC computing the alias-free oscillator-sync spectral transform
 
 ### DAFx26 source-paper anchors
 - [paper-mcclellan-time-varying-va-stability-2026](entities/source-papers.md#paper-mcclellan-time-varying-va-stability-2026) - CQLF stability proofs for time-varying trapezoidal VA filters
@@ -28,7 +29,21 @@
 
 ## Concepts
 - [[virtual-analog-overview]] - what VA covers, the method families, and where each DAFx26 paper fits
+- [[tpt-zdf-filters]] - trapezoidal / bilinear discretization of state-space prototypes, and the zero-delay-feedback solve
+- [[time-varying-filter-stability]] - common quadratic Lyapunov functions, the discretization theorem, SVF / Sallen-Key / ladder bounds
+- [[moog-ladder-filter-models]] - ladder topology, lineage, and five implementations scored against a SPICE reference
+- [[allpass-clipping-prevention]] - bounding modulated first/second-order allpass output by clamping the coefficient increment
+- [[antiderivative-antialiasing]] - ADAA fundamentals: the antiderivative formula, its ill-conditioning, FIR/IIR kernels
+- [[polyadaa]] - higher-order Lagrange reconstruction made tractable by Chebyshev approximation of the nonlinearity
+- [[alias-free-oscillator-sync]] - hard/mirrored/pulsar sync as a linear spectral-resampling transform plus additive synthesis
+- [[real-time-neural-inference-deployment]] - the callback-deadline model and Apple Silicon backends under DAW contention
+- [[mobile-gpu-neural-audio]] - when a Snapdragon integrated GPU beats the CPU for streaming neural audio
+- [[neural-model-compression]] - 90% iterative magnitude pruning plus a sparse engine for WaveNet amp models on iPhone
+- [[state-space-circuit-solvers]] - nonlinear circuit DAEs as one convex QP per sample, with the nonlinear residual driving adaptive step size
+- [[neural-va-architectures]] - stability-regularized control-conditioned LSTMs and the gammatone-filterbank loss
+- [[fourier-neural-operators-va]] - frame-based FNOs giving VA models that run at sample rates they were not trained on
 
 ## Comparisons
+- [[ladder-nonlinearity-ablation]] - saturator function versus placement versus which ladder stages stay nonlinear
 
 ## Queries
