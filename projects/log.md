@@ -11,3 +11,6 @@
 - Added dafx26-wiki-ingestion to project-state.md: DAFx26 pass-1 (catalog only) ingestion of the selected papers from /l/dttd/DAFx26/ into virtual_analog (new), waveguide_synthesis, modal_synthesis and spectral_processing
 - Logged the decision to create a new virtual_analog sub-wiki rather than folding VA into waveguide_synthesis
 - Pass 2 (deep distillation of the three-star papers into concept pages) is pending
+
+## 2026-09-10 - DAFx26 pass 2 complete
+- Four parallel agents distilled 37 DAFx26 papers into concept pages across virtual_analog, waveguide_synthesis, modal_synthesis and spectral_processing; project-state.md updated; make rebuild clean (0 errors, no broken wikilinks)
