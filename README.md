@@ -17,7 +17,11 @@ Each subdirectory is an independent wiki with its own SCHEMA.md, index.md, and l
    [Obsidian](https://obsidian.md/) vault to get clickable link
    navigation and graph view.
 3. Or build the static multi-wiki web site: `make rebuild` (see
-   `build/` and `scripts/`).
+   `build/` and `scripts/`). The build includes `graph.html`, an
+   interactive D3 knowledge graph of every page and wikilink (search,
+   filter by sub-wiki or page type, hover to highlight neighbors, click
+   to open), modeled on the
+   [Music 423 knowledge graph](https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html).
 4. To point an AI agent at it: have the agent read the target wiki's
    `SCHEMA.md` (conventions), `index.md` (page catalog), and the tail of
    `log.md` (recent activity), then only the pages relevant to its task.

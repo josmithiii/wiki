@@ -3,3 +3,5 @@ raw/
 build/
 # Staged source PDFs are local-only; only incoming-pdfs/README.md is tracked
 **/incoming-pdfs/*.pdf
+__pycache__/
+.pytest_cache/

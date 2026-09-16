@@ -91,6 +91,9 @@ h1 {{ border-bottom: 2px solid #ccc; padding-bottom: 0.3em; }}
 .overview a {{ text-decoration: none; color: #4a90e2; font-weight: 600; }}
 .overview a:hover {{ text-decoration: underline; }}
 .meta {{ color: #666; font-size: 0.9em; }}
+.graph-link {{ padding: 0.8em 1em; background: #1a1a2e; color: #ccc; border-radius: 4px; }}
+.graph-link a {{ color: #8cf; text-decoration: none; font-weight: 600; }}
+.graph-link a:hover {{ text-decoration: underline; }}
 .footer {{ margin-top: 3em; color: #888; font-size: 0.85em; border-top: 1px solid #ddd;
          padding-top: 1em; }}
 </style>
@@ -107,6 +110,10 @@ markdown sources designed for both human and LLM consumption.</p>
 biased toward most recent.  As a result, references cited as prior
 work are often not the original reference, but rather a more recent
 predating reference.</p>
+
+<p class="graph-link"><a href="graph.html">&#x25C9; Interactive knowledge graph</a>
+&mdash; every page as a node, every wikilink as an edge; search, filter by
+sub-wiki or page type, hover to see connections, click to open.</p>
 """)
 
     # Tight one-line overview list, each linking to the expanded block below

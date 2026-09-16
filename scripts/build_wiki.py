@@ -108,9 +108,13 @@ def collect_md_files(out_dir: Path, subwikis: list[str]) -> dict[str, Path]:
     return by_bare, by_relpath
 
 
-def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
-                     by_bare, by_relpath) -> str:
-    """Return a relative HTML path from source_md to the target .md."""
+def resolve_wikilink_target(target: str, source_md: Path, out_dir: Path,
+                            by_bare, by_relpath) -> tuple[Path | None, str]:
+    """Resolve a wikilink target to (destination .md Path, anchor).
+
+    Returns (None, "") for a broken link. A same-file link [[#heading]]
+    resolves to source_md itself.
+    """
     target = target.strip()
     # Split off optional "#anchor" fragment (Obsidian section link)
     anchor = ""
@@ -123,8 +127,8 @@ def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
     # Same-file anchor: [[#heading]]
     if not target:
         if anchor:
-            return f"#{anchor}"
-        return None
+            return source_md, anchor
+        return None, ""
 
     # Try exact relative-path match first (e.g. "modal_synthesis/comparisons/waveguide-vs-modal")
     if target in by_relpath:
@@ -139,7 +143,7 @@ def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
             bare = target.split("/")[-1]
             candidates = by_bare.get(bare, [])
             if not candidates:
-                return None  # broken link
+                return None, ""  # broken link
             if len(candidates) > 1:
                 # Prefer one in the same sub-wiki as source_md
                 source_sw = source_md.relative_to(out_dir).parts[0]
@@ -150,6 +154,17 @@ def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
                     dst = candidates[0]
             else:
                 dst = candidates[0]
+    return dst, anchor
+
+
+def resolve_wikilink(target: str, source_md: Path, out_dir: Path,
+                     by_bare, by_relpath) -> str | None:
+    """Return a relative HTML path from source_md to the target .md (None if broken)."""
+    dst, anchor = resolve_wikilink_target(target, source_md, out_dir, by_bare, by_relpath)
+    if dst is None:
+        return None
+    if dst == source_md and anchor:
+        return f"#{anchor}"
 
     # Compute relative HTML path from source_md's directory to dst (with .html)
     dst_html = dst.with_suffix(".html")
@@ -264,6 +279,8 @@ def build_sidebar(page_md: Path, out_dir: Path, subwiki_pages: dict[str, list[Pa
     lines = ['<div class="wiki-layout">', '<aside class="wiki-nav">']
     top_index = out_dir / "index.html"
     lines.append(f'<a class="wiki-nav-top" href="{rel(top_index)}">&larr; All wikis</a>')
+    graph_html = out_dir / "graph.html"
+    lines.append(f'<a class="wiki-nav-top" href="{rel(graph_html)}">&#x25C9; Knowledge graph</a>')
 
     if current_sw and current_sw in subwiki_pages:
         sw_dir = out_dir / current_sw

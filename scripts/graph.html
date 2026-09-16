@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOS LLM Wiki — Knowledge Graph</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #1a1a2e; color: #e0e0e0; overflow: hidden; }
+#container { width: 100vw; height: 100vh; position: relative; }
+svg { width: 100%; height: 100%; }
+
+/* Controls */
+#controls {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(20, 20, 40, 0.92); border-radius: 8px;
+  padding: 12px 16px; min-width: 240px; max-width: 320px;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+#controls h1 { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #ccc; }
+#search {
+  width: 100%; padding: 6px 10px; border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
+  color: #e0e0e0; font-size: 13px; outline: none; margin-bottom: 10px;
+}
+#search:focus { border-color: rgba(120,180,255,0.5); }
+#search::placeholder { color: #777; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 8px; }
+.legend-item {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; cursor: pointer; opacity: 0.85;
+  user-select: none;
+}
+.legend-item:hover { opacity: 1; }
+.legend-item.dimmed { opacity: 0.3; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+.filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+.filter-label { font-size: 11px; color: #888; margin-right: 2px; }
+.filter-btn {
+  font-size: 11px; padding: 3px 8px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
+  color: #aaa; cursor: pointer;
+}
+.filter-btn:hover { background: rgba(255,255,255,0.12); color: #ddd; }
+.filter-btn.active { background: rgba(120,180,255,0.2); border-color: rgba(120,180,255,0.4); color: #8cf; }
+
+#info {
+  font-size: 11px; color: #888; margin-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;
+}
+#credit { font-size: 10px; color: #666; margin-top: 6px; }
+#credit a { color: #7ab; text-decoration: none; }
+#credit a:hover { text-decoration: underline; }
+
+/* Tooltip */
+#tooltip {
+  position: absolute; pointer-events: none; display: none;
+  background: rgba(15, 15, 30, 0.95); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; padding: 10px 14px; max-width: 320px;
+  backdrop-filter: blur(8px); z-index: 20;
+}
+#tooltip h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+#tooltip .topic-badge {
+  display: inline-block; font-size: 10px; padding: 1px 6px;
+  border-radius: 3px; margin-bottom: 4px; opacity: 0.8;
+}
+#tooltip .tags { font-size: 11px; color: #999; margin-top: 4px; }
+#tooltip .link-count { font-size: 11px; color: #888; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div id="container">
+  <svg id="graph"></svg>
+
+  <div id="controls">
+    <h1><a href="index.html" style="color:#8cf;text-decoration:none">JOS LLM Wiki</a> — Knowledge Graph</h1>
+    <input type="text" id="search" placeholder="Search pages..." autocomplete="off">
+    <div class="filter-row" id="type-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Sub-wikis:</span>
+      <button class="filter-btn" id="topics-all">All</button>
+      <button class="filter-btn" id="topics-none">None</button>
+    </div>
+    <div id="legend" class="legend"></div>
+    <div id="info"></div>
+    <div id="credit">Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">Music 423 knowledge graph</a>.</div>
+  </div>
+
+  <div id="tooltip"></div>
+</div>
+
+<!--D3_INLINE-->
+<script>
+const DATA = "GRAPH_DATA_PLACEHOLDER";
+
+if (!DATA) {
+  document.getElementById("info").textContent = "No graph data — run: make rebuild";
+} else {
+  const { nodes, edges, topics, topic_colors, types } = DATA;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  // Precompute link degree for sizing
+  const maxDegree = Math.max(...nodes.map(n => n.links_in + n.links_out), 1);
+
+  // State
+  let activeTopics = new Set(topics);
+  let activeType = "all";
+  let searchTerm = "";
+
+  // SVG setup
+  const svg = d3.select("#graph");
+  const g = svg.append("g");
+
+  // Zoom
+  const zoom = d3.zoom()
+    .scaleExtent([0.15, 6])
+    .on("zoom", (e) => g.attr("transform", e.transform));
+  svg.call(zoom);
+
+  // Edges
+  const linkGroup = g.append("g").attr("class", "links");
+  const link = linkGroup.selectAll("line")
+    .data(edges)
+    .join("line")
+    .attr("stroke", "rgba(255,255,255,0.06)")
+    .attr("stroke-width", 0.5);
+
+  // Nodes
+  const nodeGroup = g.append("g").attr("class", "nodes");
+  const node = nodeGroup.selectAll("circle")
+    .data(nodes)
+    .join("circle")
+    .attr("r", d => {
+      const degree = d.links_in + d.links_out;
+      const base = d.type === "concept" ? 5 : 3.5;
+      return base + (degree / maxDegree) * 8;
+    })
+    .attr("fill", d => topic_colors[d.topic])
+    .attr("stroke", d => d.type === "concept" ? "rgba(255,255,255,0.3)" : "none")
+    .attr("stroke-width", d => d.type === "concept" ? 1.2 : 0)
+    .attr("opacity", 0.85)
+    .attr("cursor", "pointer")
+    .call(d3.drag()
+      .on("start", dragStarted)
+      .on("drag", dragged)
+      .on("end", dragEnded));
+
+  // Labels (only for high-degree nodes initially)
+  const label = nodeGroup.selectAll("text")
+    .data(nodes)
+    .join("text")
+    .text(d => d.bare)
+    .attr("font-size", d => {
+      const degree = d.links_in + d.links_out;
+      return degree > 5 ? 10 : 8;
+    })
+    .attr("fill", "rgba(255,255,255,0.7)")
+    .attr("dx", d => {
+      const degree = d.links_in + d.links_out;
+      return (d.type === "concept" ? 5 : 3.5) + (degree / maxDegree) * 8 + 3;
+    })
+    .attr("dy", 3)
+    .attr("pointer-events", "none")
+    .attr("display", d => {
+      const degree = d.links_in + d.links_out;
+      return degree >= 4 || d.type === "concept" ? null : "none";
+    });
+
+  // Force simulation
+  const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(edges).id(d => d.id).distance(60).strength(0.3))
+    .force("charge", d3.forceManyBody().strength(-120).distanceMax(400))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("collision", d3.forceCollide().radius(d => {
+      const degree = d.links_in + d.links_out;
+      return (d.type === "concept" ? 5 : 3.5) + (degree / maxDegree) * 8 + 2;
+    }))
+    .force("x", d3.forceX(width / 2).strength(0.03))
+    .force("y", d3.forceY(height / 2).strength(0.03))
+    .on("tick", ticked);
+
+  // Group by topic: add a gentle clustering force
+  const topicCenters = {};
+  const cols = Math.ceil(Math.sqrt(topics.length));
+  topics.forEach((t, i) => {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    topicCenters[t] = {
+      x: width * 0.25 + (col / cols) * width * 0.5,
+      y: height * 0.25 + (row / Math.ceil(topics.length / cols)) * height * 0.5
+    };
+  });
+  simulation.force("topicX", d3.forceX(d => topicCenters[d.topic]?.x || width/2).strength(0.04));
+  simulation.force("topicY", d3.forceY(d => topicCenters[d.topic]?.y || height/2).strength(0.04));
+
+  function ticked() {
+    link
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+    node
+      .attr("cx", d => d.x)
+      .attr("cy", d => d.y);
+    label
+      .attr("x", d => d.x)
+      .attr("y", d => d.y);
+  }
+
+  // Drag
+  function dragStarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x; d.fy = d.y;
+  }
+  function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+  function dragEnded(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null; d.fy = null;
+  }
+
+  // Tooltip
+  const tooltip = d3.select("#tooltip");
+  node.on("mouseenter", (event, d) => {
+    const degree = d.links_in + d.links_out;
+    tooltip.html(`
+      <h3>${d.title}</h3>
+      <span class="topic-badge" style="background:${topic_colors[d.topic]}30; color:${topic_colors[d.topic]}">${d.topic}</span>
+      <span class="topic-badge" style="background:rgba(255,255,255,0.06)">${d.type}</span>
+      ${d.tags.length ? `<div class="tags">${d.tags.join(", ")}</div>` : ""}
+      <div class="link-count">${d.links_in} inbound · ${d.links_out} outbound</div>
+      <div class="link-count" style="color:#8cf; margin-top:4px">Click to open page</div>
+    `).style("display", "block");
+
+    // Highlight connected
+    const connected = new Set();
+    edges.forEach(e => {
+      if (e.source.id === d.id) connected.add(e.target.id);
+      if (e.target.id === d.id) connected.add(e.source.id);
+    });
+    connected.add(d.id);
+
+    node.attr("opacity", n => connected.has(n.id) ? 1 : 0.08);
+    link.attr("stroke", e =>
+      (e.source.id === d.id || e.target.id === d.id) ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.02)"
+    ).attr("stroke-width", e =>
+      (e.source.id === d.id || e.target.id === d.id) ? 1.5 : 0.5
+    );
+    label.attr("display", n => connected.has(n.id) ? null : "none")
+         .attr("fill", n => n.id === d.id ? "#fff" : "rgba(255,255,255,0.7)");
+  })
+  .on("mousemove", (event) => {
+    tooltip
+      .style("left", (event.pageX + 14) + "px")
+      .style("top", (event.pageY - 10) + "px");
+  })
+  .on("mouseleave", () => {
+    tooltip.style("display", "none");
+    applyFilters();
+  })
+  .on("click", (event, d) => {
+    if (d.href) window.open(d.href, "_blank");
+  });
+
+  // Legend
+  const legendEl = document.getElementById("legend");
+  topics.forEach(t => {
+    const item = document.createElement("div");
+    item.className = "legend-item";
+    item.dataset.topic = t;
+    item.innerHTML = `<span class="legend-dot" style="background:${topic_colors[t]}"></span>${t}`;
+    item.addEventListener("click", () => {
+      if (activeTopics.has(t)) activeTopics.delete(t);
+      else activeTopics.add(t);
+      item.classList.toggle("dimmed", !activeTopics.has(t));
+      applyFilters();
+    });
+    legendEl.appendChild(item);
+  });
+
+  // Type filter buttons, one per page type present in the data
+  const typeRow = document.getElementById("type-filters");
+  types.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.dataset.filter = t;
+    const plural = t.endsWith("y") ? t.slice(0, -1) + "ies" : t + "s";
+    btn.textContent = plural.charAt(0).toUpperCase() + plural.slice(1);
+    typeRow.appendChild(btn);
+  });
+  document.querySelectorAll(".filter-btn[data-filter]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn[data-filter]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeType = btn.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  // Topic select-all / select-none (build up a sparse view from None)
+  function setAllTopics(on) {
+    activeTopics = on ? new Set(topics) : new Set();
+    document.querySelectorAll("#legend .legend-item").forEach(item => {
+      item.classList.toggle("dimmed", !activeTopics.has(item.dataset.topic));
+    });
+    applyFilters();
+  }
+  document.getElementById("topics-all").addEventListener("click", () => setAllTopics(true));
+  document.getElementById("topics-none").addEventListener("click", () => setAllTopics(false));
+
+  // Search
+  document.getElementById("search").addEventListener("input", (e) => {
+    searchTerm = e.target.value.toLowerCase();
+    applyFilters();
+  });
+
+  function applyFilters() {
+    const visible = new Set();
+    nodes.forEach(n => {
+      const topicOk = activeTopics.has(n.topic);
+      const typeOk = activeType === "all" || n.type === activeType;
+      const searchOk = !searchTerm ||
+        n.bare.toLowerCase().includes(searchTerm) ||
+        n.title.toLowerCase().includes(searchTerm) ||
+        n.tags.some(t => t.toLowerCase().includes(searchTerm)) ||
+        n.topic.toLowerCase().includes(searchTerm);
+      if (topicOk && typeOk && searchOk) visible.add(n.id);
+    });
+
+    const isFiltering = searchTerm || activeType !== "all" || activeTopics.size < topics.length;
+
+    node.attr("opacity", d => visible.has(d.id) ? 0.85 : 0.04);
+    link.attr("stroke", e => {
+      const srcVis = visible.has(e.source.id);
+      const tgtVis = visible.has(e.target.id);
+      return (srcVis && tgtVis) ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.01)";
+    });
+    label.attr("display", d => {
+      if (!visible.has(d.id)) return "none";
+      if (searchTerm) return null;  // show all labels when searching
+      const degree = d.links_in + d.links_out;
+      return degree >= 4 || d.type === "concept" ? null : "none";
+    });
+
+    document.getElementById("info").textContent =
+      `${visible.size} / ${nodes.length} pages · ${edges.filter(e => visible.has(e.source.id) && visible.has(e.target.id)).length} edges`;
+  }
+
+  applyFilters();
+}
+</script>
+</body>
+</html>
