@@ -14,12 +14,13 @@ svg { width: 100%; height: 100%; }
 #controls {
   position: absolute; top: 12px; left: 12px;
   background: rgba(20, 20, 40, 0.92); border-radius: 8px;
-  padding: 12px 16px; min-width: 240px; max-width: 320px;
+  padding: 12px 16px; min-width: 240px; max-width: 330px;
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   z-index: 10;
 }
 #controls h1 { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #ccc; }
+#controls h1 a { color: #8cf; text-decoration: none; }
 #search {
   width: 100%; padding: 6px 10px; border-radius: 5px;
   border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
@@ -36,6 +37,7 @@ svg { width: 100%; height: 100%; }
 }
 .legend-item:hover { opacity: 1; }
 .legend-item.dimmed { opacity: 0.3; }
+.legend-item.static { cursor: default; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
 .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
@@ -47,12 +49,20 @@ svg { width: 100%; height: 100%; }
 }
 .filter-btn:hover { background: rgba(255,255,255,0.12); color: #ddd; }
 .filter-btn.active { background: rgba(120,180,255,0.2); border-color: rgba(120,180,255,0.4); color: #8cf; }
+.view-row { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px; margin-bottom: 8px; }
+.view-row .filter-btn { font-weight: 600; }
+
+.slider-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #aaa; margin-bottom: 6px; }
+.slider-row label { flex: 0 0 auto; min-width: 120px; }
+.slider-row input[type=range] { flex: 1; accent-color: #8cf; }
+.slider-row .val { min-width: 2em; text-align: right; color: #ddd; }
+.hint { font-size: 10px; color: #777; margin-bottom: 6px; }
 
 #info {
   font-size: 11px; color: #888; margin-top: 6px;
   border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;
 }
-#credit { font-size: 10px; color: #666; margin-top: 6px; }
+#credit { font-size: 10px; color: #666; margin-top: 6px; line-height: 1.4; }
 #credit a { color: #7ab; text-decoration: none; }
 #credit a:hover { text-decoration: underline; }
 
@@ -60,16 +70,18 @@ svg { width: 100%; height: 100%; }
 #tooltip {
   position: absolute; pointer-events: none; display: none;
   background: rgba(15, 15, 30, 0.95); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px; padding: 10px 14px; max-width: 320px;
+  border-radius: 6px; padding: 10px 14px; max-width: 340px;
   backdrop-filter: blur(8px); z-index: 20;
 }
 #tooltip h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
 #tooltip .topic-badge {
   display: inline-block; font-size: 10px; padding: 1px 6px;
-  border-radius: 3px; margin-bottom: 4px; opacity: 0.8;
+  border-radius: 3px; margin-bottom: 4px; margin-right: 4px; opacity: 0.8;
 }
 #tooltip .tags { font-size: 11px; color: #999; margin-top: 4px; }
 #tooltip .link-count { font-size: 11px; color: #888; margin-top: 2px; }
+#tooltip ul { font-size: 11px; color: #bbb; margin: 4px 0 0 1.1em; }
+#tooltip li { margin: 1px 0; }
 </style>
 </head>
 <body>
@@ -77,19 +89,55 @@ svg { width: 100%; height: 100%; }
   <svg id="graph"></svg>
 
   <div id="controls">
-    <h1><a href="index.html" style="color:#8cf;text-decoration:none">JOS LLM Wiki</a> — Knowledge Graph</h1>
+    <h1><a href="index.html">JOS LLM Wiki</a> — Knowledge Graph</h1>
     <input type="text" id="search" placeholder="Search pages..." autocomplete="off">
-    <div class="filter-row" id="type-filters">
-      <button class="filter-btn active" data-filter="all">All</button>
+
+    <div class="filter-row view-row">
+      <span class="filter-label">View:</span>
+      <button class="filter-btn active" data-view="pages">Pages</button>
+      <button class="filter-btn" data-view="authors">Authors</button>
     </div>
-    <div class="filter-row">
-      <span class="filter-label">Sub-wikis:</span>
-      <button class="filter-btn" id="topics-all">All</button>
-      <button class="filter-btn" id="topics-none">None</button>
+
+    <div id="pages-controls">
+      <div class="filter-row" id="type-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Sub-wikis:</span>
+        <button class="filter-btn" id="topics-all">All</button>
+        <button class="filter-btn" id="topics-none">None</button>
+      </div>
+      <div id="legend" class="legend"></div>
     </div>
-    <div id="legend" class="legend"></div>
+
+    <div id="authors-controls" style="display:none">
+      <div class="filter-row">
+        <button class="filter-btn active" data-network="bipartite">Authors &harr; Topics</button>
+        <button class="filter-btn" data-network="collab">Collaborations</button>
+        <button class="filter-btn" data-network="cooccur">Topic co-occurrence</button>
+      </div>
+      <div class="slider-row" id="row-min-papers">
+        <label for="min-papers">Min papers per author</label>
+        <input type="range" id="min-papers" min="1" max="10" value="2">
+        <span class="val" id="min-papers-val">2</span>
+      </div>
+      <div class="slider-row" id="row-min-topic">
+        <label for="min-topic">Min topic frequency</label>
+        <input type="range" id="min-topic" min="1" max="50" value="5">
+        <span class="val" id="min-topic-val">5</span>
+      </div>
+      <div class="legend">
+        <div class="legend-item static"><span class="legend-dot" style="background:#6b8fd6"></span>Authors</div>
+        <div class="legend-item static"><span class="legend-dot" style="background:#b07aa1"></span>Topics (paper tags)</div>
+      </div>
+      <div class="hint">Node size = papers / frequency &middot; edge width = shared papers &middot; click a node to list its papers in the Pages view</div>
+    </div>
+
     <div id="info"></div>
-    <div id="credit">Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">Music 423 knowledge graph</a>.</div>
+    <div id="credit">
+      Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">Music 423 knowledge graph</a>;
+      author networks after <a href="https://transactions.ismir.net/articles/10.5334/tismir.265">ISMIR25Viz</a>.
+    </div>
   </div>
 
   <div id="tooltip"></div>
@@ -99,176 +147,276 @@ svg { width: 100%; height: 100%; }
 <script>
 const DATA = "GRAPH_DATA_PLACEHOLDER";
 
+// Page-type filter buttons only appear for types with at least this many pages.
+const MIN_TYPE_BUTTON = 10;
+const AUTHOR_COLOR = "#6b8fd6";
+const TOPIC_COLOR = "#b07aa1";
+
 if (!DATA) {
   document.getElementById("info").textContent = "No graph data — run: make rebuild";
 } else {
-  const { nodes, edges, topics, topic_colors, types } = DATA;
+  const { nodes: pageNodes, edges: pageEdges, topics, topic_colors, types, role_tags } = DATA;
+  const roleTags = new Set(role_tags || []);
   const width = window.innerWidth;
   const height = window.innerHeight;
+  const tooltip = d3.select("#tooltip");
+  const infoEl = document.getElementById("info");
+  const searchEl = document.getElementById("search");
 
-  // Precompute link degree for sizing
-  const maxDegree = Math.max(...nodes.map(n => n.links_in + n.links_out), 1);
+  // ---- Shared SVG / zoom ----
+  const svg = d3.select("#graph");
+  const g = svg.append("g");
+  const zoom = d3.zoom().scaleExtent([0.15, 6]).on("zoom", (e) => g.attr("transform", e.transform));
+  svg.call(zoom);
+  const linkGroup = g.append("g").attr("class", "links");
+  const nodeGroup = g.append("g").attr("class", "nodes");
 
-  // State
+  // ---- State ----
+  let view = "pages";               // "pages" | "authors"
   let activeTopics = new Set(topics);
   let activeType = "all";
   let searchTerm = "";
+  let network = "bipartite";        // "bipartite" | "collab" | "cooccur"
+  let minPapers = 2;
+  let minTopic = 5;
 
-  // SVG setup
-  const svg = d3.select("#graph");
-  const g = svg.append("g");
+  // Current rendered graph (either view)
+  let cur = null;                   // { nodes, edges, link, node, label, simulation, spec }
+  const pageDegreeMax = Math.max(...pageNodes.map(n => n.links_in + n.links_out), 1);
 
-  // Zoom
-  const zoom = d3.zoom()
-    .scaleExtent([0.15, 6])
-    .on("zoom", (e) => g.attr("transform", e.transform));
-  svg.call(zoom);
+  // ---- Generic graph renderer ----
+  // spec: { radius(d), color(d), stroke(d), label(d), labelShown(d), fontSize(d),
+  //         edgeWidth(e), tooltip(d) -> html, click(d), clusterX(d)?, clusterY(d)? }
+  function showGraph(nodes, edges, spec) {
+    if (cur) cur.simulation.stop();
+    linkGroup.selectAll("*").remove();
+    nodeGroup.selectAll("*").remove();
 
-  // Edges
-  const linkGroup = g.append("g").attr("class", "links");
-  const link = linkGroup.selectAll("line")
-    .data(edges)
-    .join("line")
-    .attr("stroke", "rgba(255,255,255,0.06)")
-    .attr("stroke-width", 0.5);
+    const link = linkGroup.selectAll("line").data(edges).join("line")
+      .attr("stroke", "rgba(255,255,255,0.06)")
+      .attr("stroke-width", e => spec.edgeWidth(e));
 
-  // Nodes
-  const nodeGroup = g.append("g").attr("class", "nodes");
-  const node = nodeGroup.selectAll("circle")
-    .data(nodes)
-    .join("circle")
-    .attr("r", d => {
-      const degree = d.links_in + d.links_out;
-      const base = d.type === "concept" ? 5 : 3.5;
-      return base + (degree / maxDegree) * 8;
+    const node = nodeGroup.selectAll("circle").data(nodes).join("circle")
+      .attr("r", d => spec.radius(d))
+      .attr("fill", d => spec.color(d))
+      .attr("stroke", d => spec.stroke(d))
+      .attr("stroke-width", d => spec.stroke(d) === "none" ? 0 : 1.2)
+      .attr("opacity", 0.85)
+      .attr("cursor", "pointer")
+      .call(d3.drag().on("start", dragStarted).on("drag", dragged).on("end", dragEnded));
+
+    const label = nodeGroup.selectAll("text").data(nodes).join("text")
+      .text(d => spec.label(d))
+      .attr("font-size", d => spec.fontSize(d))
+      .attr("fill", "rgba(255,255,255,0.7)")
+      .attr("dx", d => spec.radius(d) + 3)
+      .attr("dy", 3)
+      .attr("pointer-events", "none")
+      .attr("display", d => spec.labelShown(d) ? null : "none");
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(edges).id(d => d.id).distance(60).strength(0.3))
+      .force("charge", d3.forceManyBody().strength(-120).distanceMax(400))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius(d => spec.radius(d) + 2))
+      .force("x", d3.forceX(spec.clusterX || (width / 2)).strength(spec.clusterX ? 0.04 : 0.03))
+      .force("y", d3.forceY(spec.clusterY || (height / 2)).strength(spec.clusterY ? 0.04 : 0.03))
+      .on("tick", () => {
+        link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+        node.attr("cx", d => d.x).attr("cy", d => d.y);
+        label.attr("x", d => d.x).attr("y", d => d.y);
+      });
+
+    function dragStarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x; d.fy = d.y;
+    }
+    function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+    function dragEnded(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null; d.fy = null;
+    }
+
+    node.on("mouseenter", (event, d) => {
+      tooltip.html(spec.tooltip(d)).style("display", "block");
+      const connected = new Set([d.id]);
+      edges.forEach(e => {
+        if (e.source.id === d.id) connected.add(e.target.id);
+        if (e.target.id === d.id) connected.add(e.source.id);
+      });
+      node.attr("opacity", n => connected.has(n.id) ? 1 : 0.08);
+      link.attr("stroke", e => (e.source.id === d.id || e.target.id === d.id)
+                               ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.02)")
+          .attr("stroke-width", e => (e.source.id === d.id || e.target.id === d.id)
+                               ? spec.edgeWidth(e) + 1 : spec.edgeWidth(e));
+      label.attr("display", n => connected.has(n.id) ? null : "none")
+           .attr("fill", n => n.id === d.id ? "#fff" : "rgba(255,255,255,0.7)");
     })
-    .attr("fill", d => topic_colors[d.topic])
-    .attr("stroke", d => d.type === "concept" ? "rgba(255,255,255,0.3)" : "none")
-    .attr("stroke-width", d => d.type === "concept" ? 1.2 : 0)
-    .attr("opacity", 0.85)
-    .attr("cursor", "pointer")
-    .call(d3.drag()
-      .on("start", dragStarted)
-      .on("drag", dragged)
-      .on("end", dragEnded));
-
-  // Labels (only for high-degree nodes initially)
-  const label = nodeGroup.selectAll("text")
-    .data(nodes)
-    .join("text")
-    .text(d => d.bare)
-    .attr("font-size", d => {
-      const degree = d.links_in + d.links_out;
-      return degree > 5 ? 10 : 8;
+    .on("mousemove", (event) => {
+      tooltip.style("left", (event.pageX + 14) + "px").style("top", (event.pageY - 10) + "px");
     })
-    .attr("fill", "rgba(255,255,255,0.7)")
-    .attr("dx", d => {
-      const degree = d.links_in + d.links_out;
-      return (d.type === "concept" ? 5 : 3.5) + (degree / maxDegree) * 8 + 3;
-    })
-    .attr("dy", 3)
-    .attr("pointer-events", "none")
-    .attr("display", d => {
-      const degree = d.links_in + d.links_out;
-      return degree >= 4 || d.type === "concept" ? null : "none";
-    });
+    .on("mouseleave", () => { tooltip.style("display", "none"); applyFilters(); })
+    .on("click", (event, d) => spec.click(d));
 
-  // Force simulation
-  const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(edges).id(d => d.id).distance(60).strength(0.3))
-    .force("charge", d3.forceManyBody().strength(-120).distanceMax(400))
-    .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collision", d3.forceCollide().radius(d => {
-      const degree = d.links_in + d.links_out;
-      return (d.type === "concept" ? 5 : 3.5) + (degree / maxDegree) * 8 + 2;
-    }))
-    .force("x", d3.forceX(width / 2).strength(0.03))
-    .force("y", d3.forceY(height / 2).strength(0.03))
-    .on("tick", ticked);
+    cur = { nodes, edges, link, node, label, simulation, spec };
+    applyFilters();
+  }
 
-  // Group by topic: add a gentle clustering force
+  // ---- Pages view ----
   const topicCenters = {};
-  const cols = Math.ceil(Math.sqrt(topics.length));
-  topics.forEach((t, i) => {
-    const col = i % cols;
-    const row = Math.floor(i / cols);
-    topicCenters[t] = {
-      x: width * 0.25 + (col / cols) * width * 0.5,
-      y: height * 0.25 + (row / Math.ceil(topics.length / cols)) * height * 0.5
-    };
-  });
-  simulation.force("topicX", d3.forceX(d => topicCenters[d.topic]?.x || width/2).strength(0.04));
-  simulation.force("topicY", d3.forceY(d => topicCenters[d.topic]?.y || height/2).strength(0.04));
-
-  function ticked() {
-    link
-      .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y);
-    node
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y);
-    label
-      .attr("x", d => d.x)
-      .attr("y", d => d.y);
+  {
+    const cols = Math.ceil(Math.sqrt(topics.length));
+    topics.forEach((t, i) => {
+      const col = i % cols, row = Math.floor(i / cols);
+      topicCenters[t] = {
+        x: width * 0.25 + (col / cols) * width * 0.5,
+        y: height * 0.25 + (row / Math.ceil(topics.length / cols)) * height * 0.5
+      };
+    });
   }
-
-  // Drag
-  function dragStarted(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x; d.fy = d.y;
-  }
-  function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
-  function dragEnded(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null; d.fy = null;
-  }
-
-  // Tooltip
-  const tooltip = d3.select("#tooltip");
-  node.on("mouseenter", (event, d) => {
-    const degree = d.links_in + d.links_out;
-    tooltip.html(`
-      <h3>${d.title}</h3>
+  const pageDegree = d => d.links_in + d.links_out;
+  const pageSpec = {
+    radius: d => (d.type === "concept" ? 5 : 3.5) + (pageDegree(d) / pageDegreeMax) * 8,
+    color: d => topic_colors[d.topic],
+    stroke: d => d.type === "concept" ? "rgba(255,255,255,0.3)" : "none",
+    label: d => d.bare,
+    labelShown: d => pageDegree(d) >= 4 || d.type === "concept",
+    fontSize: d => pageDegree(d) > 5 ? 10 : 8,
+    edgeWidth: () => 0.5,
+    clusterX: d => topicCenters[d.topic]?.x || width / 2,
+    clusterY: d => topicCenters[d.topic]?.y || height / 2,
+    tooltip: d => `
+      <h3>${esc(d.title)}</h3>
       <span class="topic-badge" style="background:${topic_colors[d.topic]}30; color:${topic_colors[d.topic]}">${d.topic}</span>
       <span class="topic-badge" style="background:rgba(255,255,255,0.06)">${d.type}</span>
-      ${d.tags.length ? `<div class="tags">${d.tags.join(", ")}</div>` : ""}
+      ${d.authors && d.authors.length ? `<div class="tags">${esc(d.authors.join(", "))}</div>` : ""}
+      ${d.tags.length ? `<div class="tags">${esc(d.tags.join(", "))}</div>` : ""}
       <div class="link-count">${d.links_in} inbound · ${d.links_out} outbound</div>
-      <div class="link-count" style="color:#8cf; margin-top:4px">Click to open page</div>
-    `).style("display", "block");
+      <div class="link-count" style="color:#8cf; margin-top:4px">Click to open page</div>`,
+    click: d => { if (d.href) window.open(d.href, "_blank"); },
+  };
+  function pageVisible(n) {
+    const topicOk = activeTopics.has(n.topic);
+    const typeOk = activeType === "all" || n.type === activeType;
+    const q = searchTerm;
+    const searchOk = !q ||
+      n.bare.toLowerCase().includes(q) || n.title.toLowerCase().includes(q) ||
+      n.tags.some(t => t.toLowerCase().includes(q)) ||
+      (n.authors || []).some(a => a.toLowerCase().includes(q)) ||
+      n.topic.toLowerCase().includes(q);
+    return topicOk && typeOk && searchOk;
+  }
 
-    // Highlight connected
-    const connected = new Set();
-    edges.forEach(e => {
-      if (e.source.id === d.id) connected.add(e.target.id);
-      if (e.target.id === d.id) connected.add(e.source.id);
-    });
-    connected.add(d.id);
-
-    node.attr("opacity", n => connected.has(n.id) ? 1 : 0.08);
-    link.attr("stroke", e =>
-      (e.source.id === d.id || e.target.id === d.id) ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.02)"
-    ).attr("stroke-width", e =>
-      (e.source.id === d.id || e.target.id === d.id) ? 1.5 : 0.5
-    );
-    label.attr("display", n => connected.has(n.id) ? null : "none")
-         .attr("fill", n => n.id === d.id ? "#fff" : "rgba(255,255,255,0.7)");
-  })
-  .on("mousemove", (event) => {
-    tooltip
-      .style("left", (event.pageX + 14) + "px")
-      .style("top", (event.pageY - 10) + "px");
-  })
-  .on("mouseleave", () => {
-    tooltip.style("display", "none");
-    applyFilters();
-  })
-  .on("click", (event, d) => {
-    if (d.href) window.open(d.href, "_blank");
+  // ---- Authors view: derived networks ----
+  const papers = pageNodes.filter(n => n.type === "source" && n.authors && n.authors.length);
+  const paperTopics = p => p.tags.filter(t => !roleTags.has(t));
+  const authorPapers = new Map();   // name -> [paper]
+  const topicPapers = new Map();    // tag  -> [paper]
+  papers.forEach(p => {
+    p.authors.forEach(a => { if (!authorPapers.has(a)) authorPapers.set(a, []); authorPapers.get(a).push(p); });
+    paperTopics(p).forEach(t => { if (!topicPapers.has(t)) topicPapers.set(t, []); topicPapers.get(t).push(p); });
   });
+  const maxPapersPerAuthor = Math.max(1, ...[...authorPapers.values()].map(v => v.length));
+  const maxTopicFreq = Math.max(1, ...[...topicPapers.values()].map(v => v.length));
+  const authorTitle = p => p.title.replace(/^paper-/, "");
 
-  // Legend
+  function buildAuthorNetwork() {
+    const nodes = [], edges = [];
+    const authors = [...authorPapers].filter(([, ps]) => ps.length >= minPapers);
+    const tops = [...topicPapers].filter(([, ps]) => ps.length >= minTopic);
+    const addAuthor = ([a, ps]) => nodes.push({ id: "a:" + a, kind: "author", name: a, papers: ps, count: ps.length });
+    const addTopic = ([t, ps]) => nodes.push({ id: "t:" + t, kind: "topic", name: t, papers: ps, count: ps.length });
+    const addEdge = (s, t, w) => { if (w > 0) edges.push({ source: s, target: t, weight: w }); };
+    const shared = (ps1, ps2) => ps1.filter(p => ps2.includes(p)).length;
+
+    if (network === "bipartite") {
+      authors.forEach(addAuthor); tops.forEach(addTopic);
+      authors.forEach(([a, aps]) => tops.forEach(([t, tps]) => addEdge("a:" + a, "t:" + t, shared(aps, tps))));
+    } else if (network === "collab") {
+      authors.forEach(addAuthor);
+      for (let i = 0; i < authors.length; i++)
+        for (let j = i + 1; j < authors.length; j++)
+          addEdge("a:" + authors[i][0], "a:" + authors[j][0], shared(authors[i][1], authors[j][1]));
+    } else {
+      tops.forEach(addTopic);
+      for (let i = 0; i < tops.length; i++)
+        for (let j = i + 1; j < tops.length; j++)
+          addEdge("t:" + tops[i][0], "t:" + tops[j][0], shared(tops[i][1], tops[j][1]));
+    }
+    // Drop isolated nodes so thresholds sculpt a readable network
+    const linked = new Set(); edges.forEach(e => { linked.add(e.source); linked.add(e.target); });
+    return { nodes: nodes.filter(n => linked.has(n.id)), edges };
+  }
+  const authorSpec = {
+    radius: d => 4 + Math.sqrt(d.count) * 3,
+    color: d => d.kind === "author" ? AUTHOR_COLOR : TOPIC_COLOR,
+    stroke: () => "rgba(255,255,255,0.3)",
+    label: d => d.name,
+    labelShown: () => true,
+    fontSize: d => d.count >= 3 ? 10 : 9,
+    edgeWidth: e => 0.5 + Math.min(e.weight, 6) * 0.8,
+    tooltip: d => `
+      <h3>${esc(d.name)}</h3>
+      <span class="topic-badge" style="background:${d.kind === "author" ? AUTHOR_COLOR : TOPIC_COLOR}40">${d.kind}</span>
+      <div class="link-count">${d.count} paper${d.count === 1 ? "" : "s"}</div>
+      <ul>${d.papers.slice(0, 8).map(p => `<li>${esc(authorTitle(p))}</li>`).join("")}
+          ${d.papers.length > 8 ? `<li>… and ${d.papers.length - 8} more</li>` : ""}</ul>
+      <div class="link-count" style="color:#8cf; margin-top:4px">Click to list these papers in the Pages view</div>`,
+    click: d => { setView("pages"); searchEl.value = d.name; searchTerm = d.name.toLowerCase(); applyFilters(); },
+  };
+  function authorVisible(n) {
+    return !searchTerm || n.name.toLowerCase().includes(searchTerm);
+  }
+
+  // ---- Filtering (both views) ----
+  function applyFilters() {
+    if (!cur) return;
+    const isVisible = view === "pages" ? pageVisible : authorVisible;
+    const visible = new Set();
+    cur.nodes.forEach(n => { if (isVisible(n)) visible.add(n.id); });
+
+    cur.node.attr("opacity", d => visible.has(d.id) ? 0.85 : 0.04);
+    cur.link.attr("stroke", e => (visible.has(e.source.id) && visible.has(e.target.id))
+                                 ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.01)")
+            .attr("stroke-width", e => cur.spec.edgeWidth(e));
+    cur.label.attr("display", d => {
+      if (!visible.has(d.id)) return "none";
+      if (searchTerm) return null;
+      return cur.spec.labelShown(d) ? null : "none";
+    }).attr("fill", "rgba(255,255,255,0.7)");
+
+    const nEdges = cur.edges.filter(e => visible.has(e.source.id) && visible.has(e.target.id)).length;
+    if (view === "pages") {
+      infoEl.textContent = `${visible.size} / ${cur.nodes.length} pages · ${nEdges} edges`;
+    } else {
+      const nA = cur.nodes.filter(n => n.kind === "author" && visible.has(n.id)).length;
+      const nT = cur.nodes.filter(n => n.kind === "topic" && visible.has(n.id)).length;
+      const parts = [];
+      if (network !== "cooccur") parts.push(`${nA} authors`);
+      if (network !== "collab") parts.push(`${nT} topics`);
+      infoEl.textContent = `${parts.join(" · ")} · ${nEdges} edges · ${papers.length} papers`;
+    }
+  }
+
+  // ---- View switching ----
+  function setView(v) {
+    view = v;
+    document.querySelectorAll(".filter-btn[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === v));
+    document.getElementById("pages-controls").style.display = v === "pages" ? null : "none";
+    document.getElementById("authors-controls").style.display = v === "authors" ? null : "none";
+    searchEl.placeholder = v === "pages" ? "Search pages, tags, authors..." : "Search authors, topics...";
+    if (v === "pages") {
+      showGraph(pageNodes, pageEdges, pageSpec);
+    } else {
+      const { nodes, edges } = buildAuthorNetwork();
+      showGraph(nodes, edges, authorSpec);
+    }
+  }
+  document.querySelectorAll(".filter-btn[data-view]").forEach(btn =>
+    btn.addEventListener("click", () => setView(btn.dataset.view)));
+
+  // ---- Pages controls ----
   const legendEl = document.getElementById("legend");
   topics.forEach(t => {
     const item = document.createElement("div");
@@ -276,17 +424,17 @@ if (!DATA) {
     item.dataset.topic = t;
     item.innerHTML = `<span class="legend-dot" style="background:${topic_colors[t]}"></span>${t}`;
     item.addEventListener("click", () => {
-      if (activeTopics.has(t)) activeTopics.delete(t);
-      else activeTopics.add(t);
+      if (activeTopics.has(t)) activeTopics.delete(t); else activeTopics.add(t);
       item.classList.toggle("dimmed", !activeTopics.has(t));
       applyFilters();
     });
     legendEl.appendChild(item);
   });
 
-  // Type filter buttons, one per page type present in the data
+  const typeCounts = {};
+  pageNodes.forEach(n => { typeCounts[n.type] = (typeCounts[n.type] || 0) + 1; });
   const typeRow = document.getElementById("type-filters");
-  types.forEach(t => {
+  types.filter(t => typeCounts[t] >= MIN_TYPE_BUTTON).forEach(t => {
     const btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.dataset.filter = t;
@@ -303,56 +451,59 @@ if (!DATA) {
     });
   });
 
-  // Topic select-all / select-none (build up a sparse view from None)
   function setAllTopics(on) {
     activeTopics = on ? new Set(topics) : new Set();
-    document.querySelectorAll("#legend .legend-item").forEach(item => {
-      item.classList.toggle("dimmed", !activeTopics.has(item.dataset.topic));
-    });
+    document.querySelectorAll("#legend .legend-item").forEach(item =>
+      item.classList.toggle("dimmed", !activeTopics.has(item.dataset.topic)));
     applyFilters();
   }
   document.getElementById("topics-all").addEventListener("click", () => setAllTopics(true));
   document.getElementById("topics-none").addEventListener("click", () => setAllTopics(false));
 
-  // Search
-  document.getElementById("search").addEventListener("input", (e) => {
-    searchTerm = e.target.value.toLowerCase();
-    applyFilters();
+  // ---- Authors controls ----
+  const minPapersEl = document.getElementById("min-papers");
+  const minTopicEl = document.getElementById("min-topic");
+  minPapersEl.max = maxPapersPerAuthor; minPapersEl.value = minPapers = Math.min(minPapers, maxPapersPerAuthor);
+  minTopicEl.max = maxTopicFreq;        minTopicEl.value = minTopic = Math.min(minTopic, maxTopicFreq);
+  document.getElementById("min-papers-val").textContent = minPapers;
+  document.getElementById("min-topic-val").textContent = minTopic;
+  function rebuildAuthors() {
+    document.getElementById("row-min-papers").style.display = network === "cooccur" ? "none" : null;
+    document.getElementById("row-min-topic").style.display = network === "collab" ? "none" : null;
+    if (view === "authors") setView("authors");
+  }
+  minPapersEl.addEventListener("input", () => {
+    minPapers = +minPapersEl.value; document.getElementById("min-papers-val").textContent = minPapers; rebuildAuthors();
+  });
+  minTopicEl.addEventListener("input", () => {
+    minTopic = +minTopicEl.value; document.getElementById("min-topic-val").textContent = minTopic; rebuildAuthors();
+  });
+  document.querySelectorAll(".filter-btn[data-network]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn[data-network]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      network = btn.dataset.network;
+      rebuildAuthors();
+    });
   });
 
-  function applyFilters() {
-    const visible = new Set();
-    nodes.forEach(n => {
-      const topicOk = activeTopics.has(n.topic);
-      const typeOk = activeType === "all" || n.type === activeType;
-      const searchOk = !searchTerm ||
-        n.bare.toLowerCase().includes(searchTerm) ||
-        n.title.toLowerCase().includes(searchTerm) ||
-        n.tags.some(t => t.toLowerCase().includes(searchTerm)) ||
-        n.topic.toLowerCase().includes(searchTerm);
-      if (topicOk && typeOk && searchOk) visible.add(n.id);
-    });
+  // ---- Search ----
+  searchEl.addEventListener("input", (e) => { searchTerm = e.target.value.toLowerCase(); applyFilters(); });
 
-    const isFiltering = searchTerm || activeType !== "all" || activeTopics.size < topics.length;
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-    node.attr("opacity", d => visible.has(d.id) ? 0.85 : 0.04);
-    link.attr("stroke", e => {
-      const srcVis = visible.has(e.source.id);
-      const tgtVis = visible.has(e.target.id);
-      return (srcVis && tgtVis) ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.01)";
-    });
-    label.attr("display", d => {
-      if (!visible.has(d.id)) return "none";
-      if (searchTerm) return null;  // show all labels when searching
-      const degree = d.links_in + d.links_out;
-      return degree >= 4 || d.type === "concept" ? null : "none";
-    });
-
-    document.getElementById("info").textContent =
-      `${visible.size} / ${nodes.length} pages · ${edges.filter(e => visible.has(e.source.id) && visible.has(e.target.id)).length} edges`;
+  // Deep links: #authors, #collab, #cooccur open the Authors view directly
+  const hash = location.hash.replace("#", "");
+  if (["authors", "bipartite", "collab", "cooccur"].includes(hash)) {
+    if (hash !== "authors") {
+      network = hash;
+      document.querySelectorAll(".filter-btn[data-network]").forEach(b => b.classList.toggle("active", b.dataset.network === network));
+    }
+    rebuildAuthors();
+    setView("authors");
+  } else {
+    setView("pages");
   }
-
-  applyFilters();
 }
 </script>
 </body>

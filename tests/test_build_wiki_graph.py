@@ -83,3 +83,44 @@ def test_render_inlines_data_and_d3(wiki: Path) -> None:
 
 def test_slugify_matches_pandoc_style() -> None:
     assert bwg.slugify("paper-Foo Bar (2026)") == "paper-foo-bar-2026"
+
+
+CITATION_CASES = [
+    ('**"Title"** - Michele Ducceschi, Riccardo Russo, Craig J. Webb (University of Bologna) · DAFx26 · `raw/x.txt`',
+     ["Michele Ducceschi", "Riccardo Russo", "Craig J. Webb"]),
+    ('**"Title"** — Jean Laroche & Mark Dolson · *IEEE TSAP* 7(3), 1999',
+     ["Jean Laroche", "Mark Dolson"]),
+    ('**"Title"** — Wang et al. (NTU) · arXiv 2024',
+     ["Wang"]),
+    ('**"Title"** - Georg Essl (University of Wisconsin - Milwaukee) - DAFx26, Cambridge MA, Sept 2026 - `raw/p.txt`',
+     ["Georg Essl"]),
+    ('**"Title"** — Widrow, Glover, McCool · *Proc. IEEE* 1975',
+     ["Widrow", "Glover", "McCool"]),
+    ('**"Title"** -- A. One and B. Two · Venue',
+     ["A. One", "B. Two"]),
+    ('No citation line here.\n- Tags: a, b\n', []),
+]
+
+
+@pytest.mark.parametrize("body,expected", CITATION_CASES)
+def test_parse_authors(body: str, expected: list[str]) -> None:
+    assert bwg.parse_authors(body) == expected
+
+
+def test_parse_section_tags() -> None:
+    body = "**\"T\"** - A · V\n\n- Bullet\n- Tags: modal, `string`, 'dsp', reference\n"
+    assert bwg.parse_section_tags(body) == ["modal", "string", "dsp", "reference"]
+    assert bwg.parse_section_tags("no tags") == []
+
+
+def test_source_nodes_carry_authors_and_tags(tmp_path: Path) -> None:
+    write(tmp_path / "w" / "entities" / "source-papers.md",
+          "---\ntype: entity\n---\n# S\n\n### paper-x-2026\n\n"
+          "**\"X\"** - Ann Author, Bob Writer (Uni) · DAFx26\n\n- Tags: modal, reference\n")
+    g = bwg.build_graph(tmp_path, ["w"])
+    node = next(n for n in g["nodes"] if n["id"].endswith("#paper-x-2026"))
+    assert node["authors"] == ["Ann Author", "Bob Writer"]
+    assert node["tags"] == ["modal", "reference"]
+    assert "reference" in g["role_tags"]
+    page = next(n for n in g["nodes"] if n["id"] == "w/entities/source-papers")
+    assert page["authors"] == []
