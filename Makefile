@@ -116,7 +116,7 @@ upload u: build check ## Tar build and copy to CCRMA staging area
 	  echo "Move $(BUILD_DIR)/$(TARBALL) to $(CCRMA_STAGE)/ and run:"; \
 	  echo "  webupd $(WIKI_NAME).tgz"; \
 	fi
-	@say "DONE - web server upload complete"
+	@say "DONE - web server upload and webinst complete"
 
 rbu: rb u
 
