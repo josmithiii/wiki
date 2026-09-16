@@ -95,6 +95,7 @@ index: ## Generate top-level index.html
 # ---- Upload ----
 
 upload u: build check ## Tar build and copy to CCRMA staging area
+	@say "Uploading to server"
 	@cd $(BUILD_DIR) && \
 	tar --no-xattrs -czf $(TARBALL) $(WIKI_NAME) && \
 	echo "Created $(BUILD_DIR)/$(TARBALL)"
@@ -115,6 +116,7 @@ upload u: build check ## Tar build and copy to CCRMA staging area
 	  echo "Move $(BUILD_DIR)/$(TARBALL) to $(CCRMA_STAGE)/ and run:"; \
 	  echo "  webupd $(WIKI_NAME).tgz"; \
 	fi
+	@say "DONE - web server upload complete"
 
 rbu: rb u
 
