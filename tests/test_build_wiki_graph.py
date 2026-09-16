@@ -124,3 +124,24 @@ def test_source_nodes_carry_authors_and_tags(tmp_path: Path) -> None:
     assert "reference" in g["role_tags"]
     page = next(n for n in g["nodes"] if n["id"] == "w/entities/source-papers")
     assert page["authors"] == []
+
+
+@pytest.mark.parametrize("slug,body,expected", [
+    ("paper-ducceschi-65-classical-guitars-2026", '**"T"** - A · DAFx26, Sept 2026', 2026),
+    ("paper-widrow-adaptive-noise-cancelling", '**"T"** — Widrow · *Proc. IEEE* 63(12), Dec 1975', 1975),
+    ("paper-laroche-dolson-improved-pv-1999", '**"T"** -- A · DOI [10.1109/89.759041](x) 1999', 1999),
+    ("paper-abali-fan-patent", '**"T"** — Abali · US Patent 2004; reissued 2007', 2004),
+    ("paper-no-year", '**"T"** — Someone · Some venue', None),
+    ("paper-no-citation", "just bullets\n- Tags: a\n", None),
+])
+def test_parse_year(slug: str, body: str, expected: int | None) -> None:
+    assert bwg.parse_year(slug, body) == expected
+
+
+def test_source_node_year(tmp_path: Path) -> None:
+    write(tmp_path / "w" / "entities" / "source-papers.md",
+          "---\ntype: entity\n---\n# S\n\n### paper-a-2026\n\n**\"A\"** - X · V\n\n"
+          "### paper-b\n\n**\"B\"** - Y · *J.* 1(2), 1988\n")
+    g = bwg.build_graph(tmp_path, ["w"])
+    years = {n["id"].split("#")[1]: n["year"] for n in g["nodes"] if "#" in n["id"]}
+    assert years == {"paper-a-2026": 2026, "paper-b": 1988}

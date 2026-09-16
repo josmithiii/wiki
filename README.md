@@ -23,7 +23,9 @@ Each subdirectory is an independent wiki with its own SCHEMA.md, index.md, and l
    to open), modeled on the
    [Music 423 knowledge graph](https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html).
    Its Authors view (author-topic, co-authorship, and topic co-occurrence
-   networks with minimum-count sliders) follows the ISMIR25Viz tool from
+   networks with minimum-count sliders) and Evolution view (topic trends
+   over binned years, click a point to list the papers) follow the
+   ISMIR25Viz tool from
    [Beyond a Western Center of MIR](https://transactions.ismir.net/articles/10.5334/tismir.265).
 4. To point an AI agent at it: have the agent read the target wiki's
    `SCHEMA.md` (conventions), `index.md` (page catalog), and the tail of

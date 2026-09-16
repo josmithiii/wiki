@@ -82,11 +82,66 @@ svg { width: 100%; height: 100%; }
 #tooltip .link-count { font-size: 11px; color: #888; margin-top: 2px; }
 #tooltip ul { font-size: 11px; color: #bbb; margin: 4px 0 0 1.1em; }
 #tooltip li { margin: 1px 0; }
+
+/* Evolution view */
+#evolution {
+  position: absolute; top: 12px; left: 362px; right: 12px; bottom: 12px;
+  display: flex; gap: 12px; z-index: 5;
+}
+.card {
+  background: rgba(20, 20, 40, 0.92); border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+  padding: 12px 16px; min-width: 0; overflow: auto;
+}
+#chart-card { flex: 3; display: flex; flex-direction: column; }
+#chart-card h2, #papers-card h2 { font-size: 13px; font-weight: 600; color: #ccc; margin-bottom: 6px; }
+#chart { flex: 1; min-height: 240px; }
+#chart svg { width: 100%; height: 100%; }
+#chart .axis text { fill: #aaa; font-size: 11px; }
+#chart .axis line, #chart .axis path { stroke: rgba(255,255,255,0.25); }
+#chart .grid line { stroke: rgba(255,255,255,0.08); }
+#chart .axis-label { fill: #aaa; font-size: 11px; }
+#chart .series-line { fill: none; stroke-width: 1.8; }
+#chart .series-point { cursor: pointer; }
+#chart .series-point:hover { stroke: #fff; stroke-width: 2; }
+#chart .total-bar { fill: rgba(255,255,255,0.07); }
+#chart .axis-right text { fill: #777; }
+#chart-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 11px; color: #bbb; }
+#chart-legend .legend-dot { width: 18px; height: 3px; border-radius: 2px; }
+#papers-card { flex: 2; max-width: 460px; }
+#papers-card .badges { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 10px 0; }
+#papers-card .badge { font-size: 10px; padding: 1px 7px; border-radius: 3px; background: rgba(255,255,255,0.08); color: #ccc; }
+#papers-card table { border-collapse: collapse; width: 100%; font-size: 12px; }
+#papers-card td { padding: 4px 6px; border-top: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+#papers-card td.year { color: #8cf; white-space: nowrap; }
+#papers-card a { color: #ddd; text-decoration: none; }
+#papers-card a:hover { color: #fff; text-decoration: underline; }
+#papers-card .empty { font-size: 12px; color: #888; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; max-height: 45vh; overflow-y: auto; margin-bottom: 8px; }
+.chip {
+  font-size: 11px; padding: 2px 8px; border-radius: 10px; cursor: pointer; user-select: none;
+  border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #aaa;
+}
+.chip:hover { color: #ddd; background: rgba(255,255,255,0.1); }
+.chip.active { color: #fff; border-color: transparent; }
+.chip .n { opacity: 0.6; margin-left: 3px; }
 </style>
 </head>
 <body>
 <div id="container">
   <svg id="graph"></svg>
+
+  <div id="evolution" style="display:none">
+    <div class="card" id="chart-card">
+      <h2>Topic trends over time</h2>
+      <div id="chart"></div>
+      <div id="chart-legend"></div>
+    </div>
+    <div class="card" id="papers-card">
+      <h2 id="papers-title">Papers</h2>
+      <div id="papers-body"><p class="empty">Click a point on the chart to list the papers behind it.</p></div>
+    </div>
+  </div>
 
   <div id="controls">
     <h1><a href="index.html">JOS LLM Wiki</a> — Knowledge Graph</h1>
@@ -96,6 +151,7 @@ svg { width: 100%; height: 100%; }
       <span class="filter-label">View:</span>
       <button class="filter-btn active" data-view="pages">Pages</button>
       <button class="filter-btn" data-view="authors">Authors</button>
+      <button class="filter-btn" data-view="evolution">Evolution</button>
     </div>
 
     <div id="pages-controls">
@@ -133,6 +189,24 @@ svg { width: 100%; height: 100%; }
       <div class="hint">Node size = papers / frequency &middot; edge width = shared papers &middot; click a node to list its papers in the Pages view</div>
     </div>
 
+    <div id="evolution-controls" style="display:none">
+      <div class="filter-row">
+        <span class="filter-label">Y axis:</span>
+        <button class="filter-btn active" data-yaxis="percent">% of papers</button>
+        <button class="filter-btn" data-yaxis="count">Paper count</button>
+        <button class="filter-btn" id="evo-reset" style="margin-left:auto">Reset</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Bin:</span>
+        <button class="filter-btn" data-bin="1">1 yr</button>
+        <button class="filter-btn active" data-bin="5">5 yr</button>
+        <button class="filter-btn" data-bin="10">10 yr</button>
+        <span class="hint" style="margin:0 0 0 auto">gray bars = papers per bin</span>
+      </div>
+      <div class="hint">Select topics (paper tags) to track, up to <span id="evo-max"></span>. Click a point to list its papers.</div>
+      <div class="chips" id="evo-chips"></div>
+    </div>
+
     <div id="info"></div>
     <div id="credit">
       Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">Music 423 knowledge graph</a>;
@@ -151,6 +225,9 @@ const DATA = "GRAPH_DATA_PLACEHOLDER";
 const MIN_TYPE_BUTTON = 10;
 const AUTHOR_COLOR = "#6b8fd6";
 const TOPIC_COLOR = "#b07aa1";
+const EVO_MAX_TOPICS = 12;     // max simultaneously tracked topics
+const EVO_CHIP_COUNT = 40;     // most frequent topics offered as chips
+const EVO_DEFAULT_TOPICS = 4;  // tracked on first open
 
 if (!DATA) {
   document.getElementById("info").textContent = "No graph data — run: make rebuild";
@@ -371,6 +448,7 @@ if (!DATA) {
 
   // ---- Filtering (both views) ----
   function applyFilters() {
+    if (view === "evolution") { filterChips(); return; }
     if (!cur) return;
     const isVisible = view === "pages" ? pageVisible : authorVisible;
     const visible = new Set();
@@ -405,12 +483,18 @@ if (!DATA) {
     document.querySelectorAll(".filter-btn[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === v));
     document.getElementById("pages-controls").style.display = v === "pages" ? null : "none";
     document.getElementById("authors-controls").style.display = v === "authors" ? null : "none";
-    searchEl.placeholder = v === "pages" ? "Search pages, tags, authors..." : "Search authors, topics...";
+    document.getElementById("evolution-controls").style.display = v === "evolution" ? null : "none";
+    document.getElementById("evolution").style.display = v === "evolution" ? null : "none";
+    svg.style("display", v === "evolution" ? "none" : null);
+    searchEl.placeholder = { pages: "Search pages, tags, authors...", authors: "Search authors, topics...",
+                             evolution: "Filter topic chips..." }[v];
     if (v === "pages") {
       showGraph(pageNodes, pageEdges, pageSpec);
-    } else {
+    } else if (v === "authors") {
       const { nodes, edges } = buildAuthorNetwork();
       showGraph(nodes, edges, authorSpec);
+    } else {
+      renderEvolution();
     }
   }
   document.querySelectorAll(".filter-btn[data-view]").forEach(btn =>
@@ -487,6 +571,153 @@ if (!DATA) {
     });
   });
 
+  // ---- Evolution view ----
+  const datedPapers = papers.filter(p => p.year);
+  const evoTopicCounts = new Map();
+  datedPapers.forEach(p => paperTopics(p).forEach(t => evoTopicCounts.set(t, (evoTopicCounts.get(t) || 0) + 1)));
+  const evoTopics = [...evoTopicCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+                                       .slice(0, EVO_CHIP_COUNT).map(([t]) => t);
+  const evoColor = d3.scaleOrdinal(d3.schemeTableau10);
+  let evoSelected = evoTopics.slice(0, EVO_DEFAULT_TOPICS);
+  let evoYAxis = "percent";
+  let evoBin = 5;                          // years per bin
+  let evoPick = null;                      // { topic, year } currently listed
+  const years = datedPapers.map(p => p.year);
+  const yearMin = Math.min(...years), yearMax = Math.max(...years);
+  const binStart = y => Math.floor(y / evoBin) * evoBin;
+  const binLabel = b => evoBin === 1 ? `${b}` : `${b}–${b + evoBin - 1}`;
+
+  document.getElementById("evo-max").textContent = EVO_MAX_TOPICS;
+  const chipsEl = document.getElementById("evo-chips");
+  evoTopics.forEach(t => {
+    const chip = document.createElement("span");
+    chip.className = "chip"; chip.dataset.topic = t;
+    chip.innerHTML = `${esc(t)}<span class="n">${evoTopicCounts.get(t)}</span>`;
+    chip.addEventListener("click", () => {
+      if (evoSelected.includes(t)) evoSelected = evoSelected.filter(x => x !== t);
+      else if (evoSelected.length < EVO_MAX_TOPICS) evoSelected = [...evoSelected, t];
+      else return;
+      renderEvolution();
+    });
+    chipsEl.appendChild(chip);
+  });
+  function filterChips() {
+    chipsEl.querySelectorAll(".chip").forEach(c => {
+      const t = c.dataset.topic;
+      c.style.display = !searchTerm || t.includes(searchTerm) ? null : "none";
+      const on = evoSelected.includes(t);
+      c.classList.toggle("active", on);
+      c.style.background = on ? evoColor(t) : null;
+    });
+  }
+  document.querySelectorAll(".filter-btn[data-bin]").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn[data-bin]").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active"); evoBin = +btn.dataset.bin; evoPick = null; renderEvolution();
+  }));
+  document.querySelectorAll(".filter-btn[data-yaxis]").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn[data-yaxis]").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active"); evoYAxis = btn.dataset.yaxis; renderEvolution();
+  }));
+  document.getElementById("evo-reset").addEventListener("click", () => {
+    evoSelected = evoTopics.slice(0, EVO_DEFAULT_TOPICS); evoPick = null;
+    searchEl.value = ""; searchTerm = ""; renderEvolution();
+  });
+
+  function bins() {
+    const byBin = d3.group(datedPapers, p => binStart(p.year));
+    const out = [];
+    for (let b = binStart(yearMin); b <= yearMax; b += evoBin) out.push({ bin: b, papers: byBin.get(b) || [] });
+    return out;
+  }
+  function seriesFor(topic, allBins) {
+    return allBins.map(({ bin, papers: ps }) => {
+      if (!ps.length) return { bin, value: null, papers: [], total: 0 };
+      const hits = ps.filter(p => paperTopics(p).includes(topic));
+      return { bin, value: evoYAxis === "percent" ? 100 * hits.length / ps.length : hits.length, papers: hits, total: ps.length };
+    });
+  }
+
+  function renderEvolution() {
+    filterChips();
+    const chartEl = document.getElementById("chart");
+    chartEl.innerHTML = "";
+    const legendEl = document.getElementById("chart-legend");
+    legendEl.innerHTML = "";
+    const W = Math.max(chartEl.clientWidth, 320), H = Math.max(chartEl.clientHeight, 240);
+    const m = { top: 12, right: 16, bottom: 40, left: 48 };
+    const csvg = d3.select(chartEl).append("svg").attr("viewBox", `0 0 ${W} ${H}`);
+    const allBins = bins();
+    const series = evoSelected.map(t => ({ topic: t, pts: seriesFor(t, allBins) }));
+    const yMax = Math.max(1, ...series.flatMap(s => s.pts.map(p => p.value || 0)));
+    const x0 = binStart(yearMin), x1 = binStart(yearMax) + evoBin;
+    const x = d3.scaleLinear().domain([x0, x1]).range([m.left, W - m.right]);
+    const xc = b => x(b + evoBin / 2);                      // bin center
+    const y = d3.scaleLinear().domain([0, yMax]).nice().range([H - m.bottom, m.top]);
+    const yearTicks = x.ticks(Math.min((x1 - x0) / evoBin, 10)).filter(Number.isInteger);
+
+    // Faint bars: total papers per bin (right axis), so a 100% from one paper reads as one paper
+    const totalMax = Math.max(1, ...allBins.map(b => b.papers.length));
+    const yTot = d3.scaleLinear().domain([0, totalMax]).nice().range([H - m.bottom, m.top]);
+    csvg.append("g").selectAll("rect").data(allBins.filter(b => b.papers.length)).join("rect")
+      .attr("class", "total-bar")
+      .attr("x", b => x(b.bin) + 1).attr("width", Math.max(1, x(x0 + evoBin) - x(x0) - 2))
+      .attr("y", b => yTot(b.papers.length)).attr("height", b => (H - m.bottom) - yTot(b.papers.length));
+    csvg.append("g").attr("class", "axis axis-right").attr("transform", `translate(${W - m.right},0)`)
+      .call(d3.axisRight(yTot).ticks(4).tickFormat(d3.format("d")));
+
+    csvg.append("g").attr("class", "grid").selectAll("line").data(y.ticks(5)).join("line")
+      .attr("x1", m.left).attr("x2", W - m.right).attr("y1", d => y(d)).attr("y2", d => y(d));
+    csvg.append("g").attr("class", "grid").selectAll("line").data(yearTicks).join("line")
+      .attr("y1", m.top).attr("y2", H - m.bottom).attr("x1", d => x(d)).attr("x2", d => x(d));
+    csvg.append("g").attr("class", "axis").attr("transform", `translate(0,${H - m.bottom})`)
+      .call(d3.axisBottom(x).tickValues(yearTicks).tickFormat(d3.format("d")));
+    csvg.append("g").attr("class", "axis").attr("transform", `translate(${m.left},0)`)
+      .call(d3.axisLeft(y).ticks(5));
+    csvg.append("text").attr("class", "axis-label").attr("text-anchor", "middle")
+      .attr("x", (m.left + W - m.right) / 2).attr("y", H - 6).text("Year");
+    csvg.append("text").attr("class", "axis-label").attr("text-anchor", "middle")
+      .attr("transform", `translate(12,${(m.top + H - m.bottom) / 2}) rotate(-90)`)
+      .text(evoYAxis === "percent" ? "Percentage of papers" : "Number of papers");
+
+    const line = d3.line().defined(p => p.value !== null).x(p => xc(p.bin)).y(p => y(p.value));
+    series.forEach(s => {
+      csvg.append("path").datum(s.pts).attr("class", "series-line").attr("stroke", evoColor(s.topic)).attr("d", line);
+      csvg.append("g").selectAll("circle").data(s.pts.filter(p => p.value !== null)).join("circle")
+        .attr("class", "series-point")
+        .attr("cx", p => xc(p.bin)).attr("cy", p => y(p.value))
+        .attr("r", p => (evoPick && evoPick.topic === s.topic && evoPick.bin === p.bin) ? 5 : 3)
+        .attr("fill", evoColor(s.topic))
+        .on("mouseenter", (event, p) => {
+          tooltip.html(`<h3>${esc(s.topic)} · ${binLabel(p.bin)}</h3>
+            <div class="link-count">${p.papers.length} of ${p.total} paper${p.total === 1 ? "" : "s"} that year
+            (${(100 * p.papers.length / p.total).toFixed(0)}%)</div>
+            <div class="link-count" style="color:#8cf; margin-top:4px">Click to list</div>`).style("display", "block");
+        })
+        .on("mousemove", (event) => tooltip.style("left", (event.pageX + 14) + "px").style("top", (event.pageY - 10) + "px"))
+        .on("mouseleave", () => tooltip.style("display", "none"))
+        .on("click", (event, p) => { evoPick = { topic: s.topic, bin: p.bin }; showPapers(s.topic, binLabel(p.bin), p.papers); renderEvolution(); });
+      const item = document.createElement("div");
+      item.className = "legend-item static";
+      item.innerHTML = `<span class="legend-dot" style="background:${evoColor(s.topic)}"></span>${esc(s.topic)}`;
+      legendEl.appendChild(item);
+    });
+    const nBins = allBins.filter(b => b.papers.length).length;
+    infoEl.textContent = `${datedPapers.length} dated papers · ${yearMin}–${yearMax} · ${nBins} non-empty bins · ${evoSelected.length} / ${EVO_MAX_TOPICS} topics tracked`;
+  }
+
+  function showPapers(topic, when, list) {
+    document.getElementById("papers-title").textContent = `Papers tagged "${topic}" in ${when} (${list.length})`;
+    const body = document.getElementById("papers-body");
+    if (!list.length) { body.innerHTML = '<p class="empty">No papers.</p>'; return; }
+    const bySw = d3.rollups(list, v => v.length, p => p.topic).sort((a, b) => b[1] - a[1]);
+    body.innerHTML = `
+      <div class="hint">Sub-wikis:</div>
+      <div class="badges">${bySw.map(([sw, n]) => `<span class="badge" style="border-left:3px solid ${topic_colors[sw]}">${sw} (${n})</span>`).join("")}</div>
+      <table>${list.slice().sort((a, b) => a.year - b.year).map(p => `<tr><td class="year">${p.year}</td><td><a href="${p.href}" target="_blank">${esc(authorTitle(p))}</a>
+        ${p.authors.length ? `<div class="hint">${esc(p.authors.join(", "))}</div>` : ""}</td></tr>`).join("")}</table>`;
+  }
+  window.addEventListener("resize", () => { if (view === "evolution") renderEvolution(); });
+
   // ---- Search ----
   searchEl.addEventListener("input", (e) => { searchTerm = e.target.value.toLowerCase(); applyFilters(); });
 
@@ -494,7 +725,9 @@ if (!DATA) {
 
   // Deep links: #authors, #collab, #cooccur open the Authors view directly
   const hash = location.hash.replace("#", "");
-  if (["authors", "bipartite", "collab", "cooccur"].includes(hash)) {
+  if (hash === "evolution") {
+    setView("evolution");
+  } else if (["authors", "bipartite", "collab", "cooccur"].includes(hash)) {
     if (hash !== "authors") {
       network = hash;
       document.querySelectorAll(".filter-btn[data-network]").forEach(b => b.classList.toggle("active", b.dataset.network === network));

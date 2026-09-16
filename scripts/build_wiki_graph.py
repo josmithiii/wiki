@@ -9,6 +9,10 @@ per wiki page and one edge per [[wikilink]] between pages. Features: force
 layout, zoom/drag, per-sub-wiki color legend with toggles, page-type filter,
 search, hover-to-highlight neighbors, click to open the rendered page.
 
+The Evolution view (topic trends over time: percentage or count of papers
+per year carrying selected tags, click a point to list those papers) also
+follows ISMIR25Viz; the year comes from the section slug or citation line.
+
 The Authors view (author-topic bipartite, co-authorship, and topic
 co-occurrence networks with min-count sliders) follows ISMIR25Viz from
 "Beyond a Western Center of MIR" (https://transactions.ismir.net/articles/10.5334/tismir.265).
@@ -137,6 +141,24 @@ ROLE_TAGS = {"reference", "comparison", "tutorial", "person", "meta", "index",
              "log", "overview"}
 
 
+SLUG_YEAR_RE = re.compile(r"-((?:19|20)\d\d)$")
+YEAR_RE = re.compile(r"\b(19[5-9]\d|20[0-3]\d)\b")
+
+
+def parse_year(slug: str, section_body: str) -> int | None:
+    """Publication year: trailing year in the section slug, else the first
+    year mentioned in the citation line after the title. None if neither."""
+    m = SLUG_YEAR_RE.search(slug)
+    if m:
+        return int(m.group(1))
+    m = CITATION_RE.search(section_body)
+    if m:
+        y = YEAR_RE.search(m.group(1))
+        if y:
+            return int(y.group(1))
+    return None
+
+
 def parse_section_tags(section_body: str) -> list[str]:
     """Tags from the '- Tags: a, b, c' line of a paper section."""
     m = TAGS_LINE_RE.search(section_body)
@@ -167,7 +189,7 @@ def build_graph(out_dir: Path, subwikis: list[str]) -> dict:
     pending: list[tuple[str, Path, list[str]]] = []
 
     def add_node(md: Path, anchor: str, ntype: str, title: str, tags: list[str],
-                 authors: list[str] | None = None) -> str:
+                 authors: list[str] | None = None, year: int | None = None) -> str:
         rel = md.relative_to(out_dir)
         sw = rel.parts[0]
         bare = md.stem if not anchor else anchor
@@ -177,6 +199,7 @@ def build_graph(out_dir: Path, subwikis: list[str]) -> dict:
             "id": nid, "bare": bare, "topic": sw, "type": ntype,
             "href": href, "title": title, "tags": tags,
             "authors": authors or [],
+            "year": year,
             "links_out": 0, "links_in": 0,
         }
         node_key[(md, anchor)] = nid
@@ -198,7 +221,8 @@ def build_graph(out_dir: Path, subwikis: list[str]) -> dict:
                 pending.append((page_id, md, wikilinks_in(preamble)))
                 for slug, heading, body in sections:
                     sid = add_node(md, slug, "source", heading,
-                                   parse_section_tags(body), parse_authors(body))
+                                   parse_section_tags(body), parse_authors(body),
+                                   parse_year(slug, body))
                     pending.append((sid, md, wikilinks_in(body)))
             else:
                 pending.append((page_id, md, wikilinks_in(content)))
