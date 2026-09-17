@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+<!-- Shared template: ~/wiki/scripts/graph.html and music423-2023/wiki/graph.html are kept
+     byte-identical. Everything site-specific (title, home link, labels, credit, default
+     bin) arrives in DATA.site from the generator; do not hard-code it here. -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JOS LLM Wiki — Knowledge Graph</title>
+<title>Knowledge Graph</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #1a1a2e; color: #e0e0e0; overflow: hidden; }
@@ -144,7 +147,7 @@ svg { width: 100%; height: 100%; }
   </div>
 
   <div id="controls">
-    <h1><a href="index.html">JOS LLM Wiki</a> — Knowledge Graph</h1>
+    <h1><span id="home"></span> — Knowledge Graph</h1>
     <input type="text" id="search" placeholder="Search pages..." autocomplete="off">
 
     <div class="filter-row view-row">
@@ -159,7 +162,7 @@ svg { width: 100%; height: 100%; }
         <button class="filter-btn active" data-filter="all">All</button>
       </div>
       <div class="filter-row">
-        <span class="filter-label">Sub-wikis:</span>
+        <span class="filter-label" id="group-label"></span>
         <button class="filter-btn" id="topics-all">All</button>
         <button class="filter-btn" id="topics-none">None</button>
       </div>
@@ -199,7 +202,7 @@ svg { width: 100%; height: 100%; }
       <div class="filter-row">
         <span class="filter-label">Bin:</span>
         <button class="filter-btn" data-bin="1">1 yr</button>
-        <button class="filter-btn active" data-bin="5">5 yr</button>
+        <button class="filter-btn" data-bin="5">5 yr</button>
         <button class="filter-btn" data-bin="10">10 yr</button>
         <span class="hint" style="margin:0 0 0 auto">gray bars = papers per bin</span>
       </div>
@@ -208,10 +211,7 @@ svg { width: 100%; height: 100%; }
     </div>
 
     <div id="info"></div>
-    <div id="credit">
-      Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">Music 423 knowledge graph</a>;
-      author and evolution networks after <a href="https://transactions.ismir.net/articles/10.5334/tismir.265">ISMIR25Viz</a>.
-    </div>
+    <div id="credit"></div>
   </div>
 
   <div id="tooltip"></div>
@@ -232,7 +232,13 @@ const EVO_DEFAULT_TOPICS = 4;  // tracked on first open
 if (!DATA) {
   document.getElementById("info").textContent = "No graph data — run: make rebuild";
 } else {
-  const { nodes: pageNodes, edges: pageEdges, topics, topic_colors, types, role_tags } = DATA;
+  const { nodes: pageNodes, edges: pageEdges, topics, topic_colors, types, role_tags, site } = DATA;
+  // Site-specific chrome (see the generator's `site` block)
+  document.title = site.title;
+  document.getElementById("home").innerHTML = site.home_href
+    ? `<a href="${site.home_href}">${site.home_label}</a>` : site.home_label;
+  document.getElementById("group-label").textContent = site.group_label + ":";
+  document.getElementById("credit").innerHTML = site.credit_html;
   const roleTags = new Set(role_tags || []);
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -254,7 +260,7 @@ if (!DATA) {
   let activeType = "all";
   let searchTerm = "";
   let network = "bipartite";        // "bipartite" | "collab" | "cooccur"
-  let minPapers = 2;
+  let minPapers = site.min_papers;
   let minTopic = 5;
 
   // Current rendered graph (either view)
@@ -370,7 +376,7 @@ if (!DATA) {
       ${d.authors && d.authors.length ? `<div class="tags">${esc(d.authors.join(", "))}</div>` : ""}
       ${d.tags.length ? `<div class="tags">${esc(d.tags.join(", "))}</div>` : ""}
       <div class="link-count">${d.links_in} inbound · ${d.links_out} outbound</div>
-      <div class="link-count" style="color:#8cf; margin-top:4px">Click to open page</div>`,
+      <div class="link-count" style="color:#8cf; margin-top:4px">${site.click_hint}</div>`,
     click: d => { if (d.href) window.open(d.href, "_blank"); },
   };
   function pageVisible(n) {
@@ -386,7 +392,10 @@ if (!DATA) {
   }
 
   // ---- Authors view: derived networks ----
-  const papers = pageNodes.filter(n => n.type === "source" && n.authors && n.authors.length);
+  // One entry per paper: a paper summarized in several topics (same bare name) counts once.
+  const seenBare = new Set();
+  const allPapers = pageNodes.filter(n => n.type === "source" && !seenBare.has(n.bare) && seenBare.add(n.bare));
+  const papers = allPapers.filter(n => n.authors && n.authors.length);
   const paperTopics = p => p.tags.filter(t => !roleTags.has(t));
   const authorPapers = new Map();   // name -> [paper]
   const topicPapers = new Map();    // tag  -> [paper]
@@ -572,7 +581,7 @@ if (!DATA) {
   });
 
   // ---- Evolution view ----
-  const datedPapers = papers.filter(p => p.year);
+  const datedPapers = allPapers.filter(p => p.year);
   const evoTopicCounts = new Map();
   datedPapers.forEach(p => paperTopics(p).forEach(t => evoTopicCounts.set(t, (evoTopicCounts.get(t) || 0) + 1)));
   const evoTopics = [...evoTopicCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
@@ -580,7 +589,8 @@ if (!DATA) {
   const evoColor = d3.scaleOrdinal(d3.schemeTableau10);
   let evoSelected = evoTopics.slice(0, EVO_DEFAULT_TOPICS);
   let evoYAxis = "percent";
-  let evoBin = 5;                          // years per bin
+  let evoBin = site.evolution_bin;         // years per bin
+  document.querySelectorAll(".filter-btn[data-bin]").forEach(b => b.classList.toggle("active", +b.dataset.bin === evoBin));
   let evoPick = null;                      // { topic, year } currently listed
   const years = datedPapers.map(p => p.year);
   const yearMin = Math.min(...years), yearMax = Math.max(...years);

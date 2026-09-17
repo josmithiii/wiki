@@ -58,6 +58,24 @@ PALETTE = [
 ]
 
 
+# Site-specific chrome for the shared graph.html template (kept byte-identical
+# with music423-2023/wiki/graph.html; everything that differs lives here).
+SITE = {
+    "title": "JOS LLM Wiki — Knowledge Graph",
+    "home_label": "JOS LLM Wiki",
+    "home_href": "index.html",
+    "group_label": "Sub-wikis",
+    "click_hint": "Click to open page",
+    "evolution_bin": 5,   # corpus spans 1953-2026 with many single-paper years
+    "min_papers": 2,      # default Authors-view threshold
+    "credit_html": (
+        'Modeled on the <a href="https://ccrma.stanford.edu/~jos/wiki-graph-423gl.html">'
+        'Music 423 knowledge graph</a>; author and evolution networks after '
+        '<a href="https://transactions.ismir.net/articles/10.5334/tismir.265">ISMIR25Viz</a>.'
+    ),
+}
+
+
 def slugify(heading: str) -> str:
     """Approximate pandoc's auto-identifier for a heading."""
     s = heading.strip().lower()
@@ -255,6 +273,7 @@ def build_graph(out_dir: Path, subwikis: list[str]) -> dict:
         "topic_colors": topic_colors,
         "types": types,
         "role_tags": sorted(ROLE_TAGS),
+        "site": SITE,
     }
 
 
