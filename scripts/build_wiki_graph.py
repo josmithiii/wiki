@@ -185,6 +185,45 @@ def parse_section_tags(section_body: str) -> list[str]:
     return [t.strip().strip("'\"`") for t in m.group(1).split(",") if t.strip()]
 
 
+def author_key(name: str) -> str:
+    """Identity key for an author name: accents, case, hyphens and punctuation folded.
+
+    Middle initials are NOT folded (that would merge e.g. Sang-gil Lee and Sang-Hoon Lee).
+    """
+    import unicodedata
+    k = unicodedata.normalize("NFKD", name)
+    k = "".join(c for c in k if not unicodedata.combining(c))
+    k = k.replace("ł", "l").replace("Ł", "L").replace("ø", "o").replace("Ø", "O").replace("ß", "ss")
+    return re.sub(r"[^a-z ]", "", k.lower().replace("-", " ")).strip()
+
+
+def canonicalize_authors(nodes: list[dict]) -> int:
+    """Give every spelling variant of an author one display form, in place.
+
+    Variants share an author_key(). The display form is the variant with the most
+    non-ASCII characters (the accented spelling is the accurate one), then the most
+    frequent. Also removes repeated names within a node. Returns the number of
+    author keys that had more than one spelling.
+    """
+    from collections import Counter, defaultdict
+    forms: dict[str, Counter] = defaultdict(Counter)
+    for n in nodes:
+        for a in n.get("authors", []):
+            forms[author_key(a)][a] += 1
+    display = {k: max(c, key=lambda f: (sum(ord(ch) > 127 for ch in f), c[f], f))
+               for k, c in forms.items()}
+    for n in nodes:
+        seen: set[str] = set()
+        out: list[str] = []
+        for a in n.get("authors", []):
+            k = author_key(a)
+            if k and k not in seen:
+                seen.add(k)
+                out.append(display[k])
+        n["authors"] = out
+    return sum(1 for c in forms.values() if len(c) > 1)
+
+
 def wikilinks_in(text: str) -> list[str]:
     """Wikilink targets (without |display) in text, ignoring code spans."""
     out = []
@@ -262,6 +301,8 @@ def build_graph(out_dir: Path, subwikis: list[str]) -> dict:
             edges.append({"source": src_id, "target": dst_id})
             nodes[src_id]["links_out"] += 1
             nodes[dst_id]["links_in"] += 1
+
+    canonicalize_authors(list(nodes.values()))
 
     topics = [sw for sw in subwikis if (out_dir / sw).is_dir()]
     topic_colors = {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(topics)}

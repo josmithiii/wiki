@@ -393,8 +393,11 @@ if (!DATA) {
 
   // ---- Authors view: derived networks ----
   // One entry per paper: a paper summarized in several topics (same bare name) counts once.
+  // Among duplicates, keep the copy that lists authors.
   const seenBare = new Set();
-  const allPapers = pageNodes.filter(n => n.type === "source" && !seenBare.has(n.bare) && seenBare.add(n.bare));
+  const allPapers = pageNodes.filter(n => n.type === "source")
+    .sort((a, b) => (b.authors || []).length - (a.authors || []).length)
+    .filter(n => !seenBare.has(n.bare) && seenBare.add(n.bare));
   const papers = allPapers.filter(n => n.authors && n.authors.length);
   const paperTopics = p => p.tags.filter(t => !roleTags.has(t));
   const authorPapers = new Map();   // name -> [paper]

@@ -145,3 +145,26 @@ def test_source_node_year(tmp_path: Path) -> None:
     g = bwg.build_graph(tmp_path, ["w"])
     years = {n["id"].split("#")[1]: n["year"] for n in g["nodes"] if "#" in n["id"]}
     assert years == {"paper-a-2026": 2026, "paper-b": 1988}
+
+
+def test_author_key_folds_accents_case_punctuation() -> None:
+    assert bwg.author_key("Alexandre Défossez") == bwg.author_key("Alexandre Defossez")
+    assert bwg.author_key("Samuel L. Smith") == bwg.author_key("Samuel L Smith")
+    assert bwg.author_key("Pablo Tablas De Paula") == bwg.author_key("Pablo Tablas de Paula")
+    assert bwg.author_key("Przemysław Kazienko") == "przemyslaw kazienko"
+    # middle initials and different given names stay distinct
+    assert bwg.author_key("Sang-gil Lee") != bwg.author_key("Sang-Hoon Lee")
+    assert bwg.author_key("Christopher Burgess") != bwg.author_key("Christopher P. Burgess")
+
+
+def test_canonicalize_authors_merges_variants_and_dedupes() -> None:
+    nodes = [
+        {"authors": ["Vesa Valimaki", "Julian D. Parker"]},
+        {"authors": ["Vesa Valimaki"]},
+        {"authors": ["Vesa Välimäki", "Abdelrahman Mohamed", "Abdelrahman Mohamed"]},
+        {"authors": []},
+    ]
+    assert bwg.canonicalize_authors(nodes) == 1
+    assert nodes[0]["authors"] == ["Vesa Välimäki", "Julian D. Parker"]   # accented form wins
+    assert nodes[1]["authors"] == ["Vesa Välimäki"]
+    assert nodes[2]["authors"] == ["Vesa Välimäki", "Abdelrahman Mohamed"]

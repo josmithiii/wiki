@@ -8,6 +8,19 @@ extend a shared wiki that survives across sessions, agents, and models.
 
 Each subdirectory is an independent wiki with its own SCHEMA.md, index.md, and log.md.
 
+## Browse it online
+
+- **[Interactive knowledge graph](https://ccrma.stanford.edu/~jos/wiki/graph.html)** -
+  every page as a node and every wikilink as an edge, colored by sub-wiki;
+  search, filter, hover to highlight neighbors, click to open a page.
+  Two more views sit behind the *View* buttons:
+  [Authors](https://ccrma.stanford.edu/~jos/wiki/graph.html#authors)
+  (author-topic, co-authorship, and topic co-occurrence networks) and
+  [Evolution](https://ccrma.stanford.edu/~jos/wiki/graph.html#evolution)
+  (topic trends over time; click a point to list its papers).
+- **[Rendered wiki](https://ccrma.stanford.edu/~jos/wiki/)** - the same
+  pages as a static web site, one index per sub-wiki.
+
 ## Try it in 5 minutes
 
 1. Clone the repo and browse: every page is plain markdown with YAML
