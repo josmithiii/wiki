@@ -1,7 +1,7 @@
 ---
 title: Allpass Clipping Prevention
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [allpass, time-varying, stability, va-filters, real-time, embedded]
 sources:
@@ -93,6 +93,10 @@ the modified sequence is BIBO stable by definition - a runtime counterpart to
 realizations untested, and the mild transient nonlinearity is not perceptually
 evaluated. Future work: combining it with energy preservation, i.e.
 [[wave-digital-filters]]. See also [[virtual-analog-overview]].
+
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Allpass Filter Sections](https://ccrma.stanford.edu/~jos/filters/Allpass_Filter_Sections.html), [The Biquad Allpass Section](https://ccrma.stanford.edu/~jos/filters/Biquad_Allpass_Section.html), [Allpass Filters](https://ccrma.stanford.edu/~jos/filters/Allpass_Filters.html)
+- [[jos_books/entities/pasp-book|PASP]]: [Phasing with First-Order Allpass Filters](https://ccrma.stanford.edu/~jos/pasp/Phasing_First_Order_Allpass_Filters.html), [Schroeder Allpass Sections](https://ccrma.stanford.edu/~jos/pasp/Schroeder_Allpass_Sections.html)
 
 ## References
 

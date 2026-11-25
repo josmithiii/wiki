@@ -1,7 +1,7 @@
 ---
 title: Classical ANC Methods (Overview)
 created: 2026-04-16
-updated: 2026-04-16
+updated: 2026-11-25
 type: concept
 tags: [anc, fxlms, lms, secondary-path, feedback, feedforward, hybrid-control, stability, reference, tutorial]
 sources:
@@ -17,7 +17,10 @@ Companion to [[ai-anc-overview]]. This page maps the **non-AI** ANC
 landscape — every major algorithm family, control topology, and
 application area documented in the four ingested survey papers.[^kuo99]
 [^lu21a] [^lu21b] [^shi23]  Individual pages exist for [[lms-algorithm]]
-and [[fxlms-algorithm]]; everything else is cataloged here.
+and [[fxlms-algorithm]], and the narrowband, perceptual and active-impedance
+branches have their own pages ([[tonal-periodic-anc]], [[psychoacoustic-anc]],
+[[electroacoustic-absorbers]], [[hybrid-active-passive]]); everything else is
+cataloged here.
 
 The organizing axis is **what type of model sits in the control
 path**: linear FIR/IIR, nonlinear polynomial expansion, or
@@ -34,7 +37,7 @@ heuristic/evolutionary optimizer.
 | **Hybrid** | yes | sum of feedforward + feedback outputs | flexible; automotive, fMRI |
 
 - **Feedforward** requires causal delay: electrical delay $\le$ acoustic delay from ref mic to speaker.[^kuo99]
-- **Feedback** suffers the waterbed effect: suppression at some $f$ ⇒ boost at others.[^lu21a]
+- **Feedback** suffers the waterbed effect: suppression at some $f$ ⇒ boost at others;[^lu21a] it also carries the stability burden of any closed loop through $S(z)$, whose delay limits the controllable bandwidth.
 - **Hybrid** adds design flexibility but doubles filter count.
 
 ## 2. Linear adaptive algorithms
@@ -47,19 +50,23 @@ The dominant family. See [[fxlms-algorithm]] for the core update rule.
 |---|---|
 | FxNLMS | Normalized step $\mu/\|\hat{\mathbf{x}}\|^2$ |
 | Leaky FxLMS | Weight-decay term for stability |
-| Modified FxLMS | Bjarnason (1993): pre-filters reference through $\hat{S}^{-1}(z)$ |
+| Modified FxLMS | Bjarnason (1995): rebuilds $\hat d(n)$ from $e(n)$ and $\hat S$, adapts on an internal error with current weights — removes the secondary-path delay from the adaptation loop |
 | VSS-FxLMS | Variable step size — fast convergence + low residual |
 | Frequency-domain FxLMS | Block FFT for long filters; $O(N\log N)$ per block |
 | Subband FxLMS | Delayless or weight-transfer subband decomposition |
-| Multichannel FxLMS | $J$ refs × $K$ speakers × $M$ error mics; $J{\cdot}K{\cdot}M$ filters |
+| Multichannel FxLMS | $J$ refs × $K$ speakers × $M$ error mics; $J{\cdot}K$ control filters, $J{\cdot}K{\cdot}M$ filtered references |
 | FxAP | Affine projection — decorrelates correlated inputs |
 | FxRLS | Recursive least squares — fast convergence, $O(N^2)$ cost |
 
 ### 2.2 Filtered-e (FeLMS) family
 
-Filters the *error* through $\hat{S}(z)$ instead of the reference.
-Equivalent steady-state to FxLMS but different transient behavior;
-sometimes preferred for narrowband or IIR controllers.[^lu21a]
+Filters the *error* through an error filter $H(z)$ instead of filtering
+the reference through $\hat{S}(z)$. Two designs:[^lu21a] the **adjoint
+LMS** (ALMS), $H(z) = z^{-\beta}\hat{S}^*(z)$ (delayed, time-reversed
+secondary-path model; behaves much like FxLMS), and **secondary-path
+equalization** (SPE), $H(z)$ = (pseudo-)inverse of $\hat S(z)$. FxFeLMS
+filters both paths; the perceptually weighted FeLMS of
+[[psychoacoustic-anc]] §5 is of this type.
 
 ### 2.3 Filtered-u (FuLMS) family
 
@@ -228,7 +235,7 @@ Lower cost than centralized multichannel.[^lu21a]
 | Method | Idea |
 |---|---|
 | **Selective ANC** | pre-tuned filter bank; noise classifier selects best filter at runtime — direct precursor to SFANC/GFANC ([[deep-rl-anc]]) |
-| **Psychoacoustic ANC** | perceptual loudness weighting in cost function |
+| **Psychoacoustic ANC** | perceptual loudness weighting in cost function — see [[psychoacoustic-anc]] |
 | **3-D zone-of-quiet** | spherical-harmonic decomposition for volumetric quiet zones |
 | **IoT-ANC** | wireless ethernet replaces analog cables; proof-of-concept demonstrated |
 
@@ -239,10 +246,10 @@ Lower cost than centralized multichannel.[^lu21a]
 | **Duct** | 20 dB broadband attenuation | [^kuo99] |
 | **fMRI** | >40 dB via parallel feedback FNLMS; head-mounted piezo speakers | [^lu21b] |
 | **Open window** | 16-channel, 5 dB below 2 kHz; natural ventilation preserved | [^lu21b] |
-| **Headphones** | feedback FxLMS standard; virtual sensing, hybrid, CBBANC | [^lu21b] |
+| **Headphones** | feedback FxLMS standard; virtual sensing ([[pinn-virtual-sensing]]), hybrid, CBBANC | [^lu21b] |
 | **Zone-of-quiet** | spherical speaker arrays; RMT-based; memetic algorithm | [^lu21b] |
 | **Spatial ANC** | mode-domain methods reduce cross-correlations; HOS scheme | [^lu21b] |
-| **Periodic noise** | ILC + RC for repetitive exhaust (120 dB); 4 dB with freq-domain ILC | [^lu21b] |
+| **Periodic noise** | ILC + RC for repetitive impulsive exhaust noise (source level up to 120 dB); 4 dB with freq-domain ILC; see [[tonal-periodic-anc]] | [^lu21b] |
 | **Transformer** | 15 dB max; 84–97% sound energy density reduction | [^lu21b] |
 | **Vehicle** | road noise: 4 dB broadband up to 1 kHz (8-ref multichannel) | [^lu21b] |
 | **Other** | mobile phones, earmuffs, elevators, mufflers, washing machines, EEG | [^lu21b] |
@@ -276,6 +283,14 @@ For post-2021 challenges and AI-based approaches, see [[ai-anc-overview]].
   [[ai-anc-overview]] and its linked concept pages.
 - For **selective ANC → SFANC → GFANC → GFANC-RL** evolution, trace
   from §7 above through [[deep-rl-anc]].
+- For **tonal / periodic** disturbances (the fan-hum case), see
+  [[tonal-periodic-anc]]; for **active impedance** rather than anti-noise,
+  see [[electroacoustic-absorbers]] and [[hybrid-active-passive]].
+
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Filter Stability](https://ccrma.stanford.edu/~jos/filters/Filter_Stability.html), [Linear Time-Varying Filters](https://ccrma.stanford.edu/~jos/filters/View_Linear_Time_Varying.html) (an adapting filter is one), [Minimum-Phase/Allpass Decomposition](https://ccrma.stanford.edu/~jos/filters/Minimum_Phase_Allpass_Decomposition.html) (why delay in $S(z)$ cannot be inverted causally)
+- [[jos_books/entities/sasp-book|SASP]]: [Filter Bank View of the STFT](https://ccrma.stanford.edu/~jos/sasp/Filter_Bank_Summation_FBS.html) (subband and frequency-domain FxLMS front ends)
+- [[jos_books/entities/mdft-book|MDFT]]: [Coherence Function](https://ccrma.stanford.edu/~jos/mdft/Coherence_Function.html) (the bound on feedforward attenuation)
 
 [^kuo99]: Kuo & Morgan, "Active Noise Control: A Tutorial Review," *Proc. IEEE* 87(6), 1999. See `raw/ANC-Tutorial-Review-1999-2010913102917710.txt`.
 [^lu21a]: Lu et al., "A survey on active noise control — Part I: Linear systems," *Signal Processing* 183, 2021. See `raw/ANC-Survey-Part1-1-s2.0-S0165168421000785-main.txt`.

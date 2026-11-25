@@ -1,7 +1,7 @@
 ---
 title: Nonlinear Modal Synthesis
 created: 2026-04-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal-synthesis, physical-modeling, vibration, impact, dsp]
 sources:
@@ -29,7 +29,7 @@ When vibration amplitudes are large enough, modes exchange energy:
 ### Poirot-Bilbao Coupled Filter Model (EURASIP 2024)[^1]
 - Departs from strict PDE simulation for perceptual/procedural goals
 - Coupled Mathews-Smith resonant filters with inter-modal energy transfer
-- Coupling matrix C_ij encodes energy flow between mode pairs
+- Coupling matrix $C_{ij}$ encodes energy flow between mode pairs
 - Power transfer: $P_i(n+1) = [P_i(n) + T_i(n)]\, e^{-2\alpha_i/f_s}$
 - Equivalence between filter signal power and modal mechanical energy
 - Randomization of coupling improves realism
@@ -41,7 +41,7 @@ Collisions are one-sided nonlinearities: force is zero until contact, then large
 
 ### Power-Law Contact Model[^2]
 - $F = K\, [\eta]_+^\alpha$, where $\eta$ = penetration depth
-- $K$ = stiffness, $\alpha > 1$ (typically 1.5–3 for Hertzian contact)
+- $K$ = stiffness, $\alpha > 1$ (1.5 for Hertzian contact; about 1.5–3.5 for piano-hammer felt)
 - Potential: $\Phi = K\, [\eta]_+^{\alpha+1} / (\alpha+1)$
 - Energy-conserving finite difference schemes guarantee numerical stability
 
@@ -63,7 +63,8 @@ Collisions are one-sided nonlinearities: force is zero until contact, then large
 
 At large amplitudes, string stretching increases effective tension:
 $$K[u] \;=\; \frac{EA}{2L} \int_0^L \!\left(\frac{\partial u}{\partial x}\right)^2 dx \;\cdot\; \frac{\partial^2 u}{\partial x^2}$$
-- Causes pitch glide upward at high amplitudes
+- Raises pitch at high amplitude, so the pitch glides down as the note decays
+  (waveguide treatment: [[waveguide_synthesis/concepts/string-modeling|string modeling]])
 - Couples all modes through shared tension term
 
 ## Energy Quadratisation Methods[^4][^5]
@@ -82,7 +83,7 @@ Modern approach avoiding iterative Newton-Raphson solvers:
 | Full Föppl-von Kármán | ~8x real-time (CPU) | Iterative | High |
 | Coupled filter bank | Yes | None (explicit) | Perceptual |
 | Energy quadratisation | Yes | Small linear system | High |
-| Power-law alpha=1 exact | Yes | Analytic closed-form | Medium |
+| Power-law $\alpha=1$ exact | Yes | Analytic closed-form | Medium |
 
 ## Related Concepts
 - [[modal-synthesis-overview]] — linear modal synthesis foundation
@@ -92,8 +93,11 @@ Modern approach avoiding iterative Newton-Raphson solvers:
 - **DAFx26 additions (Sept 2026):** Scalar Auxiliary Variable quadratization of a geometrically exact nonlinear string, inverted by two Sherman-Morrison rank-one updates for an O(N) step - see [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]]
 - Full derivation of that SAV scheme, its two drift regularisations and the measured body it drives: [[sav-nonlinear-string-with-measured-body]]
 
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Tension Modulation](https://ccrma.stanford.edu/~jos/pasp/Tension_Modulation.html), [Nonlinear Piano Strings](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Piano_Strings.html), [Nonlinear Spring Model](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Spring_Model.html), [Nonlinear Elements](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Elements.html)
+
 ## References
-[^1]: Poirot, Bilbao & Kronland-Martinet (2024). "A simplified and controllable model of mode coupling." EURASIP JASM.
+[^1]: Poirot, Bilbao & Kronland-Martinet (2024). "A simplified and controllable model of mode coupling for addressing nonlinear phenomena in sound synthesis processes." EURASIP JASMP.
 [^2]: Bilbao, Torin & Chatziioannou (2015). "Numerical Modeling of Collisions in Musical Instruments." Acta Acustica.
 [^3]: Bilbao (2024). "Numerical Modeling of String/Barrier Collisions." ISMA.
 [^4]: van Walstijn, Bhanuprakash & Chatziioannou (2023). "Tunable Collisions." DAFx23.

@@ -1,7 +1,7 @@
 ---
 title: FEM and BEM for Modal Synthesis
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-11-25
 type: concept
 tags: [fem, bem, modal-synthesis, wave-equation, acoustics, vibration]
 sources:
@@ -19,7 +19,7 @@ Two main methods: Finite Element Method (FEM) and Boundary Element Method (BEM).
 
 ### What it does
 Discretizes the interior volume of an object into small elements (tetrahedra, hexahedra).
-Assembles mass matrix M and stiffness matrix K from element integrals.
+Assembles mass matrix $M$ and stiffness matrix $K$ from element integrals.
 Solves generalized eigenvalue problem: $K\phi = \omega^2 M \phi$.
 
 ### Inputs required
@@ -33,14 +33,15 @@ Solves generalized eigenvalue problem: $K\phi = \omega^2 M \phi$.
 
 ### Tools
 - **Abaqus, ANSYS, NASTRAN**: commercial FEM packages
-- **FEniCS, OpenFOAM**: open-source; FEniCS especially good for custom PDEs
+- **FEniCS, Code_Aster, CalculiX**: open-source; FEniCS especially good for custom PDEs
 - **COMSOL**: GUI-friendly, good for multiphysics (structural + acoustic)
 - **Elmer**: open-source, good structural + acoustic coupling
 
 ### Mesh requirements
 - Rule of thumb: at least 6 elements per wavelength at highest freq of interest
-- For audio up to 10 kHz in steel ($c_L \approx 5000$ m/s): $\lambda_{\min} \approx 0.5$ mm
-  → very fine mesh for large objects → millions of DOF
+- At 10 kHz in steel, longitudinal waves ($c_L \approx 5000$ m/s) have $\lambda \approx 0.5$ m, but bending
+  waves in thin parts are far slower ($c_B \approx \sqrt{1.8\,c_L h f}$: a 1 mm plate gives 300 m/s, $\lambda \approx 3$ cm),
+  so thin shells set the mesh density → large objects can need millions of DOF
 
 ### Reduced-order models
 Problem: full FEM has millions of DOF, but only ~100-500 modes needed for synthesis.
@@ -67,7 +68,7 @@ For modal synthesis, precompute "acoustic transfer vectors" (ATVs):
 $$p_k(r_{\text{obs}}) \;=\; \mathcal{B}\, \phi_k(\text{surface})$$
 
 Then: $p(r_{\text{obs}}, t) = \sum_k p_k(r_{\text{obs}})\, q_k(t)$
-This is the "Precomputed Acoustic Transfer" approach (James & Pai 2002).
+This is the "Precomputed Acoustic Transfer" approach (James, Barbič & Pai 2006); see [[radiation-and-directivity]].
 
 ### Tools
 - **FastBEM**: commercial, multipole-accelerated
@@ -93,3 +94,4 @@ Reduces BEM cost from $O(N^2)$ to $O(N \log N)$:
 - [[modal-synthesis-overview]] — how these modes feed into synthesis
 - [[modal-analysis-measurement]] — experimental alternative to FEM/BEM
 - [[rigid-body-sound-synthesis]] — runtime pipeline using precomputed FEM/BEM data
+- [[ml-modal-parameter-estimation]] — neural and differentiable replacements for the eigensolve

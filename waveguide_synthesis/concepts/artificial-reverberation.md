@@ -1,7 +1,7 @@
 ---
 title: Artificial Reverberation
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [reverb, fdn, sdn, waveguide, dsp, room]
 sources:
@@ -11,6 +11,7 @@ sources:
   - /w/pasp/reverb-sdn.tex
   - /w/pasp/reverb-jcrev.tex
   - /w/pasp/reverb-freeverb.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Artificial_Reverberation.html
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
@@ -19,12 +20,12 @@ sources:
 Reverberation = sum of all reflection paths from source to listener.
 Brute-force simulation (waveguide mesh of a concert hall) is prohibitively
 expensive. Practical algorithms use delay-line networks with carefully
-chosen feedback structures.
+chosen feedback structures.[^3]
 
 ## The Problem
 
-Exact simulation of a room with 3 sources, 2 ears, 1s T60 at 50 kHz:
-~30 billion multiply-adds/second. A 3D waveguide mesh: ~5 quadrillion ops/s.
+Exact (FIR) simulation of a room with 3 sources, 2 ears, 1 s $T_{60}$ at 50 kHz:
+~30 billion operations/second. A 3D waveguide mesh of a concert hall: ~5 quadrillion ops/s.
 Instead, we approximate using structured delay networks.
 
 ## Early Reflections
@@ -38,14 +39,14 @@ Instead, we approximate using structured delay networks.
 
 After ~100 ms, echo density is so high that individual reflections merge
 into a statistical process. Requirements:
-- Echo density > ~1000/sec (perceptual threshold)
+- Echo density > ~1000/sec (Schroeder's rule of thumb; ~10,000/sec for impulsive sounds)
 - Gaussian pressure distribution
 - Exponential energy decay (straight-line EDC on dB scale)
-- Frequency-dependent T60
+- Frequency-dependent $T_{60}$ (longer at low frequencies)
 
 ## Schroeder Reverberators (JCREV, Freeverb)
 
-### Schroeder (1962) / JCREV (Chowning, 1972)
+### Schroeder (1962)[^1] / JCREV (Chowning, 1972)
 - Series allpass filters → parallel feedback comb filters → mixing matrix
 - Allpass: $\mathrm{AP}(N,g) = \dfrac{-g + z^{-N}}{1 - g\,z^{-N}}$
 - Feedback comb: $\mathrm{FBCF}(N,g) = \dfrac{1}{1 - g\,z^{-N}}$
@@ -58,10 +59,10 @@ into a statistical process. Requirements:
 
 ## Feedback Delay Networks (FDN)
 
-The modern standard for algorithmic reverb (Gerzon 1971; Jot 1991):
-- N parallel delay lines with NxN lossless feedback matrix A
-- Loss filters on each delay line for per-band T60 control
-- Tonal correction filter E(z) decouples T60 from spectral shape
+The modern standard for algorithmic reverb (Gerzon 1971; Stautner & Puckette 1982; Jot 1991[^2]):
+- $N$ parallel delay lines with an $N\times N$ lossless feedback matrix $A$
+- Loss filters on each delay line for per-band $T_{60}$ control
+- Tonal correction filter $E(z)$ decouples $T_{60}$ from spectral shape
 
 ### Feedback Matrix Choices
 - **Hadamard $H_N$**: recursive $2\times 2$ embedding; multiply-free for $N$ = power of 4
@@ -71,7 +72,7 @@ The modern standard for algorithmic reverb (Gerzon 1971; Jot 1991):
 - $N=4$ Householder is uniquely "balanced" (all entries equal magnitude)
 
 ### Design Principle
-Start from lossless prototype (infinite T60), tune for perceptually white
+Start from lossless prototype (infinite $T_{60}$), tune for perceptually white
 impulse response, then add per-band loss filters for desired decay.
 
 ## Scattering Delay Networks (SDN)
@@ -82,17 +83,21 @@ Bridges FDN and physical room modeling:
 - Higher-order reflections reuse same waveguide segments (approximate)
 - 3D room: 6 junctions, interconnected by digital waveguides
 - Parameters (room dimensions, wall absorption) directly control network
-- Perceptually adequate for rooms > ~10 m³
+- Perceptually adequate mode density for cuboid rooms larger than ~10 m³
 
 ## Related Concepts
 - [[waveguide-overview]] — the delay lines reverb is built from
 - [[scattering-junctions]] — FDN feedback = scattering at virtual junction
 - [[waveguide-meshes]] — brute-force physical room simulation
 - [[delay-line-techniques]] — interpolation for tuning delay lengths
-- **Pass-2 pages:** [[fdn-kronecker-feedback-matrices]], [[nonlinear-and-time-varying-fdn-effects]], [[differentiable-fdn-design]]
-- **DAFx26 additions (Sept 2026):** fast parametric Kronecker FDN feedback matrices, nonlinear/shimmer FDNs, differentiable FDNs fitted to measured RIRs, concatenation-driven convolution, the sfFDN library and the IRIS IR-navigation plugin - see [[entities/source-papers#artificial-reverberation-fdns-differentiable-reverb-convolution]]
+- **DAFx26 pages:** [[fdn-kronecker-feedback-matrices]], [[nonlinear-and-time-varying-fdn-effects]], [[differentiable-fdn-design]]
+- **DAFx26 additions (Sept 2026):** fast parametric Kronecker FDN feedback matrices, nonlinear/shimmer FDNs, differentiable FDNs fitted to measured RIRs, concatenation-driven convolution, the [[entities/sffdn-library|sfFDN library]] and the IRIS IR-navigation plugin - see [[entities/source-papers#artificial-reverberation-fdns-differentiable-reverb-convolution]]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Schroeder Reverberators](https://ccrma.stanford.edu/~jos/pasp/Schroeder_Reverberators.html), [Freeverb](https://ccrma.stanford.edu/~jos/pasp/Freeverb.html), [FDN Reverberation](https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberation.html), [Choice of Lossless Feedback Matrix](https://ccrma.stanford.edu/~jos/pasp/Choice_Lossless_Feedback_Matrix.html), [Scattering Delay Networks](https://ccrma.stanford.edu/~jos/pasp/Scattering_Delay_Networks.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Audio Decay Time (T60)](https://ccrma.stanford.edu/~jos/mdft/Audio_Decay_Time_T60.html)
 
 ## References
 [^1]: Schroeder, M.R. (1962). "Natural Sounding Artificial Reverberation." JAES 10(3).
 [^2]: Jot, J.-M. & Chaigne, A. (1991). "Digital Delay Networks for Designing Artificial Reverberators." AES Conv. 90.
-[^3]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.
+[^3]: Smith, J.O. III. *Physical Audio Signal Processing*, W3K Publishing, 2010; online at <https://ccrma.stanford.edu/~jos/pasp/>.

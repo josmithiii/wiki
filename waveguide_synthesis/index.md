@@ -2,7 +2,8 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-09-10 | Total pages: 33
+> Last updated: 2026-11-25 | Total pages: 33
+> Primary source book: *Physical Audio Signal Processing* (PASP) - see [[jos_books/index|JOS online books]] for the hub pages and deep-link catalog.
 
 ## Entities
 - [[entities/source-papers]] - distilled source-paper catalog (DAFx26 pass-1 ingestion)
@@ -37,16 +38,16 @@
 - [[artificial-reverberation]] — FDN, SDN, Schroeder reverberators; early/late decomposition
 - [[waveguide-meshes]] — 2D/3D waveguide grids; dispersion; room acoustics and membrane simulation
 - [[commuted-synthesis]] — LTI commutativity shortcut; precompute body IR, excite string with it
-- [[banded-waveguides]] — closed wavetrains on 2D/3D objects modeled as 1D loops; cymbals, bells
+- [[banded-waveguides]] — one band-limited 1D loop per mode / closed wavetrain; bars, bowls, cymbals
 - [[waveguide-vocal-models]] — Kelly-Lochbaum vocal tract, SPASM singing, 2D/3D mesh vocal models
 - [[waveguide-parameter-optimization]] — physics-based, filter design, genetic, neural/DDSP calibration
 - [[waveguide-history]] — timeline from d'Alembert (1747) through K-S (1983) to DDSP (2025)
 - [[wave-digital-filters]] — lumped-element modeling via bilinear transform + wave variables; modularity
-- [[wdf-adaptors]] — parallel/series adaptors; one-multiply form; N-port; dependent port
+- [[wdf-adaptors]] — parallel/series adaptors; one-multiply form; N-port; dependent vs. reflection-free port
 - [[wdf-elements]] — mass, spring, dashpot, transformer, gyrator, nonlinear elements; K-method
-- [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, differentiable/neural WDFs
+- [[wdf-applications]] — piano hammer, tonehole, analog circuit emulation, WDF libraries, differentiable/neural WDFs
 - [[viola-wdf-plugin-generator]] — VIOLA: automatic SPICE-to-VST pipeline via WDFs (Giampiccolo et al., JAES 2025)
-- [[wdf-arbitrary-port-adaptation]] — general formula for adapting any junction port via MNA/Thévenin resistance
+- [[wdf-arbitrary-port-adaptation]] — closed-form adaptation of any junction port via MNA/Thévenin resistance; series (delta) sanity check
 - [[fdn-kronecker-feedback-matrices]] — lossless FDN mixing from recursive 2x2 Kronecker kernels; $O(N\log N)$, stereo, freeze, modulation
 - [[nonlinear-and-time-varying-fdn-effects]] — shimmer reverb: five nonlinear/pitch-shifting blocks inside the FDN loop, with energy analysis
 - [[differentiable-fdn-design]] — frequency-sampling differentiable FDNs fitted to RIRs; proportional PEQ attenuation; ADAC export to FAUST
@@ -60,6 +61,7 @@
 - [[wdf-multiple-nonlinearities]] — SPQR + R-type root + K-method framework for multiple/multiport NLs (Werner et al., DAFx 2015)
 
 ## Comparisons
-- See [[modal_synthesis/comparisons/waveguide-vs-modal]] for waveguide vs. modal synthesis comparison
+- See [[modal_synthesis/comparisons/waveguide-vs-modal|waveguide vs. modal]] in the modal_synthesis wiki
+- Virtual analog context for the `wdf-*` pages: [[virtual_analog/concepts/virtual-analog-overview|virtual analog overview]]
 
 ## Queries

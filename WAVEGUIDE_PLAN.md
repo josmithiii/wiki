@@ -55,7 +55,7 @@ Source: /l/wgr/ — "Four Decades of Digital Waveguides"
 ## Remaining Work
 
 ### Entity Pages — TODO
-- [ ] pasp-book — Smith's Physical Audio Signal Processing (online book)
+- [x] pasp-book — Smith's Physical Audio Signal Processing (online book): done 2026-11-25 as `jos_books/entities/pasp-book.md` (hub page with chapter map)
 - [ ] stk-toolkit — Cook & Scavone's Synthesis Toolkit
 - [ ] four-decades-paper — the JAES review paper itself
 
@@ -75,7 +75,8 @@ Some PASP chapters were skimmed but could yield more detail:
   - waveguide-vs-modal.md already cross-links
   - coupled-structures.md mentions commuted synthesis → link
   - nonlinear-modal-synthesis.md mentions string collisions → link to string-modeling
-- [ ] Consider whether dsp_synthesis/ should be merged/retired
+- [ ] Consider whether dsp_synthesis/ should be merged/retired (as of 2026-11-25 it is an
+  untracked skeleton of empty directories, never listed in README.md or built)
 - [ ] Update ~/wiki/README.md if dsp_synthesis is retired
 
 ### Possible Future Pages

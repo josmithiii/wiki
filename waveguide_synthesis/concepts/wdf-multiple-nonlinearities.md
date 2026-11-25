@@ -1,7 +1,7 @@
 ---
 title: "WDF Multiple/Multiport Nonlinearities"
 created: 2026-04-15
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [scattering, nonlinear, dsp, impedance]
 sources:
@@ -16,7 +16,8 @@ placed at the root of a binary connection tree where its junction port
 is adapted (see [[wdf-arbitrary-port-adaptation]]). Werner, Nangia,
 Smith & Abel (DAFx 2015)[^1] presented a general framework that
 removes this limitation, accommodating **any number** of nonlinear
-elements with **any number of ports** each, in **arbitrary topologies**.
+elements with **any number of ports** each, in **arbitrary topologies**;
+Werner's dissertation[^6] expands it.
 
 ## The Problem
 
@@ -125,8 +126,8 @@ transformed to $g(\cdot)$. WDF output matches SPICE to within a few mV.
 - **SIM** (Bernardini et al., 2018+; used in [[viola-wdf-plugin-generator]])
   — an alternative iterative solver for the same class of problems;
   avoids tabulation but requires iterating at each sample
-- **Neural K-method** (Bernardini et al., 2025) — replaces the lookup
-  table with a neural network
+- **Explicit neural junctions** (Giampiccolo, Gafencu & Bernardini, 2025) —
+  an MLP in vector-wave form replaces the lookup table
 - **Olsen et al. (DAFx 2016)** — iterative techniques for resolving
   grouped nonlinearities in the same framework
 
@@ -139,12 +140,16 @@ transformed to $g(\cdot)$. WDF output matches SPICE to within a few mV.
 - [[wdf-applications]] — VA circuit emulation context
 - [[viola-wdf-plugin-generator]] — VIOLA uses SIM as an alternative
   to the K-method for this problem class
+- [[virtual_analog/concepts/state-space-circuit-solvers|state-space circuit solvers]] — the state-space route (Yeh; Holters & Zolzer) to the same circuits
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Nonlinear Elements](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Elements.html), [Adaptors for Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html), [Newton's Method of Nonlinear Minimization](https://ccrma.stanford.edu/~jos/pasp/Newton_s_Method_Nonlinear_Minimization.html)
 
 ## References
 [^1]: Werner, K.J.; Nangia, V.; Smith, J.O.; Abel, J.S. "Resolving
     Wave Digital Filters with Multiple/Multiport Nonlinearities."
     *Proc. DAFx-15*, Trondheim, 2015.
-[^2]: Werner, K.J. et al. "An Improved and General Diode Clipper Model
+[^2]: Werner, K.J. et al. "An Improved and Generalized Diode Clipper Model
     for Wave Digital Filters." *AES Conv. 139*, 2015.
 [^3]: Karjalainen, M.; Pakarinen, J. "Wave Digital Simulation of a
     Vacuum-Tube Amplifier." *ICASSP*, 2006.

@@ -1,7 +1,7 @@
 ---
 title: Fourier Neural Operators for VA
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [fno, neural-va, differentiable, antialiasing, oversampling]
 sources:
@@ -61,7 +61,12 @@ which reinterprets the unit delay on the new grid with fractional-delay interpol
 ## See also
 
 [[neural-va-architectures]] - [[virtual-analog-overview]] -
-[[antiderivative-antialiasing]] (the other route to alias control)
+[[antiderivative-antialiasing]] (the other route to alias control) -
+[[spectral_processing/concepts/overlap-add-stft|overlap-add STFT]] (the framing used here)
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Weighted Overlap Add](https://ccrma.stanford.edu/~jos/sasp/Weighted_Overlap_Add.html), [Choice of WOLA Window](https://ccrma.stanford.edu/~jos/sasp/Choice_WOLA_Window.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Interpolation Theorems](https://ccrma.stanford.edu/~jos/mdft/Periodic_Interpolation_Spectral_Zero.html), [Sampling Theorem](https://ccrma.stanford.edu/~jos/mdft/Sampling_Theorem.html)
 
 ## References
 

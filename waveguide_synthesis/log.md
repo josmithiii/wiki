@@ -130,3 +130,22 @@
 - Added one-line "see also" pointers and bumped `updated` on artificial-reverberation, delay-line-techniques, string-modeling, waveguide-parameter-optimization, wdf-applications, wave-digital-filters, reed-and-bow-models, waveguide-vocal-models, scattering-junctions and waveguide-overview.
 - All new pages are under 100 lines per SCHEMA, with LaTeX math, a footnote citation to the source-paper catalog anchor, and at least two resolving outbound wikilinks.
 - Updated index.md: 33 pages, 16 DAFx26 source-paper anchors.
+
+## [2026-11-25] lint | editorial pass + JOS online-book integration
+- Read all 33 pages against their sources (/w/pasp/*.tex, /l/wgr/ review, raw/ extractions). Technical corrections:
+  scattering-junctions (N-port junction velocity is 2/N of the sum, not 1/N; power conservation needs the 1/R weighting; "Hadamard structure" -> Householder);
+  waveguide-overview (waveguide cost is O(1) per sample vs O(N) for a finite-difference grid, not N^2);
+  delay-line-techniques (allpass coefficient eta = 1 gives zero delay, eta = 0 one sample; tremolo/phasing are not delay effects);
+  string-modeling (FIR, not linear phase, is what keeps the loss-filter fit convex);
+  bore-modeling (bell and tonehole descriptions: open-end reflection, closed hole is a compliance);
+  reed-and-bow-models (reed flow curve); artificial-reverberation (30 billion operations, not multiply-adds);
+  commuted-synthesis (K-S averaging filter is lumped string loss, not body colouring);
+  banded-waveguides (rewritten: one bandpass loop per mode, original bar application, corrected citations; timpani removed);
+  waveguide-history (hammer 1994, STK 1996 by Cook, SDN naming 2015 with the 2005 precursor);
+  wdf-adaptors (two-port series adaptor was the velocity-wave form labelled as force waves; dependent port vs reflection-free port separated);
+  wdf-applications (RT-WDF is Rest, Dunkel, Werner & Smith 2016; PyWDF has no autodiff; "lip reed (Bilbao 2002)" was the passive wave digital piano hammer; unverifiable STK-WDF entry removed; nodal DK is also warped; 2025 neural junction paper is Giampiccolo, Gafencu & Bernardini);
+  wdf-arbitrary-port-adaptation (the delta network is a plain 3-port series junction, not an R-type topology - example reframed as a sanity check).
+- Rendering fix: footnote definitions that no body text cited were silently dropped by pandoc, affecting 20 pages (17 rendered a completely empty "References" section); every definition is now cited. SCHEMA.md notes the rule.
+- Book integration: added a "JOS online books" section with verified deep links (PASP mainly; Filters, MDFT, SASP where they are the prerequisite) to 32 pages (all but the source-paper catalog), online URLs to `sources:`, and the convention to SCHEMA.md. Hub: jos_books/.
+- Cross-links: sibling-wiki links now carry the sub-wiki prefix; added links to virtual_analog/, modal_synthesis/ and spectral_processing/ pages; catalog entries in entities/source-papers.md point to their pass-2 distillations.
+- index.md: date, book-hub pointer, corrected one-liners (banded-waveguides, wdf-adaptors, wdf-applications, wdf-arbitrary-port-adaptation).

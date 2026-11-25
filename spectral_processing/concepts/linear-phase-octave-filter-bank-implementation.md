@@ -1,7 +1,7 @@
 ---
 title: Linear-Phase Octave Filter Bank Implementation
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [filter-banks, multirate, fir-design, applications, downsampling]
 sources:
@@ -80,5 +80,9 @@ Six-core Arm Cortex-A78AE, 8 GB LPDDR5, JetPack 5.1.1, GCC 9.4.0
 - [[window-design-methods]] - prototype FIR design
 - [[spectral-audio-applications]] - equalization and crossover use cases
 - [[entities/source-papers#paper-badia-octave-filter-bank-parallelism-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Fast Octave Filter Banks](https://ccrma.stanford.edu/~jos/sasp/Fast_Octave_Filter_Banks.html), [Dyadic Filter Banks](https://ccrma.stanford.edu/~jos/sasp/Dyadic_Filter_Banks.html)
+- [[jos_books/entities/filters-book|Filters]]: [Symmetric Linear-Phase Filters](https://ccrma.stanford.edu/~jos/filters/Symmetric_Linear_Phase_Filters.html)
 
 [^badia-2026]: Jose M. Badia, Jose A. Belloch and Vesa Valimaki, "Exploring Parallelism and Energy Efficiency in a Multistage Linear-Phase Octave Filter Bank," *Proc. DAFx26*, Cambridge MA, Sept. 2026, pp. 356-363. Distilled in [[entities/source-papers#paper-badia-octave-filter-bank-parallelism-2026]].

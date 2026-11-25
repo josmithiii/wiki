@@ -1,7 +1,7 @@
 ---
 title: Electroacoustic Absorbers (shunt + feedback active impedance)
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-11-25
 type: concept
 tags: [active-absorber, active-impedance, feedback, feedforward, loudspeaker, transducer, impedance, acoustics, stability, room, duct, history, reference]
 sources:
@@ -41,8 +41,13 @@ r(f)=\frac{Z_s(f)-\rho c}{Z_s(f)+\rho c},\qquad
 \alpha(f)=1-\lvert r(f)\rvert^2 .
 $$
 
-Total absorption ($\alpha=1$) requires $Z_s=\rho c$: a **purely
-resistive** match with zero pressure–velocity phase. The passive
+This is the reflection coefficient of any impedance step
+([PASP: Reflectance of an Impedance](https://ccrma.stanford.edu/~jos/pasp/Reflectance_Impedance.html));
+the same formula drives the
+[[waveguide_synthesis/concepts/scattering-junctions|scattering junctions]]
+of digital waveguide models. Total absorption ($\alpha=1$) requires
+$Z_s=\rho c$: a **purely resistive** match with zero pressure–velocity
+phase. The passive
 loudspeaker cannot hold this away from its mechanical resonance because
 $Z_s$ carries the reactive mass ($sM_{ms}/S_d$) and stiffness
 ($1/(sS_dC_{mc})$) terms. Control exists to flatten those reactances and
@@ -81,7 +86,7 @@ $C_p$ trades apparent mass for bandwidth at nearly fixed center frequency.
   so it is used in moderation.
 - **Direct impedance control** (combined pressure+velocity feedback):
   the matched resistance is set *directly* by the gain ratio
-  $C_v/C_p = Z_c = \rho c \approx 413\ \mathrm{Pa\,s/m}$; raising both
+  $C_v/C_p = Z_c = \rho c \approx 413\ \mathrm{Pa\,s/m}$ (for $C_v\gg Bl$); raising both
   gains at fixed ratio widens the band → **broadband $\rho c$ match**.
 - **Hybrid sensor-/shunt-based + current drive** (Rivet et al.
   2017[^rivet-2017]): a single pressure sensor feeds a controller
@@ -125,7 +130,7 @@ single such layer can absorb **at most one half** of a normally incident
 plane wave, *regardless of excursion or control law*.
 
 Model the open diaphragm as a limp resistive sheet of normalized
-resistance $\rho = r/\rho c$: the velocity is continuous across it
+resistance $\tilde r = r/(\rho c)$: the velocity is continuous across it
 (impermeable), and the pressure drops by $r\,v$. With incident, reflected,
 and transmitted waves $p_i, p_r, p_t$ at $x=0$:
 
@@ -137,12 +142,12 @@ $$
 Solving gives the transmission, reflection, and absorption coefficients
 
 $$
-t=\frac{2}{2+\rho},\qquad
-\Gamma=\frac{\rho}{2+\rho},\qquad
-A = 1-\lvert\Gamma\rvert^2-\lvert t\rvert^2 = \frac{4\rho}{(\rho+2)^2},
+t=\frac{2}{2+\tilde r},\qquad
+\Gamma=\frac{\tilde r}{2+\tilde r},\qquad
+A = 1-\lvert\Gamma\rvert^2-\lvert t\rvert^2 = \frac{4\tilde r}{(\tilde r+2)^2},
 $$
 
-which is maximized at $\rho = 2$ (sheet resistance $r = 2\rho c$), giving
+which is maximized at $\tilde r = 2$ (sheet resistance $r = 2\rho c$), giving
 
 $$
 A_{\max} = \tfrac12 .
@@ -212,7 +217,7 @@ cabinet volume $V_b$ (via $C_{mc}$) sets the center $f_0$. Measured: a
 Peerless 6½″ driver ($f_0\approx 84$ Hz, $\mu=0.15$, $R_{st}=\rho c$)
 gives a **$\rho c$ match over ~410 Hz**, and as a duct termination
 collapses the 44–300 Hz modal peak-to-dip range from **51.3 dB (rigid)
-to 12.6 dB** — a 4:1 reduction. Lissek 2011 validated the same theory in
+to 12.6 dB** — a 38.7 dB reduction in modal contrast. Lissek 2011 validated the same theory in
 an ISO 10534-2 impedance tube, tuning absorption from near-total
 reflection to near-total absorption.
 
@@ -235,7 +240,9 @@ reflection to near-total absorption.
   *coverage* problem for an open rooftop fan — see [[rooftop-fan-contenders]].
 - **Where it fits:** EAs are the *active-impedance* leg complementary to
   the *hybrid passive+active* duct liners ([[hybrid-active-passive]] §2)
-  and the pure anti-noise ANC of [[classical-anc-overview]].
+  and the pure anti-noise ANC of [[classical-anc-overview]]. In a
+  *confined* (ducted) path the free-field ceilings of §5 do not apply —
+  see [[duct-acoustics-liner-modeling]].
 
 ### Would an Air Motion Transformer (AMT) do better?
 
@@ -247,7 +254,7 @@ superb *radiator* transducer, but it relaxes **neither** ceiling above:
 |---|---|---|
 | Excursion for absorption | trivial | even more trivial (non-benefit) |
 | Open-dipole 50% cap (§5) | yes | **yes — same** |
-| Sub-$\lambda$ aperture @ 100 Hz (§6) | yes | yes, and $\gtrsim 650$ Hz native band |
+| Sub-$\lambda$ aperture @ 100 Hz (§5) | yes | yes, and $\gtrsim 650$ Hz native band |
 | Air–membrane coupling | modest | **better (its one plus)** |
 
 - **Still an open dipole** (front and rear equally exposed) → the 50% cap
@@ -283,14 +290,14 @@ superb *radiator* transducer, but it relaxes **neither** ceiling above:
 
 - **Olson & May 1953** — first electronic sound absorber; mic+amp+speaker
   feedback, 10–25 dB over 3 octaves, $p_3{=}0$ ⇒ 100% absorption mode. See
-  `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`.
+  [[entities/source-papers#paper-olson-may-electronic-sound-absorber-1953|paper-olson-may-electronic-sound-absorber-1953]].
 - **Lissek, Boulandet & Fleury 2011** — unifying shunt⇔feedback theory;
   1-DOF resonator with three knobs; direct impedance control $\rho c$ match.
-  See `entities/source-papers.md#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011`.
+  See [[entities/source-papers#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011|paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011]].
 - **Rivet, Karkar & Lissek 2017** — broadband LF EA via pressure-sensor
   feedforward + current drive; bandwidth law; ~410 Hz $\rho c$ match; duct
   modal damping. See
-  `entities/source-papers.md#paper-rivet-karkar-lissek-broadband-lf-ea-2017`.
+  [[entities/source-papers#paper-rivet-karkar-lissek-broadband-lf-ea-2017|paper-rivet-karkar-lissek-broadband-lf-ea-2017]].
 
 ## Pending / related
 
@@ -306,6 +313,10 @@ See also: [[hybrid-active-passive]] (porous+active liners, metamaterials),
 [[classical-anc-overview]] (anti-noise ANC and secondary-path modeling),
 [[rooftop-fan-contenders]] (the fan-hum application and its aperture problem).
 
-[^olson-1953]: H. F. Olson & E. G. May, "Electronic Sound Absorber," *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953. Distilled in `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`.
-[^lissek-2011]: H. Lissek, R. Boulandet & R. Fleury, "Electroacoustic absorbers: Bridging the gap between shunt loudspeakers and active sound absorption," *J. Acoust. Soc. Am.* 129(5):2968–2978, 2011. DOI 10.1121/1.3569707. Distilled in `entities/source-papers.md#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011`.
-[^rivet-2017]: E. Rivet, S. Karkar & H. Lissek, "Broadband Low-Frequency Electroacoustic Absorbers through Hybrid Sensor-/Shunt-Based Impedance Control," *IEEE Trans. Control Syst. Technol.* 25(1), 2017. DOI 10.1109/TCST.2016.2547981. Distilled in `entities/source-papers.md#paper-rivet-karkar-lissek-broadband-lf-ea-2017`.
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Reflectance of an Impedance](https://ccrma.stanford.edu/~jos/pasp/Reflectance_Impedance.html), [Plane-Wave Scattering](https://ccrma.stanford.edu/~jos/pasp/Plane_Wave_Scattering.html), [Passive One-Ports](https://ccrma.stanford.edu/~jos/pasp/Passive_One_Ports.html) (why a passive shunt is always stable), [Power-Complementary Reflection and Transmission](https://ccrma.stanford.edu/~jos/pasp/Power_Complementary_Reflection_Transmission.html) (the $1-\lvert\Gamma\rvert^2-\lvert t\rvert^2$ bookkeeping of §5), [Acoustic Intensity](https://ccrma.stanford.edu/~jos/pasp/Acoustic_Intensity.html) ($\rho c$ and $I_0$)
+- [[jos_books/entities/filters-book|Filters]]: [Quality Factor (Q)](https://ccrma.stanford.edu/~jos/filters/Quality_Factor_Q.html) (the 1-DOF resonator parameters of §2)
+
+[^olson-1953]: H. F. Olson & E. G. May, "Electronic Sound Absorber," *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953. Distilled in [[entities/source-papers#paper-olson-may-electronic-sound-absorber-1953|paper-olson-may-electronic-sound-absorber-1953]].
+[^lissek-2011]: H. Lissek, R. Boulandet & R. Fleury, "Electroacoustic absorbers: Bridging the gap between shunt loudspeakers and active sound absorption," *J. Acoust. Soc. Am.* 129(5):2968–2978, 2011. DOI 10.1121/1.3569707. Distilled in [[entities/source-papers#paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011|paper-lissek-boulandet-fleury-electroacoustic-absorbers-2011]].
+[^rivet-2017]: E. Rivet, S. Karkar & H. Lissek, "Broadband Low-Frequency Electroacoustic Absorbers through Hybrid Sensor-/Shunt-Based Impedance Control," *IEEE Trans. Control Syst. Technol.* 25(1), 2017. DOI 10.1109/TCST.2016.2547981. Distilled in [[entities/source-papers#paper-rivet-karkar-lissek-broadband-lf-ea-2017|paper-rivet-karkar-lissek-broadband-lf-ea-2017]].

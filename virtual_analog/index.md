@@ -3,10 +3,11 @@
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
 > Wave digital filters live in the sibling `waveguide_synthesis/` wiki (`wdf-*` pages).
-> Last updated: 2026-09-10 | Total pages: 17
+> Background theory: [[jos_books/index|JOS online books]] (Filters, PASP, MDFT, SASP), deep-linked from each page's "JOS online books" section.
+> Last updated: 2026-11-25 | Total pages: 17
 
 ## Entities
-- [[entities/source-papers]] - distilled source-paper catalog (DAFx26 pass-1 ingestion)
+- [[entities/source-papers]] - distilled source-paper catalog (DAFx26; each entry points to its concept page)
 - [[hasy-asic]] - 65 nm ASIC computing the alias-free oscillator-sync spectral transform
 
 ### DAFx26 source-paper anchors
@@ -39,7 +40,7 @@
 - [[real-time-neural-inference-deployment]] - the callback-deadline model and Apple Silicon backends under DAW contention
 - [[mobile-gpu-neural-audio]] - when a Snapdragon integrated GPU beats the CPU for streaming neural audio
 - [[neural-model-compression]] - 90% iterative magnitude pruning plus a sparse engine for WaveNet amp models on iPhone
-- [[state-space-circuit-solvers]] - nonlinear circuit DAEs as one convex QP per sample, with the nonlinear residual driving adaptive step size
+- [[state-space-circuit-solvers]] - nonlinear circuit DAEs as one convex QP per time step, with the nonlinear residual driving adaptive step size
 - [[neural-va-architectures]] - stability-regularized control-conditioned LSTMs and the gammatone-filterbank loss
 - [[fourier-neural-operators-va]] - frame-based FNOs giving VA models that run at sample rates they were not trained on
 

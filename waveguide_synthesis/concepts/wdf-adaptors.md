@@ -1,11 +1,14 @@
 ---
 title: WDF Adaptors
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [waveguide, scattering, dsp, impedance, physical-modeling]
 sources:
   - /w/pasp/adaptors.tex
+  - /w/pasp/paralleladaptor.tex
+  - /w/pasp/seriesadaptor.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html
   - /l/l420/WaveDigitalFiltersIntro/wdfi-content.tex
 ---
 
@@ -13,7 +16,7 @@ sources:
 
 An adaptor is a memoryless N-port interface that interconnects wave digital
 elements by implementing scattering appropriate for the physical connection
-type (parallel or series). It computes exactly the same as a scattering
+type (parallel or series).[^1][^2] It computes exactly the same as a scattering
 junction in a digital waveguide network.
 
 ## Two-Port Parallel Adaptor (Force Waves)
@@ -48,20 +51,23 @@ f_2^- &= f_1^+ + t
 \end{aligned}
 $$
 
-The one-multiply form is most efficient in custom VLSI.
-The Kelly-Lochbaum form may be faster in parallel hardware.
+The one-multiply form is most efficient in custom VLSI. The Kelly-Lochbaum form
+may be more efficient in software and slightly faster in parallel hardware.
 
 ## Two-Port Series Adaptor
 
 Series connection: common velocity, forces sum to zero.
 
-Same reflection coefficient formula; scattering relations differ by sign:
+Same $\rho$; the result is the dual of the parallel case ($f \leftrightarrow v$,
+$R \leftrightarrow \Gamma$). In velocity waves, then converted to force waves
+via $f_i^+ = R_i v_i^+$, $f_i^- = -R_i v_i^-$:
 $$
 \begin{aligned}
-f_1^- &= -\rho\, f_1^+ + (1+\rho)\, f_2^+\\
-f_2^- &= (1-\rho)\, f_1^+ + \rho\, f_2^+
+v_1^- &= -\rho\, v_1^+ + (1+\rho)\, v_2^+ & \qquad f_1^- &= \rho\, f_1^+ - (1-\rho)\, f_2^+\\
+v_2^- &= (1-\rho)\, v_1^+ + \rho\, v_2^+ & \qquad f_2^- &= -(1+\rho)\, f_1^+ - \rho\, f_2^+
 \end{aligned}
 $$
+One-multiply force-wave form: $t = \rho\,(f_1^+ + f_2^+)$, $f_1^- = t - f_2^+$, $f_2^- = -f_1^+ - t$.
 
 ## N-Port Adaptors
 
@@ -84,29 +90,37 @@ $$
 ### N-Port Series (velocity waves)
 Junction velocity:
 $$
-v_J \;=\; \frac{2 \sum_{i=1}^{N} R_i\, v_i^+}{\sum_{i=1}^{N} R_i}.
+v_J \;=\; \frac{2 \sum_{i=1}^{N} R_i\, v_i^+}{\sum_{i=1}^{N} R_i},
+\qquad
+v_i^- \;=\; v_J - v_i^+.
 $$
 
 ## Compatible Port Connections
 
-When connecting a WDF element to adaptor port i:
-- Signal f^- leaving the element becomes f_i^+ at the adaptor port
-- Signal f_i^- leaving the adaptor port becomes f^+ entering the element
-- Arrows must align in the wave flow diagram
+When connecting a WDF element to adaptor port $i$:
+- Signal $f^-$ leaving the element becomes $f_i^+$ at the adaptor port
+- Signal $f_i^-$ leaving the adaptor port becomes $f^+$ entering the element
+- Both sides must use the same port impedance $R_i$ (arrows align in the wave flow diagram)
 
-This "compatible connection" ensures physical consistency.
+## Dependent Port and Reflection-Free Port
 
-## The Dependent Port
+Two distinct devices, often confused:
 
-In an $N$-port adaptor, one port can be designated **dependent** — its
-port impedance is computed from the others to eliminate one multiply:
+- **Dependent port** — the junction coefficients $\alpha_i = 2\Gamma_i/\sum_j\Gamma_j$
+  (parallel) or $\beta_i = 2R_i/\sum_j R_j$ (series) sum to 2, so one of them
+  follows from the others and its multiply can be eliminated.
+- **Reflection-free port** — choose port $i$'s impedance so its own reflection
+  coefficient is zero (no instantaneous path from $f_i^+$ to $f_i^-$):
 $$
-R_{\text{dep}} \;=\; \text{function of the other } R_i.
+\text{parallel: } R_i = \frac{1}{\sum_{j\neq i}\Gamma_j},
+\qquad
+\text{series: } R_i = \sum_{j\neq i} R_j .
 $$
 
-This makes the adaptor's scattering matrix have one fewer independent
-coefficient. The dependent port must connect to the root of the
-WDF tree (or to an element that can tolerate an imposed $R_0$).
+Joining two adaptors at a reflection-free port avoids a delay-free loop, so
+adaptors chain into a (binary) connection tree with every reflection-free port
+facing the root. The root element must then accept an imposed port impedance -
+see [[wdf-arbitrary-port-adaptation]] for the same idea at R-type junctions.
 
 ## Relation to DWG Scattering Junctions
 
@@ -122,7 +136,11 @@ The difference:
 - [[scattering-junctions]] — DWG equivalent of WDF adaptors
 - [[wdf-r-type-adaptors]] — R-type (non-series/parallel) adaptors via MNA
 - [[wdf-arbitrary-port-adaptation]] — general port adaptation formula
+- [[wdf-code-generation]] — the 3-port series adaptor specialised for superscalar CPUs
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Adaptors for Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html), [Two-Port Parallel Adaptor for Force Waves](https://ccrma.stanford.edu/~jos/pasp/Two_Port_Parallel_Adaptor_Force.html), [Two-Port Series Adaptor for Force Waves](https://ccrma.stanford.edu/~jos/pasp/Two_Port_Series_Adaptor_Force.html), [General Parallel Adaptor for Force Waves](https://ccrma.stanford.edu/~jos/pasp/General_Parallel_Adaptor_Force.html), [Reflection Free Port](https://ccrma.stanford.edu/~jos/pasp/Reflection_Free_Port.html), [Compatible Port Connections](https://ccrma.stanford.edu/~jos/pasp/Compatible_Port_Connections.html)
 
 ## References
-[^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford, §Adaptors.
+[^1]: Smith, J.O. III. *Physical Audio Signal Processing*, W3K Publishing, 2010, Appendix F, "Adaptors for Wave Digital Elements"; online at <https://ccrma.stanford.edu/~jos/pasp/>.
 [^2]: Fettweis, A. (1986). "Wave Digital Filters: Theory and Practice." Proc. IEEE 74(2).

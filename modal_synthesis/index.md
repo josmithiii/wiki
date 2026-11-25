@@ -2,10 +2,11 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-09-10 | Total pages: 27
+> Last updated: 2026-11-25 | Total pages: 28
+> Book hub: [[jos_books/index|JOS online books]] - chapter maps of PASP, Filters, MDFT and SASP with links back into this wiki.
 
 ## Entities
-- [[realimpact-dataset]] — 150k calibrated impact recordings from 50 objects; ML training resource
+- [[realimpact-dataset]] — 150k impact recordings of 50 objects with force, impact and mic annotations (CVPR 2023)
 - [[entities/source-papers]] - distilled source-paper catalog (DAFx26 pass-1 ingestion)
 
 ### DAFx26 source-paper anchors
@@ -25,21 +26,21 @@
 - [Other challenge entries (not distilled)](entities/source-papers.md#other-challenge-entries-not-distilled) - one line each for challenge reports 78, 79, 80, 81, 84, 85, 89, 90, 91
 
 ## Concepts
-- [[damping-models]] — viscous, thermoelastic, and frequency-dependent damping; per-mode decay rates and DSP pole placement
+- [[damping-models]] — viscous, thermoelastic, and frequency-dependent damping; per-mode decay rates, $Q$, $T_{60}$ and pole placement
 - [[excitation-signals]] — impulse, noise burst, and continuous excitation; modal coupling via mode shapes at drive point
 - [[fem-bem-for-modal-synthesis]] — computing mode shapes and frequencies numerically from CAD + material data
 - [[friction-synthesis]] — continuous rubbing/bowing sounds via nonlinear feedback loop on resonator bank
-- [[gpu-modal-synthesis]] — massively parallel resonator bank on GPU; enables ~100k+ modes in real time
+- [[gpu-modal-synthesis]] — massively parallel resonator bank on GPU; $10^5$+ modes in real time
 - [[impact-synthesis]] — impact sound from Hertz contact model + modal response; core use case of modal synth
-- [[material-properties-and-modes]] — how E, rho, eta affect mode frequencies, damping, and perceptual character
+- [[material-properties-and-modes]] — how $E$, $\rho$, $\eta$ affect mode frequencies, damping, and perceptual character
 - [[modal-analysis-measurement]] — experimental extraction of mode parameters via FRF + pole-fitting algorithms
 - [[modal-synthesis-overview]] — top-level: physics-based synthesis by summing N decaying sinusoidal modes
-- [[mode-shapes-and-eigenvalues]] — math of eigenmodes: K*phi = omega^2*M*phi; modal superposition; orthogonality
+- [[mode-shapes-and-eigenvalues]] — math of eigenmodes: $K\phi = \omega^2 M\phi$; modal superposition; orthogonality
 - [[realtime-modal-synthesis]] — CPU/GPU strategies, perceptual mode reduction, LOD, latency budget for interactive synthesis
-- [[resonator-bank-implementation]] — N parallel biquad IIR filters implementing modal coordinates; cost and GPU SIMD
+- [[resonator-bank-implementation]] — $N$ parallel biquad IIR filters implementing modal coordinates; cost, SIMD and GPU
 - [[rigid-body-sound-synthesis]] — real-time physics-engine + modal synth pipeline for games/VR
 - [[nonlinear-modal-synthesis]] — mode coupling, collisions, tension modulation; energy-conserving numerical methods
-- [[coupled-structures]] — string-bridge-body coupling, commuted synthesis, state-space multi-I/O approach
+- [[coupled-structures]] — string-bridge-body coupling, delay-loop expansion, commuted synthesis, state-space multi-I/O approach
 - [[ml-modal-parameter-estimation]] — neural mode prediction, differentiable modal synthesizers, audio-domain training
 - [[radiation-and-directivity]] — radiation efficiency vs. mode shape, acoustic transfer, directivity patterns
 - [[stochastic-modal-synthesis]] — SEA, high-frequency mode density, noise-band synthesis above mode resolution limit
@@ -54,6 +55,6 @@
 - [[modal-pole-harvesting-from-irs]] — multi-view subband AR pole harvesting and count-density networks for unknown mode counts
 
 ## Comparisons
-- [[waveguide-vs-modal]] — delay-line waveguide vs. eigenmode resonator bank: equivalence, tradeoffs, hybrid use
+- [[waveguide-vs-modal]] — delay-line waveguide vs. eigenmode resonator bank: equivalence, tradeoffs, hybrids (commuted, banded)
 
 ## Queries

@@ -1,7 +1,7 @@
 ---
 title: WDF Code Generation
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [waveguide, scattering, dsp, realtime, faust, comparison, reference]
 sources:
@@ -95,5 +95,8 @@ library in well under a second - not practical with FAUST or heavily templated C
 - [[wdf-applications]] - where these models get deployed
 - [[wdf-adaptors]] - the series/parallel adaptors being specialised
 - [[entities/source-papers#paper-chowdhury-performance-oriented-wdf-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Adaptors for Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html), [One-Multiply Series Reflection-Free Three-Port Adaptor](https://ccrma.stanford.edu/~jos/pasp/One_Multiply_Series_Reflection_Free_Three_Port.html), [Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Elements.html)
 
 [^chowdhury]: J. Chowdhury & M. Rau, "Performance-Oriented Wave Digital Circuit Emulation," DAFx26. See [[entities/source-papers#paper-chowdhury-performance-oriented-wdf-2026]].

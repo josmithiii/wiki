@@ -1,11 +1,11 @@
 ---
 title: Waveguide Parameter Optimization
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [waveguide, optimization, ml, differentiable, dsp, physical-modeling]
 sources:
-  - /l/wgr/Sections/Parameter Optimization/ParameterOptimisation.tex
+  - /l/wgr/Sections/ParameterOptimization/ParameterOptimisation.tex
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
@@ -14,7 +14,7 @@ sources:
 Calibrating a digital waveguide model to match a target sound requires
 estimating physical or filter parameters. Multiple strategies have been
 developed over four decades, from physics-based measurement to modern
-differentiable DSP.
+differentiable DSP.[^1]
 
 ## Physics-Based
 
@@ -69,8 +69,8 @@ Synthesizer networks predict output waveform (teacher for controller):
 DWG embedded within neural network; backprop through differentiable DSP:
 - Su, Liang et al. (1997-2006): RNN ↔ IIR filter equivalence;
   neuron weights = scattering coefficients
-- Engel et al. (2020): DDSP framework — native differentiable operations
-- Hayes et al.: FDL decay optimized via multi-scale spectral loss ($L_{\text{MSS}}$)
+- Engel et al. (2020)[^2]: DDSP framework — native differentiable operations
+- Hayes et al.: filtered-delay-loop (FDL) decay optimized via multi-scale spectral loss ($L_{\text{MSS}}$)
 - Tablas de Paula et al. (2025): time-variant FDL with pluck position,
   dynamics, timbre, and decay optimized separately
 - Sudholt et al. (2023): DDSP on K-L vocal tract; beats genetic + black-box
@@ -98,8 +98,13 @@ DWG embedded within neural network; backprop through differentiable DSP:
 - [[string-modeling]] — primary target for FDL optimization
 - [[commuted-synthesis]] — body separation enables independent optimization
 - [[waveguide-vocal-models]] — vocal tract as optimization target
-- **Pass-2 pages:** [[differentiable-karplus-strong]], [[differentiable-kelly-lochbaum-tract]], [[differentiable-fdn-design]]
+- **DAFx26 pages:** [[differentiable-karplus-strong]], [[differentiable-kelly-lochbaum-tract]], [[differentiable-fdn-design]]
 - **DAFx26 additions (Sept 2026):** differentiable Karplus-Strong sound matching, differentiable Kelly-Lochbaum copy-synthesis, differentiable FDN fitting to measured RIRs, and ADAC compilation of trained differentiable graphs to FAUST - see [[entities/source-papers]]
+- [[modal_synthesis/concepts/ml-modal-parameter-estimation|ML modal parameter estimation]] — the same problem for resonator banks
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Loop Filter Identification](https://ccrma.stanford.edu/~jos/pasp/Loop_Filter_Identification.html), [Fundamental Frequency Estimation](https://ccrma.stanford.edu/~jos/pasp/Fundamental_Frequency_Estimation.html), [EDR-Based Loop-Filter Design](https://ccrma.stanford.edu/~jos/pasp/EDR_Based_Loop_Filter_Design.html), [Body-Model Factoring](https://ccrma.stanford.edu/~jos/pasp/Body_Model_Factoring.html)
+- [[jos_books/entities/filters-book|Filters]]: [Equation-Error Filter Design](https://ccrma.stanford.edu/~jos/filters/Filter_Design_Minimizing_L2.html)
 
 ## References
 [^1]: Tablas de Paula, Smith, Välimäki & Reiss (2025). "Four Decades of Digital Waveguides." JAES.

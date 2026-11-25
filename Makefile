@@ -18,7 +18,7 @@ TARBALL      := $(WIKI_NAME).tgz
 BUILD_STAMP  := $(BUILD_DIR)/.BUILD_TIMESTAMP
 
 # Sub-wikis to include (each is a top-level directory with SCHEMA.md/index.md/log.md)
-SUBWIKIS     := waveguide_synthesis modal_synthesis spectral_processing virtual_analog active_absorbers
+SUBWIKIS     := waveguide_synthesis modal_synthesis spectral_processing virtual_analog active_absorbers jos_books
 
 # Top-level files to include
 TOPFILES     := README.md
@@ -29,10 +29,13 @@ PANDOC_OPTS  := --from=gfm --to=html5 --standalone --toc --toc-depth=2 \
                 --metadata=lang:en --shift-heading-level-by=0 \
                 --wrap=preserve
 
+# Root of the JOS book source trees (mdft, filters, pasp, sasp), for book-catalog
+BOOK_SRC     := /w
+
 # CCRMA staging — matches /w/scripts/webupd convention
 CCRMA_STAGE  := /w/h/josn
 
-.PHONY: help all build rebuild html index graph render-md copy-md upload clean check obsidian open test
+.PHONY: help all build rebuild html index graph render-md copy-md upload clean check obsidian open test book-links book-catalog book-usage
 
 .DEFAULT_GOAL := help
 
@@ -54,7 +57,7 @@ build b: ## Render wiki to HTML (reuses existing build if present)
 	  $(MAKE) rebuild; \
 	fi
 
-rebuild rb: clean copy-md render-md graph index ## Force a clean rebuild
+rebuild rb: clean book-links copy-md render-md graph index ## Force a clean rebuild
 	@touch $(BUILD_STAMP)
 	@echo ""
 	@echo "Built $(OUT_DIR)"
@@ -85,6 +88,15 @@ render-md: copy-md ## Render markdown to HTML via pandoc
 	@command -v $(PANDOC) >/dev/null 2>&1 || \
 	  { echo "*** pandoc not found — install via: brew install pandoc"; exit 1; }
 	@python3 scripts/build_wiki.py $(OUT_DIR) $(SUBWIKIS) || exit 1
+
+book-links bl: ## Check every link into the JOS online books against jos_books/catalog/
+	@python3 scripts/book_links.py check . $(SUBWIKIS) || exit 1
+
+book-usage: ## List, per book chapter, the wiki pages that link into it (for updating the hub pages)
+	@python3 scripts/book_links.py usage . $(SUBWIKIS) || exit 1
+
+book-catalog: ## Regenerate jos_books/catalog/*.tsv from the local book HTML ($(BOOK_SRC)/<book>/<book>HTML)
+	@python3 scripts/book_links.py update-catalog $(BOOK_SRC) || exit 1
 
 graph: ## Generate interactive D3 knowledge graph (graph.html)
 	@python3 scripts/build_wiki_graph.py $(OUT_DIR) $(SUBWIKIS) || exit 1

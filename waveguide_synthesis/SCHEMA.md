@@ -38,7 +38,8 @@ updated: YYYY-MM-DD
 type: entity | concept | comparison | query | summary
 tags: [from taxonomy below]
 sources:
-  - https://example.com/original-source-url
+  - /w/pasp/<file>.tex
+  - https://ccrma.stanford.edu/~jos/pasp/<Page_Name>.html
   - raw/articles/local-copy.md
 ---
 ```
@@ -49,6 +50,20 @@ sources:
 - In the page body, cite sources using markdown footnotes.
 - The local wiki links to raw files for offline reading; footnotes give the
   original URL.
+- A footnote definition renders only if the body cites it (`[^1]` somewhere in
+  the text); an uncited `[^n]:` line silently vanishes from the HTML build.
+
+## JOS Online Books
+- PASP is this wiki's primary source (LaTeX at `/w/pasp/`); the four books are
+  online one page per section at `https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`
+  (`mdft`, `filters`, `pasp`, `sasp`). Hub pages: `[[jos_books/entities/pasp-book|PASP]]` etc.
+- Page names cannot be guessed: look them up in `jos_books/catalog/<book>.tsv`
+  (page name, title, parent page; the parent tells `Foo.html` from `Foo_I.html`).
+- Each topical page ends with a `## JOS online books` section (before the
+  references): one bullet per book, hub wikilink first, then 2-6 deep links whose
+  text is the section title. Omit it when no book section really covers the topic.
+- In `sources:`, keep the `/w/pasp/*.tex` paths and add the main online URL(s).
+- Check with `python3 scripts/book_links.py check . waveguide_synthesis` (or `make book-links`).
 
 ## Tag Taxonomy
 

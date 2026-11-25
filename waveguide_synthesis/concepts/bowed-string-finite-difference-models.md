@@ -1,7 +1,7 @@
 ---
 title: Bowed-String Finite-Difference Models
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [string, physical-modeling, modal-synthesis, damping, acoustics, realtime]
 sources:
@@ -65,7 +65,7 @@ displacement at $x_c$ equals $\sum_m q_m$.
   $r = 0.55$ mm, $T = 50.61$ N, $E = 1\times10^{10}$ Pa.
 - **Bridge.** Impact hammer plus laser Doppler vibrometer; the admittance is
   reduced by the filter diagonalisation method to **11 modes** (compare
-  [[modal-analysis-measurement]]).
+  [[modal_synthesis/concepts/modal-analysis-measurement|modal analysis measurement]]).
 - **Radiation.** Bridge-force-to-pressure transfer function measured in a
   hemi-anechoic chamber, microphones 30 cm behind the soundbox, fitted with **25
   parallel second-order sections** in the warped frequency domain (parallel form
@@ -92,6 +92,10 @@ route to physically correct vibrato).
 ## See also
 - [[reed-and-bow-models]] - the waveguide route to bowed strings
 - [[string-modeling]] - stiff-string and bridge-coupling background
+- [[modal_synthesis/concepts/sav-nonlinear-string-with-measured-body|SAV nonlinear string with measured body]] and [[modal_synthesis/concepts/friction-synthesis|friction synthesis]] - sibling energy-quadratised and friction models
 - [[entities/source-papers#paper-zheng-yehu-physical-model-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Bowed Strings](https://ccrma.stanford.edu/~jos/pasp/Bowed_Strings.html), [The Bow-String Scattering Junction](https://ccrma.stanford.edu/~jos/pasp/Bow_String_Scattering_Junction.html), [Finite-Difference Schemes](https://ccrma.stanford.edu/~jos/pasp/Finite_Difference_Schemes.html), [Piano String Wave Equation](https://ccrma.stanford.edu/~jos/pasp/Piano_String_Wave_Equation.html), [Bridge Modeling](https://ccrma.stanford.edu/~jos/pasp/Bridge_Modeling.html)
 
 [^zheng]: Z. Zheng, C. C. Darabundit, G. Scavone, "Physical Model of the Chinese Yehu for Sound Synthesis," DAFx26. See [[entities/source-papers#paper-zheng-yehu-physical-model-2026]].

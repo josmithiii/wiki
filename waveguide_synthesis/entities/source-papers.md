@@ -1,7 +1,7 @@
 ---
 title: Source Papers -- Distilled Catalog
 created: 2026-09-08
-updated: 2026-09-10
+updated: 2026-11-25
 type: entity
 tags: [reference, comparison, waveguide, reverb, fdn, differentiable]
 sources:
@@ -34,14 +34,14 @@ this page. Blocks are distilled from the text extractions in `raw/`
 
 Unless noted otherwise, every entry below is from the *Proceedings of the 29th
 International Conference on Digital Audio Effects (DAFx26), Cambridge, MA, USA,
-1-4 September 2026*, and this is a **pass-1 catalog**: bullets are seeded from
+1-4 September 2026*. Entries are the **pass-1 catalog**: bullets seeded from
 the annotated bibliography at `/l/dttd/DAFx26/README_JOS.md` plus the abstract
-and opening sections of each paper. Deep distillation into concept pages is
-pass 2.
+and opening sections of each paper. Pass 2 (2026-09-10) distilled twelve of
+them into the concept and entity pages listed in `index.md`; those pages cite
+back to the anchors here.
 
-When any single paper needs deeper treatment than the bullet summary supports,
-promote it to a dedicated `entities/paper-<slug>.md` file and leave the section
-here as a cross-link.
+When a paper needs deeper treatment than its bullets support, give it a
+concept or entity page and leave the section here as the catalog entry.
 
 ---
 
@@ -55,7 +55,7 @@ here as a cross-link.
 - Key DSP finding: **time-domain fractional-delay interpolation** gives gradient accuracy comparable to frequency-sampling delay implementations while avoiding time-aliasing in highly resonant, time-varying settings - i.e. delay-line length really is differentiable in the time domain. See [[delay-line-techniques]].
 - Key training finding: standard **spectral losses provide no meaningful directional gradient for onset times**, which badly degrades joint training of onsets with everything else.
 - Training exclusively with parameter losses on synthetic data learns $f_0$, timbral parameters and onset times, but does not generalize to monophonic studio recordings of plucked guitar; external detectors plus audio losses generalize best, reducing the model's job to timbre optimization.
-- Honest negative result: harmonics-plus-noise baselines still win on most reconstruction metrics, though the KS decoder recovers interpretable parameters and captures pluck transients naturally.
+- Honest negative result: harmonics-plus-noise baselines still win on most reconstruction metrics, though the KS decoder recovers interpretable parameters and captures pluck transients naturally. Full distillation: [[differentiable-karplus-strong]].
 - Relates to [[string-modeling]] (extended KS) and [[waveguide-parameter-optimization]] (DDSP-style fitting); cautionary data for any differentiable string-model fitting.
 - Tags: string, guitar, delay-line, differentiable, ml, optimization, comparison
 
@@ -68,7 +68,7 @@ here as a cross-link.
 - Data: 20 segments from two independent sygyt datasets (5 singers, 10 pitches).
 - Result: **30-38% reduction in log-spectral distance** relative to an articulatory baseline, with the largest gains in the overtone region; cepstral-envelope analysis shows more accurate recovery of the merged formant structure characteristic of sygyt.
 - Also beats a DDSP harmonic-plus-noise baseline that has direct per-harmonic spectral control - the paper's argument that **explicit acoustic structure is a useful inductive bias**.
-- Limitation: copy-synthesis of sustained segments, not a controllable singing synthesizer; the sublingual source is a modeling device whose physiological status is not established.
+- Limitation: copy-synthesis of sustained segments, not a controllable singing synthesizer; the sublingual source is a modeling device whose physiological status is not established. Full distillation: [[differentiable-kelly-lochbaum-tract]].
 - Tags: voice, waveguide, scattering, differentiable, ml, optimization, acoustics
 
 ### paper-smyth-loopback-fm-tvdl-2026
@@ -80,7 +80,7 @@ here as a cross-link.
 - In LBFM the phase has both linear and oscillating terms, so the delay grows without bound; naive wrapping of the delay function or cross-fading between multiple TVDLs produces audible artifacts.
 - Contribution: an alternate **closed-form representation of the LBFM oscillator** supplies exactly the information needed to wrap the delay function correctly and keep it bounded, giving output free of phase distortion and artifacts.
 - Short and squarely in [[delay-line-techniques]] territory; continues Smyth's feedback-oscillator line of work.
-- Limitation: single-oscillator treatment; no cost comparison against direct closed-form synthesis of the same signal.
+- Limitation: single-oscillator treatment; no cost comparison against direct closed-form synthesis of the same signal. Full distillation: [[loopback-fm-time-varying-delay]].
 - Tags: delay-line, waveguide, dsp, nonlinear, tutorial
 
 ### paper-zheng-yehu-physical-model-2026
@@ -88,11 +88,11 @@ here as a cross-link.
 **"Physical Model of the Chinese Yehu for Sound Synthesis"** - Zhen Zheng, Champ C. Darabundit, Gary Scavone (McGill University) · DAFx26, Cambridge MA, Sept 2026 · `raw/DAFx26_paper_43.txt`
 
 - The yehu is a Chinese bowed string instrument with a coconut-shell resonator, a seashell bridge and two silk strings.
-- Model: **finite-difference** scheme with two stiff strings coupled at the bridge, a bow with **elastic bow hairs**, a stopping finger, and a **modal model of the bridge** derived from measured bridge admittance (compare [[modal-analysis-measurement]] and [[coupled-structures]]).
+- Model: **finite-difference** scheme with two stiff strings coupled at the bridge, a bow with **elastic bow hairs**, a stopping finger, and a **modal model of the bridge** derived from measured bridge admittance (compare [[modal_synthesis/concepts/modal-analysis-measurement|modal analysis measurement]] and [[modal_synthesis/concepts/coupled-structures|coupled structures]]). Full distillation: [[bowed-string-finite-difference-models]].
 - Solvers: **energy quadratization** gives a non-iterative solver for the finger-string contact force; an iterative solver handles **elasto-plastic** bow-string friction (see [[reed-and-bow-models]]).
 - The measured **radiation transfer function** is realized as a bank of parallel second-order filters and applied to the simulated bridge force.
 - Computational performance tests show the model runs in **real time**.
-- Contrast with the waveguide route to bowed strings: this is FD/modal rather than delay-line, so it is the natural comparison case for [[waveguide-vs-modal]].
+- Contrast with the waveguide route to bowed strings: this is FD/modal rather than delay-line, so it is the natural comparison case for [[modal_synthesis/comparisons/waveguide-vs-modal|waveguide vs. modal]].
 - Limitation: measurement-based characterization of one instrument; no listening test or comparison against recordings is quoted.
 - Tags: string, physical-modeling, modal-synthesis, damping, acoustics, realtime
 
@@ -113,7 +113,7 @@ and [[wdf-applications]].
 - Result: across several test circuits the generated models consistently outperform existing implementations (RT-WDF, FAUST `wdmodels`, `chowdsp_wdf`) and approach a **theoretical execution bound** derived for the circuit.
 - Same "compile away the abstraction" argument as source-to-source DSP compilers; a useful reference point for FAUST-to-C++ translation work.
 - Author is the `chowdsp_wdf` author, so the comparison against his own earlier library is credible.
-- Limitation: linear/explicit circuit classes benefit most; the paper does not claim to remove the cost of iterative nonlinear solvers.
+- Limitation: linear/explicit circuit classes benefit most; the paper does not claim to remove the cost of iterative nonlinear solvers. Full distillation: [[wdf-code-generation]].
 - Tags: waveguide, scattering, dsp, realtime, faust, comparison, reference
 
 ### paper-giampiccolo-fulltone-ocd-wdf-2026
@@ -152,7 +152,7 @@ and [[wdf-applications]].
 - The recursive structure gives an $O(N \log_2 N)$ divide-and-conquer feedback operation, matching **fast Walsh-Hadamard transform** complexity while remaining parametric.
 - Sound design payoffs: stereo cross-coupling, **selective freeze**, and time-varying angle modulation for resonance breaking - all while staying lossless.
 - Builds on the Das/Abel/Canfield-Dafilou Kronecker work and Schlecht/Habets time-varying feedback matrices; see [[artificial-reverberation]].
-- Limitation: restricted to $N = 2^M$; losslessness is a structural guarantee, not a guarantee of good modal density or echo distribution.
+- Limitation: restricted to $N = 2^M$; losslessness is a structural guarantee, not a guarantee of good modal density or echo distribution. Full distillation: [[fdn-kronecker-feedback-matrices]].
 - Tags: reverb, fdn, dsp, realtime, reference
 
 ### paper-dalsanto-nonlinear-shimmer-fdn-2026
@@ -164,7 +164,7 @@ and [[wdf-applications]].
 - Covers a range from harmonically rich distortion to musically coherent pitch-shifted reverberation.
 - Precedent cited: Abel and Werner's distortion effects inside modal reverberators; this is the FDN counterpart. See [[artificial-reverberation]].
 - Explicitly bridges physically inspired structures with non-physical creative effect design.
-- Limitation: stability arguments are per-approach and partly empirical; no formal proof covering arbitrary pitch-shift ratios.
+- Limitation: stability arguments are per-approach and partly empirical; no formal proof covering arbitrary pitch-shift ratios. Full distillation: [[nonlinear-and-time-varying-fdn-effects]].
 - Tags: reverb, fdn, nonlinear, dsp, realtime
 
 ### paper-ibnyahya-differentiable-fdn-rir-2026
@@ -176,7 +176,7 @@ and [[wdf-applications]].
 - Parameter efficiency trick: the attenuation filters are one **shared prototype** of parametric-EQ bands, with per-line gains fixed by the Jot proportionality condition. This decouples $T_{60}$ accuracy from filter structure, beats graphic-EQ attenuation filters on reverberation-time error with **fewer multiplications per sample**, and trains several times faster.
 - Evaluated on **nine measured RIRs** from a small studio to a cathedral against three baselines (another differentiable FDN, an analysis-synthesis pipeline, a noise-shaped reverberator); lowest error on standard room-acoustic measures, direct-to-reverberant ratio, and multi-resolution spectral distance, with an ablation per trainable component.
 - Cost: comparable per-sample computation to partitioned convolution at roughly **11x less memory**; trains in **under two minutes per RIR** on one consumer GPU.
-- Good summary of the DDSP-FDN lineage (Lee et al. frequency-sampling FDN, Mezza et al., Dal Santo's RIR2FDN / FLAMO). See [[artificial-reverberation]] and [[waveguide-parameter-optimization]].
+- Good summary of the DDSP-FDN lineage (Lee et al. frequency-sampling FDN, Mezza et al., Dal Santo's RIR2FDN / FLAMO). See [[artificial-reverberation]], [[waveguide-parameter-optimization]] and the full distillation in [[differentiable-fdn-design]].
 - Tags: reverb, fdn, room, differentiable, ml, optimization, dsp
 
 ### paper-abate-concatenation-driven-convolution-2026
@@ -213,8 +213,8 @@ and [[wdf-applications]].
 - Implements the canonical FDN plus recent extensions: **filter feedback matrices**, **velvet-noise decorrelation filters**, and **two-stage graphic equalizers** for attenuation and tone correction.
 - Companion **FDN Sandbox** GUI application exposes these with real-time visualizations and an optimization framework wrapping **nine algorithms from the ensmallen library**, with built-in loss functions for colorless reverberation and for RIR matching.
 - Directly useful as a reference implementation or as a component in JUCE work; complements [[artificial-reverberation]] and [[entities/source-papers#paper-ibnyahya-differentiable-fdn-rir-2026]].
-- Limitation: demo paper - no benchmark against other FDN implementations, and the optimizers are gradient-free wrappers rather than a differentiable FDN.
-- Tags: reverb, fdn, dsp, realtime, stk, reference
+- Limitation: demo paper - benchmarked only against RTFDN, and the optimizers are finite-difference or gradient-free wrappers rather than a differentiable FDN. See [[entities/sffdn-library]].
+- Tags: reverb, fdn, dsp, realtime, optimization, reference
 
 ### paper-franchino-adac-differentiable-to-faust-2026
 
@@ -234,19 +234,19 @@ and [[wdf-applications]].
 
 ### paper-essl-circular-buffer-monodromy-2026
 
-**"Winding Numbers and Monodromy of Vector Bundles over a Circular Buffer"** - Georg Essl (University of Wisconsin - Milwaukee) - DAFx26, Cambridge MA, Sept 2026 - `raw/DAFx26_paper_35.txt`
+**"Winding Numbers and Monodromy of Vector Bundles over a Circular Buffer"** - Georg Essl (University of Wisconsin - Milwaukee) · DAFx26, Cambridge MA, Sept 2026 · `raw/DAFx26_paper_35.txt`
 
 - Reinterprets the ordinary circular buffer as a **trivial real line bundle** over a discrete circle: each sample position is a fiber, and the transition map between neighbouring fibers is a scalar multiply.
 - A single $-1$ transition in the loop makes the bundle non-trivial - the **Mobius circular buffer**, the same object as the Johnson (twisted) ring counter and as Trautmann's twisted string; **monodromy** $\mu = A^n$ is the effect of going once around.
 - Generalises to the **$r$-circular shift matrix**; $r = 1$ gives the classic shift, $r = -1$ the skew-circulant, unimodular complex $r$ a circle bundle. The **winding number** $w$ is the least $k$ with $\mu^k = I$.
-- Explains the half fundamental and odd-harmonic spectrum of mixed Dirichlet-Neumann waveguides (capped organ pipe, clarinet) as monodromy modulation of the DFT spectrum. See [[concepts/circular-buffer-topology-monodromy]] for the full distillation.
+- Explains the half fundamental and odd-harmonic spectrum of mixed Dirichlet-Neumann waveguides (capped organ pipe, clarinet) as monodromy modulation of the DFT spectrum. See [[circular-buffer-topology-monodromy]] for the full distillation.
 - Frames the Berdahl et al. chaotic-oscillator-in-a-delay-loop design as **variable monodromy** with a fixed winding number, and sketches braids as the vector-bundle generalisation.
 - Limitation: expository and structural; no synthesis results, listening tests, or FDN application (explicitly listed as future work).
 - Tags: delay-line, waveguide, wave-equation, reference, tutorial
 
 ### paper-wieland-polymap-pickups-2026
 
-**"PolyMap: A 64-Channel Polyphonic Guitar Pickup System"** - David Wieland, Jonas Roth, Christoph Studer (ETH Zurich) - DAFx26 demo paper, Cambridge MA, Sept 2026 - `raw/DAFx26_demo_73.txt`
+**"PolyMap: A 64-Channel Polyphonic Guitar Pickup System"** - David Wieland, Jonas Roth, Christoph Studer (ETH Zurich) · DAFx26 demo paper, Cambridge MA, Sept 2026 · `raw/DAFx26_demo_73.txt`
 
 - Master's-thesis hardware: an **8 x 8 grid of 64 active pickups** (Cycfi Nu Capsules) on a custom eight-string guitar - every string sensed individually at **eight positions** between bridge and neck.
 - All 64 channels are digitised inside the instrument (eight 8-channel ADCs, 48 kHz / 24 bit, simultaneous sampling) and shipped over a single coaxial cable as **MADI** from an FPGA; power is injected on the same cable.

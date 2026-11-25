@@ -1,7 +1,7 @@
 ---
 title: Nonstationary Sinusoidal Estimation with the Distribution Derivative Method
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [sinusoidal, qifft, peak-detection, sms, residual, gauss, stft]
 sources:
@@ -93,5 +93,8 @@ formula; polynomial phase interpolation across frames
 - [[qifft-peak-estimation]] - the QSS estimator used by the SM+ baseline
 - [[sinusoidal-parameter-interpolation]] - intra-frame modulation versus cubic-phase continuation
 - [[entities/source-papers#paper-caetano-ddm-polynomial-amfm-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Gaussian Windowed Chirps (Chirplets)](https://ccrma.stanford.edu/~jos/sasp/Gaussian_Windowed_Chirps_Chirplets.html), [Differentiation Theorem](https://ccrma.stanford.edu/~jos/sasp/Differentiation_Theorem.html), [Sinusoidal Peak Interpolation](https://ccrma.stanford.edu/~jos/sasp/Sinusoidal_Peak_Interpolation.html)
 
 [^caetano-2026]: Marcelo Caetano, "Using the Distribution Derivative Method to Model Acoustic Musical Instrument Sounds with Polynomial AM-FM Sinusoids," *Proc. DAFx26*, Cambridge MA, Sept. 2026, pp. 274-281. Distilled in [[entities/source-papers#paper-caetano-ddm-polynomial-amfm-2026]].

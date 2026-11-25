@@ -1,11 +1,12 @@
 ---
 title: Modal Analysis Measurement
 created: 2026-04-09
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, acoustics, measurement, impulse-response, vibration]
 sources:
   - /w/pasp/modal.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Mode_Extraction_Techniques.html
   - /l/dttd/modal-analysis-of-different-types-of-classical-guitar-bodies.pdf
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
@@ -45,33 +46,34 @@ where $S_{xy}$ = cross-power spectrum, $S_{xx}$ = input power spectrum.
 
 ## Modal Parameter Extraction Algorithms
 ### Time domain
-- **PRONY**: fits decaying sinusoids to IR; numerically sensitive
-- **ERA (Eigensystem Realization Algorithm)**: state-space realization from IR
+- **Prony**: fits decaying sinusoids to IR; numerically sensitive
+- **ERA (Eigensystem Realization Algorithm)**: state-space realization from IR ([[era-bridge-admittance-identification]])
 - **Ibrahim Time Domain (ITD)**: similar to ERA, multi-channel
 
 ### Frequency domain
-- **Peak picking**: crude; read f_k from peaks, d_k from -3 dB bandwidth
+- **Peak picking**: crude; read $f_k$ from peaks, $d_k = \pi\,\Delta f_{-3\text{dB}}$ from the half-power bandwidth
 - **Circle fitting**: fit circle in Nyquist plot around each resonance
-- **Rational fraction polynomial (RFP)**: global fit of rational polynomial to H(f)
+- **Rational fraction polynomial (RFP)**: global fit of rational polynomial to $H(f)$
 - **PolyMAX**: industry standard; robust, handles closely-spaced modes
 
 ### High-resolution spectral methods (signal processing approach)
 - **ESPRIT**: eigenspace method, estimates complex poles directly from signal
 - **MUSIC**: subspace method, super-resolution frequency estimation
-- **MPS (Modal Parameter Synthesis)**: sinusoidal modeling as used in SMS/Serra
+- **Matrix pencil**: generalized eigenvalue problem on Hankel data; more noise-robust than Prony
+- **Sinusoidal modeling** (as in SMS/Serra): track spectral peaks over time, fit an exponential decay to each
+  ([[spectral_processing/concepts/qifft-peak-estimation|QIFFT peak estimation]], [[spectral_processing/concepts/sinusoidal-modeling|sinusoidal modeling]])
 - All require estimating number of modes present (model order selection)
 
 ## Practical Considerations for Sound Synthesis
 - Need only acoustic/radiation modes, not all structural modes
 - Modes above ~6-8 kHz often too dense to fit individually; use statistical energy analysis (SEA)
 - Damping measurement is harder than frequency measurement (Q-factors of 100-10000)
-- Moving the mic/pickup location changes a_k but not f_k or d_k
+- Moving the mic/pickup location changes $a_k$ but not $f_k$ or $d_k$
 
 ## Datasets and Libraries
-- **FreeSound** has many instrument recordings usable for IR measurement
-- **Orchidea** (IRCAM): orchestral sound library with physics annotations
-- **RealImpact** (Georg et al., 2022): 150,000 impact recordings from 50 objects,
-  synchronized video + audio, used for ML training on modal synthesis
+- **Freesound** has many struck-object recordings usable for informal mode extraction
+- **RealImpact** (Clarke et al., CVPR 2023): 150,000 impact recordings of 50 objects with impact and
+  microphone locations and contact-force profiles; see [[realimpact-dataset]]
 
 ## DAFx26 additions
 
@@ -86,3 +88,9 @@ where $S_{xy}$ = cross-power spectrum, $S_{xx}$ = input power spectrum.
 - [[modal-synthesis-overview]] — how measurements are used in synthesis
 - [[fem-bem-for-modal-synthesis]] — computing modes instead of measuring them
 - [[realimpact-dataset]] — large-scale measured impact dataset
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Mode Extraction Techniques](https://ccrma.stanford.edu/~jos/pasp/Mode_Extraction_Techniques.html), [Sinusoidal Modeling of Mode Decays](https://ccrma.stanford.edu/~jos/pasp/Sinusoidal_Modeling_Mode_Decays.html), [Measured Guitar-Bridge Admittance](https://ccrma.stanford.edu/~jos/pasp/Measured_Guitar_Bridge_Admittance.html)
+- [[jos_books/entities/filters-book|Filters]]: [Prony's Method](https://ccrma.stanford.edu/~jos/filters/Prony_s_Method.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Coherence Function](https://ccrma.stanford.edu/~jos/mdft/Coherence_Function.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Quadratic Interpolation of Spectral Peaks](https://ccrma.stanford.edu/~jos/sasp/Quadratic_Interpolation_Spectral_Peaks.html)

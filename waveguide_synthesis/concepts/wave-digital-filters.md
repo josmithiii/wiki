@@ -1,20 +1,22 @@
 ---
 title: Wave Digital Filters
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [waveguide, scattering, dsp, physical-modeling, impedance]
 sources:
   - /l/l420/WaveDigitalFiltersIntro/wdfi-content.tex
   - /l/l420/WaveDigitalFilters/WDFIntro.tex
   - /w/pasp/adaptors.tex
+  - /w/pasp/wdf.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Filters_I.html
   - raw/papers/werner-dissertation-2016.txt
 ---
 
 # Wave Digital Filters
 
-A wave digital filter (WDF) digitizes lumped physical elements (masses, springs,
-resistors) using the bilinear transform and wave variables. Unlike digital
+A wave digital filter (WDF)[^1] digitizes lumped physical elements (masses, springs,
+dashpots) using the bilinear transform and wave variables.[^2][^3] Unlike digital
 waveguides (distributed 1D propagation), WDFs model lumped systems — but both
 use traveling-wave scattering as the interconnection mechanism.
 
@@ -47,10 +49,10 @@ $$\rho(s) \;=\; \frac{R(s) - R_0}{R(s) + R_0}$$
 This is the impedance step over the impedance sum — same formula as
 [[scattering-junctions]] but now in the Laplace domain.
 
-## Key Insight: Choosing R_0 to Kill Delay-Free Paths
+## Key Insight: Choosing $R_0$ to Kill Delay-Free Paths
 
 After bilinear transform, each element reflectance has a delay-free path
-proportional to its "instantaneous reflectance." By choosing R_0 to match:
+proportional to its "instantaneous reflectance." Choosing $R_0$ to cancel it:
 
 | Element | $R(s)$ | Choose $R_0 =$ | $\rho(z)$ |
 |---------|--------|----------------|-----------|
@@ -61,7 +63,7 @@ proportional to its "instantaneous reflectance." By choosing R_0 to match:
 where $c = 2/T$ is the bilinear transform constant.
 
 Each reactive element becomes a **unit delay** — no delay-free path.
-Element parameters (k, m) are encoded entirely in the port impedances.
+Element parameters ($k$, $m$) are encoded entirely in the port impedances.
 
 ## Connecting Elements: Adaptors
 
@@ -81,15 +83,15 @@ See [[wdf-adaptors]] for full derivation and N-port generalization.
 
 - **Energy conservation**: bilinear transform maps lossless elements
   to unit-circle poles; reactive reflectances are allpass
-- **Stability**: guaranteed by passivity (element reflectance gain <= 1)
-- **Modularity**: changing one element only changes its R_0 and the
+- **Stability**: guaranteed by passivity (element reflectance gain $\le 1$)
+- **Modularity**: changing one element only changes its $R_0$ and the
   adaptor coefficient — other elements untouched
-- **Frequency warping**: $\omega_d = (2/T)\arctan(\omega_0 T/2)$
-  — slight pitch error, correctable
+- **Frequency warping**: analog $\omega_a$ maps to digital $\omega_d = (2/T)\arctan(\omega_a T/2)$
+  — resonances land slightly flat; correctable by pre-warping
 
 ## Comparison: Forward/Backward Euler vs. Bilinear Transform
 
-| Method | Explicit? | $|\lambda|$ | Modular? |
+| Method | Explicit? | $\lvert\lambda\rvert$ | Modular? |
 |--------|-----------|-------------|----------|
 | Forward Euler | Yes | $> 1$ (unstable) | Yes |
 | Backward Euler | No (implicit) | $< 1$ (overdamped) | No |
@@ -125,9 +127,14 @@ each component, enabling modding and circuit-bending.
 - [[wdf-code-generation]] — compiling a circuit description to abstraction-free WDF code
 - [[scattering-junctions]] — same math, different domain (DWG vs. WDF)
 - [[waveguide-overview]] — distributed vs. lumped: DWG vs. WDF
+- [[virtual_analog/concepts/state-space-circuit-solvers|state-space circuit solvers]] and [[virtual_analog/concepts/tpt-zdf-filters|TPT/ZDF filters]] — the non-WDF routes to virtual analog
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Wave Digital Filters](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Filters_I.html), [Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Elements.html), [Adaptors for Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html), [Wave Digital Modeling Examples](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Modeling_Examples.html), [Digitization of Lumped Models](https://ccrma.stanford.edu/~jos/pasp/Digitization_Lumped_Models.html)
+- [[jos_books/entities/filters-book|Filters]]: [Bilinear Transformation](https://ccrma.stanford.edu/~jos/filters/Bilinear_Transformation.html)
 
 ## References
 [^1]: Fettweis, A. (1986). "Wave Digital Filters: Theory and Practice." Proc. IEEE 74(2).
-[^2]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford, Appendix on WDFs.
+[^2]: Smith, J.O. III. *Physical Audio Signal Processing*, W3K Publishing, 2010, Appendix F; online at <https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Filters_I.html>.
 [^3]: Smith, J.O. III. MUS420 Lectures: "Introduction to Wave Digital Filters" and "Wave Digital Filters."
 [^4]: Werner, K.J. (2016). *Virtual Analog Modeling of Audio Circuitry Using Wave Digital Filters.* Ph.D. dissertation, Stanford University.

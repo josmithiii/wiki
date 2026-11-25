@@ -1,7 +1,7 @@
 ---
 title: Time-Varying VA Filter Stability
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [stability, time-varying, va-filters, tpt-zdf, state-variable, ladder-filter, reference]
 sources:
@@ -92,7 +92,12 @@ $g[n] \in [g_\min, g_\max)$: sweeping cutoff alone is always safe.
 - Counterexamples switch per sample; slowly varying parameters are likely safe
   over wider ranges, but there is no precise musical-rate statement yet.
 - [[wave-digital-filters]] get time-varying stability from passivity instead;
-  [[allpass-clipping-prevention]] enforces $|y| \le M$ directly at runtime.
+  [[allpass-clipping-prevention]] enforces $|y| \le M$ directly at runtime;
+  [[neural-va-architectures]] poses the same question for black-box RNNs.
+
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Time-Varying Two-Pole Filters](https://ccrma.stanford.edu/~jos/filters/Time_Varying_Two_Pole_Filters.html), [Four-Pole Tunable Lowpass/Bandpass Filters](https://ccrma.stanford.edu/~jos/filters/Four_Pole_Tunable_Lowpass_Bandpass_Filters.html), [Linear Time-Varying Filters](https://ccrma.stanford.edu/~jos/filters/View_Linear_Time_Varying.html), [Similarity Transformations](https://ccrma.stanford.edu/~jos/filters/Similarity_Transformations.html)
+- [[jos_books/entities/pasp-book|PASP]]: [Energy-Preserving Parameter Changes (Mass-Spring Oscillator)](https://ccrma.stanford.edu/~jos/pasp/Energy_Preserving_Parameter_Changes_Mass_Spring.html), [Stability of Nonlinear Feedback Loops](https://ccrma.stanford.edu/~jos/pasp/Stability_Nonlinear_Feedback_Loops.html)
 
 ## References
 

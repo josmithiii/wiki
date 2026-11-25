@@ -1,7 +1,7 @@
 ---
 title: Modes of Non-Orientable Surfaces
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, eigenmode, wave-equation, vibration, room, reference]
 sources:
@@ -91,5 +91,8 @@ Limits: lossless-to-lightly-damped ideal surfaces, constant wave speed, 2D only 
 the cavity analogue is not straightforward because non-orientability prevents a
 consistent interior/exterior; the perceptual payoff of non-orientable topology is
 argued from the mode lattice rather than tested by listening.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [2D Mesh and the Wave Equation](https://ccrma.stanford.edu/~jos/pasp/D_Mesh_Wave.html), [The Rectilinear 2D Mesh](https://ccrma.stanford.edu/~jos/pasp/Rectilinear_2D_Mesh.html)
 
 [^1]: [[entities/source-papers#paper-lee-klein-bottle-reverberation-2026]] - Lee & Rau, "Modal Structure of Plate Boundaries and Klein Bottle Reverberation," DAFx26.

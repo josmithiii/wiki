@@ -72,6 +72,16 @@ sources:
 - **Never use the `Read` tool on a PDF directly** -- read the `.txt` extraction.
 - In the page body, cite sources using markdown footnotes or by linking the
   catalog section in [[entities/source-papers]].
+- **JOS online books** (MDFT, Filters, PASP, SASP) are the background references.
+  Deep-link a section as `https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`
+  with `<book>` one of `mdft`, `filters`, `pasp`, `sasp`; valid page names (with
+  title and parent page) are listed in `jos_books/catalog/<book>.tsv`.
+- Pages that lean on book material end with a `## JOS online books` section (after
+  "See also", before "References"): one bullet per book, starting with the hub link
+  `[[jos_books/entities/<book>-book|<Book>]]`, then 2-6 links whose text is the book
+  section title. Skip the section where no book section is truly relevant.
+- Run `python3 scripts/book_links.py check . virtual_analog` after adding book
+  links; an unknown page name fails the check (and `make rebuild`).
 
 ## Tag Taxonomy
 

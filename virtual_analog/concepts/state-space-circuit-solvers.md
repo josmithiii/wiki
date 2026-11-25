@@ -1,7 +1,7 @@
 ---
 title: State-Space Circuit Solvers (Adaptive QP)
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [state-space, circuit-modeling, nonlinear, spice, real-time, reference]
 sources:
@@ -22,8 +22,9 @@ program** plus residual-driven adaptive step size.[^1]
 Circuit in state-space DAE form, $q$ collecting the nonlinear-device voltages and currents
 and $\eta$ their current-voltage relations: $\dot{x} = Ax + Bu + Gq$, $Hq = Dx + Eu$,
 $\eta(q) = 0$. Instead of solving $\eta(q_k) = 0$ each step, replace it with a **first-order
-surrogate** - integrate $\dot{\eta}(q) = J(q)\dot{q} = K\eta(q)$ with Forward Euler while
-integrating the linear dynamics with Backward Euler - giving three linear equalities in
+surrogate** - integrate $\dot{\eta}(q) = J(q)\dot{q} = K\eta(q)$ with
+[Forward Euler](https://ccrma.stanford.edu/~jos/pasp/Forward_Euler_Method.html) while integrating the linear dynamics
+with [Backward Euler](https://ccrma.stanford.edu/~jos/pasp/Backward_Euler_Method.html) - giving three linear equalities in
 $z_k = [x_k^\top\ q_k^\top]^\top$:
 
 $$\begin{aligned}
@@ -44,7 +45,9 @@ pseudo-inverse solve - numerically indistinguishable here, and far cheaper.
 
 ## Residual as defect indicator
 
-Choosing $K_k = -I/h_k$ annihilates the linearized constraint over the step, so the
+Choosing $K_k = -I/h_k$ annihilates the linearized constraint over the step (the third
+equality then reads $J_{k-1}(q_k - q_{k-1}) = -\eta(q_{k-1})$: one Newton step per sample,
+as in a [semi-implicit method](https://ccrma.stanford.edu/~jos/pasp/Semi_Implicit_Methods.html)), so the
 **post-step nonlinear residual** $\nu_k := \eta(q_k) - \hat{\eta}(q_k) = \eta(q_k)$,
 $\delta_k^\text{QP} := \|\nu_k\|$, is exactly the Taylor remainder left by linearizing $\eta$. Under boundedness, a band-limited
 input ($\|u_k - u_{k-1}\| \le U_\text{BL}h_k$), uniform regularity of $A^{(k)}_\text{eq}$, a
@@ -92,7 +95,12 @@ open; matrices are hand-derived per circuit, no netlist pipeline. Code and demos
 ## See also
 
 [[virtual-analog-overview]] - [[tpt-zdf-filters]] - [[wave-digital-filters]] (the
-scattering route to the same problem)
+scattering route to the same problem) -
+[[waveguide_synthesis/concepts/wdf-multiple-nonlinearities|WDF multiple nonlinearities]]
+(K-method / Newton solvers)
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Backward Euler Method](https://ccrma.stanford.edu/~jos/pasp/Backward_Euler_Method.html), [Trapezoidal Rule](https://ccrma.stanford.edu/~jos/pasp/Trapezoidal_Rule.html), [Semi-Implicit Methods](https://ccrma.stanford.edu/~jos/pasp/Semi_Implicit_Methods.html), [Newton's Method of Nonlinear Minimization](https://ccrma.stanford.edu/~jos/pasp/Newton_s_Method_Nonlinear_Minimization.html), [Numerical Integration of General State-Space Models](https://ccrma.stanford.edu/~jos/pasp/Numerical_Integration_General_State_Space.html), [Further Reading in Nonlinear Methods](https://ccrma.stanford.edu/~jos/pasp/Further_Reading_Nonlinear_Methods.html)
 
 ## References
 

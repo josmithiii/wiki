@@ -1,7 +1,7 @@
 ---
 title: Moog Ladder Filter Models
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [ladder-filter, va-filters, tpt-zdf, spice, nonlinear, benchmark, comparison, history]
 sources:
@@ -89,6 +89,10 @@ nonlinear - is on its own page:
 
 [[virtual-analog-overview]] - [[antiderivative-antialiasing]] for the aliasing
 axis this benchmark excludes.
+
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Four-Pole Tunable Lowpass/Bandpass Filters](https://ccrma.stanford.edu/~jos/filters/Four_Pole_Tunable_Lowpass_Bandpass_Filters.html), [Quality Factor (Q)](https://ccrma.stanford.edu/~jos/filters/Quality_Factor_Q.html)
+- [[jos_books/entities/pasp-book|PASP]]: [Memoryless Nonlinearities](https://ccrma.stanford.edu/~jos/pasp/Memoryless_Nonlinearities.html), [Stability of Nonlinear Feedback Loops](https://ccrma.stanford.edu/~jos/pasp/Stability_Nonlinear_Feedback_Loops.html), [Further Reading in Nonlinear Methods](https://ccrma.stanford.edu/~jos/pasp/Further_Reading_Nonlinear_Methods.html)
 
 ## References
 

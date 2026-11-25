@@ -1,7 +1,7 @@
 ---
 title: Neural Secondary-Path Modeling for ANC
 created: 2026-04-14
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [anc, secondary-path, fxlms, stability, loudspeaker, headphones, comparison]
 sources:
@@ -50,7 +50,8 @@ deployments $S(z)$ drifts:
   compression) break the LTI assumption at high drive.
 
 Classical practice: identify $\hat{S}(z)$ offline with white-noise probe
-signals, or re-identify online with injected perturbation noise. Both are
+signals, or re-identify online with injected perturbation noise (the
+method families are tabulated in [[classical-anc-overview]] §3). Both are
 unsatisfying — offline identification fails to track drift, and online
 probe injection adds residual noise that degrades the ANC result.
 
@@ -124,9 +125,10 @@ $$
 Experience replay with random minibatches stabilizes training.
 
 **Algorithm comparison.** Four RL algorithms tested on real vehicle
-data; the order of merit on relative modeling error (lower is better):
+data; the order of merit on relative modeling error, quoted by the paper
+as a percentage of the relative-error baseline (lower is better):
 
-| Algorithm | RME |
+| Algorithm | Relative error (% of baseline) |
 | --- | --- |
 | **GRPO** (their contribution) | **87.02%** |
 | PPO | 89.36% (fast, unstable) |
@@ -212,5 +214,5 @@ the physics is partially known.
   that this page's item 4 instantiates.
 - [[ai-anc-overview]] category 3 — where this page sits in the taxonomy.
 
-[^yang26]: Yang et al., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.
+[^yang26]: Yang, Z., Rao, L., Luo, Z., Shi, D., Huang, Q., Gan, W.-S., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.
 [^liwubai25]: Li, W., Wu, C., Bai, F., "Reinforcement learning algorithm for secondary path identification in active noise control systems," *AIP Advances*, vol. 15, no. 8, 085021, 2025. DOI [10.1063/5.0285877](https://doi.org/10.1063/5.0285877). See `raw/RL-SecondaryPathID-LiWuBai-AIPAdvances-2025.txt`.

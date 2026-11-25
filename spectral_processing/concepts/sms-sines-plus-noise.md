@@ -1,7 +1,7 @@
 ---
 title: SMS — Sines Plus Noise (Plus Transients)
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [sms, sinusoidal, residual, applications]
 sources:
@@ -11,6 +11,7 @@ sources:
   - /w/sasp/sms-sines-plus-noise.tex
   - /w/sasp/sms-sines-plus-noise-plus-transients.tex
   - /w/sasp/snt.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Spectral_Modeling_Synthesis.html
 ---
 
 # SMS — Sines Plus Noise (Plus Transients)
@@ -24,7 +25,7 @@ of a sound that sinusoids can't capture. Later extended with a
 
 $$x(n) \;=\; \underbrace{\sum_p A_p(n)\cos\phi_p(n)}_{\text{deterministic (sines)}} \;+\; \underbrace{e(n)}_{\text{stochastic}} \;+\; \underbrace{t(n)}_{\text{transients (optional)}}$$
 
-- **Sines**: tracked partials via [[sinusoidal-modeling]] + QIFFT
+- **Sines**: tracked partials via [[sinusoidal-modeling]] + [[qifft-peak-estimation|QIFFT]]
 - **Residual** $e(n)$: $x(n) -$ resynthesized sines
 - **Transients** $t(n)$: sharp onsets pulled out separately to avoid
   smearing
@@ -59,8 +60,8 @@ characterized entirely by its magnitude envelope.
   fragments or as spectral "impulses", subtract, then model the
   remainder with sines + noise.
 
-SMS-T (sines + noise + transients) is the basis of many modern
-time-scale and pitch-scale algorithms.
+S+N+T (sines + noise + transients; Levine, Verma) is the basis of many
+modern time-scale and pitch-scale algorithms.
 
 ## Resynthesis
 
@@ -90,3 +91,6 @@ pure phase vocoders on percussive or noisy material.
 - [[noise-spectrum-analysis]] — stochastic layer analysis
 - [[phase-vocoder-and-tsm]] — compare; SMS is an alternative
 - [[f0-and-spectral-envelope]] — envelope estimation for residual
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Spectral Modeling Synthesis](https://ccrma.stanford.edu/~jos/sasp/Spectral_Modeling_Synthesis.html), [Sines + Noise Modeling](https://ccrma.stanford.edu/~jos/sasp/Sines_Noise_Modeling.html), [Sines + Noise + Transients Models](https://ccrma.stanford.edu/~jos/sasp/Sines_Noise.html), [TSM and S+N+T](https://ccrma.stanford.edu/~jos/sasp/TSM_S_N_T.html), [Spectral Modeling Synthesis](https://ccrma.stanford.edu/~jos/sasp/Spectral_Modeling_Synthesis_I.html)

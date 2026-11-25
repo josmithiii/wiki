@@ -1,7 +1,7 @@
 ---
 title: Antiderivative Antialiasing (ADAA)
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [adaa, antialiasing, nonlinear, oversampling, va-filters, reference]
 sources:
@@ -12,7 +12,7 @@ sources:
 # Antiderivative Antialiasing (ADAA)
 
 Applying a memoryless nonlinearity $f(\cdot)$ at the audio rate broadens the bandwidth
-and everything above Nyquist folds back. ADAA (Parker, Zavalishin and Le Bivic, 2016)
+and everything above Nyquist [folds back](https://ccrma.stanford.edu/~jos/mdft/Aliasing_Sampled_Signals.html). ADAA (Parker, Zavalishin and Le Bivic, 2016)
 suppresses that fold-back analytically instead of by raising the sample rate.[^1]
 
 ## ADAA fundamentals
@@ -52,6 +52,10 @@ keep the integral tractable: [[polyadaa]].
 
 [[virtual-analog-overview]] - [[alias-free-oscillator-sync]] (alias-free by
 construction rather than by correction) - [[moog-ladder-filter-models]]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Memoryless Nonlinearities](https://ccrma.stanford.edu/~jos/pasp/Memoryless_Nonlinearities.html), [Practical Advice](https://ccrma.stanford.edu/~jos/pasp/Practical_Advice.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Aliasing of Sampled Signals](https://ccrma.stanford.edu/~jos/mdft/Aliasing_Sampled_Signals.html), [Sampling Theorem](https://ccrma.stanford.edu/~jos/mdft/Sampling_Theorem.html)
 
 ## References
 

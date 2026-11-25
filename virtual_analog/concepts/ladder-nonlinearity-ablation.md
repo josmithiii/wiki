@@ -1,7 +1,7 @@
 ---
 title: Ladder Nonlinearity Ablation
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: comparison
 tags: [ladder-filter, nonlinear, tpt-zdf, spice, benchmark, comparison]
 sources:
@@ -34,8 +34,8 @@ All three saturators share unit origin slope and $\pm 2V_T$ asymptotes, differin
 only in curvature - yet swapping tanh for soft clip is worse than moving the
 nonlinearity to the boundaries: function and placement are partly independent
 levers. **Stage result:** keeping the nonlinear input stage and linearizing
-ladder stages, removing the *later* stages stays closest to SPICE (stages 3,4
-linearized: 0.20 %H1; stages 1,2,3: 0.34 %). Earlier stages see larger
+ladder stages, removing the *later* stages usually stays closest to SPICE
+(Spectra: stages 3,4 linearized 0.20 %H1, stages 1,2 0.26 %, stages 1,2,3 0.34 %). Earlier stages see larger
 excursions before the lowpass sections attenuate, so they dominate harmonic
 balance.
 
@@ -58,6 +58,9 @@ listening tests. Testbench: `https://github.com/oyama/ladder-filter-testbench`.
 ## See also
 
 [[moog-ladder-filter-models]] - [[tpt-zdf-filters]] - [[virtual-analog-overview]]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Memoryless Nonlinearities](https://ccrma.stanford.edu/~jos/pasp/Memoryless_Nonlinearities.html), [Arctangent Nonlinearity](https://ccrma.stanford.edu/~jos/pasp/Arctangent_Nonlinearity.html), [Soft Clipping](https://ccrma.stanford.edu/~jos/pasp/Soft_Clipping.html)
 
 ## References
 

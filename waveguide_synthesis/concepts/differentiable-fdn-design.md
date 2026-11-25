@@ -1,7 +1,7 @@
 ---
 title: Differentiable FDN Design
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [fdn, reverb, room, differentiable, ml, optimization, faust]
 sources:
@@ -95,5 +95,9 @@ at $10^{-2}$, up to 300 epochs, RTX 4070 Super, under two minutes per short RIR.
 - [[artificial-reverberation]] - the FDN being fitted
 - [[waveguide-parameter-optimization]] - the wider optimization taxonomy
 - [[entities/source-papers#paper-ibnyahya-differentiable-fdn-rir-2026]] and [[entities/source-papers#paper-franchino-adac-differentiable-to-faust-2026]] - catalog entries[^src]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Achieving Desired Reverberation Times](https://ccrma.stanford.edu/~jos/pasp/Achieving_Desired_Reverberation_Times.html), [Delay-Line Damping Filter Design](https://ccrma.stanford.edu/~jos/pasp/Delay_Line_Damping_Filter_Design.html), [Energy Decay Relief](https://ccrma.stanford.edu/~jos/pasp/Energy_Decay_Relief.html), [FDN Reverberators in Faust](https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberators_Faust.html), [FDN Stability](https://ccrma.stanford.edu/~jos/pasp/FDN_Stability.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Frequency-Sampling FIR Filter Design](https://ccrma.stanford.edu/~jos/sasp/Frequency_Sampling_Method_FIR.html)
 
 [^src]: I. Ibnyahya & J. D. Reiss, "Gradient Descent Optimization of Room Impulse Responses with Parameter-Efficient Differentiable Feedback Delay Networks"; F. Franchino & S. J. Schlecht, "Compiling Differentiable Audio Graphs to Real-Time DSP"; A. St-Onge & G. Scavone, "FDN Sandbox," all DAFx26.

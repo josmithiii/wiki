@@ -1,7 +1,7 @@
 ---
 title: Project State
 created: 2026-04-10
-updated: 2026-09-08
+updated: 2026-11-25
 type: status
 tags: [shared]
 ---
@@ -44,3 +44,9 @@ tags: [shared]
 - **Decided:** New virtual_analog sub-wiki rather than folding VA into waveguide_synthesis (2026-09-08); wave digital filters stay in waveguide_synthesis and are cross-linked.
 - **Music 423 mirror (2026-09-16):** 41 DAFx26 PDFs copied into /w/music423-2023 (synth-effect-matching 23 incl. the full plate-reverb challenge, ddsp 6, wavenet 6, diffusion 2, ai-audio-codecs/ai-music-audio-gen/ai-scores/ai-misc 1 each) and ingested into the per-topic wikis (46 source pages, 3 new concept pages, ~45 inbound cross-links; repo-wide `make check` clean, 462 pages). modal-synthesis/ there is an export of modal_synthesis/ via sync-to-423gl.bash (now handles `[[page#anchor]]`, code-span literals, and sibling-sub-wiki links as GitHub URLs).
 
+## wiki-editorial-pass-and-book-integration
+- **Status:** done 2026-11-25
+- **Goal:** Editorial pass over all five topical sub-wikis, and integration of the four JOS online books (MDFT, Filters, PASP, SASP)
+- **Current (2026-11-25):** Every page read against its sources by five parallel agents, one per sub-wiki; corrections are itemized in each sub-wiki's `log.md` entry of this date. New `jos_books/` sub-wiki (four hub pages, series overview, topic finder, catalog of 2,096 book page names). 1,005 checked deep links into the books across 110 pages (was 16 links in 13 pages, 3 of them dead); 100 of 116 topical pages end with a `## JOS online books` section (the rest are pure ML/deployment or dataset pages where no book section applies). `make rebuild` now fails on an unknown book link or a broken wikilink; `make book-links`, `make book-usage`, `make book-catalog` are new; 51 unit tests.
+- **Next (candidates, none scheduled):** split the over-length pages (most of `active_absorbers/concepts/`, the `wdf-*` pages, `realtime-modal-synthesis`); merge the duplicated Li-Wu-Bai write-up in `active_absorbers` (`neural-secondary-path` vs `deep-rl-anc`) and the overlapping `gpu-modal-synthesis` / `realtime-modal-synthesis`; wiki pages for PASP chapter 5 (time-varying delay effects) and SASP appendix E (Bark warping); an OLA-vs-FBS comparison page; after any book HTML rebuild + upload, run `make book-catalog && make book-links`.
+- **Decided:** hub pages + checked deep links rather than distilling MDFT and Filters into sub-wikis (see decisions-log 2026-11-25).

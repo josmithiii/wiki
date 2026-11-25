@@ -1,0 +1,301 @@
+About_this_document.html	About this document ...	mdft.html
+Acknowledgments.html	Acknowledgments	Preface.html
+Alias_Operator.html	Alias Operator	Signal_Operators.html
+Aliasing_Sampled_Signals.html	Aliasing of Sampled Signals	Sampling_Theory.html
+Amplitude_Response.html	Amplitude Response	Filters_Convolution.html
+Analytic_Signals_Hilbert_Transform.html	Analytic Signals and Hilbert Transform Filters	Complex_Sinusoids.html
+Appendix_Frequencies_Representable_by.html	Geometric Sequence Frequencies	Sampling_Theory.html
+Application_Shift_Theorem_FFT.html	Application of the Shift Theorem to FFT Windows	Shift_Theorem.html
+Applying_Blackman_Window.html	Applying the Blackman Window	Use_Blackman_Window.html
+Audio_Decay_Time_T60.html	Audio Decay Time (T60)	Exponentials.html
+Autocorrelation.html	Autocorrelation	Correlation_Analysis.html
+Back_Mth_Roots.html	Back to Mth Roots	Proof_Euler_s_Identity.html
+Back_e.html	Back to e	Proof_Euler_s_Identity.html
+Bandlimited_Interpolation_Time_Limited_Signals.html	Bandlimited Interpolation of Time-Limited Signals	Periodic_Interpolation_Spectral_Zero.html
+Bessel_Functions.html	Bessel Functions	Sinusoidal_Frequency_Modulation_FM.html
+Bibliography.html	Bibliography	mdft.html
+Binary_Integer_Fixed_Point_Numbers.html	Binary Integer Fixed-Point Numbers	Linear_Number_Systems.html
+Bluestein_s_FFT_Algorithm.html	Bluestein's FFT Algorithm	Fast_Fourier_Transform_FFT.html
+Cauchy_Schwarz_Inequality.html	Cauchy-Schwarz Inequality	Inner_Product.html
+Causal_Periodic_Signals.html	Causal (Periodic) Signals	Signal_Operators.html
+Causal_Zero_Padding.html	Causal Zero Padding	Signal_Operators.html
+Changing_Base.html	Changing the Base	Logarithms.html
+Changing_Coordinates.html	Changing Coordinates	Signal_Reconstruction_Projections.html
+Chapter_Outline.html	Chapter Outline	Preface.html
+Circular_Motion.html	Circular Motion	Complex_Sinusoids.html
+Coherence_Function.html	Coherence Function	Example_Applications_DFT.html
+Coherence_Function_Matlab.html	Coherence Function in Matlab	Coherence_Function.html
+Commutativity_Convolution.html	Commutativity of Convolution	Convolution.html
+Comparing_Analog_Digital_Complex.html	Comparing Analog and Digital Complex Planes	Complex_Sinusoids.html
+Complex_Basics.html	Complex Basics	Complex_Numbers.html
+Complex_Number_Manipulation.html	Complex Number Manipulation	Complex_Numbers_Matlab_Octave.html
+Complex_Numbers.html	Complex Numbers	mdft.html
+Complex_Numbers_Matlab_Octave.html	Complex Numbers in Matlab and Octave	Matlab_Octave_Examples.html
+Complex_Plane.html	The Complex Plane	Complex_Numbers.html
+Complex_Roots.html	Complex Roots	Complex_Numbers.html
+Complex_Sinusoids.html	Complex Sinusoids	Sinusoids_Exponentials.html
+Conclusion.html	Conclusion	Complex_Numbers.html
+Conjugation_Reversal.html	Conjugation and Reversal	Fourier_Theorems.html
+Constructive_Destructive_Interference.html	Constructive and Destructive Interference	Sinusoids.html
+Continuous_Time_Aliasing_Theorem.html	Continuous-Time Aliasing Theorem	Aliasing_Sampled_Signals.html
+Continuous_Time_Impulse.html	The Continuous-Time Impulse	Fourier_Transform_FT_Inverse.html
+Convolution.html	Convolution	Signal_Operators.html
+Convolution_Example_1_Smoothing.html	Convolution Example 1: Smoothing a Rectangular Pulse	Convolution.html
+Convolution_Example_2_ADSR.html	Convolution Example 2: ADSR Envelope	Convolution.html
+Convolution_Example_3_Matched.html	Convolution Example 3: Matched Filtering	Convolution.html
+Convolution_Filtering_Operation.html	Convolution as a Filtering Operation	Convolution.html
+Convolution_Theorem.html	Convolution Theorem	Fourier_Theorems.html
+Correlation.html	Correlation	Signal_Operators.html
+Correlation_Analysis.html	Correlation Analysis	Example_Applications_DFT.html
+Correlation_Theorem.html	Correlation Theorem	Fourier_Theorems.html
+Cross_Correlation.html	Cross-Correlation	Correlation_Analysis.html
+DBA_A_Weighted_DB.html	DBA (A-Weighted DB)	Specific_DB_Scales.html
+DBV_Scale.html	DBV Scale	Specific_DB_Scales.html
+DB_Full_Scale_dBFS.html	DB Full Scale (dBFS) for Spectrum Display	Specific_DB_Scales.html
+DB_SPL.html	DB SPL	Specific_DB_Scales.html
+DBm_Scale.html	DBm Scale	Specific_DB_Scales.html
+DFT.html	The DFT	Geometric_Signal_Theory.html
+DFT_Bin_Response.html	DFT Bin Response	DFT_I.html
+DFT_Definition.html	DFT Definition	Introduction_DFT.html
+DFT_Derived.html	The DFT Derived	mdft.html
+DFT_I.html	The DFT	Matlab_Octave_Examples.html
+DFT_Inverse_Restated.html	The DFT and its Inverse Restated	Fourier_Theorems_DFT.html
+DFT_Math_Outline.html	DFT Math Outline	Introduction_DFT.html
+DFT_Matrix.html	DFT Matrix	DFT_I.html
+DFT_Sinusoids.html	DFT Sinusoids	Orthogonality_Sinusoids.html
+DFT_Sinusoids_I.html	DFT Sinusoids for	DFT_I.html
+De_Moivre_s_Theorem.html	De Moivre's Theorem	Complex_Numbers.html
+Decibels.html	Decibels	Logarithms_Decibels.html
+Decimation_Time.html	Decimation in Time	Mixed_Radix_Cooley_Tukey_FFT.html
+Derivatives_f_x_power.html	Derivatives of f(x) = a to the power x	Proof_Euler_s_Identity.html
+Differentiability_Audio_Signals.html	Differentiability of Audio Signals	Taylor_Series_Expansions.html
+Differentiation_Theorem.html	Differentiation Theorem	Selected_Continuous_Time_Fourier_Theorems.html
+Direct_Proof_De_Moivre_s.html	Direct Proof of De Moivre's Theorem	Proof_Euler_s_Identity.html
+Discrete_Cosine_Transform_DCT.html	The Discrete Cosine Transform (DCT)	Related_Transforms.html
+Discrete_Fourier_Transform_DFT.html	The Discrete Fourier Transform (DFT)	DFT_Derived.html
+Discrete_Time_Fourier_Transform.html	Discrete Time Fourier Transform (DTFT)	Fourier_Transforms_Continuous_Discrete_Time_Frequency.html
+Downsampling_Operator.html	Downsampling Operator	Signal_Operators.html
+Downsampling_Theorem_Aliasing_Theorem.html	Downsampling Theorem (Aliasing Theorem)	Fourier_Theorems.html
+Dual_Convolution_Theorem.html	Dual of the Convolution Theorem	Fourier_Theorems.html
+Duration_Bandwidth_Second_Moments.html	Second Moments	Uncertainty_Principle.html
+Dynamic_Range.html	Dynamic Range	Decibels.html
+Elementary_Relationships.html	Elementary Relationships	Complex_Numbers.html
+Errata.html	Errata	Preface.html
+Euler_s_Identity.html	Euler's Identity	Complex_Numbers.html
+Euler_s_Identity_I.html	Euler's Identity	Proof_Euler_s_Identity.html
+Even_Odd_Functions.html	Even and Odd Functions	Fourier_Theorems_DFT.html
+Example.html	Example:	Signal_Metrics.html
+Example_AM_Spectra.html	Example AM Spectra	Sinusoidal_Amplitude_Modulation_AM.html
+Example_Applications_DFT.html	DFT Applications	mdft.html
+Example_Changing_Coordinates_2D.html	An Example of Changing Coordinates in 2D	Changing_Coordinates.html
+Example_I.html	Example:	Signal_Metrics.html
+Example_I_I.html	Example:	Signal_Metrics.html
+Example_I_I_I.html	Example:	Inner_Product.html
+Example_I_I_I_I.html	Example:	Matrices.html
+Example_Sinusoids.html	Example Sinusoids	Sinusoids.html
+Example_Vector_View.html	An Example Vector View:	Signals_Vectors.html
+Examples.html	Examples	Shift_Operator.html
+Exercises.html	Exercises	Logarithms_Decibels.html
+Existence_Fourier_Transform.html	Existence of the Fourier Transform	Fourier_Transform_FT_Inverse.html
+Exponent_Zero.html	The Exponent Zero	Proof_Euler_s_Identity.html
+Exponentials.html	Exponentials	Sinusoids_Exponentials.html
+FFT_Not_So_Simple_Sinusoid.html	FFT of a Not-So-Simple Sinusoid	Spectrum_Analysis_Sinusoid_Windowing.html
+FFT_Simple_Sinusoid.html	FFT of a Simple Sinusoid	Spectrum_Analysis_Sinusoid_Windowing.html
+FFT_Software.html	FFT Software	Fast_Fourier_Transform_FFT.html
+FFT_Zero_Padded_Sinusoid.html	FFT of a Zero-Padded Sinusoid	Spectrum_Analysis_Sinusoid_Windowing.html
+FIR_System_Identification.html	FIR System Identification	Correlation_Analysis.html
+FM_Spectra.html	FM Spectra	Sinusoidal_Frequency_Modulation_FM.html
+Factoring_Polynomial.html	Factoring a Polynomial	Complex_Numbers.html
+Factoring_Polynomials_Matlab.html	Factoring Polynomials in Matlab	Matlab_Octave_Examples.html
+Fast_Fourier_Transform_FFT.html	Fast Fourier Transforms (FFT)	mdft.html
+Fast_Transforms_Audio_DSP.html	Fast Transforms in Audio DSP	Fast_Fourier_Transform_FFT.html
+Filters_Convolution.html	Filters and Convolution	Example_Applications_DFT.html
+First_Look_Taylor_Series.html	A First Look at Taylor Series	Proof_Euler_s_Identity.html
+Fixed_Point_FFTs_NFFTs.html	Fixed-Point FFTs and NFFTs	Mixed_Radix_Cooley_Tukey_FFT.html
+Flip_Operator.html	Flip Operator	Signal_Operators.html
+Floating_Point_Numbers.html	Floating-Point Numbers	Logarithmic_Number_Systems_Audio.html
+Formal_Statement_Taylor_s_Theorem.html	Formal Statement of Taylor's Theorem	Taylor_Series_Expansions.html
+Fourier_Series_FS_Relation.html	Fourier Series (FS)	Fourier_Transforms_Continuous_Discrete_Time_Frequency.html
+Fourier_Series_Special_Case.html	Fourier Series Special Case	DFT_Derived.html
+Fourier_Theorems.html	Fourier Theorems	Fourier_Theorems_DFT.html
+Fourier_Theorems_DFT.html	Fourier Theorems for the DFT	mdft.html
+Fourier_Transform_FT_Inverse.html	Fourier Transform (FT) and Inverse	Fourier_Transforms_Continuous_Discrete_Time_Frequency.html
+Fourier_Transforms_Continuous_Discrete_Time_Frequency.html	Continuous/Discrete Transforms	mdft.html
+Fractional_Binary_Fixed_Point_Numbers.html	Fractional Binary Fixed-Point Numbers	Linear_Number_Systems.html
+Frequencies_Cracks.html	Frequencies in the ``Cracks''	DFT_Derived.html
+Frequency_Response.html	Frequency Response	Filters_Convolution.html
+Fundamental_Theorem_Algebra.html	Fundamental Theorem of Algebra	Complex_Numbers.html
+General_Conditions.html	General Conditions	Signal_Reconstruction_Projections.html
+Generalized_Complex_Sinusoids.html	Generalized Complex Sinusoids	Complex_Sinusoids.html
+Geometric_Series.html	Geometric Series	DFT_Derived.html
+Geometric_Signal_Theory.html	Geometric Signal Theory	mdft.html
+Geometric_Signal_Theory_I.html	Geometric Signal Theory	Matlab_Octave_Examples.html
+Gram_Schmidt_Orthogonalization.html	Gram-Schmidt Orthogonalization	Signal_Reconstruction_Projections.html
+Graphical_Convolution.html	Graphical Convolution	Convolution.html
+Hann_Window_Spectrum_Analysis.html	Hann Window Spectrum Analysis Results	Hann_Windowed_Complex_Sinusoid.html
+Hann_Windowed_Complex_Sinusoid.html	Hann-Windowed Complex Sinusoid	Spectrum_Analysis_Sinusoid_Windowing.html
+How_Many_Bits_Enough.html	How Many Bits are Enough for Digital Audio?	Linear_Number_Systems.html
+Ideal_Spectral_Interpolation.html	Ideal Spectral Interpolation	Signal_Operators.html
+Illustration_Downsampling_Aliasing_Theorem_Matlab.html	Illustration of the Downsampling/Aliasing Theorem in Matlab	Downsampling_Theorem_Aliasing_Theorem.html
+Imaginary_Exponents.html	Imaginary Exponents	Proof_Euler_s_Identity.html
+Importance_Generalized_Complex_Sinusoids.html	Importance of Generalized Complex Sinusoids	Complex_Sinusoids.html
+In_Phase_Quadrature_Sinusoidal.html	In-Phase & Quadrature Sinusoidal Components	Sinusoids.html
+Index_this_Document.html	Index for this Document	mdft.html
+Informal_Derivation_Taylor_Series.html	Informal Derivation of Taylor Series	Taylor_Series_Expansions.html
+Inner_Product.html	The Inner Product	Geometric_Signal_Theory.html
+Inner_Product_I.html	Inner Product	Geometric_Signal_Theory_I.html
+Interpolation_Operator.html	Interpolation Operator	Signal_Operators.html
+Introduction_DFT.html	Introduction to the DFT	mdft.html
+Introduction_Sampling.html	Introduction to Sampling	Sampling_Theory.html
+Inverse_DFT.html	Inverse DFT	Introduction_DFT.html
+Least_Squares_Approximation.html	Least Squares Approximation	Inner_Product.html
+Length_2_DFT.html	The Length 2 DFT	DFT_Derived.html
+Linear_Combination_Vectors.html	Linear Combination of Vectors	Geometric_Signal_Theory.html
+Linear_Number_Systems.html	Linear Number Systems	Number_Systems_Digital_Audio.html
+Linear_Phase_Signals.html	Linear Phase Signals	Shift_Theorem.html
+Linear_Phase_Terms.html	Linear Phase Terms	Shift_Theorem.html
+Linear_Vector_Space.html	Linear Vector Space	Geometric_Signal_Theory.html
+Linearity.html	Linearity	Fourier_Theorems.html
+Linearity_Inner_Product.html	Linearity of the Inner Product	Inner_Product.html
+Logarithmic_Fixed_Point_Numbers.html	Logarithmic Fixed-Point Numbers	Logarithmic_Number_Systems_Audio.html
+Logarithmic_Number_Systems_Audio.html	Logarithmic Number Systems for Audio	Number_Systems_Digital_Audio.html
+Logarithms.html	Logarithms	Logarithms_Decibels.html
+Logarithms_Decibels.html	Logarithms and Decibels	mdft.html
+Logarithms_Negative_Imaginary_Numbers.html	Logarithms of Negative and Imaginary Numbers	Logarithms.html
+Matched_Filtering.html	Matched Filtering	Correlation_Analysis.html
+Mathematics_DFT.html	Mathematics of the DFT	Introduction_DFT.html
+Matlab_Octave_Examples.html	Matlab/Octave Examples	mdft.html
+Matrices.html	Matrices	mdft.html
+Matrix_Formulation_DFT.html	Matrix Formulation of the DFT	DFT_Derived.html
+Matrix_Multiplication.html	Matrix Multiplication	Matrices.html
+Mixed_Radix_Cooley_Tukey_FFT.html	Mixed-Radix Cooley-Tukey FFT	Fast_Fourier_Transform_FFT.html
+Modulo_Indexing_Periodic_Extension.html	Modulo Indexing, Periodic Extension	DFT_Inverse_Restated.html
+More_Notation_Terminology.html	More Notation and Terminology	Complex_Numbers.html
+Mu_Law_Coding.html	Mu-Law Coding	Logarithmic_Number_Systems_Audio.html
+Multiplication_Decimal_Numbers.html	Multiplication of Decimal Numbers	Convolution.html
+Negative_Exponents.html	Negative Exponents	Proof_Euler_s_Identity.html
+Norm_DFT_Sinusoids.html	Norm of the DFT Sinusoids	DFT_Derived.html
+Norm_Induced_Inner_Product.html	Norm Induced by the Inner Product	Inner_Product.html
+Norm_Properties.html	Norm Properties	Signal_Metrics.html
+Normalized_DFT.html	Normalized DFT	DFT_Derived.html
+Normalized_DFT_Power_Theorem.html	Normalized DFT Power Theorem	Power_Theorem.html
+Notation_Terminology.html	Notation and Terminology	DFT_Inverse_Restated.html
+Nth_Roots_Unity.html	Nth Roots of Unity	Orthogonality_Sinusoids.html
+Number_Systems_Digital_Audio.html	Digital Audio Number Systems	mdft.html
+Number_Theoretic_Transform.html	Number Theoretic Transform	Related_Transforms.html
+One_s_Complement_Fixed_Point_Format.html	One's Complement Fixed-Point Format	Binary_Integer_Fixed_Point_Numbers.html
+Operator_Notation.html	Operator Notation	Signal_Operators.html
+Orthogonal_Basis_Computation.html	Orthogonal Basis Computation	Geometric_Signal_Theory_I.html
+Orthogonality.html	Orthogonality	Inner_Product.html
+Orthogonality_DFT_Sinusoids.html	Orthogonality of the DFT Sinusoids	DFT_Derived.html
+Orthogonality_Sinusoids.html	Orthogonality of Sinusoids	DFT_Derived.html
+Orthonormal_Sinusoidal_Set.html	An Orthonormal Sinusoidal Set	DFT_Derived.html
+Other_Lp_Norms.html	Other Lp Norms	Signal_Metrics.html
+Periodic_Interpolation_Spectral_Zero.html	Interpolation Theorems	Fourier_Theorems.html
+Phase_Response.html	Phase Response	Filters_Convolution.html
+Phasor.html	Phasor	Phasor_Carrier_Components_Sinusoids.html
+Phasor_Carrier_Components_Sinusoids.html	Phasors and Carriers	Complex_Sinusoids.html
+Plotting_Complex_Sinusoids_versus.html	Plotting Complex Sinusoids versus Frequency	Complex_Sinusoids.html
+Points_Infinite_Flatness.html	Points of Infinite Flatness	Taylor_Series_Expansions.html
+Polynomial_Multiplication.html	Polynomial Multiplication	Convolution.html
+Positive_Integer_Exponents.html	Positive Integer Exponents	Proof_Euler_s_Identity.html
+Positive_Negative_Frequencies.html	Positive and Negative Frequencies	Complex_Sinusoids.html
+Power_Spectral_Density_Estimation.html	Power Spectral Density	Example_Applications_DFT.html
+Power_Theorem.html	Power Theorem	Fourier_Theorems.html
+Powers_z.html	Powers of z	Complex_Sinusoids.html
+Preface.html	Preface	mdft.html
+Prime_Factor_Algorithm_PFA.html	Prime Factor Algorithm (PFA)	Fast_Fourier_Transform_FFT.html
+Projection.html	Projection	Inner_Product.html
+Projection_Circular_Motion.html	Projection of Circular Motion	Complex_Sinusoids.html
+Projection_Example_1.html	Projection Example 1	Projection_I.html
+Projection_Example_2.html	Projection Example 2	Projection_I.html
+Projection_I.html	Projection	Geometric_Signal_Theory_I.html
+Projection_onto_Linearly_Dependent.html	Projection onto Linearly Dependent Vectors	Signal_Reconstruction_Projections.html
+Projection_onto_Non_Orthogonal_Vectors.html	Projection onto Non-Orthogonal Vectors	Signal_Reconstruction_Projections.html
+Proof_Euler_s_Identity.html	Proof of Euler's Identity	mdft.html
+Properties_DB_Scales.html	Properties of DB Scales	Decibels.html
+Properties_Exponents.html	Properties of Exponents	Proof_Euler_s_Identity.html
+Pulse_Code_Modulation_PCM.html	Pulse Code Modulation (PCM)	Linear_Number_Systems.html
+Pythagorean_Theorem_N_Space.html	The Pythagorean Theorem in N-Space	Inner_Product.html
+Quadratic_Formula.html	The Quadratic Formula	Complex_Numbers.html
+Rader_s_FFT_Algorithm_Prime.html	Rader's FFT Algorithm for Prime Lengths	Fast_Fourier_Transform_FFT.html
+Radix_2_FFT.html	Radix 2 FFT	Mixed_Radix_Cooley_Tukey_FFT.html
+Radix_2_FFT_Complexity.html	Radix 2 FFT Complexity is N Log N	Radix_2_FFT.html
+Rational_Exponents.html	Rational Exponents	Proof_Euler_s_Identity.html
+Rayleigh_Energy_Theorem_Parseval_s.html	Rayleigh Energy Theorem (Parseval's Theorem)	Fourier_Theorems.html
+Real_Exponents.html	Real Exponents	Proof_Euler_s_Identity.html
+Recommended_Further_Reading.html	Recommended Further Reading	Example_Applications_DFT.html
+Reconstruction_Samples_Pictorial_Version.html	Reconstruction from Samples--Pictorial Version	Introduction_Sampling.html
+Reconstruction_Samples_The_Math.html	Reconstruction from Samples--The Math	Introduction_Sampling.html
+Related_Transforms.html	Related Transforms	Fast_Fourier_Transform_FFT.html
+Relation_DFT_Fourier_Series.html	Relation of the DFT to Fourier Series	Fourier_Series_FS_Relation.html
+Relation_Stretch_Theorem.html	Relation to Stretch Theorem	Periodic_Interpolation_Spectral_Zero.html
+Repeat_Operator.html	Repeat Operator	Signal_Operators.html
+Roots_Unity.html	Roots of Unity	Proof_Euler_s_Identity.html
+Round_Off_Error_Variance.html	Round-Off Error Variance	Number_Systems_Digital_Audio.html
+Sampled_Sinusoids.html	Sampled Sinusoids	Complex_Sinusoids.html
+Sampling_Theorem.html	Sampling Theorem	Sampling_Theory.html
+Sampling_Theory.html	Sampling Theory	mdft.html
+Scalar_Multiplication.html	Scalar Multiplication	Geometric_Signal_Theory.html
+Scaling_Theorem.html	Scaling Theorem	Selected_Continuous_Time_Fourier_Theorems.html
+Selected_Continuous_Time_Fourier_Theorems.html	Continuous Fourier Theorems	mdft.html
+Shift_Operator.html	Shift Operator	Signal_Operators.html
+Shift_Theorem.html	Shift Theorem	Fourier_Theorems.html
+Signal_Energy_Power.html	Signal Energy and Power	Signal_Metrics_I.html
+Signal_Metrics.html	Signal Metrics	Geometric_Signal_Theory.html
+Signal_Metrics_I.html	Signal Metrics	Geometric_Signal_Theory_I.html
+Signal_Operators.html	Signal Operators	Fourier_Theorems_DFT.html
+Signal_Reconstruction_Projections.html	Signal Reconstruction from Projections	Geometric_Signal_Theory.html
+Signal_Vector_Reconstruction_Projections.html	Signal/Vector Reconstruction from Projections	Signal_Reconstruction_Projections.html
+Signals_Vectors.html	Signals as Vectors	Geometric_Signal_Theory.html
+Sinc_Function.html	The Sinc Function	Introduction_Sampling.html
+Sinusoid_Magnitude_Spectra.html	Sinusoid Magnitude Spectra	Sinusoids.html
+Sinusoidal_Amplitude_Modulation_AM.html	Sinusoidal Amplitude Modulation (AM)	Complex_Sinusoids.html
+Sinusoidal_Frequency_Modulation_FM.html	Sinusoidal Frequency Modulation (FM)	Complex_Sinusoids.html
+Sinusoids.html	Sinusoids	Sinusoids_Exponentials.html
+Sinusoids_Exponentials.html	Sinusoids and Exponentials	mdft.html
+Sinusoids_Same_Frequency.html	Sinusoids at the Same Frequency	Sinusoids.html
+Solving_Linear_Equations_Using.html	Solving Linear Equations Using Matrices	Matrices.html
+Specific_DB_Scales.html	Specific DB Scales	Decibels.html
+Spectral_Bin_Numbers.html	Spectral Bin Numbers	DFT_Derived.html
+Spectral_Phase.html	Spectral Phase	Hann_Windowed_Complex_Sinusoid.html
+Spectrogram_Computation.html	Spectrogram Computation	Matlab_Octave_Examples.html
+Spectrogram_Speech.html	Spectrogram of Speech	Spectrograms.html
+Spectrograms.html	Spectrograms	Example_Applications_DFT.html
+Spectrum_Analysis_Sinusoid_Windowing.html	Spectrum Analysis of a Sinusoid	Example_Applications_DFT.html
+Stretch_Operator.html	Stretch Operator	Signal_Operators.html
+Stretch_Theorem_Repeat_Theorem.html	Stretch Theorem (Repeat Theorem)	Fourier_Theorems.html
+Summary_Related_Mathematical_Topics.html	Summary and Related Mathematical Topics	Signal_Metrics.html
+Symmetry.html	Symmetry	Fourier_Theorems.html
+Taylor_Series_Expansions.html	Taylor Series Expansions	mdft.html
+Taylor_Series_Remainder.html	Taylor Series with Remainder	Taylor_Series_Expansions.html
+Time_Bandwidth_Products_Unbounded_Above.html	Time-Bandwidth Products are Unbounded Above	Uncertainty_Principle.html
+Time_Limited_Signals.html	Time-Limited Signals	Uncertainty_Principle.html
+Triangle_Difference_Inequality.html	Triangle Difference Inequality	Inner_Product.html
+Triangle_Inequality.html	Triangle Inequality	Inner_Product.html
+Two_s_Complement_Fixed_Point_Format.html	Two's Complement Fixed-Point Format	Binary_Integer_Fixed_Point_Numbers.html
+Two_s_Complement_Integer_Fixed_Point_Numbers.html	Two's-Complement, Integer Fixed-Point Numbers	Binary_Integer_Fixed_Point_Numbers.html
+Unbiased_Cross_Correlation.html	Unbiased Cross-Correlation	Correlation_Analysis.html
+Uncertainty_Principle.html	The Uncertainty Principle	Selected_Continuous_Time_Fourier_Theorems.html
+Use_Blackman_Window.html	Use of a Blackman Window	Spectrum_Analysis_Sinusoid_Windowing.html
+VU_Meters_DBu_ScaleF_3.html	VU Meters and the DBu ScaleF.4	Specific_DB_Scales.html
+Vector_Addition.html	Vector Addition	Geometric_Signal_Theory.html
+Vector_Cosine.html	Vector Cosine	Inner_Product.html
+Vector_Cosine_I.html	Vector Cosine	Geometric_Signal_Theory_I.html
+Vector_Interpretation_Complex_Numbers.html	Vector Interpretation of Complex Numbers	Geometric_Signal_Theory_I.html
+Vector_Subtraction.html	Vector Subtraction	Geometric_Signal_Theory.html
+Voltage_Current_Resistance.html	Voltage, Current, and Resistance	Logarithms_Decibels.html
+Weierstrass_Approximation_Theorem.html	Weierstrass Approximation Theorem	Taylor_Series_Expansions.html
+When_Do_We_Have.html	When Do We Have to Swap Bytes?G.5	Linear_Number_Systems.html
+Why_DFT_usually_called.html	Why a DFT is usually called an FFT in practice	Example_Applications_DFT.html
+Why_Exponentials_Important.html	Why Exponentials are Important	Exponentials.html
+Why_Phasors_Important.html	Why Phasors are Important	Phasor_Carrier_Components_Sinusoids.html
+Why_Sinusoids_Important.html	Why Sinusoids are Important	Sinusoids.html
+Zero_Padding.html	Zero Padding	Signal_Operators.html
+Zero_Padding_Applications.html	Zero Padding Applications	Signal_Operators.html
+Zero_Padding_Theorem_Spectral.html	Zero Padding Theorem (Spectral Interpolation)	Fourier_Theorems.html
+Zero_Phase_Signals.html	Zero Phase Signals	Shift_Theorem.html
+e_j_theta.html	e^(j theta)	Proof_Euler_s_Identity.html
+footnode.html	Footnotes	mdft.html
+index.html	MATHEMATICS OF THE DISCRETE FOURIER TRANSFORM (DFT) WITH AUDIO APPLICATIONS SECOND EDITION	
+mdft.html	MATHEMATICS OF THE DISCRETE FOURIER TRANSFORM (DFT) WITH AUDIO APPLICATIONS SECOND EDITION	

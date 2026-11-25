@@ -1,13 +1,14 @@
 ---
 title: Cross-Synthesis and Morphing
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [cross-synthesis, applications, modifications]
 sources:
   - /w/sasp/cross-synth.tex
   - /w/sasp/vocoder.tex
   - /w/sasp/vocoder-by-fft.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Cross_Synthesis.html
 ---
 
 # Cross-Synthesis and Morphing
@@ -18,13 +19,15 @@ The phase vocoder and FFT filter bank provide a clean substrate.
 
 ## Excitation × Spectral Envelope
 
-Classical **channel vocoder** idea, FFT-modernized:
+Classical **channel vocoder** idea, FFT-modernized ([SASP's four steps](https://ccrma.stanford.edu/~jos/sasp/Cross_Synthesis.html)):
 1. Analyze **modulator** (e.g., voice) $\to$ time-varying spectral
    envelope $E_m(\omega)$.
 2. Analyze **carrier** (e.g., synth pad) $\to$ STFT $C_m(\omega)$.
-3. Shape: $Y_m(\omega) = E_m(\omega)\cdot C_m(\omega) / |C_m(\omega)|\cdot|C_m(\omega)|$
-   — equivalently, multiply the carrier's magnitude by the modulator's
-   envelope while keeping the carrier's phase.
+3. Optionally **flatten** the carrier by dividing each frame by its own
+   spectral envelope $E^c_m(\omega)$.
+4. Shape: $Y_m(\omega) = E_m(\omega)\, C_m(\omega) / E^c_m(\omega)$
+   — the carrier's envelope is replaced by the modulator's while the
+   carrier's fine structure (harmonics, phase) is kept.
 
 Result: the carrier "speaks" with the modulator's formants — a
 talking synthesizer.
@@ -58,7 +61,7 @@ For musically sensible morphs, align features first:
 $$Y_m(\omega) \;=\; A_m(\omega)\cdot B_m(\omega)$$
 Equivalent to short-time convolution — $B$ acts as an FIR filter
 changing per frame. Used for:
-- "Convolution reverb" (fixed $B$)
+- "Convolution reverb" (fixed $B$; cf. [[waveguide_synthesis/concepts/artificial-reverberation|artificial reverberation]])
 - Source-filter synthesis (voice as $A$, tract as $B$)
 - Spectral masking effects
 
@@ -89,3 +92,6 @@ vocoder.
 - [[stft-modifications]] — framework rules
 - [[f0-and-spectral-envelope]] — separation of source/filter
 - [[spectral-audio-applications]] — broader application context
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Cross-Synthesis](https://ccrma.stanford.edu/~jos/sasp/Cross_Synthesis.html), [Spectral Envelope Extraction](https://ccrma.stanford.edu/~jos/sasp/Spectral_Envelope_Extraction.html), [Dudley's Channel Vocoder](https://ccrma.stanford.edu/~jos/sasp/Dudley_s_Channel_Vocoder.html)

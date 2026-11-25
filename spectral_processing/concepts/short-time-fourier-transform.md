@@ -1,12 +1,13 @@
 ---
 title: Short-Time Fourier Transform
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [stft, dft, windows]
 sources:
   - /w/sasp/stft.tex
   - /w/sasp/sinespecanal.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Short_Time_Fourier_Transform.html
 ---
 
 # Short-Time Fourier Transform
@@ -91,3 +92,7 @@ A spectrogram is $|X_m(k)|$ on a dB scale. See
 - [[filter-bank-summation-stft]] — filter-bank view
 - [[stft-modifications]] — safe spectral edits
 - [[spectrum-analysis-windows]] — window choice
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [The Short-Time Fourier Transform](https://ccrma.stanford.edu/~jos/sasp/Short_Time_Fourier_Transform.html), [Mathematical Definition of the STFT](https://ccrma.stanford.edu/~jos/sasp/Mathematical_Definition_STFT.html), [Dual Views of the STFT](https://ccrma.stanford.edu/~jos/sasp/Dual_Views_Short_Time.html), [Classic Spectrograms](https://ccrma.stanford.edu/~jos/sasp/Classic_Spectrograms.html), [The Uncertainty Principle](https://ccrma.stanford.edu/~jos/sasp/Uncertainty_Principle.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Spectrograms](https://ccrma.stanford.edu/~jos/mdft/Spectrograms.html)

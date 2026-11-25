@@ -1,9 +1,9 @@
 ---
 title: Material Properties and Modes
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-11-25
 type: concept
-tags: [material, vibration, acoustics, modal, physics-modeling]
+tags: [material, vibration, acoustics, modal, physical-modeling]
 sources:
   - /w/pasp/damping.tex
   - https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
@@ -26,19 +26,19 @@ of "any material" from first principles or perceptual parameterization.
 | Loss factor (damping) | $\eta$ | dimensionless | Higher $\eta$ → faster decay ($d_k$) |
 
 ## Frequency Scaling Laws
-For a given geometry scaled by factor s (all dimensions × s):
+For a given geometry scaled by factor $s$ (all dimensions × $s$):
 - Natural frequencies: $f_k \propto 1/s$ (larger object → lower pitch)
 - This is why large bells are deeper than small bells
 
 Frequency vs. material:
 $$f_k \;\propto\; \frac{\sqrt{E/\rho}}{\text{characteristic length}}$$
-For a bar: $f_k = k^2 \dfrac{\pi}{2L^2} \sqrt{EI / (\rho A)}$
+For a simply supported bar in bending: $f_k = k^2 \dfrac{\pi}{2L^2} \sqrt{EI / (\rho A)}$
 
 Practical implication: two objects of same shape but different materials
 have all frequencies scaled by $\sqrt{E_2/\rho_2} / \sqrt{E_1/\rho_1}$.
 
 ## Damping and Material
-Damping d_k is harder to predict from first principles than frequency.
+Damping $d_k$ is harder to predict from first principles than frequency.
 Sources of damping in a vibrating object:
 1. **Internal (material) damping**: viscoelastic losses within material
    - Metals: very low (Q ~ 1000-10000)
@@ -46,7 +46,7 @@ Sources of damping in a vibrating object:
    - Rubber: high (Q ~ 5-20)
 2. **Boundary damping**: energy lost at supports/contacts
 3. **Acoustic radiation damping**: energy radiated as sound (usually small)
-4. **Thermoelastic damping**: conversion of strain to heat (important for MEMS)
+4. **Thermoelastic damping**: conversion of strain to heat (thin metal parts, MEMS); see [[damping-models]]
 
 ## Rayleigh Damping Model
 Simple model for FEM: $C = \alpha M + \beta K$
@@ -58,7 +58,7 @@ This is a good approximation for many materials; real damping often
 requires measuring each mode's Q separately.
 
 ## Typical Material Parameters (for synthesis)
-| Material | E (GPa) | rho (kg/m^3) | eta (avg) | Perceptual character |
+| Material | $E$ (GPa) | $\rho$ (kg/m³) | $\eta$ (avg) | Perceptual character |
 |----------|---------|--------------|-----------|---------------------|
 | Steel | 200 | 7800 | 0.001 | Bright, long ring |
 | Aluminum | 70 | 2700 | 0.002 | Bright, medium ring |
@@ -72,7 +72,8 @@ Researchers (Klatzky, Pai, McAdams) have identified perceptual dimensions:
 1. **Hardness**: perceived from spectral centroid + attack steepness
    (harder = higher centroid, faster attack)
 2. **Size**: perceived from fundamental frequency (lower = larger)
-3. **Damping**: perceived from T60 / spectral envelope decay rate
+3. **Damping**: perceived from $T_{60}$ / decay rate of the partials - the main cue to material
+   category (Klatzky, Pai & Krotkov 2000); see [[impact-synthesis]]
 4. **Roughness**: from surface micro-structure (affects friction / scrape sounds)
 
 ## Morphing Between Materials
@@ -82,11 +83,16 @@ f_k(\alpha) &= (1-\alpha)\,f_k^{(A)} + \alpha\, f_k^{(B)} \quad\text{(linear ble
 d_k(\alpha) &= (1-\alpha)\,d_k^{(A)} + \alpha\, d_k^{(B)} \quad\text{(linear blend of damping)}
 \end{aligned}$$
 
-Or more physically: interpolate E and rho, recompute f_k.
+Or more physically: interpolate $E$ and $\rho$, recompute $f_k$.
 This gives intuitive "material slider" for a sound designer.
 
 ## Related Concepts
-- [[mode-shapes-and-eigenvalues]] — how E and rho enter the eigenvalue problem
+- [[mode-shapes-and-eigenvalues]] — how $E$ and $\rho$ enter the eigenvalue problem
 - [[impact-synthesis]] — how material properties affect contact force profile
 - [[modal-synthesis-overview]] — use of material-derived mode parameters
-- [[fem-bem-for-modal-synthesis]] — FEM requires E, nu, rho as inputs
+- [[fem-bem-for-modal-synthesis]] — FEM requires $E$, $\nu$, $\rho$ as inputs
+- [[damping-models]] — loss-factor models behind $\eta$ and $d_k$
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Young's Modulus](https://ccrma.stanford.edu/~jos/pasp/Young_s_Modulus.html), [Young's Modulus as a Spring Constant](https://ccrma.stanford.edu/~jos/pasp/Young_s_Modulus_Spring_Constant.html), [Frequency-Dependent Damping](https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html)
+- [[jos_books/entities/filters-book|Filters]]: [Quality Factor (Q)](https://ccrma.stanford.edu/~jos/filters/Quality_Factor_Q.html), [Decay Time is Q Periods](https://ccrma.stanford.edu/~jos/filters/Decay_Time_Q_Periods.html)

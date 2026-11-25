@@ -17,10 +17,11 @@ merged or skipped. Candidates for standalone concept pages in a later pass.
   linear convolution, and cost comparisons.
 
 - **Nyquist windows / frequency-domain COLA duality** — sources
-  `/w/sasp/poisson.tex`, `/w/sasp/nyquist.tex`. The dual of time-domain
-  COLA (which governs OLA) is a frequency-domain Nyquist condition
-  governing FBS. Worth a dedicated page tying Poisson summation, COLA,
-  and the frequency-domain perfect-reconstruction constraint together.
+  `/w/sasp/poisson.tex`, `/w/sasp/nyquist.tex`. Since 2026-11-25 the
+  essentials (PSF, weak/strong COLA, Nyquist($N$), Portnoff windows) are
+  stated in [[overlap-add-stft]], [[filter-bank-summation-stft]] and
+  [[dtft-and-fourier-theorems]]; a dedicated comparison page (OLA vs FBS)
+  tying them together is still worth writing.
 
 ## Other topics noticed but not ingested
 
@@ -45,6 +46,14 @@ merged or skipped. Candidates for standalone concept pages in a later pass.
 - **Statistical DSP appendix** — `/w/sasp/statdsp.tex`,
   `/w/sasp/estimator-variance.tex`. Folded into
   [[noise-spectrum-analysis]]; could become its own foundations page.
+
+- **Bark / ERB bilinear frequency warping** — SASP Appendix E,
+  `/w/sasp/bbt.tex` ("bbt" = Bark bilinear transform, not Blackman-Tukey).
+  Only a one-line pointer in [[spectral-audio-applications]] so far.
+
+- **Loudness spectrogram and auditory filter banks** — the second half of
+  SASP Chapter 7 (`/w/sasp/loudness.tex`); summarized in two bullets of
+  [[spectral-audio-applications]].
 
 - **Problem sets** — all `*-problems.tex` files intentionally skipped
   (exercises, not reference material).

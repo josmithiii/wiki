@@ -1,7 +1,7 @@
 ---
 title: AI-Based Approaches to Active Noise Control (Overview)
 created: 2026-04-14
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [anc, comparison, tutorial, reference, fxlms, secondary-path]
 sources:
@@ -22,13 +22,14 @@ sources:
 
 # AI-Based Approaches to Active Noise Control
 
-This is the **map of the territory** for the research project. Every AI-flavored
+This is the **map of the territory** for the research project (the
+non-AI companion map is [[classical-anc-overview]]). Every AI-flavored
 method for ANC (or closely adjacent tasks like selective noise cancellation and
 acoustic system identification) gets one block here, even if we don't yet have a
-primary source in `raw/`. Pages marked "dedicated page" have their own concept
-file with deeper treatment; pages marked `[stub]` have a concept file with a
-sources-pending marker; pages marked `[in raw/]` are documented only in
-`raw/SUMMARIES.md` until we create a dedicated concept page.
+primary source in `raw/`. Entries marked "dedicated page" have their own concept
+file with deeper treatment; entries marked `[stub-history]` have no ingested
+primary source yet; the rest point at their entry in the
+[[entities/source-papers|source-paper catalog]].
 
 The organizing axis is **where the neural network sits in the ANC loop**, not
 the architecture family. The same CNN/Transformer/VAE can show up in multiple
@@ -64,8 +65,8 @@ constrains the weight updates.
 - **Latent FxLMS** — Sarkar et al. 2025. Autoencoder over converged FxLMS
   weight vectors; online gradient step runs in the decoder's *latent space*;
   mixup-trained decoder + latent-normalized updates give faster convergence at
-  equal steady-state MSE. Currently documented as a variant on [[fxlms-algorithm]].
-  `[in raw/]` (has footnote in fxlms-algorithm.md)
+  equal steady-state MSE. Documented as a variant on [[fxlms-algorithm]]
+  and as the FxLMS instantiation of [[neural-system-identification]].
 - **Neural network system identification (NNSI) / generative manifold
   learning** — Helwani, Smaragdis, Goodwin (ICASSP 2023) and follow-ups.
   Topologically aware VAE for impulse responses used to accelerate RLS and
@@ -83,11 +84,13 @@ constrains the weight updates.
 Instead of the classical offline white-noise $\hat{S}(z)$ identification,
 a network continually adapts the secondary-path model from operational data.
 
-- **Online neural secondary-path identification** — MLP/RNN adapts $\hat{S}$ on
-  the fly as outdoor conditions drift (temperature, wind, humidity). No probe
-  noise needed. Also supported by the CRN approach of Zhang & Wang, which
-  implicitly folds $S(z)$ into the learned mapping.
-  `[stub]` → [[neural-secondary-path]]
+- **Neural secondary-path modeling** — three ingested routes: *implicit*
+  (the CRN of Zhang & Wang folds $S(z)$ into the learned mapping),
+  *meta-learned FIR initialization* (Yang et al. 2026; runtime algorithm
+  unchanged), and an *explicit nonlinear network* fitted by RL (Li, Wu &
+  Bai 2025; real-vehicle closed loop). Continual probe-free tracking of
+  outdoor drift (temperature, wind, humidity) is still open.
+  → dedicated page: [[neural-secondary-path]]
 
 ## 4. NN *replaces the sensor* (virtual sensing)
 
@@ -95,7 +98,7 @@ Where you cannot place an error microphone at the "quiet zone" of interest,
 a network estimates the pressure field there from sparse available mics.
 
 - **PINN virtual sensing** — physics-informed neural field representing $p(\mathbf{r},t)$
-  with a Helmholtz-equation residual in the loss; sparse mics supply boundary
+  with a wave-equation residual in the loss; sparse mics supply boundary
   conditions; the network's evaluation at the target point feeds the virtual
   error signal into an otherwise-classical FxLMS loop.
   → dedicated page: [[pinn-virtual-sensing]]
@@ -111,6 +114,9 @@ comfort bounds).
   hard directional constraints, and non-differentiable rewards; can discover
   non-obvious strategies (ground reflection, edge diffraction) that FxLMS
   cannot represent. Sample-efficiency and sim-to-real transfer remain open.
+  Ingested so far: GFANC-RL (SAC over a binary sub-filter selection) and
+  RL-fitted secondary-path identification; a policy emitting continuous
+  loudspeaker drive is not yet represented.
   → dedicated page: [[deep-rl-anc]]
 
 ## 6. NN *postprocesses* the residual (hybrid spectral suppression)
@@ -121,11 +127,11 @@ Wiener/spectral-subtraction stage after an adaptive beamformer or ANC loop.
 - **DL postfilter in commercial hearing aids** — Andersen et al. 2021
   (Oticon); the beamformer (MVDR/GSC) is kept, the postfilter is a network
   trained on speech/noise pairs. Clinical intelligibility gains reported.
-  `[in raw/]` (see `DeepLearningHearingAids-10-1055-s-0041-1735134.txt`)
+  See [[entities/source-papers#paper-andersen-oticon-hearing-aids|paper-andersen-oticon-hearing-aids]].
 - **Gaikwad CNN+attention hearing-aid ANC** — low-power CNN used as the
   single-channel NR stage; claims 12 dB SNR / 45% intelligibility over
   MVDR/MWF baselines.
-  `[in raw/]`
+  See [[entities/source-papers#paper-gaikwad-ai-hearing-aids|paper-gaikwad-ai-hearing-aids]].
 
 ## 7. Cross-cutting tooling (not a row but worth tracking)
 
@@ -134,13 +140,13 @@ Wiener/spectral-subtraction stage after an adaptive beamformer or ANC loop.
 - **Differentiable DSP layers** that embed a real FxLMS or Wiener update
   inside a neural training graph, so the surrounding network can learn to
   configure a classical ANC loop.
+- **Differentiable perceptual losses** (loudness, tonality) as training
+  objectives — see [[psychoacoustic-anc]] §6.
 - **Interpretable / uncertainty-aware ANC** — e.g. Bayesian neural nets for
   secondary-path estimation with confidence bounds.
 
 These are not yet represented in `raw/` and will become `[stub]` pages as
 soon as we have a primary source.
-
-[^shi23]: Shi, D., Lam, B., Gan, W.-S., Cheer, J., Elliott, S. J., "Active Noise Control in The New Century: The Role and Prospect of Signal Processing," *IEEE Signal Processing Magazine*, 2023; arXiv:2306.01425. See `raw/ANC-NewCentury-Review-Shi-2306.01425.txt`.
 
 ## Reading map
 
@@ -151,3 +157,5 @@ soon as we have a primary source.
 - For **array / constrained / RL** directions, see [[deep-rl-anc]] and
   [[pinn-virtual-sensing]].
 - For **hearing-aid / SE** work, see [[transformer-se-anc]].
+
+[^shi23]: Shi, D., Lam, B., Gan, W.-S., Cheer, J., Elliott, S. J., "Active Noise Control in The New Century: The Role and Prospect of Signal Processing," *IEEE Signal Processing Magazine*, 2023; arXiv:2306.01425. See `raw/ANC-NewCentury-Review-Shi-2306.01425.txt`.

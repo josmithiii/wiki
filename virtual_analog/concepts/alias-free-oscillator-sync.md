@@ -1,7 +1,7 @@
 ---
 title: Alias-Free Oscillator Sync
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [oscillator-sync, oscillator, additive, antialiasing, asic, real-time]
 sources:
@@ -92,7 +92,13 @@ fixed $N$. Reference Python at `https://github.com/IIP-Group/hasy-python`.
 
 ## See also
 
-[[virtual-analog-overview]] - [[hasy-asic]] - [[antiderivative-antialiasing]] / [[polyadaa]] (the correction-based alternative)
+[[virtual-analog-overview]] - [[hasy-asic]] - [[antiderivative-antialiasing]] / [[polyadaa]] (the correction-based alternative) -
+[[spectral_processing/concepts/sinusoidal-modeling|sinusoidal modeling]] (the additive-synthesis side)
+
+## JOS online books
+- [[jos_books/entities/mdft-book|MDFT]]: [Fourier Series (FS)](https://ccrma.stanford.edu/~jos/mdft/Fourier_Series_FS_Relation.html), [The Sinc Function](https://ccrma.stanford.edu/~jos/mdft/Sinc_Function.html), [Shift Theorem](https://ccrma.stanford.edu/~jos/mdft/Shift_Theorem.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Additive Synthesis](https://ccrma.stanford.edu/~jos/sasp/Additive_Synthesis.html)
+- [[jos_books/entities/pasp-book|PASP]]: [Virtual Analog](https://ccrma.stanford.edu/~jos/pasp/Virtual_Analog.html)
 
 ## References
 

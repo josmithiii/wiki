@@ -1,7 +1,7 @@
 ---
 title: Circular-Buffer Topology and Monodromy
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [delay-line, waveguide, wave-equation, reference, tutorial]
 sources:
@@ -93,5 +93,10 @@ extending this to multi-delay structures such as feedback delay networks.
 - [[delay-line-techniques]] - the circular buffers this reinterprets
 - [[waveguide-overview]] - mixed boundary conditions and the d'Alembert loop
 - [[entities/source-papers#paper-essl-circular-buffer-monodromy-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [A Software Delay Line](https://ccrma.stanford.edu/~jos/pasp/Software_Delay_Line.html), [Rigid Terminations](https://ccrma.stanford.edu/~jos/pasp/Rigid_Terminations.html)
+- [[jos_books/entities/filters-book|Filters]]: [Cyclic Convolution Matrix](https://ccrma.stanford.edu/~jos/filters/Cyclic_Convolution_Matrix.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Nth Roots of Unity](https://ccrma.stanford.edu/~jos/mdft/Nth_Roots_Unity.html)
 
 [^essl]: G. Essl, "Winding Numbers and Monodromy of Vector Bundles over a Circular Buffer," DAFx26. See [[entities/source-papers#paper-essl-circular-buffer-monodromy-2026]].

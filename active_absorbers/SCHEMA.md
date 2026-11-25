@@ -57,6 +57,22 @@ section for the cross-wiki rules. In summary for this wiki:
   page body.
 - **Never use `Read` on a PDF directly** -- always go through `pdf2txt.py`.
 
+### JOS online books (background theory)
+
+The four JOS books (MDFT, Filters, PASP, SASP) are background here, not
+primary sources. Each has a hub page, `jos_books/entities/{mdft,filters,pasp,sasp}-book`,
+and is online one HTML page per section at
+`https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`. Page names cannot be
+guessed: look them up in `jos_books/catalog/<book>.tsv` (page name, title, parent page).
+
+- Where a book section is a genuine prerequisite, end the page (before the
+  footnote definitions) with a `## JOS online books` section: one bullet per
+  book, the hub wikilink first (e.g. `[[jos_books/entities/pasp-book|PASP]]`),
+  then 2-6 deep links whose text is the book section's title. Leave the
+  section out on pages no book section really covers (e.g. pure RL pages).
+- Check with `python3 scripts/book_links.py check . active_absorbers`
+  (also run by `make rebuild`).
+
 ### Staging free-to-download PDFs
 
 When an agent locates free PDFs on the web (arXiv, author pages, open-access

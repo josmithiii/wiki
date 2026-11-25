@@ -1,7 +1,7 @@
 ---
 title: Hybrid Active + Passive Absorbers
 created: 2026-04-17
-updated: 2026-06-18
+updated: 2026-11-25
 type: concept
 tags: [active-absorber, active-impedance, hybrid-passive, metamaterial, anc, feedback, industrial, reference]
 sources:
@@ -79,12 +79,14 @@ and broadband low-frequency realizations.
 The natural habitat of hybrid absorption: lined duct for mid/high
 frequencies + active actuator array for the low-frequency band that
 passive lining cannot reach. The ECL Lyon group's work is the
-canonical treatment.
+canonical treatment. For the plane-wave transfer-matrix model of a
+lined duct and the liner impedance sub-models, see
+[[duct-acoustics-liner-modeling]].
 
 Galland et al. 2005[^galland-2005] 5-step design recipe:
 
 1. **Target impedance** — compute frequency-dependent optimal $Z_s(\omega)$
-   for the duct geometry (Tester 1970: weak LF resistance, increasing
+   for the duct geometry (Tester 1973: weak LF resistance, increasing
    negative reactance; purely passive and purely active each fall short).
 2. **Passive design** — pick porous material and cut-off $f_c$ above
    which active control turns off and classical $\lambda/4$ tuning takes
@@ -209,7 +211,7 @@ drifts slowly (seasonal temperature affecting fan RPM, etc.).
 | Size | bulky | thin | thin + robust |
 | Cost | low material / high volume | moderate | moderate |
 
-The *fail-safe* property (§row 4) is often the decisive factor for
+The *fail-safe* property (row 4 of the table) is often the decisive factor for
 rooftop installations: a power outage in the ANC system must not
 produce a step increase in community noise.
 
@@ -230,36 +232,36 @@ produce a step increase in community noise.
 
 - **Galland, Mazeaud & Sellen 2005** — flow-duct hybrid liner 5-step
   design; MATISSE test rig; cell-by-cell FxLMS. See
-  `entities/source-papers.md#paper-galland-hybrid-flowduct-2005`.
+  [[entities/source-papers#paper-galland-hybrid-flowduct-2005|paper-galland-hybrid-flowduct-2005]].
 - **Betgen, Galland, Piot & Simon 2012** — basic vs complex hybrid
   cells; LDV non-intrusive characterization with grazing flow. See
-  `entities/source-papers.md#paper-betgen-galland-hybrid-liner-2012`.
+  [[entities/source-papers#paper-betgen-galland-hybrid-liner-2012|paper-betgen-galland-hybrid-liner-2012]].
 - **Guicking 2009** — 1740-patent overview of ANVC (use as patent
-  index). See `entities/source-papers.md#paper-guicking-patents-overview`.
+  index). See [[entities/source-papers#paper-guicking-patents-overview|paper-guicking-patents-overview]].
 - **Mei et al. 2012** — dark acoustic metamaterial, foundational
   sub-wavelength LF super-absorber. See
-  `entities/source-papers.md#paper-mei-dark-metamaterial-2012`.
+  [[entities/source-papers#paper-mei-dark-metamaterial-2012|paper-mei-dark-metamaterial-2012]].
 - **Wu et al. 2018** (arXiv 1801.03613) — ventilated metamaterial
   absorber with airflow preserved. See
-  `entities/source-papers.md#paper-wu-ventilated-metamaterial-2018`.
+  [[entities/source-papers#paper-wu-ventilated-metamaterial-2018|paper-wu-ventilated-metamaterial-2018]].
 - **Ma & Sheng 2016** (*Sci. Adv.*) — 15-year metamaterials review
   (use as citation hub). See
-  `entities/source-papers.md#paper-ma-sheng-metamaterials-review-2016`.
+  [[entities/source-papers#paper-ma-sheng-metamaterials-review-2016|paper-ma-sheng-metamaterials-review-2016]].
 - **Guicking bilingual overview (2008 / Festschrift)** — comprehensive
   history + state-of-the-art for ANC + AVC + active flow control;
   includes active-impedance content from Guicking's own group (closest
   open-access substitute for the pending Guicking & Karcher 1984). See
-  `entities/source-papers.md#paper-guicking-anvc-overview`.
+  [[entities/source-papers#paper-guicking-anvc-overview|paper-guicking-anvc-overview]].
 - **Song et al. 2021** (*Molecules*) — acoustic-metamaterials review
   organized by meta-atom / meta-molecule taxonomy; pair with Ma & Sheng
   2016 as a complementary citation hub. See
-  `entities/source-papers.md#paper-song-acoustic-metamaterials-review-2021`.
+  [[entities/source-papers#paper-song-acoustic-metamaterials-review-2021|paper-song-acoustic-metamaterials-review-2021]].
 
 ## Pending sources
 
 - ~~Olson & May, *JASA* 1953 — electronic sound absorber (pre-digital).~~
   **Ingested 2026-06-18** — see [[electroacoustic-absorbers]] and
-  `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`.
+  [[entities/source-papers#paper-olson-may-electronic-sound-absorber-1953|paper-olson-may-electronic-sound-absorber-1953]].
 - Guicking & Karcher 1984 (*ASME JVA* 106:393) — primary active-impedance
   paper; still paywalled. Content indirectly covered via the 2008
   bilingual overview (above).
@@ -275,12 +277,16 @@ secondary-path modeling that still apply to the active layer),
 [[rooftop-fan-contenders]] (the passive side catalogued for the
 fan-hum application).
 
-[^olson-1953]: H. F. Olson & E. G. May, "Electronic Sound Absorber," *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953. Distilled in `entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953`; see also [[electroacoustic-absorbers]].
-[^galland-2005]: M.-A. Galland, B. Mazeaud & N. Sellen, "Hybrid passive/active absorbers for flow ducts," *Applied Acoustics* 66:691–708, 2005. Distilled in `entities/source-papers.md#paper-galland-hybrid-flowduct-2005`.
-[^betgen-2012]: B. Betgen, M.-A. Galland, E. Piot & F. Simon, "Implementation and non-intrusive characterization of a hybrid active–passive liner with grazing flow," *Applied Acoustics* 73:624–638, 2012. Distilled in `entities/source-papers.md#paper-betgen-galland-hybrid-liner-2012`.
-[^guicking-patents-2009]: D. Guicking, *Patents on Active Control of Sound and Vibration — an Overview*, 2nd ed., Göttingen, May 2009. Distilled in `entities/source-papers.md#paper-guicking-patents-overview`.
-[^mei-2012]: J. Mei, G. Ma, M. Yang, Z. Yang, W. Wen & P. Sheng, "Dark acoustic metamaterials as super absorbers for low-frequency sound," *Nature Communications* 3:756, 2012. Distilled in `entities/source-papers.md#paper-mei-dark-metamaterial-2012`.
-[^wu-2018]: X. Wu, K. Y. Au-Yeung, X. Li, R. C. Roberts, J. Tian, C. Hu, Y. Huang, S. Wang, Z. Yang & W. Wen, "High-efficiency Ventilated Metamaterial Absorber at Low Frequency," arXiv 1801.03613 / *APL* 2018. Distilled in `entities/source-papers.md#paper-wu-ventilated-metamaterial-2018`.
-[^ma-sheng-2016]: G. Ma & P. Sheng, "Acoustic metamaterials: from local resonances to broad horizons," *Science Advances* 2:e1501595, 2016. Distilled in `entities/source-papers.md#paper-ma-sheng-metamaterials-review-2016`.
-[^guicking-overview-2008]: D. Guicking, "Active Control of Sound and Vibration — History, Fundamentals, and State of the Art" (English Festschrift contribution) / "Aktive Lärm- und Schwingungsminderung — Ein Überblick" (Göttingen, December 2008, German). Bilingual pair; distilled jointly in `entities/source-papers.md#paper-guicking-anvc-overview`.
-[^song-2021]: H. Song, X. Ding, Z. Cui & H. Hu, "Research Progress and Development Trends of Acoustic Metamaterials," *Molecules* 26:4018, 2021. Distilled in `entities/source-papers.md#paper-song-acoustic-metamaterials-review-2021`.
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Reflectance of an Impedance](https://ccrma.stanford.edu/~jos/pasp/Reflectance_Impedance.html) (what "presenting impedance $Z_s$" does to the reflected wave), [Passive One-Ports](https://ccrma.stanford.edu/~jos/pasp/Passive_One_Ports.html), [Ideal Acoustic Tube](https://ccrma.stanford.edu/~jos/pasp/Ideal_Acoustic_Tube.html) (plane waves and wave impedance in a duct)
+- [[jos_books/entities/filters-book|Filters]]: [Quality Factor (Q)](https://ccrma.stanford.edu/~jos/filters/Quality_Factor_Q.html) (bandwidth of the resonant absorbers of §3)
+
+[^olson-1953]: H. F. Olson & E. G. May, "Electronic Sound Absorber," *J. Acoust. Soc. Am.* 25(6):1130–1136, 1953. Distilled in [[entities/source-papers#paper-olson-may-electronic-sound-absorber-1953|paper-olson-may-electronic-sound-absorber-1953]]; see also [[electroacoustic-absorbers]].
+[^galland-2005]: M.-A. Galland, B. Mazeaud & N. Sellen, "Hybrid passive/active absorbers for flow ducts," *Applied Acoustics* 66:691–708, 2005. Distilled in [[entities/source-papers#paper-galland-hybrid-flowduct-2005|paper-galland-hybrid-flowduct-2005]].
+[^betgen-2012]: B. Betgen, M.-A. Galland, E. Piot & F. Simon, "Implementation and non-intrusive characterization of a hybrid active–passive liner with grazing flow," *Applied Acoustics* 73:624–638, 2012. Distilled in [[entities/source-papers#paper-betgen-galland-hybrid-liner-2012|paper-betgen-galland-hybrid-liner-2012]].
+[^guicking-patents-2009]: D. Guicking, *Patents on Active Control of Sound and Vibration — an Overview*, 2nd ed., Göttingen, May 2009. Distilled in [[entities/source-papers#paper-guicking-patents-overview|paper-guicking-patents-overview]].
+[^mei-2012]: J. Mei, G. Ma, M. Yang, Z. Yang, W. Wen & P. Sheng, "Dark acoustic metamaterials as super absorbers for low-frequency sound," *Nature Communications* 3:756, 2012. Distilled in [[entities/source-papers#paper-mei-dark-metamaterial-2012|paper-mei-dark-metamaterial-2012]].
+[^wu-2018]: X. Wu, K. Y. Au-Yeung, X. Li, R. C. Roberts, J. Tian, C. Hu, Y. Huang, S. Wang, Z. Yang & W. Wen, "High-efficiency Ventilated Metamaterial Absorber at Low Frequency," arXiv 1801.03613 / *APL* 2018. Distilled in [[entities/source-papers#paper-wu-ventilated-metamaterial-2018|paper-wu-ventilated-metamaterial-2018]].
+[^ma-sheng-2016]: G. Ma & P. Sheng, "Acoustic metamaterials: from local resonances to broad horizons," *Science Advances* 2:e1501595, 2016. Distilled in [[entities/source-papers#paper-ma-sheng-metamaterials-review-2016|paper-ma-sheng-metamaterials-review-2016]].
+[^guicking-overview-2008]: D. Guicking, "Active Control of Sound and Vibration — History, Fundamentals, and State of the Art" (English Festschrift contribution) / "Aktive Lärm- und Schwingungsminderung — Ein Überblick" (Göttingen, December 2008, German). Bilingual pair; distilled jointly in [[entities/source-papers#paper-guicking-anvc-overview|paper-guicking-anvc-overview]].
+[^song-2021]: H. Song, X. Ding, Z. Cui & H. Hu, "Research Progress and Development Trends of Acoustic Metamaterials," *Molecules* 26:4018, 2021. Distilled in [[entities/source-papers#paper-song-acoustic-metamaterials-review-2021|paper-song-acoustic-metamaterials-review-2021]].

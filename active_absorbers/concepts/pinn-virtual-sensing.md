@@ -1,7 +1,7 @@
 ---
 title: PINN Virtual Sensing for Active Noise Control
 created: 2026-04-14
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [anc, fxlms, wave-equation, acoustics, microphone, array, comparison]
 sources:
@@ -95,7 +95,8 @@ sensor upgrade* — see the "Role in the AI-ANC project" section below.
 
 ## The wider PINN-for-acoustics family
 
-Zhang et al. 2023 is a small MLP with a generic Helmholtz loss. Several
+Zhang et al. 2023 is a small MLP with a generic time-domain wave-equation
+loss (frequency-domain PINNs use the Helmholtz equation instead). Several
 more sophisticated architectures have appeared since and are candidates for
 upgrading the basic PINN virtual sensor:
 
@@ -160,7 +161,7 @@ source and time-domain RIR-ESM baselines.
 
 ## Why this is hard
 
-- **Training cost.** PINN training is expensive; the Helmholtz residual
+- **Training cost.** PINN training is expensive; the PDE residual
   needs many collocation points and differentiation through the network at
   each step. Zhang et al.'s $5\times 10^5$ epochs are offline; a real-time
   online variant is an open problem.
@@ -244,7 +245,7 @@ inaccessible-error-mic problem, but the decompositions are orthogonal:
 | --- | --- | --- |
 | Underlying sensor | PINN field model $p_\theta(\mathbf{r}, t)$ | Classical Moreau-style auxiliary filter bank |
 | Network's job | *Represent* the field (predict pressure at virtual target) | *Select* which pre-trained filter to apply |
-| Physics prior | Helmholtz residual in the loss | None in the network; physics lives in the offline AF computation |
+| Physics prior | Wave-equation residual in the loss | None in the network; physics lives in the offline AF computation |
 | Compute budget | Hundreds of thousands of epochs on a small MLP | 1-D CNN inference per noise frame |
 | Runs through FxLMS? | Yes (virtual error signal into multichannel FxLMS) | Yes (selected AF produces virtual error into standard FxLMS) |
 | Transferability across acoustic systems | Online re-training of the PINN | **Cross-system transfer without retraining conv layers** |
@@ -280,10 +281,13 @@ the controller is neural, the extra PINN complexity isn't worth it.
 
 See [[ai-anc-overview]] category 4 for the surrounding taxonomy.
 
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Wave Equation in Higher Dimensions](https://ccrma.stanford.edu/~jos/pasp/Wave_Equation_Higher_Dimensions.html) (the PDE in the physics loss), [Plane Waves in Air](https://ccrma.stanford.edu/~jos/pasp/Plane_Waves_Air.html), [Spherical Waves from a Point Source](https://ccrma.stanford.edu/~jos/pasp/Spherical_Waves_Point_Source.html) (the free-space Green's function behind point-neuron and equivalent-source models)
+
 [^zhang23]: Zhang, Y. A., Ma, F., Abhayapala, T., Samarasinghe, P., Bastine, A., "An Active Noise Control System Based on Soundfield Interpolation Using a Physics-informed Neural Network," arXiv:2309.10605, 2023. See `raw/PINN-ANC-Zhang-2309.10605.txt`.
 [^bi24]: Bi, Y., Abhayapala, T., "Point Neuron Learning: A New Physics-Informed Neural Network Architecture," arXiv:2408.16969, 2024. See `raw/PINN-PointNeuron-2408.16969.txt`.
 [^chen25]: Chen, Z., Zhao, S., Ma, F., Cheng, X., Burnett, I., "Permutation-Invariant Physics-Informed Neural Network for Region-to-Region Sound Field Reconstruction," arXiv:2601.19491, 2025. See `raw/PINN-PermutationInvariant-2601.19491.txt`.
 [^olivieri24]: Olivieri, M., Karakonstantis, X., Pezzoli, M., Antonacci, F., Sarti, A., Fernandez-Grande, E., "Physics-Informed Neural Network for Volumetric Sound Field Reconstruction of Speech Signals," arXiv:2403.09524, 2024. See `raw/PINN-Volumetric-2403.09524.txt`.
 [^borrel21]: Borrel-Jensen, N., Engsig-Karup, A. P., Jeong, C.-H., "Physics-Informed Neural Networks for One-Dimensional Sound Field Predictions with Parameterized Sources and Impedance Boundaries," arXiv:2109.11313, 2021. See `raw/PINN-1D-ParamSources-2109.11313.txt`.
-[^koyama24]: Koyama, S. et al. (attribution tentative), "Physics-Informed Machine Learning for Sound Field Estimation," *IEEE Signal Processing Magazine* invited paper, arXiv:2408.14731, 2024. See `raw/PINN-SoundField-Survey-2408.14731.txt`.
-[^wang24]: Wang et al. (NTU), "Transferable Selective Virtual Sensing Active Noise Control Technique Based on Metric Learning," arXiv:2409.05470, 2024. See `raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt`.
+[^koyama24]: Koyama, S., Ribeiro, J. G. C., Nakamura, T., Ueno, N., Pezzoli, M., "Physics-Informed Machine Learning for Sound Field Estimation," *IEEE Signal Processing Magazine* invited paper, arXiv:2408.14731, 2024. See `raw/PINN-SoundField-Survey-2408.14731.txt`.
+[^wang24]: Wang, B., Shi, D., Luo, Z., Shen, X., Ji, J., Gan, W.-S. (NTU), "Transferable Selective Virtual Sensing Active Noise Control Technique Based on Metric Learning," arXiv:2409.05470, 2024. See `raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt`.

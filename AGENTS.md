@@ -24,6 +24,14 @@ A `### some-heading` inside a multi-entity page (e.g., `entities/source-papers.m
 
 The anchor slug must match the heading text exactly (lowercase with hyphens, as pandoc generates).
 
+## Links into the JOS online books
+
+The four books (mdft, filters, pasp, sasp) are online one HTML page per section: `https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`. Page names follow section titles and CANNOT be guessed (`pasp/Damping.html` does not exist).
+
+- Look the page name up: `grep -i 'group delay' jos_books/catalog/*.tsv` (columns: page name, title, parent page - the parent tells `Foo.html` from `Foo_I.html`).
+- Topical pages end with a `## JOS online books` section: one bullet per book, the hub wikilink first (`[[jos_books/entities/pasp-book|PASP]]`, likewise `mdft-book`, `filters-book`, `sasp-book`), then 2-6 deep links whose text is the book section's title. Leave the section out when no book section really covers the topic.
+- `make book-links` checks every book URL against the catalog; the convention in full is in `jos_books/SCHEMA.md`.
+
 ## Before committing wiki changes
 
-Run `make rebuild` and confirm `(0 errors)` and no `*** broken wikilink` lines. Fix broken links before committing -- they are always fixable (rename target, use anchor syntax, or remove the link).
+Run `make rebuild` and confirm `(0 errors)`, `(0 unknown)` book links, and no `*** broken wikilink` or `*** unknown book page` lines; the build exits 1 on either. Fix broken links before committing - they are always fixable (rename target, use anchor syntax, or remove the link). Run `make test` after touching `scripts/`.

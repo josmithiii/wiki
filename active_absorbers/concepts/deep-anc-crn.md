@@ -1,7 +1,7 @@
 ---
 title: Deep ANC — CRN End-to-End Anti-Noise Prediction
 created: 2026-04-14
-updated: 2026-04-14
+updated: 2026-11-25
 type: concept
 tags: [anc, feedforward, secondary-path, loudspeaker, causality, comparison]
 sources:
@@ -21,13 +21,17 @@ path → error mic), but the "controller" is a CRN.
 
 ## Architecture
 
-- **Input:** short-time STFT of the reference signal $x(n)$.
-- **Encoder:** stack of 2-D convolutions with stride, reducing time-frequency
-  resolution while widening the channel dimension.
-- **Bottleneck:** LSTM across time frames (the "recurrent" in CRN) — gives
-  the model a finite memory of reference-signal context.
-- **Decoder:** mirror of the encoder with transposed convolutions, skip
-  connections from the encoder (U-Net style).
+- **Input:** real and imaginary spectrograms of the reference signal
+  $x(n)$ (16 kHz, 20-ms frames, 10-ms hop, 320-point
+  [[spectral_processing/concepts/short-time-fourier-transform|STFT]]).
+- **Encoder:** five 2-D convolution layers with stride 2 along
+  *frequency*, halving the frequency resolution per layer while widening
+  the channel dimension.
+- **Bottleneck:** two grouped LSTM layers across time frames (the
+  "recurrent" in CRN) — gives the model a memory of reference-signal
+  context.
+- **Decoder:** mirror of the encoder with five transposed convolutions,
+  skip connections from the encoder (U-Net style).
 - **Output head:** two real feature maps representing the real and imaginary
   parts of the anti-noise STFT, $\tilde{Y}(t,f) = \tilde{Y}_r + j\tilde{Y}_i$.
 - Time-domain anti-noise is reconstructed by inverse STFT and driven through
@@ -35,15 +39,20 @@ path → error mic), but the "controller" is a CRN.
 
 ## Training objective
 
-The loss is the squared magnitude of the residual at the error mic, computed
-on a **simulated** secondary path during training:
+The training target is the "ideal anti-noise," i.e. the primary noise
+$d(n)$ at the error mic. The loss is the time-domain mean-square error
+signal, computed through a **simulated** loudspeaker and secondary path:
 $$
-\mathcal{L} = \sum_{t,f}\big|\,D(t,f) - S(t,f)\tilde{Y}(t,f)\,\big|^2
+\mathcal{L} = \frac{1}{L}\sum_{n=1}^{L} e^2(n), \qquad
+e(n) = d(n) - \big(s * f_{\mathrm{LS}}\{y\}\big)(n),
 $$
-where $D(t,f)$ is the primary-path STFT at the error mic and $S(t,f)$ is the
-(simulated) secondary-path transfer function. Because $S$ enters the loss
-directly, the network **learns to pre-compensate the secondary path** — this
-is the role played by the filtered-reference in classical [[fxlms-algorithm]].
+where $y(n)$ is the inverse STFT of the network output, $f_{\mathrm{LS}}$
+is the (possibly saturating) loudspeaker model and $s$ the secondary-path
+impulse response. Because the plant sits inside the loss, the network
+**learns to pre-compensate the secondary path** — this is the role played
+by the filtered-reference in classical [[fxlms-algorithm]]. A second
+training strategy uses noisy speech as the reference and only the noise
+component as the target, so that speech passes through uncancelled.
 
 ## Multi-condition training and generalization
 
@@ -66,10 +75,14 @@ Deep ANC simply inherits the correct backprop gradient through the
 ## Delay compensation / causality
 
 Feedforward ANC requires that the electrical path be faster than the
-acoustic path between reference mic and error mic. Zhang & Wang handle this
-by deliberately aligning the training-time secondary-path delay with the
-reference-vs-primary delay, so the network learns a **causal** mapping
-under the realistic delay budget. The same causality constraint discussed
+acoustic path between reference mic and error mic, and a frequency-domain
+controller adds a latency equal to the STFT frame length on top. Zhang &
+Wang's **delay-compensated training** attacks that latency: the input is
+shifted by $M$ frames (zero-padded at the start) while the target is left
+in place, so the network learns to **predict the cancelling signal $M$
+frames ahead**. With 20-ms frames and a 10-ms hop this buys back
+$10M$ ms (they test $M = 1, 2$), at some cost in accuracy since the
+prediction horizon grows. The same causality constraint discussed
 on [[lms-algorithm]] (Appendix B of Widrow 1975) and [[fxlms-algorithm]]
 still applies — the network does not magically get future samples.
 
@@ -88,9 +101,12 @@ still applies — the network does not magically get future samples.
   ear-cup fit), performance degrades until the network is retrained. This
   is the motivation for [[neural-secondary-path]] and for combining Deep ANC
   with online adaptation.
-- **Latency.** STFT framing adds algorithmic delay. For applications like
-  active headphones with tight causality budgets, frame size and hop
-  size dominate feasibility.
+- **Latency.** STFT framing adds algorithmic delay, which
+  delay-compensated training offsets only by predicting ahead. For
+  applications like active headphones with tight causality budgets, frame
+  size and hop size dominate feasibility (see
+  [[virtual_analog/concepts/real-time-neural-inference-deployment|real-time neural inference]]
+  for the compute side of the budget).
 - **No adaptation.** Unlike [[fxlms-algorithm]], Deep ANC does not
   self-correct if deployment conditions deviate from training. Latent FxLMS
   (Sarkar et al. 2025, see [[fxlms-algorithm]]) offers one path to
@@ -105,7 +121,9 @@ Zhang & Wang 2021 in two directions relevant to real deployments:
   generates training rooms with configurable geometry and $RT_{60}$,
   directly addressing the "trained on anechoic, deployed in rooms" gap
   in the original Deep ANC.
-- **Speech-preservation loss.** A selective-retention term identifies
+- **Speech-preservation loss.** (Zhang & Wang already train a
+  noisy-speech variant that lets speech through; Dai makes preservation
+  an explicit loss term.) A selective-retention term identifies
   speech-like time-frequency regions and penalizes their suppression
   while still cancelling environmental noise. Framing: "semantic
   separation," not pure power minimization. For hearing-aid and

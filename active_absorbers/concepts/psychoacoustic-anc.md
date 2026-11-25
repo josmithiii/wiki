@@ -1,7 +1,7 @@
 ---
 title: Psychoacoustic ANC (tonality, loudness, annoyance)
 created: 2026-04-17
-updated: 2026-04-22
+updated: 2026-11-25
 type: concept
 tags: [anc, psychoacoustic, tonal, fan-noise, industrial, reference]
 sources:
@@ -49,14 +49,17 @@ the complaint metric is the whole point of psychoacoustic ANC.
 Replace $J = E[e^2(n)]$ with a perceptual norm $J_\Psi = E[\|\Psi e\|^2]$
 where $\Psi$ is:
 
-- **A-weighting** — crude but standard; cheap FIR implementation.
+- **[A-weighting](https://ccrma.stanford.edu/~jos/mdft/DBA_A_Weighted_DB.html)** — crude but standard; cheap FIR implementation.
 - **Equal-loudness-contour weighting** at an assumed SPL; better than A
   for 60–120 Hz content but level-dependent.
 - **Bark-/ERB-band loudness weighting** — closer to Zwicker loudness;
-  implemented as a filter-bank before the FxLMS error.
+  implemented as an [auditory filter bank](https://ccrma.stanford.edu/~jos/sasp/Auditory_Filter_Banks.html)
+  before the FxLMS error (see [[fxlms-algorithm]]; filtering the error
+  makes this an FeLMS-type update, [[classical-anc-overview]] §2.2).
 - **Masking-curve weighting** — attenuates error components already
   masked by ambient (wind, traffic); avoids spending actuator authority
-  on inaudible residuals. Related to perceptual audio coding.
+  on inaudible residuals. Related to perceptual audio coding
+  ([[spectral_processing/concepts/spectral-audio-applications|spectral-audio-applications]]).
 - **Tonality-aware cost** — penalise tonal residual more than
   equal-energy broadband residual, e.g. $J_T = \alpha J_{\text{tone}} +
   J_{\text{broad}}$ after spectral decomposition.
@@ -188,6 +191,10 @@ Design insights transferable to rooftop-fan ANC:
 See also: [[classical-anc-overview]] §7 ("Psychoacoustic ANC" row),
 [[tonal-periodic-anc]] (the tonal component this targets),
 [[ai-anc-overview]] (differentiable perceptual losses).
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Loudness Spectrogram](https://ccrma.stanford.edu/~jos/sasp/Loudness_Spectrogram.html), [Specific Loudness](https://ccrma.stanford.edu/~jos/sasp/Specific_Loudness.html), [Auditory Filter Banks](https://ccrma.stanford.edu/~jos/sasp/Auditory_Filter_Banks.html), [The Bark Frequency Scale](https://ccrma.stanford.edu/~jos/sasp/Bark_Frequency_Scale.html), [Equivalent Rectangular Bandwidth](https://ccrma.stanford.edu/~jos/sasp/Equivalent_Rectangular_Bandwidth.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [DBA (A-Weighted DB)](https://ccrma.stanford.edu/~jos/mdft/DBA_A_Weighted_DB.html)
 
 [^rivera-2018]: P. Rivera Benois, V. Papantoni & U. Zölzer, "Psychoacoustic Hybrid Active Noise Control Structure for Application in Headphones," *ICSV25*, Hiroshima, July 2018. Distilled in [paper-rivera-psychoacoustic-hybrid-anc-2018](../entities/source-papers.md#paper-rivera-psychoacoustic-hybrid-anc-2018).
 

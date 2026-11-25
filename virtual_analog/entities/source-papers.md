@@ -1,7 +1,7 @@
 ---
 title: Source Papers -- Distilled Catalog
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-11-25
 type: entity
 tags: [reference, comparison, va-filters, neural-va, oscillator, real-time]
 sources:
@@ -35,8 +35,9 @@ Unless noted otherwise, every entry below is from the *Proceedings of the 29th
 International Conference on Digital Audio Effects (DAFx26), Cambridge, MA, USA,
 1-4 September 2026*, and this is a **pass-1 catalog**: bullets are seeded from
 the annotated bibliography at `/l/dttd/DAFx26/README_JOS.md` plus the abstract
-and opening sections of each paper. Deep distillation into concept pages is
-pass 2.
+and opening sections of each paper. Pass 2 (2026-09-10) distilled most entries
+into concept pages; each entry's "Distilled in" bullet points there, and the
+concept page is the more reliable account where the two differ.
 
 When any single paper needs deeper treatment than the bullet summary supports,
 promote it to a dedicated `entities/paper-<slug>.md` file and leave the section
@@ -55,7 +56,8 @@ here as a cross-link.
 - Results: new stability proofs for the **state-variable filter** and the **Sallen-Key filter** under arbitrary time-varying parameters, and new bounds on the stable time-varying parameter range for the **Moog ladder** and **diode ladder**; counterexamples show the bounds are close to tight.
 - This is the rigorous answer to "is it safe to modulate cutoff at audio rate", which practitioners usually settle empirically.
 - Relates to [[virtual-analog-overview]] (TPT/ZDF family) and to the energy/passivity arguments used for [[wave-digital-filters]] in the waveguide wiki, which get stability from passivity rather than from a Lyapunov certificate.
-- Limitation: a CQLF is sufficient, not necessary - failure to find one does not prove instability, and the ladder bounds are conservative.
+- Limitation: a CQLF is sufficient, not necessary - failure to find one does not prove instability. The ladder ranges are for *arbitrary* (per-sample) switching, where the counterexamples show they are nearly tight; slowly varying parameters are probably safe over wider ranges, but nothing is proved.
+- Distilled in: [[tpt-zdf-filters]] (the discretization) and [[time-varying-filter-stability]] (the CQLF theorem and case studies).
 - Tags: va-filters, tpt-zdf, stability, time-varying, ladder-filter, state-variable, reference
 
 ### paper-oyama-moog-ladder-nonlinearity-2026
@@ -69,6 +71,7 @@ here as a cross-link.
 - Lineage cited: Stilson & Smith 1996, Rossum, Huovilainen, Fontana, Zavalishin, D'Angelo & Valimaki.
 - Useful as the fidelity-versus-cost reference when simplifying nonlinear structure for embedded targets.
 - Limitation: one filter family, one SPICE reference; perceptual relevance of the divergence measures is not established by listening tests.
+- Distilled in: [[moog-ladder-filter-models]] (benchmark and cross-implementation table) and [[ladder-nonlinearity-ablation]] (common-core ablation).
 - Tags: ladder-filter, va-filters, tpt-zdf, spice, nonlinear, benchmark, comparison
 
 ### paper-fontana-allpass-clipping-prevention-2026
@@ -81,6 +84,7 @@ here as a cross-link.
 - Requires no assumption about internal energy evolution - only that the input is not already clipping.
 - Cheap enough for embedded audio hardware; directly relevant to modulated allpass chains in phasers and in [[artificial-reverberation]] allpass diffusers.
 - Limitation: derived for first- and second-order sections; behavior of long cascades and of the resulting (mild) transient nonlinearity is not perceptually evaluated.
+- Distilled in: [[allpass-clipping-prevention]].
 - Tags: allpass, time-varying, stability, va-filters, embedded, real-time
 
 ---
@@ -97,7 +101,8 @@ here as a cross-link.
 - Adaptive step sizing considerably improves agreement with SPICE; a pseudo-inverse implementation is essentially equivalent to the full equality-constrained QP on these cases.
 - Positioned as a bridge between SPICE-like interpretability and VA efficiency; the constraint-stabilization idea is borrowed from rigid-body dynamics.
 - Contrast with the wave-variable route in [[wave-digital-filters]] and with the K-method/Newton solvers in [[wdf-multiple-nonlinearities]].
-- Limitation: no real-time benchmark reported; multi-rate scheduling cost in an audio callback is untested.
+- Limitation: MATLAB prototype - the execution times (faster than SPICE) and a REAPER VST test are preliminary, and the cost of variable-step scheduling inside an audio callback is untested.
+- Distilled in: [[state-space-circuit-solvers]].
 - Tags: circuit-modeling, state-space, spice, nonlinear, oscillator, reference
 
 ### paper-thompson-compressor-control-voltage-2026
@@ -122,10 +127,11 @@ here as a cross-link.
 
 - Observation: the accuracy bottleneck in **antiderivative antialiasing** (ADAA) is no longer the antiderivative order but the discrete-to-continuous reconstruction, which classical ADAA fixes at **linear** (order-1 Lagrange) interpolation.
 - Method: derive the ADAA output for **higher-order Lagrange** reconstruction. There is no general closed form for an arbitrary nonlinearity, so the nonlinearity $f(x)$ is first approximated by **Chebyshev polynomials**, which makes the ADAA integral analytically tractable term by term.
-- Numerical examples show substantially lower aliasing than standard ADAA at comparable order, with the usual ADAA trade-offs (a small lowpass bias and a transient at low input levels) discussed.
+- Numerical examples ($\tanh$ driven at amplitude 9, and a hard clipper) show up to 27 dB SNR gain over no antialiasing, against 10.6 dB for triangular-kernel ADAA; no antiderivative of $f$ is needed and ADAA's $0/0$ ill-conditioning at low input slope disappears.
 - Natural companion to oversampling: a way to buy aliasing suppression without raising the sample rate, relevant to saturators, waveshapers and oscillators alike.
 - See [[virtual-analog-overview]] for where ADAA sits among the antialiasing options.
-- Limitation: memoryless nonlinearities only; the Chebyshev fit adds design-time work per nonlinearity and per amplitude range.
+- Limitation: memoryless nonlinearities and finite-support (rectangular, triangular) kernels only; costlier per sample than plain ADAA unless a lookup table replaces $f$.
+- Distilled in: [[antiderivative-antialiasing]] (ADAA background) and [[polyadaa]] (the method and results).
 - Tags: adaa, antialiasing, nonlinear, oversampling, va-filters, reference
 
 ### paper-roth-alias-free-oscillator-sync-2026
@@ -136,8 +142,9 @@ here as a cross-link.
 - Method: work entirely in the **Fourier series**. Starting from a finite set of coefficients for a bandlimited free-running waveform, derive **linear spectral-resampling transforms** that map those coefficients to the coefficients of the bandlimited *synchronized* waveform - alias-free by construction rather than by correction.
 - Supports conventional **hard sync** plus two additional **soft-sync** modes.
 - Hardware: **HASY**, a 6 mm$^2$ ASIC in 65 nm CMOS that generates one 96 kHz, 24-bit alias-free synchronized waveform with up to **512 harmonics** and computes the spectral-resampling transform within five audio-sample periods.
-- Contrast with the correction-based family (BLEP/BLAMP, polyBLEP) and with ADAA in [[entities/source-papers#paper-gabrielli-polyadaa-2026]]; also catalogued from the additive-synthesis side in the spectral wiki.
+- Contrast with the correction-based family (BLEP/BLAMP, polyBLEP) and with ADAA in [[entities/source-papers#paper-gabrielli-polyadaa-2026]]; also noted from the additive-synthesis side in the spectral wiki ([[spectral_processing/concepts/sinusoidal-modeling|sinusoidal modeling]]).
 - Limitation: cost scales with the harmonic count, which is why a tapeout was needed; on a general-purpose CPU the method is expensive for low-pitched, harmonic-rich waveforms.
+- Distilled in: [[alias-free-oscillator-sync]] (the transforms) and [[hasy-asic]] (the chip).
 - Tags: oscillator-sync, oscillator, additive, antialiasing, asic, real-time
 
 ### paper-argentieri-arbitrary-polygon-oscillator-2026
@@ -204,8 +211,9 @@ here as a cross-link.
 - Contribution: close that quality gap with (1) **deep control-conditioned LSTMs** and (2) a **gammatone filterbank (GFB) loss** in place of a plain spectral loss.
 - Result: the regularized models reach comparable accuracy to unregularized baselines while remaining artifact-free under time-varying control.
 - Sits in the black-box corner of the taxonomy laid out in [[virtual-analog-overview]] (white-box / grey-box / black-box).
-- Limitation: stability regularization is still a soft constraint, not a certificate in the sense of [[entities/source-papers#paper-mcclellan-time-varying-va-stability-2026]].
-- Tags: neural-va, rnn, stability, time-varying, amplifier, real-time
+- Limitation: the constraints are enforced exactly (by reparameterization), but what they guarantee is asymptotic stability under *zero audio input*, and the better-performing spectral-norm variant has no formal guarantee - not a BIBO certificate in the sense of [[entities/source-papers#paper-mcclellan-time-varying-va-stability-2026]].
+- Distilled in: [[neural-va-architectures]].
+- Tags: neural-va, rnn, stability, time-varying, pedal, real-time
 
 ### paper-massi-fno-sample-rate-independent-va-2026
 
@@ -215,7 +223,8 @@ here as a cross-link.
 - Method: a **Fourier Neural Operator** (FNO) adapted to fixed-duration audio frames. The learned map is defined over a fixed *temporal support* and evaluated on uniform grids of different densities, so one trained model applies at unseen sampling resolutions in either direction.
 - Result on a nonlinear transistor circuit: competitive accuracy in upsampling scenarios and directly applicable to **downsampling**, where the sample-rate-independent recurrent baseline is not.
 - Principled answer to a practical deployment headache (the DAW runs at 44.1, 48, 96 or 192 kHz; the model was trained at one of them).
-- Limitation: frame-based, so not a lowest-latency architecture; one circuit tested.
+- Limitation: frame-based (20 ms frames, no state carried across frames); one circuit tested.
+- Distilled in: [[fourier-neural-operators-va]].
 - Tags: neural-va, fno, circuit-modeling, nonlinear, real-time
 
 ---
@@ -232,6 +241,7 @@ here as a cross-link.
 - Reported quantities are **tail latency and deadline violations** rather than mean throughput - the right metric for a callback - and the study asks whether isolated rankings survive realistic contention.
 - Also a good summary of why GPU/NPU paths are generally not callback-safe.
 - Limitation: macOS/Apple Silicon only; results are architecture- and model-size-specific.
+- Distilled in: [[real-time-neural-inference-deployment]].
 - Tags: real-time, apple-silicon, benchmark, neural-va, plugin
 
 ### paper-huang-snapdragon-gpu-neural-audio-2026
@@ -244,6 +254,7 @@ here as a cross-link.
 - Because the Snapdragon family shares hardware and toolchain across boards, phones and laptops, the trends are argued to transfer beyond the tested device.
 - Mobile companion to [[entities/source-papers#paper-balasubramaniam-apple-silicon-neural-audio-2026]].
 - Limitation: one vendor's SDK; no plugin-host contention scenario as in the Apple Silicon study.
+- Distilled in: [[mobile-gpu-neural-audio]].
 - Tags: real-time, gpu, embedded, benchmark, neural-va
 
 ### paper-sato-wavenet-pruning-ios-2026
@@ -256,6 +267,7 @@ here as a cross-link.
 - Demo format: visitors play a guitar through the iPhone app and A/B the pruned on-device model against the physical pedal it emulates. Code at `https://github.com/ryos17/wavenet-imp`.
 - Complements the framework benchmarks above: pruning attacks the model, not the runtime.
 - Limitation: demo paper; no formal listening test behind "no perceptible loss", and the sparse engine's advantage depends on the achievable sparsity pattern.
+- Distilled in: [[neural-model-compression]].
 - Tags: pruning, wavenet, neural-va, ios, real-time, amplifier, plugin
 
 ---

@@ -1,7 +1,7 @@
 ---
 title: ML Modal Parameter Estimation
 created: 2026-04-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal-synthesis, ml, neural, differentiable, dsp, inference]
 sources:
@@ -21,12 +21,12 @@ from audio.
 
 ## Neural Mode Prediction
 
-### NeuralSound (Jin et al. 2020, 2022)
-- Neural network predicts eigenvalues and eigenvectors from voxelized 3D shapes
+### Deep-Modal and NeuralSound (Jin et al. 2020, 2022)
+- Neural network predicts eigenvalues and eigenvectors from voxelized 3D shapes (Deep-Modal, ACM MM 2020)
 - Circumvents expensive FEM eigensolve
 - Adaptive scaling for different sizes and materials
 - Limitation: discrete voxel positions, post-processing needed for material transfer
-- Extended in 2022 with acoustic transfer functions for radiation
+- Extended in NeuralSound (SIGGRAPH 2022) with acoustic transfer functions for radiation
 
 ### DiffSound (Jin, Xu et al., SIGGRAPH 2024)[^1]
 - Fully differentiable pipeline: mesh → FEM → eigensolve → audio
@@ -41,7 +41,7 @@ from audio.
 ### DiffImpact (Clarke et al., CoRL 2021)[^2]
 - Fully differentiable generative model for rigid-body impact sounds
 - Components: impact force profile + modal impulse response + noise + reverb
-- Modal IR: K decaying sinusoids with learnable (f_k, g_k, d_k)
+- Modal IR: $K$ decaying sinusoids with learnable $(f_k, g_k, d_k)$
 - Force profile: Gaussian approximation of Hertz half-sine contact
 - Gradient-based joint inference of acoustic properties and impact characteristics
 - Can be plugged as decoder of an autoencoder for self-supervised learning
@@ -90,11 +90,12 @@ from audio.
 - [[resonator-bank-implementation]] — the DSP structure being learned
 - [[gpu-modal-synthesis]] — GPU acceleration for large mode counts
 - [[rigid-body-sound-synthesis]] — application domain
+- [[realimpact-dataset]] — measured impact sound fields for training and sim-to-real evaluation
 - **DAFx26 additions (Sept 2026):** the 1st DAFx plate-reverb parameter-estimation challenge and its entries - diagonal complex SSMs as modal banks, count-density networks, matrix-pencil initialization, differentiable modal plate synthesis, and the finding that neural nets work best as initializers for a local search - see [[entities/source-papers#the-1st-dafx-parameter-estimation-challenge-plate-reverb]]
 - Distilled in full: [[plate-reverb-parameter-estimation-challenge]] (model, tasks, metrics, rankings), [[state-space-models-as-modal-resonator-banks]] and [[modal-pole-harvesting-from-irs]]
 
 ## References
 [^1]: Jin, Xu, Gao, Wu, Wang & Li (2024). "DiffSound." SIGGRAPH Conference Papers.
-[^2]: Clarke, Heravi, Rau, Gao, James, Wu & Bohg (2021). "DiffImpact." CoRL.
+[^2]: Clarke, Heravi, Rau, Gao, Wu, James & Bohg (2021). "DiffImpact." CoRL.
 [^3]: Diaz, Hayes, Saitis, Fazekas & Sandler (2023). "Rigid-Body Sound Synthesis with Differentiable Modal Resonators." ICASSP.
-[^4]: Lee, Choi, Park & Lee (2024). "Differentiable Modal Synthesis for Physical Modeling of Planar String Sound and Motion Simulation." NeurIPS.
+[^4]: Lee, Park, Choi & Lee (2024). "Differentiable Modal Synthesis for Physical Modeling of Planar String Sound and Motion Simulation." NeurIPS.

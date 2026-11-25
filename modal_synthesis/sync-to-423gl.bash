@@ -28,6 +28,13 @@ def resolve(target, source_dir):
     target, anchor = (target.strip().split('#', 1) + [''])[:2]
     anchor = ('#' + anchor) if anchor else ''
     bare = os.path.basename(target)
+    # Explicit sibling-sub-wiki path (e.g. jos_books/index, waveguide_synthesis/concepts/foo):
+    # point at GitHub. Checked first, because a bare name such as 'index' also exists here.
+    top = target.split('/')[0]
+    if ('/' in target and os.path.isdir(os.path.join(SRC_ROOT, top))
+            and os.path.join(SRC_ROOT, top) != SRC_DIR
+            and os.path.isfile(os.path.join(SRC_ROOT, target + '.md'))):
+        return GITHUB + target + '.md' + anchor
     if bare in existing:
         rel = existing[bare]
     else:

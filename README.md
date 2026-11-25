@@ -30,7 +30,9 @@ Each subdirectory is an independent wiki with its own SCHEMA.md, index.md, and l
    [Obsidian](https://obsidian.md/) vault to get clickable link
    navigation and graph view.
 3. Or build the static multi-wiki web site: `make rebuild` (see
-   `build/` and `scripts/`). The build includes `graph.html`, an
+   `build/` and `scripts/`; needs `pandoc`; `make test` runs the unit
+   tests). The build fails on a broken wikilink or an unknown book link.
+   It includes `graph.html`, an
    interactive D3 knowledge graph of every page and wikilink (search,
    filter by sub-wiki or page type, hover to highlight neighbors, click
    to open), modeled on the
@@ -52,12 +54,43 @@ Licensed MIT (see `LICENSE`).
 
 ## Active Wikis
 
-- `waveguide_synthesis/` -- Digital waveguide modeling: traveling waves, scattering junctions, instrument models, reverb
-- `modal_synthesis/` -- Physics-based synthesis using measured or computed modes of vibration
-- `spectral_processing/` -- Spectral audio signal processing (JOS SASP book): STFT, windows, OLA/FBS, sinusoidal/SMS modeling, phase vocoder, filter banks
-- `virtual_analog/` -- Virtual analog modeling: VA filters and their time-varying stability, circuit/DAE solvers, antialiasing (ADAA), oscillators, neural VA, real-time deployment
-- `active_absorbers/` -- Active absorbers and active noise control (ANC): adaptive filters, feedforward/feedback control, active impedance, ANC headphones
-- `projects/` -- Cross-agent shared project state, decisions, and coordination
+- `waveguide_synthesis/` - Digital waveguide modeling: traveling waves, scattering junctions, instrument models, reverb
+- `modal_synthesis/` - Physics-based synthesis using measured or computed modes of vibration
+- `spectral_processing/` - Spectral audio signal processing (JOS SASP book): STFT, windows, OLA/FBS, sinusoidal/SMS modeling, phase vocoder, filter banks
+- `virtual_analog/` - Virtual analog modeling: VA filters and their time-varying stability, circuit/DAE solvers, antialiasing (ADAA), oscillators, neural VA, real-time deployment
+- `active_absorbers/` - Active absorbers and active noise control (ANC): adaptive filters, feedforward/feedback control, active impedance, ANC headphones
+- `jos_books/` - Hub pages for the four JOS online books (MDFT, Filters, PASP, SASP): chapter maps, deep links, and the catalog of valid book page names
+- `projects/` - Cross-agent shared project state, decisions, and coordination (not part of the web build)
+
+## JOS online books
+
+The wiki is anchored to Julius O. Smith III's four free online books:
+
+| Book | Online | Hub page |
+|------|--------|----------|
+| Mathematics of the DFT (MDFT) | <https://ccrma.stanford.edu/~jos/mdft/> | `jos_books/entities/mdft-book.md` |
+| Introduction to Digital Filters (Filters) | <https://ccrma.stanford.edu/~jos/filters/> | `jos_books/entities/filters-book.md` |
+| Physical Audio Signal Processing (PASP) | <https://ccrma.stanford.edu/~jos/pasp/> | `jos_books/entities/pasp-book.md` |
+| Spectral Audio Signal Processing (SASP) | <https://ccrma.stanford.edu/~jos/sasp/> | `jos_books/entities/sasp-book.md` |
+
+`waveguide_synthesis/` distills PASP and `spectral_processing/` distills
+SASP; MDFT and Filters are the shared background of every sub-wiki. Topical
+pages end with a `## JOS online books` section of deep links into the
+relevant book sections, plus a wikilink to the book's hub page (so the
+knowledge graph shows which pages rest on which book).
+
+Each book is served one HTML page per section, at
+`https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`. Page names follow
+section titles and cannot be guessed reliably, so:
+
+- look the name up in `jos_books/catalog/<book>.tsv` (page name, title,
+  parent page), e.g. `grep -i 'group delay' jos_books/catalog/*.tsv`;
+- `make book-links` (run by `make rebuild`) fails on any book link that is
+  not in the catalog;
+- `make book-catalog` regenerates the catalog from the local book builds in
+  `/w/<book>/<book>HTML/` after a book's HTML has been rebuilt and uploaded.
+
+The full convention is in `jos_books/SCHEMA.md`.
 
 ## PDF ingestion convention (all wikis)
 
@@ -75,9 +108,8 @@ those markdown files *are* part of the wiki's local state but are still
 gitignored along with the rest of `raw/`.
 
 **Never use the `Read` tool on a PDF directly** -- always convert with
-`pdf2txt.py` first and read the `.txt` instead. This is enforced by the
-[PDF convert first](~/.claude/projects/-Users-jos-wiki/memory/feedback_pdf_convert_first.md)
-feedback memory.
+`pdf2txt.py` first and read the `.txt` instead (for JOS's own agents this
+is also recorded as the "PDF convert first" feedback memory).
 
 ### Staging downloaded PDFs
 

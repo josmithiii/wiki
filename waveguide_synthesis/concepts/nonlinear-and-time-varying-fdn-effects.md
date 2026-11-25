@@ -1,7 +1,7 @@
 ---
 title: Nonlinear and Time-Varying FDN Effects
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [reverb, fdn, nonlinear, dsp, realtime]
 sources:
@@ -30,7 +30,7 @@ and aliasing can appear. All experiments run at $f_s = 96$ kHz.
 
 | Operation | Mechanism | Spectrum | Mults/sample |
 |---|---|---|---|
-| Controllable full-wave rectifier (CFWR) | $y = g_{\text{cfwr}}\big((1-\alpha)x + \alpha|x|\big)$, $g_{\text{cfwr}} = \sqrt{2-2|\alpha-1/2|}$ | all even harmonics, then odd by recursion; strong DC | 8 |
+| Controllable full-wave rectifier (CFWR) | $y = g_{\text{cfwr}}\big((1-\alpha)x + \alpha\lvert x\rvert\big)$, $g_{\text{cfwr}} = \sqrt{2-2\lvert\alpha-1/2\rvert}$ | all even harmonics, then odd by recursion; strong DC | 8 |
 | Signal-dependent fractional delay (SDFD) | half-wave rectify, delay $+$ part by $\approx 1+d$ and $-$ part by $\approx 1-d$, sum | even harmonics, weaker; distortion at zero crossings | 4 |
 | Ring modulation (RM) | $y = g_{\text{rm}}\, x \sin(2\pi f_{\text{rm}} n)$, $g_{\text{rm}} = \sqrt{2}$ | sidebands at $\pm f_{\text{rm}}$, carrier suppressed | 2 |
 | Time compression/expansion | one ring buffer, two read pointers offset by half the modulation period, equal-power crossfade, cubic interpolation; pointer advances by $2^{T_{st}/12}$ | true octave transposition | 12 |
@@ -82,6 +82,11 @@ octave-up time compression on the four longest lines only.
 - [[artificial-reverberation]] - the linear FDN this modifies
 - [[fdn-kronecker-feedback-matrices]] - lossless time-varying mixing, the other route to animation
 - [[delay-line-techniques]] - the ring-buffer pitch shifting and fractional delay used here
+- [[virtual_analog/concepts/antiderivative-antialiasing|antiderivative antialiasing]] - the ADAA used on the rectifier
 - [[entities/source-papers#paper-dalsanto-nonlinear-shimmer-fdn-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [FDN Reverberation](https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberation.html), [Achieving Desired Reverberation Times](https://ccrma.stanford.edu/~jos/pasp/Achieving_Desired_Reverberation_Times.html), [Stability of Nonlinear Feedback Loops](https://ccrma.stanford.edu/~jos/pasp/Stability_Nonlinear_Feedback_Loops.html), [Time Varying Reverberators](https://ccrma.stanford.edu/~jos/pasp/Time_Varying_Reverberators.html)
+- [[jos_books/entities/filters-book|Filters]]: [DC Blocker](https://ccrma.stanford.edu/~jos/filters/DC_Blocker.html)
 
 [^dalsanto]: G. Dal Santo, X. Pi, K. Prawda, S. J. Schlecht, V. Valimaki, "Shimmer Reverberation with Nonlinear Feedback Delay Networks," DAFx26. See [[entities/source-papers#paper-dalsanto-nonlinear-shimmer-fdn-2026]].

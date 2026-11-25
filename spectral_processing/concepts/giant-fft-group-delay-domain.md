@@ -1,7 +1,7 @@
 ---
 title: Giant FFT Group Delay Domain
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [fft, dft, phase-unwrap, modifications, applications, stft]
 sources:
@@ -87,5 +87,9 @@ locking (Laroche and Dolson), see
 - [[zero-padding-and-interpolation]] - zero padding as aliasing insurance
 - [[entities/source-papers#paper-apel-giant-fft-group-delay-2026]] - catalog entry
 
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Group Delay](https://ccrma.stanford.edu/~jos/filters/Group_Delay.html), [Numerical Computation of Group Delay](https://ccrma.stanford.edu/~jos/filters/Numerical_Computation_Group_Delay.html), [Phase Unwrapping](https://ccrma.stanford.edu/~jos/filters/Phase_Unwrapping.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Shift Theorem](https://ccrma.stanford.edu/~jos/mdft/Shift_Theorem.html), [Zero Padding](https://ccrma.stanford.edu/~jos/mdft/Zero_Padding.html)
+
 [^apel-2026]: Ted Apel, "Group Delay Manipulation for Creative Sound Transformation with the Giant FFT," *Proc. DAFx26*, Cambridge MA, Sept. 2026, pp. 19-24. Distilled in [[entities/source-papers#paper-apel-giant-fft-group-delay-2026]].
-[^jos-groupdelay]: The paper cites JOS, "Numerical Computation of Group Delay" (`https://ccrma.stanford.edu/~jos/fp/`), for computing $\tau_g$ from the complex spectrum without unwrapping.
+[^jos-groupdelay]: The paper cites JOS, [Numerical Computation of Group Delay](https://ccrma.stanford.edu/~jos/filters/Numerical_Computation_Group_Delay.html) (*Introduction to Digital Filters*; the paper gives the book's former `~jos/fp/` address), for computing $\tau_g$ from the complex spectrum without unwrapping.

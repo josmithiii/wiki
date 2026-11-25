@@ -1,7 +1,7 @@
 ---
 title: DTFT and Fourier Theorems
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [dft, dtft, ft-theorems]
 sources:
@@ -10,6 +10,8 @@ sources:
   - /w/sasp/case-ft.tex
   - /w/sasp/dtft-thms.tex
   - /w/sasp/thms-ct.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Selected_Continuous_Fourier_Theorems.html
+  - https://ccrma.stanford.edu/~jos/sasp/Fourier_Transforms_Continuous_Discrete_Time_Frequency.html
 ---
 
 # DTFT and Fourier Theorems
@@ -52,18 +54,22 @@ with a complex sinusoid basis $s_\omega(n) = e^{j\omega n}$.
 | Modulation | $e^{j\omega_0 n}\, x(n) \;\leftrightarrow\; X(\omega-\omega_0)$ |
 | Convolution | $x\ast y \;\leftrightarrow\; X\cdot Y$ |
 | Multiplication | $x\cdot y \;\leftrightarrow\; \tfrac{1}{2\pi} X \circledast Y$ |
-| Parseval | $\sum |x(n)|^2 \;=\; \tfrac{1}{2\pi}\int |X(\omega)|^2 d\omega$ |
-| Correlation | $r_{xy}(l) \;\leftrightarrow\; X(\omega)\overline{Y(\omega)}$ |
+| Parseval | $\sum_n \lvert x(n)\rvert^2 \;=\; \tfrac{1}{2\pi}\int_{-\pi}^{\pi} \lvert X(\omega)\rvert^2 d\omega$ |
+| Correlation | $(x\star y)(l) \triangleq \sum_m \overline{x(m)}\,y(m+l) \;\leftrightarrow\; \overline{X(\omega)}\,Y(\omega)$ |
 | Flip/conj | $\overline{x(-n)} \;\leftrightarrow\; \overline{X(\omega)}$ |
 
 ## Poisson Summation (the bridge)
 
-Sampling in one domain $\Leftrightarrow$ periodization in the other:
-$$\sum_{n} x(nT)\, e^{-j\omega nT} \;=\; \frac{1}{T}\sum_{k} X\!\left(\omega - \tfrac{2\pi k}{T}\right)$$
+Sampling in one domain $\Leftrightarrow$ periodization (aliasing) in
+the other. In the form SASP uses for windows (hop $R$, $\omega_k = 2\pi k/R$):
+$$\sum_{m} w(n-mR) \;=\; \frac{1}{R}\sum_{k=0}^{R-1} W(\omega_k)\, e^{j\omega_k n}$$
+Its Fourier dual is the sampling (aliasing) theorem,
+$\sum_n x(nT)e^{-j\omega nT} = \tfrac{1}{T}\sum_k X(\omega - 2\pi k/T)$.
 
-This is the foundation of the **aliasing theorem**, the COLA window
-condition in [[overlap-add-stft]], and the Nyquist view of bin decimation
-in [[filter-bank-summation-stft]].
+This is the foundation of the COLA window condition in
+[[overlap-add-stft]], of the Nyquist($N$) window condition in
+[[filter-bank-summation-stft]], and of aliasing under downsampling
+([[multirate-filter-banks]]).
 
 ## Why These Matter
 
@@ -77,3 +83,7 @@ in [[filter-bank-summation-stft]].
 - [[zero-padding-and-interpolation]] — sampling the DTFT via DFT
 - [[short-time-fourier-transform]] — DTFT + windowing
 - [[spectrum-analysis-windows]] — windowing = multiplication = convolution in $\omega$
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Fourier Theorems for the DTFT](https://ccrma.stanford.edu/~jos/sasp/Fourier_Theorems_DTFT.html), [Discrete Time Fourier Transform](https://ccrma.stanford.edu/~jos/sasp/Discrete_Time_Fourier_Transform.html), [Continuous Fourier Theorems](https://ccrma.stanford.edu/~jos/sasp/Selected_Continuous_Fourier_Theorems.html), [Poisson Summation Formula](https://ccrma.stanford.edu/~jos/sasp/Poisson_Summation_Formula.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Fourier Theorems for the DFT](https://ccrma.stanford.edu/~jos/mdft/Fourier_Theorems_DFT.html), [Discrete Time Fourier Transform (DTFT)](https://ccrma.stanford.edu/~jos/mdft/Discrete_Time_Fourier_Transform.html)

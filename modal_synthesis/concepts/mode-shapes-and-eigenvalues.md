@@ -1,11 +1,12 @@
 ---
 title: Mode Shapes and Eigenvalues
 created: 2026-04-09
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [eigenmode, modal, vibration, wave-equation, acoustics]
 sources:
   - /w/pasp/modal.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
 ---
 
 # Mode Shapes and Eigenvalues
@@ -57,7 +58,7 @@ This decoupling is the key advantage — N independent SDOF oscillators.
 ## Continuous Systems
 For continuous objects (plates, strings, membranes):
 - PDE replaces matrix equation (e.g., wave equation, plate equation)
-- Mode shapes are functions: phi_k(x,y) or phi_k(x,y,z)
+- Mode shapes are functions: $\phi_k(x,y)$ or $\phi_k(x,y,z)$
 - Frequencies and shapes depend on geometry and boundary conditions
 
 Examples:
@@ -66,16 +67,22 @@ Examples:
 - 1D string: $\phi_k(x) = \sin(k\pi x/L)$, $f_k = k f_1$ (harmonic series)
 
 ## Radiation and Pickup
-Output pressure at microphone position $r_m$:
-$$p(t) \;\sim\; \sum_k \phi_k(r_{\text{excite}})\, \phi_k(r_{\text{pickup}})\, q_k(t)$$
+For a point force $f(t)$ at $r_{\text{excite}}$, the motion observed at $r_{\text{pickup}}$ is
+$$y(t) \;=\; \sum_k \phi_k(r_{\text{excite}})\, \phi_k(r_{\text{pickup}})\, (h_k * f)(t)$$
+with $h_k$ the impulse response of mode $k$'s oscillator (radiated pressure adds a
+per-mode transfer factor, see [[radiation-and-directivity]]).
 
 - $\phi_k(r_{\text{excite}})$ = mode shape at excitation point → determines input coupling
 - $\phi_k(r_{\text{pickup}})$ = mode shape at pickup point → determines output coupling
-- Changing pickup = changing a_k weights with no frequency change
+- Changing pickup = changing the $a_k$ weights with no frequency change
 
 ## Related Concepts
 - [[modal-synthesis-overview]] — top-level synthesis paradigm
 - [[resonator-bank-implementation]] — DSP implementation of modal coordinates
-- [[fem-bem-for-modal-synthesis]] — computing phi_k and omega_k numerically
-- [[modal-analysis-measurement]] — measuring phi_k and omega_k experimentally
+- [[fem-bem-for-modal-synthesis]] — computing $\phi_k$ and $\omega_k$ numerically
+- [[modal-analysis-measurement]] — measuring $\phi_k$ and $\omega_k$ experimentally
 - [[modes-of-non-orientable-surfaces]] — closed-form modes on quotient spaces (Mobius, Klein bottle, RP2)
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [State Space Approach to Modal Expansions](https://ccrma.stanford.edu/~jos/pasp/State_Space_Approach_Modal.html), [Modal Representation](https://ccrma.stanford.edu/~jos/pasp/Modal_Representation.html)
+- [[jos_books/entities/filters-book|Filters]]: [Modal Representation](https://ccrma.stanford.edu/~jos/filters/Modal_Representation.html), [Diagonalizing a State-Space Model](https://ccrma.stanford.edu/~jos/filters/Diagonalizing_State_Space_Model.html)

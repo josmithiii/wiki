@@ -1,7 +1,7 @@
 ---
 title: QIFFT Peak Estimation
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [qifft, peak-detection, sinusoidal]
 sources:
@@ -10,6 +10,8 @@ sources:
   - /w/sasp/peaks.tex
   - /w/sasp/findpeaks.tex
   - /w/sasp/maxr.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Optimal_Peak_Finding_Spectrum.html
+  - https://ccrma.stanford.edu/~jos/sasp/Sinusoidal_Peak_Interpolation.html
 ---
 
 # QIFFT Peak Estimation
@@ -22,8 +24,8 @@ noise.
 
 ## Algorithm
 
-Given FFT magnitudes $\alpha = |X(k-1)|$, $\beta = |X(k)|$,
-$\gamma = |X(k+1)|$ in **dB** (log magnitude), fit
+Given the **dB** magnitudes $\alpha$, $\beta$, $\gamma$ of bins $k-1$, $k$
+(the local maximum) and $k+1$ of a zero-padded FFT, fit
 $$y(p) \;=\; a(p - p_0)^2 + b$$
 to the three samples. The parabolic vertex is:
 $$p_0 \;=\; \frac{1}{2}\,\frac{\alpha - \gamma}{\alpha - 2\beta + \gamma}$$
@@ -32,7 +34,7 @@ $$y_{\max} \;=\; \beta - \tfrac{1}{4}(\alpha - \gamma)\, p_0$$
 Estimates:
 - **Frequency**: $\hat{f} = (k + p_0)\, f_s / N$
 - **Amplitude (dB)**: $y_{\max}$
-- **Phase**: linear interpolation of **unwrapped** phase at $k + p_0$
+- **Phase**: linear (or quadratic) interpolation of the **unwrapped** phase at $k + p_0$
 
 ## Why Log Magnitude
 
@@ -44,22 +46,28 @@ approximately parabolic main-lobe tops — flatter tops give lower bias.
 
 ## Bias vs Window Type
 
-Peak-frequency bias (% of $f_s/M$) for minimum zero-padding factors:
+Approximate peak-frequency bias (% of $f_s/M$) versus zero-padding
+factor $L = N/M$, from the Abe-Smith fits behind SASP's
+minimum-zero-padding tables (`zpfmin.m`):
 
 | Window | Bias at $L=2$ | Bias at $L=5$ |
 |--------|--------------:|--------------:|
 | Rectangular | ~1% | $<0.1$% |
-| Hann/Hamming | ~0.3% | $<0.05$% |
+| Hann/Hamming | ~0.2% | $<0.05$% |
 | Blackman | ~0.1% | $<0.01$% |
 | Blackman-Harris | $<0.1$% | negligible |
 
-**Rule**: zero-padding factor $L \ge 5$ makes bias perceptually
-inaudible for any standard window (~2 cents).
+**Rule**: zero-padding factor $L \ge 5$ makes the bias inaudible for
+any standard window (a 0.1% frequency error is about 2 cents). Windows
+with flatter main-lobe tops need less: see the minimum-$L$ table in
+[[zero-padding-and-interpolation]].
 
 ## Optimality
 
 QIFFT is:
-- **ML-optimal** for a **single** sinusoid in white noise, asymptotically
+- Extremely close to the **maximum-likelihood** estimator for a **single**
+  sinusoid in white noise (the ML estimate is the peak of the
+  rectangular-window DTFT magnitude)
 - Near-ML for multiple **well-separated** sinusoids
 - **Perceptually optimal** for $L \ge 5$: errors below JND
 
@@ -73,7 +81,7 @@ Breakdown cases:
 - Always use dB magnitude, not linear.
 - Always use **zero-phase zero padding** for clean phase interpolation.
 - Pick peaks as local maxima with a minimum amplitude threshold and a
-  minimum separation (≥ 1 main-lobe width) — see `findpeaks.m`.
+  minimum separation (≥ 1 main-lobe width) — see [`findpeaks.m`](https://ccrma.stanford.edu/~jos/sasp/Matlab_listing_findpeaks_m.html).
 - Unwrap phase before interpolating (see [[phase-vocoder-and-tsm]]).
 
 ## Reassignment (brief)
@@ -89,3 +97,6 @@ QIFFT but more expensive; complementary.
 - [[zero-padding-and-interpolation]] — required for accurate peaks
 - [[gaussian-and-chirp-windows]] — QIFFT is exact for Gaussian
 - [[nonstationary-sinusoidal-estimation-ddm]] - DDM/PMS estimator for nonstationary partials
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Quadratic Interpolation of Spectral Peaks](https://ccrma.stanford.edu/~jos/sasp/Quadratic_Interpolation_Spectral_Peaks.html), [Bias of Parabolic Peak Interpolation](https://ccrma.stanford.edu/~jos/sasp/Bias_Parabolic_Peak_Interpolation.html), [Optimal Peak-Finding in the Spectrum](https://ccrma.stanford.edu/~jos/sasp/Optimal_Peak_Finding_Spectrum.html), [Maximum Likelihood Sinusoid Estimation](https://ccrma.stanford.edu/~jos/sasp/Maximum_Likelihood_Sinusoid_Estimation.html), [Matlab listing: qint.m](https://ccrma.stanford.edu/~jos/sasp/Matlab_listing_qint_m.html), [Time-Frequency Reassignment](https://ccrma.stanford.edu/~jos/sasp/Time_Frequency_Reassignment.html)

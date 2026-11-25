@@ -1,13 +1,16 @@
 ---
 title: Sinusoidal Parameter Interpolation
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [sinusoidal, modifications]
 sources:
   - /w/sasp/sinespecinterp.tex
   - /w/sasp/additivesynth.tex
+  - /w/sasp/parshl.tex
   - /w/sasp/oscbank.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Additive_Synthesis.html
+  - https://ccrma.stanford.edu/~jos/sasp/Synthesis_Step_7.html
 ---
 
 # Sinusoidal Parameter Interpolation
@@ -44,8 +47,8 @@ polynomial** satisfying 4 boundary conditions:
 $$\phi(n) \;=\; \phi_m + \omega_m(n-mR) + \alpha(n-mR)^2 + \beta(n-mR)^3$$
 
 The integer $M^\ast$ is chosen so that the cubic has minimal "wiggle"
-(McAulay-Quatieri unwrapping rule) — pick $M^\ast$ to minimize the
-integral of $|\ddot\phi|^2$. Closed form:
+(the McAulay-Quatieri "maximally smooth" rule, also used by PARSHL) —
+pick $M^\ast$ to minimize the integral of $|\ddot\phi|^2$. Closed form:
 $$M^\ast \;=\; \operatorname{round}\!\left[\frac{1}{2\pi}\!\left(\phi_m + \omega_m R - \phi_{m+1}\right) + \tfrac{R}{4\pi}(\omega_{m+1} - \omega_m)\right]$$
 
 Once $M^\ast$ is fixed, $\alpha$ and $\beta$ are a $2\times 2$ linear solve.
@@ -82,3 +85,6 @@ phase lock — causes **phasiness** in transparent resynthesis.
 - [[qifft-peak-estimation]] — provides the frame parameters
 - [[phase-vocoder-and-tsm]] — related phase management
 - [[nonstationary-sinusoidal-estimation-ddm]] - polynomial modulation inside the frame instead of between frames
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Synthesis (Step 7)](https://ccrma.stanford.edu/~jos/sasp/Synthesis_Step_7.html), [Additive Synthesis](https://ccrma.stanford.edu/~jos/sasp/Additive_Synthesis.html), [Inverse FFT Synthesis](https://ccrma.stanford.edu/~jos/sasp/Inverse_FFT_Synthesis.html), [Phase Vocoder Sinusoidal Modeling](https://ccrma.stanford.edu/~jos/sasp/Phase_Vocoder_Sinusoidal_Modeling.html)

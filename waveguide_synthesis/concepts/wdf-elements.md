@@ -1,7 +1,7 @@
 ---
 title: WDF Elements
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [waveguide, scattering, dsp, impedance, physical-modeling, nonlinear]
 sources:
@@ -9,13 +9,15 @@ sources:
   - /l/l420/WaveDigitalFilters/WDFIntro.tex
   - /l/dttd/WDF
   - raw/papers/werner-dissertation-2016.txt
+  - https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Elements.html
 ---
 
 # WDF Elements
 
 Each physical element is digitized independently via the bilinear transform,
-producing a reflectance function. By choosing the port impedance $R_0$ to match
-the element's instantaneous reflectance, the delay-free path is eliminated.
+producing a reflectance function.[^1][^2] By choosing the port impedance $R_0$ to cancel
+the element's instantaneous reflection, the delay-free path is eliminated.
+Here $c = 2/T$ is the bilinear-transform constant.
 
 ## One-Port Reactive Elements
 
@@ -53,18 +55,19 @@ the element's instantaneous reflectance, the delay-free path is eliminated.
 
 ### Gyrator (gyration resistance $r$)
 - Swaps force and velocity (with sign): $F_2 = r V_1,\; F_1 = -r V_2$
-- Converts series to parallel and vice versa
-- WDF gyrator adaptor is a simple sign-and-scale operation
+- Dualizes whatever is behind it: mass $\leftrightarrow$ spring, series $\leftrightarrow$ parallel
+- In wave variables with port impedances matched to $r$: a crossed pair of wires with one sign inversion
 
-## Mutators and Nonlinear Elements
+## Nonlinear Elements
 
 ### Diode, Transistor, etc.
-- Described by nonlinear V-I (or f-v) characteristic
+- Described by a nonlinear $v$-$i$ (or $f$-$v$) characteristic
 - In WDF: nonlinear element at the root of the connection tree
 - Reflected wave computed by solving $f^- = g(f^+)$ where $g$ encodes
   the nonlinear characteristic and the port impedance
 - Only one nonlinear element per tree can be solved explicitly
-  (multiple nonlinearities require iterative methods or the K-method)
+  (multiple nonlinearities require iterative methods or the K-method -
+  see [[wdf-multiple-nonlinearities]])
 
 ### The K-Method (Borin et al., 2000)
 - Pre-solve the nonlinear scattering junction as a lookup table
@@ -72,23 +75,27 @@ the element's instantaneous reflectance, the delay-free path is eliminated.
 - Applicable to WDFs and DWG nonlinear junctions alike
 
 ### Multiple Nonlinearities
-- Werner et al. (2015-): grouped nonlinearities, multi-port formulation
+- Werner et al. (2015-)[^3]: grouped nonlinearities, multi-port formulation
 - Resolve delay-free loops via iterative Newton-Raphson or
   explicit approximation methods
-- Active research area: neural K-method, Lipschitz-bounded networks
+- Active research area: neural-network junction solvers, Lipschitz-bounded networks,
+  explicit CPWL models ([[wdf-applications]])
 
 ## Energy and Passivity
 
 - Reactive elements (mass, spring) are allpass → energy conserving
 - Dissipative elements (dashpot) absorb energy → passive
 - Combined system is passive: total energy can only decrease or stay constant
-- This guarantees **BIBO stability** of any WDF tree structure
+- This guarantees **stability** of any WDF tree built from passive elements
 
 ## Related Concepts
 - [[wave-digital-filters]] — the framework
 - [[wdf-adaptors]] — connecting elements together
 - [[wdf-applications]] — where these elements are used
 - [[scattering-junctions]] — the same reflectance formula in DWGs
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Elements.html), [Reflectances of Elementary Impedances](https://ccrma.stanford.edu/~jos/pasp/Reflectances_Elementary_Impedances.html), [Choosing Impedance to Simplify Element Reflectance](https://ccrma.stanford.edu/~jos/pasp/Choosing_Impedance_Simplify_Element.html), [Waveguide Transformers and Gyrators](https://ccrma.stanford.edu/~jos/pasp/Waveguide_Transformers_Gyrators.html), [Impedance](https://ccrma.stanford.edu/~jos/pasp/Impedance.html)
 
 ## References
 [^1]: Smith, J.O. III. MUS420 Lectures on Wave Digital Filters.

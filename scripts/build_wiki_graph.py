@@ -77,11 +77,16 @@ SITE = {
 
 
 def slugify(heading: str) -> str:
-    """Approximate pandoc's auto-identifier for a heading."""
-    s = heading.strip().lower()
+    """Pandoc's gfm auto-identifier for a heading.
+
+    Whitespace runs collapse to one space, the text is lowercased, punctuation
+    other than '-' and '_' is dropped, and then EACH space becomes a hyphen -
+    so punctuation standing between two spaces leaves a double hyphen
+    ("A + B" -> "a--b", "X — y" -> "x--y"), exactly as pandoc renders it.
+    """
+    s = re.sub(r"\s+", " ", heading.strip()).lower()
     s = re.sub(r"[^\w\s-]", "", s)
-    s = re.sub(r"[\s]+", "-", s)
-    return s.strip("-")
+    return s.replace(" ", "-")
 
 
 def frontmatter_field(content: str, key: str) -> str:

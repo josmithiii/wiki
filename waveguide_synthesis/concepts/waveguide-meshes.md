@@ -1,7 +1,7 @@
 ---
 title: Waveguide Meshes
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [mesh, waveguide, wave-equation, dsp, room, acoustics]
 sources:
@@ -13,7 +13,7 @@ sources:
 
 A digital waveguide mesh extends 1D waveguide modeling to 2D and 3D by
 connecting waveguides at multiport scattering junctions arranged on a
-regular grid. Think of a tennis racket: 1D strings crossing at nodes.
+regular grid.[^1] Think of a tennis racket: 1D strings crossing at nodes.
 
 ## 2D Rectilinear Mesh
 
@@ -25,7 +25,7 @@ v_k^- &= v_{\text{node}} - v_k^+, \quad k \in \{N, E, S, W\}
 
 - Lossless by construction (energy-conserving scattering)
 - Linear and time-invariant → only error is dispersion
-- Multiply-free when N (ports per junction) is a power of 2
+- Multiply-free when $N$ (ports per junction) is a power of 2 - see [[scattering-junctions]]
 
 ### Faust Implementation (4-port junction)
 ```
@@ -44,7 +44,7 @@ frequency and direction. Quantified by von Neumann analysis.
 | Interpolated | Configurable | Higher | Frequency-warping can compensate |
 | Tetrahedral (3D) | Good | High | Used for room acoustics |
 
-- **Frequency warping** (Savioja et al.): compensates frequency-dependent
+- **Frequency warping** (Savioja et al.[^2]): compensates frequency-dependent
   dispersion but not angle-dependent; best combined with isotropic mesh
 
 ## Applications
@@ -62,7 +62,7 @@ frequency and direction. Quantified by von Neumann analysis.
 ## Mesh vs. Finite Differences
 
 The waveguide mesh is equivalent to a specific class of finite-difference
-schemes (Bilbao). Key advantage: energy invariance is built in by
+schemes (Bilbao[^3]). Key advantage: energy invariance is built in by
 construction (lossless scattering), rather than needing separate stability
 analysis. Disadvantage: less flexibility for non-uniform media.
 
@@ -70,6 +70,11 @@ analysis. Disadvantage: less flexibility for non-uniform media.
 - [[scattering-junctions]] — the multiport junctions connecting the mesh
 - [[artificial-reverberation]] — meshes as brute-force room models
 - [[waveguide-overview]] — the 1D building blocks
+- [[banded-waveguides]] — a cheaper 1D alternative for bars, bowls and cymbals
+- [[waveguide-vocal-models]] — 2D/3D mesh vocal tracts
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Digital Waveguide Mesh](https://ccrma.stanford.edu/~jos/pasp/Digital_Waveguide_Mesh.html), [The Rectilinear 2D Mesh](https://ccrma.stanford.edu/~jos/pasp/Rectilinear_2D_Mesh.html), [Dispersion](https://ccrma.stanford.edu/~jos/pasp/Dispersion.html), [Diffuse Reflections in the Waveguide Mesh](https://ccrma.stanford.edu/~jos/pasp/Diffuse_Reflections_Waveguide_Mesh.html), [Von Neumann Analysis](https://ccrma.stanford.edu/~jos/pasp/Von_Neumann_Analysis.html)
 
 ## References
 [^1]: Van Duyne, S. & Smith, J.O. (1993). "Physical Modeling with the 2-D Digital Waveguide Mesh." ICMC.

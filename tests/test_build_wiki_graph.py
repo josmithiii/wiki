@@ -168,3 +168,17 @@ def test_canonicalize_authors_merges_variants_and_dedupes() -> None:
     assert nodes[0]["authors"] == ["Vesa Välimäki", "Julian D. Parker"]   # accented form wins
     assert nodes[1]["authors"] == ["Vesa Välimäki"]
     assert nodes[2]["authors"] == ["Vesa Välimäki", "Abdelrahman Mohamed"]
+
+
+@pytest.mark.parametrize("heading, slug", [
+    ("paper-foo-2026", "paper-foo-2026"),
+    ("Some Heading", "some-heading"),
+    ("A  B", "a-b"),
+    ("NASA NTRS — classical ANC batch (2026-04-18)", "nasa-ntrs--classical-anc-batch-2026-04-18"),
+    ("Sines + Noise & More", "sines--noise--more"),
+    ("5. Münch-Straße: x_y (v2.0)", "5-münch-straße-x_y-v20"),
+    ("Trailing dash -", "trailing-dash--"),
+])
+def test_slugify_matches_pandoc_gfm_ids(heading: str, slug: str) -> None:
+    """Expected values are the ids pandoc 3.x emits for `--from=gfm` headings."""
+    assert bwg.slugify(heading) == slug

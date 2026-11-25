@@ -1,12 +1,11 @@
 ---
 title: Damping Models
 created: 2026-04-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [damping, modal, vibration, physical-modeling, dsp, acoustics]
 sources:
-  - https://ccrma.stanford.edu/~jos/pasp/Damping.html
-  - https://hal.science/hal-00830400/document
+  - https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
 ---
 
 # Damping Models
@@ -16,7 +15,7 @@ both physical accuracy and synthesis cost.
 
 ## Viscous Damping (Rayleigh / Proportional)
 
-The standard linear model. Damping force proportional to velocity.
+The standard linear model[^2]. Damping force proportional to velocity.
 
 - Equation of motion: $m\ddot{x} + c\dot{x} + kx = f(t)$
 - Loss factor $\eta$ relates to damping ratio: $\eta = 2\zeta$
@@ -29,26 +28,26 @@ The standard linear model. Damping force proportional to velocity.
 
 ## Thermoelastic Damping
 
-Loss mechanism from heat flow driven by mechanical strain -- dominant in metals at audio frequencies.
+Loss mechanism from heat flow driven by mechanical strain - important in thin metal bars and plates at audio frequencies.
 
 - Caused by thermoelastic coupling: compression heats, rarefaction cools
-- Peak loss at thermal relaxation frequency: $f_{\text{peak}} = \kappa / (2\pi c_p \rho d^2)$
-  where $\kappa$ = thermal conductivity, $d$ = plate thickness
+- Peak loss at thermal relaxation frequency: $f_{\text{peak}} = 1/(2\pi\tau) = \pi\kappa / (2 \rho c_p d^2)$
+  (Zener, flexural vibration; $\kappa$ = thermal conductivity, $c_p$ = specific heat, $d$ = thickness)
 - Zener model gives frequency-dependent loss factor:
 $$\eta_{\text{TE}}(\omega) \;=\; \Delta_E\, \frac{\omega\tau}{1 + (\omega\tau)^2}$$
-  where $\tau$ = thermal relaxation time, $\Delta_E$ = thermoelastic coupling coefficient
-- Significant for thin metal plates, MEMS resonators, xylophone bars
-- Practically: broadens the loss curve vs. viscous -- modes near f_peak decay faster
+  where $\tau = \rho c_p d^2/(\pi^2\kappa)$ = thermal relaxation time, $\Delta_E$ = relaxation strength
+- Significant for thin metal plates, MEMS resonators, metal (vibraphone, glockenspiel) bars
+- Practically: broadens the loss curve vs. viscous - modes near $f_{\text{peak}}$ decay faster
 
 ## Frequency-Dependent Damping
 
-Real materials show damping that varies with frequency. Cannot be captured by
+Real materials show damping that varies with frequency[^1]. Cannot be captured by
 simple viscous model.
 
 ### Structural Damping (Hysteretic)
 - Loss factor $\eta$ is constant with frequency (or weakly dependent)
 - Stress-strain phase lag: $\sigma = E(1 + j\eta)\epsilon$
-- Results in s-domain poles: $s_n = \omega_n(-\eta/2 \pm j\sqrt{1 - \eta^2/4})$
+- For small $\eta$, $s$-domain poles at $s_n \approx \omega_n(-\eta/2 \pm j)$, i.e. $\sigma_n \approx \eta\,\omega_n/2$ (constant $Q = 1/\eta$)
 - Common for rubber, polymers; also used as default in FEM software
 
 ### Power-Law Damping
@@ -58,7 +57,7 @@ simple viscous model.
 - Rubber: $\alpha \approx -0.5$ (decreasing with frequency)
 
 ### Measured / Tabulated Damping
-- For accuracy: fit measured Q_n values per mode, use per-mode sigma_n
+- For accuracy: fit measured $Q_n$ values per mode, use per-mode $\sigma_n$
 - No analytical model required -- each resonator pole set independently
 - Standard in modal analysis workflows; see [[modal-analysis-measurement]]
 
@@ -67,20 +66,24 @@ simple viscous model.
 | Model | DSP Cost | Physical Accuracy | Use Case |
 |---|---|---|---|
 | Uniform viscous | Lowest | Low | quick prototype |
-| Rayleigh (alpha+beta) | Low | Medium | general metals/wood |
+| Rayleigh ($\alpha$, $\beta$) | Low | Medium | general metals/wood |
 | Per-mode fitted | Low | High | measured instruments |
-| Thermoelastic | Medium | High (metals) | xylophone, plates |
+| Thermoelastic | Medium | High (metals) | metal bars, plates |
 | Frequency-dependent | Medium | High | polymers, composites |
 
-- Q-factor and decay time: $T_{60,n} = 6.91 / \sigma_n = 6.91\, Q_n / \omega_n$
+- Q-factor and decay time: $Q_n = \omega_n/(2\sigma_n)$, so $T_{60,n} = 6.91 / \sigma_n = 13.8\, Q_n / \omega_n \approx 2.2\, Q_n / f_n$
 - High Q (low damping): bells, singing bowls, steel bars
 - Low Q (high damping): rubber mallets, felt, foam-covered objects
 - See [[material-properties-and-modes]] for per-material damping values
 - Damping affects resonator pole placement; see [[resonator-bank-implementation]]
 - Per-band damping regressed from a corpus of room IRs, anchored to $T_{60}$: see [[corpus-driven-parametric-modal-reverb]]
 
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Frequency-Dependent Damping](https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html), [Well Posed PDEs for Modeling Damped Strings](https://ccrma.stanford.edu/~jos/pasp/Well_Posed_PDEs_Modeling.html)
+- [[jos_books/entities/filters-book|Filters]]: [Quality Factor (Q)](https://ccrma.stanford.edu/~jos/filters/Quality_Factor_Q.html), [Decay Time is Q Periods](https://ccrma.stanford.edu/~jos/filters/Decay_Time_Q_Periods.html), [Relating Pole Radius to Bandwidth](https://ccrma.stanford.edu/~jos/filters/Relating_Pole_Radius_Bandwidth.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Audio Decay Time (T60)](https://ccrma.stanford.edu/~jos/mdft/Audio_Decay_Time_T60.html)
+
 ## References
 
 [^1]: JOS, "Frequency-Dependent Damping," in *PASP*: https://ccrma.stanford.edu/~jos/pasp/Frequency_Dependent_Damping.html
 [^2]: Woodhouse, J. (1998). "Linear damping models for structural vibration." JSV 215(3).
-[^3]: https://hal.science/hal-00830400/document

@@ -1,7 +1,7 @@
 ---
 title: Deep Reinforcement Learning for Active Noise Control
 created: 2026-04-14
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [anc, feedforward, feedback, array, loudspeaker, stability, comparison]
 sources:
@@ -38,7 +38,8 @@ $\mathbf{a}(n)$. The reward is a combination of:
 - **Hard constraints** on other sensors (e.g. upward-radiation bound on a
   rooftop array, SPL ceiling inside an enclosure).
 - **Actuator penalties** — drive amplitude, slew, thermal loading.
-- **Comfort / perceptual weighting** — A-weighting, loudness, annoyance models.
+- **Comfort / perceptual weighting** — A-weighting, loudness, annoyance models
+  (see [[psychoacoustic-anc]]).
 
 A policy $\pi_\theta(\mathbf{a}\mid\mathbf{o})$ is trained to maximize
 expected discounted reward, typically with PPO, SAC, or TD3.
@@ -110,7 +111,7 @@ DRL-ANC is the most radical departure from classical adaptive filtering in
 
 The first truly-RL paper in the wiki. Luo et al.[^luorl24] reformulate
 the supervised GFANC architecture (described below as
-[the 2023 precursor](#gfanc-2023--the-supervised-precursor)) as a
+[the 2023 precursor](#gfanc-2023--the-supervised-precursor-to-gfanc-rl)) as a
 Markov decision process and train it with **Soft Actor-Critic**.
 
 **MDP formulation.**
@@ -152,9 +153,9 @@ inherits the latency-friendly architecture of the supervised GFANC.
 
 **Results.** On real recorded traffic, aircraft, and drill noise,
 GFANC-RL reaches **14.4 / 13.3 / 9.2 dB NR** versus adaptive FxLMS's
-**7.1 / 4.2 / 3.9 dB**. Roughly 7–9 dB over classical adaptive control,
-comparable to or slightly better than supervised GFANC, and ~5 dB over
-SFANC in the frames where SFANC mispredicts a category.
+**7.1 / 4.2 / 3.9 dB**: roughly 5–9 dB over classical adaptive control,
+0.1–1.8 dB over supervised GFANC (12.6 / 12.4 / 9.1 dB), and 1.2–3.3 dB
+over SFANC (11.1 / 10.4 / 8.0 dB).
 
 **Significance.**
 
@@ -199,9 +200,10 @@ ZSL-92 armored vehicle.
 - Experience replay with random minibatch sampling.
 - Sampling rate $F_s = 16$ kHz.
 
-**Algorithms compared (relative modeling error on real vehicle data):**
+**Algorithms compared (relative modeling error on real vehicle data, as a
+percentage of the paper's relative-error baseline; lower is better):**
 
-| Algorithm | RME |
+| Algorithm | Relative error (% of baseline) |
 | --- | --- |
 | DQN | 89.40% |
 | DDPG | 92.04% |

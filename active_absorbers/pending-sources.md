@@ -1,7 +1,7 @@
 ---
 title: Pending Sources — Wishlist
 created: 2026-04-17
-updated: 2026-06-20
+updated: 2026-11-25
 type: summary
 tags: [reference, anc]
 sources: []
@@ -65,7 +65,7 @@ NASA fan-noise literature.
 - Bodson, Sacks & Khosla, *IEEE TAC* 39(9):1939, 1994 — harmonic adaptive IMP
   *(partially covered 2026-04-18 via Bodson & Douglas 1997 Automatica
   and Bodson, Jensen & Douglas 2001 IEEE TCST — same author group,
-  same problem class; see `entities/source-papers.md#paper-bodson-douglas-sinusoidal-rejection` and `paper-bodson-jensen-douglas-anc-periodic`. The 1994 TAC primary paper itself remains paywalled.)*
+  same problem class; see [[entities/source-papers#paper-bodson-douglas-sinusoidal-rejection|paper-bodson-douglas-sinusoidal-rejection]] and [[entities/source-papers#paper-bodson-jensen-douglas-anc-periodic|paper-bodson-jensen-douglas-anc-periodic]]. The 1994 TAC primary paper itself remains paywalled.)*
 - Hara, Yamamoto, Omata & Nakano, *IEEE TAC* 33(7):659, 1988 — foundational RC
 - Ostashev & Wilson, *Acoustics in Moving Inhomogeneous Media*, 2nd ed. 2015 — outdoor-propagation FM/AM theory for the §8 robustness discussion
 
@@ -76,14 +76,14 @@ NASA fan-noise literature.
   [[electroacoustic-absorbers]] and
   [paper-olson-may-electronic-sound-absorber-1953](entities/source-papers.md#paper-olson-may-electronic-sound-absorber-1953)).
 - Guicking & Karcher, *ASME JVA* 106:393, 1984 — active impedance control
-  *(indirectly covered 2026-04-18 via the Guicking bilingual overview pair; see `entities/source-papers.md#paper-guicking-anvc-overview`. Original paywalled 1984 paper still wanted for primary citation.)*
+  *(indirectly covered 2026-04-18 via the Guicking bilingual overview pair; see [[entities/source-papers#paper-guicking-anvc-overview|paper-guicking-anvc-overview]]. Original paywalled 1984 paper still wanted for primary citation.)*
 - Guicking & Lorenz, *JVA* 106:389, 1984 — porous-plate active absorber
 - Furstoss, Thenail & Galland, *JSV* 203(2):219, 1997 — surface impedance control
 - Beyene & Burdisso, *JASA* 101(3):1512, 1997 — hybrid passive/active absorber
 - Fang et al., *Nature Materials* 5:452, 2006 — negative-modulus metamaterial
   *(a file staged as "Fang 2006" on 2026-04-18 turned out to be Song et al. 2021 Molecules and was renamed; the original Fang 2006 is still paywalled and still wanted. Second-hand coverage available via Ma & Sheng 2016 and Song 2021.)*
 - Ma, Yang, Xiao, Yang & Sheng, *Nature Materials* 13:873, 2014 — hybrid-resonance metasurface
-- Ghaffarivardavagh et al., *Phys. Rev. B* 99:024302, 2019 — final ultra-open silencer (arXiv preprint is already ingested; fetch only for the published version)
+- Ghaffarivardavagh et al., *Phys. Rev. B* 99:024302, 2019 — ultra-open metamaterial silencer (**not** ingested: the arXiv 1801.03613 file once staged under this name is Wu et al. 2018, a different paper — see [[entities/source-papers#paper-wu-ventilated-metamaterial-2018|paper-wu-ventilated-metamaterial-2018]])
 
 ## For [[psychoacoustic-anc]]
 
@@ -110,8 +110,9 @@ NASA fan-noise literature.
   transfer-matrix / four-pole reference; TL/IL/NR definitions, lined ducts.
   ISBN 978-1-118-44312-5. **Top priority; paywalled (library).**
 - ~~Rienstra & Hirschberg, *An Introduction to Acoustics*, TU Eindhoven~~ →
-  **staged 2026-06-20** in `incoming-pdfs/` (author-hosted, free). Duct modes,
-  impedance walls, Ingard–Myers BC, vortex sound.
+  **filed 2026-06-20** to `/l/dttd/` and extracted to `raw/` (author-hosted,
+  free; reference textbook, not distilled). Duct modes, impedance walls,
+  Ingard–Myers BC, vortex sound.
 - ~~Maa, *JASA* 104:2861, 1998 — microperforated-panel impedance~~ →
   **ingested 2026-06-20** (JOS supplied via AIP; see
   [paper-maa-mpp-1998](entities/source-papers.md#paper-maa-mpp-1998) and
@@ -125,8 +126,9 @@ NASA fan-noise literature.
 - **Ingard, *JASA* 25:1037, 1953** — orifice/resonator impedance + end corrections.
 - **Nelson & Elliott, *Active Control of Sound*, Academic 1992** — single-channel
   duct ANC (E5). *(Galland 2005 flow-duct hybrid liner already in catalog.)*
-- **Ma & Sheng, *Sci. Adv.* 2:e1501595, 2016** — resonant-metasurface review
-  (open access).
+- ~~Ma & Sheng, *Sci. Adv.* 2:e1501595, 2016 — resonant-metasurface review~~ →
+  already ingested (see
+  [[entities/source-papers#paper-ma-sheng-metamaterials-review-2016|paper-ma-sheng-metamaterials-review-2016]]).
 
 ## For [[fxlms-algorithm]] and [[deep-rl-anc]]
 

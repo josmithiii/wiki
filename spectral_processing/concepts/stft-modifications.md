@@ -1,13 +1,14 @@
 ---
 title: STFT Modifications
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [stft, modifications, ola, fbs, perfect-reconstruction]
 sources:
   - /w/sasp/modifications.tex
   - /w/sasp/ifftsynth.tex
   - /w/sasp/oscbank.tex
+  - https://ccrma.stanford.edu/~jos/sasp/STFT_Modifications.html
 ---
 
 # STFT Modifications
@@ -87,3 +88,6 @@ to avoid clicks.
 - [[phase-vocoder-and-tsm]] — principled time/pitch modification
 - [[cross-synthesis-and-morphing]] — applications
 - [[giant-fft-group-delay-domain]] - whole-file DFT edits in the group-delay domain (DAFx26)
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [STFT with Modifications](https://ccrma.stanford.edu/~jos/sasp/STFT_Modifications.html), [Time Varying OLA Modifications](https://ccrma.stanford.edu/~jos/sasp/Time_Varying_OLA_Modifications.html), [Weighted Overlap Add](https://ccrma.stanford.edu/~jos/sasp/Weighted_Overlap_Add.html), [Inverse FFT Synthesis](https://ccrma.stanford.edu/~jos/sasp/Inverse_FFT_Synthesis.html)

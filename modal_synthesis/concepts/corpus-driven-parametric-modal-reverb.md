@@ -1,7 +1,7 @@
 ---
 title: Corpus-Driven Parametric Modal Reverb
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, modal-synthesis, resonator, room, damping, impulse-response, ml, dataset]
 sources:
@@ -94,6 +94,10 @@ every eighth sample. Further controls stretch mode frequencies above a
 cutoff to render content up to 20 kHz ("Aura" brilliance), plus damping and mic
 rotation, all LFO-modulatable. State update and sum reduction is about 90% of the cost,
 hand-vectorised (SSE/AVX/NEON); single-core use stays under 25% on an M2 Pro.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Exact Reverb via Transfer-Function Modeling](https://ccrma.stanford.edu/~jos/pasp/Exact_Reverb_Transfer_Function_Modeling.html), [Perception of Echo Density and Mode Density](https://ccrma.stanford.edu/~jos/pasp/Perception_Echo_Density_Mode.html), [Energy Decay Curve](https://ccrma.stanford.edu/~jos/pasp/Energy_Decay_Curve.html), [Early Reflections](https://ccrma.stanford.edu/~jos/pasp/Early_Reflections.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Audio Decay Time (T60)](https://ccrma.stanford.edu/~jos/mdft/Audio_Decay_Time_T60.html)
 
 [^1]: [[entities/source-papers#paper-ducceschi-corpus-driven-modal-reverberator-2026]] - Ducceschi, Gabrielli, Simionato & Russo, "A Corpus-Driven Parametric Modal Reverberator," DAFx26. Code: github.com/Nemus-Project/DAFx26_ModalReverb
 [^2]: [[entities/source-papers#paper-ducceschi-bunkervik-spatial-reverb-2026]] - Ducceschi & Webb, "Bunkervik Spatial Reverb Demo," DAFx26.

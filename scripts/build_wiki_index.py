@@ -62,6 +62,29 @@ def page_count(sw_dir: Path) -> int:
     return sum(1 for _ in sw_dir.rglob("*.md"))
 
 
+# The sub-wiki of hub pages for the JOS online books, and the books themselves
+# as (URL key, hub page stem, short name, title).
+BOOKS_SUBWIKI = "jos_books"
+BOOKS: list[tuple[str, str, str, str]] = [
+    ("mdft", "mdft-book", "MDFT", "Mathematics of the DFT"),
+    ("filters", "filters-book", "Filters", "Introduction to Digital Filters"),
+    ("pasp", "pasp-book", "PASP", "Physical Audio Signal Processing"),
+    ("sasp", "sasp-book", "SASP", "Spectral Audio Signal Processing"),
+]
+
+
+def books_paragraph() -> str:
+    """Front-page paragraph linking each online book and its hub page."""
+    items = ", ".join(
+        f'<a href="https://ccrma.stanford.edu/~jos/{key}/"><i>{title}</i></a> '
+        f'(<a href="{BOOKS_SUBWIKI}/entities/{hub}.html">{short} hub</a>)'
+        for key, hub, short, title in BOOKS)
+    return (f'<p><b>Books:</b> the wiki builds on the four JOS online books: {items}. '
+            f'Topical pages end with deep links into the relevant book sections; '
+            f'the <a href="{BOOKS_SUBWIKI}/queries/book-topic-finder.html">topic finder</a> '
+            f'maps common topics to book sections and wiki pages.</p>')
+
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: build_wiki_index.py OUT_DIR SUBWIKI1 [SUBWIKI2 ...]", file=sys.stderr)
@@ -115,6 +138,9 @@ predating reference.</p>
 &mdash; every page as a node, every wikilink as an edge; search, filter by
 sub-wiki or page type, hover to see connections, click to open.</p>
 """)
+
+    if (out_dir / BOOKS_SUBWIKI).is_dir():
+        print(books_paragraph())
 
     # Tight one-line overview list, each linking to the expanded block below
     overview_rows = []

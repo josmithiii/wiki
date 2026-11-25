@@ -1,7 +1,7 @@
 ---
 title: sfFDN and FDN Sandbox
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: entity
 tags: [fdn, reverb, dsp, realtime, optimization, reference]
 sources:
@@ -71,5 +71,8 @@ and the optimizers are wrappers rather than a differentiable FDN.
 - [[differentiable-fdn-design]] - the gradient-based alternative
 - [[artificial-reverberation]] - FDN background
 - [[entities/source-papers#paper-stonge-fdn-sandbox-sffdn-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [FDN Reverberation](https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberation.html), [Choice of Lossless Feedback Matrix](https://ccrma.stanford.edu/~jos/pasp/Choice_Lossless_Feedback_Matrix.html), [Tonal Correction Filter](https://ccrma.stanford.edu/~jos/pasp/Tonal_Correction_Filter.html), [Energy Decay Relief](https://ccrma.stanford.edu/~jos/pasp/Energy_Decay_Relief.html)
 
 [^stonge]: A. St-Onge & G. Scavone, "FDN Sandbox: Real-Time Experimentation and Analysis of FDNs," DAFx26 demo. See [[entities/source-papers#paper-stonge-fdn-sandbox-sffdn-2026]].

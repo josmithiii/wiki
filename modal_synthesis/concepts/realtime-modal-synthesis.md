@@ -1,12 +1,11 @@
 ---
 title: Real-Time Modal Synthesis
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-11-25
 type: concept
 tags: [realtime, modal-synthesis, dsp, gpu, physical-modeling, resonator, impact]
 sources:
-  - https://ccrma.stanford.edu/~jos/pasp/
-  - https://dl.acm.org/doi/10.1145/1276377.1276416
+  - https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html
 ---
 
 # Real-Time Modal Synthesis
@@ -16,10 +15,10 @@ requires careful management of mode count, CPU/GPU budget, and parameter update 
 
 ## The Core Bottleneck
 
-Each mode = 1 biquad IIR (6 multiply-adds per sample at 44.1 kHz):
-- 100 modes: 600 MFLOPS — trivially real-time on CPU
-- 10,000 modes: 60 GFLOPS — needs GPU or SIMD
-- 100,000 modes: 600 GFLOPS — GPU only, carefully optimized
+Each mode = 1 biquad IIR (~5 multiply-adds per sample; at 44.1 kHz, see [[resonator-bank-implementation]]):
+- 100 modes: ~22 MFLOPS — trivially real-time on CPU
+- 10,000 modes: ~2.2 GFLOPS — needs SIMD or GPU
+- 100,000 modes: ~22 GFLOPS — GPU, carefully optimized
 
 Practical objects: ~100-500 modes audible to humans above noise floor.
 Full physics (FEM): thousands of modes, but perceptually only ~50-200 matter.
@@ -28,7 +27,7 @@ Full physics (FEM): thousands of modes, but perceptually only ~50-200 matter.
 
 Critical optimization: discard inaudible modes before synthesis.
 
-### Frequency Masking
+### Band Limiting and Masking
 - Modes above ~16 kHz inaudible; above ~10 kHz, low-amplitude modes masked
 - Remove modes with $\omega_n > 2\pi \cdot 16000$
 
@@ -38,8 +37,8 @@ Critical optimization: discard inaudible modes before synthesis.
 - Typically cuts 60-80% of FEM modes for perceptual transparency
 
 ### Temporal Decay Pruning
-- Highly damped modes (T60 < ~5 ms): pre-compute as single sample
-- Retain only modes with T60 > audio-buffer-length for run-time integration
+- Highly damped modes ($T_{60}$ < ~5 ms): fold into the attack transient instead of running a resonator
+- Retain only modes with $T_{60}$ longer than the audio buffer for run-time integration
 
 Result: 1000-mode FEM object often reduces to 50-200 run-time modes.
 
@@ -75,7 +74,7 @@ See [[gpu-modal-synthesis]] for full treatment. Key points:
 For interactive/game contexts, objects appear and disappear:
 
 ### Active Mode Budget
-- Set hard cap N_max (e.g., 256 CPU, 16384 GPU)
+- Set hard cap $N_{\max}$ (e.g., 256 CPU, 16384 GPU)
 - Scheduler assigns modes to active objects based on proximity/importance
 - Low-importance objects get fewer modes (level-of-detail)
 
@@ -108,24 +107,26 @@ For interactive/game contexts, objects appear and disappear:
 
 Real-time parameters that can be modulated:
 
-- Strike position: changes phi_n(x_in) — different modes excited
-- Listen position: changes phi_n(x_out) — different timbral balance
+- Strike position: changes $\phi_n(x_{\text{in}})$ — different modes excited
+- Listen position: changes $\phi_n(x_{\text{out}})$ — different timbral balance
 - Material morphing: interpolate $\omega_n$, $\sigma_n$ between presets
 - Contact stiffness (Hertz): controls spectral content via contact duration
 - Geometry deformation: re-map mode frequencies (requires pre-computed morphs)
 
 ## Relevant Implementations
 
-- Modal: Cycling '74 Max object; ~200 modes on CPU (2000s vintage)
-- PhysX Audio: NVIDIA GPU modal synth for game audio (~2009, unreleased)
-- Resonance Audio: Google's spatial audio uses simplified modal room model
-- Modus: research system (Cook & Scavone) for real-time impact synthesis
-- See [[rigid-body-sound-synthesis]] for game-engine integration patterns
-- See [[gpu-modal-synthesis]] for GPU architecture details
+- Modalys (IRCAM): modal synthesis environment descended from Adrien's MOSAIC
+- STK (Cook & Scavone): `Modal` / `ModalBar` resonator-bank instrument classes
+- CNMAT `resonators~` for Max/MSP: large banks of two-pole resonators
+- FAUST `physmodels.lib` (`pm.modalModel`) and `mesh2faust` (Michon, Martin & Smith 2017): FEM mesh to modal FAUST code
+- FoleyAutomatic (van den Doel, Kry & Pai 2001): interactive contact sounds from modal models
 
 ## Cross-References
 
-- Resonator bank: [[resonator-bank-implementation]]
-- GPU scaling: [[gpu-modal-synthesis]]
-- Mode count after FEM: [[fem-bem-for-modal-synthesis]]
-- Game physics integration: [[rigid-body-sound-synthesis]]
+- Resonator bank: [[resonator-bank-implementation]] · GPU scaling: [[gpu-modal-synthesis]]
+- Mode count after FEM: [[fem-bem-for-modal-synthesis]] · Game physics integration: [[rigid-body-sound-synthesis]]
+- Radiation-based pruning: [[radiation-and-directivity]] · Noise above the crossover: [[stochastic-modal-synthesis]]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Modal Expansion](https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html), [Efficiency of Diagonalized State-Space Models](https://ccrma.stanford.edu/~jos/pasp/Efficiency_Diagonalized_State_Space_Models.html)
+- [[jos_books/entities/filters-book|Filters]]: [Time-Varying Two-Pole Filters](https://ccrma.stanford.edu/~jos/filters/Time_Varying_Two_Pole_Filters.html), [Normalizing Two-Pole Filter Gain at Resonance](https://ccrma.stanford.edu/~jos/filters/Normalizing_Two_Pole_Filter_Gain.html)

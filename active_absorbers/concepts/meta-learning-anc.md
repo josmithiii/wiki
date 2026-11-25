@@ -1,7 +1,7 @@
 ---
 title: Meta-Learning Weight Updates for Adaptive ANC
 created: 2026-04-14
-updated: 2026-04-14
+updated: 2026-11-25
 type: concept
 tags: [anc, fxlms, lms, comparison, stability]
 sources:
@@ -72,6 +72,7 @@ $$
 \mathbf{w}(n+1) = \mathbf{w}(n) - \mu\,\tilde{g}(n).
 $$
 - **Delayless subband front end:** a polyphase analysis filter bank
+  ([[spectral_processing/concepts/multirate-filter-banks|multirate-filter-banks]])
   downsamples the signals by a factor $D$, so the update rate drops from
   the sample rate (e.g. 16 kHz) to 16 kHz / $D$ (typically 1 kHz at
   $D = 16$). Crucially, because the architecture is *delayless*, no
@@ -191,6 +192,6 @@ representative weather conditions is realistic; for open-world headphone
 use, it's much harder.
 
 [^sarkar25]: Sarkar, K. et al., "Latent FxLMS: Accelerating Active Noise Control with Neural Adaptive Filters," arXiv:2507.03854, 2025. See `raw/LatentFxLMS-2507.03854v1.txt`.
-[^feng24]: Feng, D., So, H. K. H. (attribution tentative), "Meta-Learning-Based Delayless Subband Adaptive Filter using Complex Self-Attention for Active Noise Control," arXiv:2412.19471, 2024. See `raw/MetaLearning-DelaylessSubband-2412.19471.txt`.
-[^xiao25]: Xiao, Z., Liu, Y., Dai, S., Lan, Q. (attribution tentative), "Meta-learning based Selective Fixed-filter Active Noise Control System with ResNet Classifier," arXiv:2504.19173, 2025. See `raw/MetaLearning-SFANC-ResNet-2504.19173.txt`.
-[^yang26]: Yang et al., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.
+[^feng24]: Feng, P., So, H. C., "Meta-Learning-Based Delayless Subband Adaptive Filter using Complex Self-Attention for Active Noise Control," arXiv:2412.19471, 2024. See `raw/MetaLearning-DelaylessSubband-2412.19471.txt`.
+[^xiao25]: Xiao, Y., Liu, M., Dai, W., Lan, J., "Meta-learning based Selective Fixed-filter Active Noise Control System with ResNet Classifier," arXiv:2504.19173, 2025. See `raw/MetaLearning-SFANC-ResNet-2504.19173.txt`.
+[^yang26]: Yang, Z., Rao, L., Luo, Z., Shi, D., Huang, Q., Gan, W.-S., "Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control," arXiv:2601.13849, 2026. See `raw/MetaLearning-CoInit-2601.13849.txt`.

@@ -1,7 +1,7 @@
 ---
 title: Neural VA Architectures
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [neural-va, rnn, stability, time-varying, dataset]
 sources:
@@ -61,14 +61,15 @@ TBPTT truncation 2048, batch 32, 1000 epochs, three seeds).
 
 | Loss / model | RAT ESR (dB) | DFZ ESR (dB) | CS-3 ESR (dB) | control noise |
 |---|---|---|---|---|
-| MAE, LSTM 4x64 (unregularized) | -18.9 | -20.3 | -21.4 | -65 to -58 dBFS |
+| MAE, LSTM 4x64 (unregularized) | -18.9 | -20.3 | -21.4 | -65 / -34 / -58 dBFS |
 | MAE, LSTM$_\infty$ 4x64 | -17.5 | -19.8 | -23.9 | ~0 (below noise floor) |
 | GFB, LSTM$_\infty$ 4x64 | -18.0 | -19.9 | -23.2 | ~0 |
-| GFB, LSTM$_2$ 4x64 | -19.2 | -20.8 | -26.5 | $\le -157$ dBFS |
+| GFB, LSTM$_2$ 4x64 | -19.2 | -20.8 | -26.5 | ~0 ($\le -203$ dBFS) |
 
 - Regularization costs accuracy at matched size; the spectral-norm variant narrows the
   gap, and the GFB loss closes most of what remains - regularized models reach
-  MAE-trained unregularized performance while control noise stays practically zero.
+  MAE-trained unregularized performance while control noise stays practically zero
+  (worst regularized case in the study: -157 dBFS).
 - **Regularized models prefer depth to width.** On DFZ, LSTM$_\infty$ went from
   -12.8 dB ESR at 1x64 to -17.4 dB at 4x8, while the unregularized LSTM went the other
   way (-18.9 to -15.5). Parameters scale quadratically with width but linearly with
@@ -83,6 +84,9 @@ TBPTT truncation 2048, batch 32, 1000 epochs, three seeds).
 [[fourier-neural-operators-va]] - [[virtual-analog-overview]] -
 [[real-time-neural-inference-deployment]] - [[neural-model-compression]] -
 [[time-varying-filter-stability]] (the same stability question for white-box filters)
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Equivalent Rectangular Bandwidth](https://ccrma.stanford.edu/~jos/sasp/Equivalent_Rectangular_Bandwidth.html), [Auditory Filter Banks](https://ccrma.stanford.edu/~jos/sasp/Auditory_Filter_Banks.html)
 
 ## References
 

@@ -1,7 +1,7 @@
 ---
 title: Sinusoidal Modeling
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [sinusoidal, peak-detection, parshl, stft]
 sources:
@@ -9,6 +9,8 @@ sources:
   - /w/sasp/additivesynth.tex
   - /w/sasp/parshl.tex
   - /w/sasp/peaks.tex
+  - https://ccrma.stanford.edu/~jos/sasp/PARSHL_Program.html
+  - https://ccrma.stanford.edu/~jos/sasp/Spectrum_Analysis_Sinusoids.html
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
@@ -41,16 +43,19 @@ For frame $m \to m+1$, for each active partial at frequency $f_p(m)$:
 - Best match = closest frequency (optionally amplitude-weighted).
 - Unmatched peaks spawn new tracks; unmatched tracks die (fade out).
 
-Typical $\Delta f$: a fraction of the bin spacing, e.g. $0.1\cdot f_s/M$.
+Typical $\Delta f$: a fraction of the side-lobe width $f_s/M$, e.g. $0.1\cdot f_s/M$.
 
 ## PARSHL
 
-**PA**rtial **R**esynthesis **SH**ell (Smith & Serra, 1987) — an
-early sinusoidal analyzer/synthesizer that helped set the template for
-modern sinusoidal and SMS systems. Key ideas:
+[PARSHL](https://ccrma.stanford.edu/~jos/sasp/PARSHL_Program.html) (Smith & Serra; written 1985, published ICMC 1987) — an
+"inharmonic phase vocoder" built for piano modeling that set the template
+for modern sinusoidal and SMS systems. It follows *partials* rather than
+harmonics; the name is "partial" squeezed into the six-character filename
+limit of the SAIL PDP-10. Key ideas:
 - Zero-padded FFT + parabolic peak interpolation.
 - Guide-track matching with frequency tolerance.
-- Linear amplitude, cubic phase interpolation for resynthesis.
+- Oscillator-bank resynthesis with linear amplitude interpolation; phase
+  tracking (McAulay-Quatieri cubic phase) was added later by Serra.
 - Birth/death with fade-in/fade-out envelopes.
 
 See [[sms-sines-plus-noise]] for the SMS extension with a noise residual.
@@ -59,17 +64,19 @@ See [[sms-sines-plus-noise]] for the SMS extension with a noise residual.
 
 | Goal | Window |
 |------|--------|
-| Sharp peaks, few partials | Rectangular (but aliasing-prone) |
+| Sharp peaks, few partials | Rectangular (narrowest main lobe, but $-13$ dB leakage) |
 | Well-separated partials | Hann (good resolution, decent side lobes) |
 | Crowded spectra | Blackman / Blackman-Harris (flat tops, low leakage) |
 | Tunable trade-off | Kaiser ($\beta \sim 9$) |
 
-Window length ≥ 4 periods of the lowest partial being tracked.
+Window length: $M \ge K f_s/\Delta f$ to resolve partials $\Delta f$ Hz apart,
+where $K$ is the main-lobe width in bins (2 rectangular, 4 Hann/Hamming,
+6 Blackman) — e.g. 4 periods of $f_0$ for a Hamming window on a harmonic tone.
 
 ## Limits
 
 - **Unresolved partials**: if frequency spacing < main-lobe width,
-  QIFFT biases both peaks.
+  both peaks are biased in frequency and amplitude.
 - **Fast transients**: sinusoidal model blurs attacks; add a
   **transient model** (see [[sms-sines-plus-noise]]).
 - **Modulations**: heavy vibrato/tremolo blurs peaks; use
@@ -77,11 +84,10 @@ Window length ≥ 4 periods of the lowest partial being tracked.
 
 ## Applications
 
-- Sound modeling, morphing, cross-synthesis
-- Time-scale and pitch-scale modification (outside phase vocoder)
-- Source separation guided by tracks
-- Spectral envelope estimation via partial amplitudes
-- Physical model calibration from recorded tones
+Sound modeling, morphing and [[cross-synthesis-and-morphing|cross-synthesis]];
+time- and pitch-scale modification without a phase vocoder; track-guided
+source separation; spectral envelopes from partial amplitudes; calibrating
+physical models from recorded tones ([[modal_synthesis/concepts/modal-analysis-measurement|modal analysis]]).
 
 ## DAFx26 additions
 
@@ -94,3 +100,6 @@ Window length ≥ 4 periods of the lowest partial being tracked.
 - [[sinusoidal-parameter-interpolation]] — resynthesis interpolation
 - [[sms-sines-plus-noise]] — sinusoidal + residual
 - [[f0-and-spectral-envelope]] — harmonic structure extraction
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Resolving Sinusoids](https://ccrma.stanford.edu/~jos/sasp/Resolving_Sinusoids.html), [Additive Synthesis Analysis](https://ccrma.stanford.edu/~jos/sasp/Additive_Synthesis_Analysis.html), [Tracking Sinusoidal Peaks in a Sequence of FFTs](https://ccrma.stanford.edu/~jos/sasp/Tracking_Sinusoidal_Peaks_Sequence.html), [The PARSHL Program](https://ccrma.stanford.edu/~jos/sasp/PARSHL_Program.html), [Spectral Modeling Synthesis](https://ccrma.stanford.edu/~jos/sasp/Spectral_Modeling_Synthesis.html)

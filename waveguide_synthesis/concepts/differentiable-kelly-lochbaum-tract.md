@@ -1,7 +1,7 @@
 ---
 title: Differentiable Kelly-Lochbaum Tract
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [voice, waveguide, scattering, differentiable, ml, optimization, acoustics]
 sources:
@@ -95,5 +95,9 @@ controllable singing synthesizer, and fixed pitch tracks limit glissandi.
 - [[scattering-junctions]] - the reflection coefficients and three-way junctions used
 - [[differentiable-karplus-strong]] - the sibling DAFx26 differentiable waveguide study
 - [[entities/source-papers#paper-camara-articulatory-biphonic-singing-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Singing Kelly-Lochbaum Vocal Tract](https://ccrma.stanford.edu/~jos/pasp/Singing_Kelly_Lochbaum_Vocal_Tract.html), [Kelly-Lochbaum Scattering Junctions](https://ccrma.stanford.edu/~jos/pasp/Kelly_Lochbaum_Scattering_Junctions.html), [Loaded Waveguide Junctions](https://ccrma.stanford.edu/~jos/pasp/Loaded_Waveguide_Junctions.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Spectral Envelope Extraction](https://ccrma.stanford.edu/~jos/sasp/Spectral_Envelope_Extraction.html)
 
 [^camara]: M. Camara, M. P. Daza-Llin, F. Marcos-Macias, J. L. Blanco, "Differentiable Articulatory Copy-Synthesis of Biphonic Singing," DAFx26. See [[entities/source-papers#paper-camara-articulatory-biphonic-singing-2026]].

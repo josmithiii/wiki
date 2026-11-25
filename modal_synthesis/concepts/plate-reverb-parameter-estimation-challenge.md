@@ -1,7 +1,7 @@
 ---
 title: Plate Reverb Parameter Estimation Challenge
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, eigenmode, resonator, room, damping, ml, comparison, reference, dataset]
 sources:
@@ -23,8 +23,8 @@ participants, 22 methods (12 A, 10 B), scored on 16 secret IRs. See [[ml-modal-p
 ## The reference model
 Everything is synthetic - no real plate is measured. Transverse displacement obeys the damped
 **Kirchhoff-Love** equation with simply supported edges, $D = Eh^3/12(1-\nu^2)$:
-$$\rho h\,\partial_t^2 u = -\rho h\,\mathcal{K}u - 2\rho h(\eta_0+\eta_1\mathcal{K})\partial_t u
-+ \delta(\mathbf{x}-\mathbf{x}_i)f(t),\qquad
+$$\rho h\,\partial_t^2 u = -\rho h\,\mathcal{K}u - 2\rho h(\eta_0+\eta_1\mathcal{K})\partial_t u +
+\delta(\mathbf{x}-\mathbf{x}_i)f(t),\qquad
 \mathcal{K} := -\frac{T_0}{\rho h}\Delta + \frac{D}{\rho h}\Delta\Delta .$$
 Simply supported edges give the analytic modes, $\gamma_m=(m_x^2\pi^2/L_x^2+m_y^2\pi^2/L_y^2)^{1/2}$:
 $$\Phi_m = \frac{2}{\sqrt{L_xL_y}}\sin\frac{m_x\pi x}{L_x}\sin\frac{m_y\pi y}{L_y},

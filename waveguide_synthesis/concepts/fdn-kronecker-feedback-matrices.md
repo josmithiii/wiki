@@ -1,12 +1,13 @@
 ---
 title: Kronecker FDN Feedback Matrices
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [fdn, reverb, dsp, realtime, reference]
 sources:
   - /l/dttd/DAFx26/DAFx26_paper_04.pdf
   - raw/DAFx26_paper_04.txt
+  - https://ccrma.stanford.edu/~jos/pasp/Choice_Lossless_Feedback_Matrix.html
 ---
 
 # Kronecker FDN Feedback Matrices
@@ -87,6 +88,10 @@ algorithm refreshes only the affected $2 \times 2$ kernel.
 ## See also
 - [[artificial-reverberation]] - FDN fundamentals and the other feedback matrices
 - [[differentiable-fdn-design]] - fitting FDN parameters by gradient descent instead
+- [[nonlinear-and-time-varying-fdn-effects]] - time variation by in-loop processing rather than matrix modulation
 - [[entities/source-papers#paper-coppola-fast-parametric-fdn-matrices-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Choice of Lossless Feedback Matrix](https://ccrma.stanford.edu/~jos/pasp/Choice_Lossless_Feedback_Matrix.html), [Hadamard Matrix](https://ccrma.stanford.edu/~jos/pasp/Hadamard_Matrix.html), [FDNs as Digital Waveguide Networks](https://ccrma.stanford.edu/~jos/pasp/FDNs_Digital_Waveguide_Networks_I.html), [General Conditions for Losslessness](https://ccrma.stanford.edu/~jos/pasp/General_Conditions_Losslessness.html), [Time Varying Reverberators](https://ccrma.stanford.edu/~jos/pasp/Time_Varying_Reverberators.html)
 
 [^coppola]: A. Coppola, "Fast Parametric Matrices for Lossless Feedback Delay Networks," DAFx26. See [[entities/source-papers#paper-coppola-fast-parametric-fdn-matrices-2026]].

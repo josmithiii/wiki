@@ -1,9 +1,11 @@
 ---
 title: Source Papers — Distilled Catalog
 created: 2026-04-15
-updated: 2026-06-18
+updated: 2026-11-25
 type: entity
 tags: [reference, comparison]
+sources:
+  - raw/MANIFEST.md
 ---
 
 # Source Papers — Distilled Catalog
@@ -35,7 +37,8 @@ reference only.
 
 - Foundational LMS adaptive-filter paper; describes the primary/reference architecture with the Widrow–Hoff update.
 - Wiener-optimal analysis for stationary and non-stationary inputs; single and multiple reference channels.
-- Demonstration applications: ECG 60 Hz hum removal, maternal-ECG cancellation, antenna sidelobe cancelling, speech-in-noise.
+- Demonstration applications: ECG 60 Hz hum removal, donor-heart and maternal-ECG cancellation, speech-in-noise, antenna sidelobe cancelling, periodic-interference cancelling without an external reference, adaptive self-tuning filter.
+- Sec. VI: with a sinusoidal reference the two-weight canceller is exactly an LTI **notch filter** whose bandwidth is set by $\mu$ — the ancestor of [[tonal-periodic-anc]].
 - **Does not** address a plant between filter output and error sensor — FxLMS (see [[fxlms-algorithm]]) is the later extension.
 - Appendix B derives a finite-length causal approximation — the same causality constraint reappears in acoustic ANC.
 - Tags: lms, anc, history, reference, tutorial, person
@@ -162,7 +165,7 @@ reference only.
 
 ### paper-piml-sound-field-survey
 
-**"Physics-Informed Machine Learning for Sound Field Estimation"** *(IEEE SPM invited survey)* — Koyama et al. · *IEEE SPM* 2024 · `raw/PINN-SoundField-Survey-2408.14731.txt`
+**"Physics-Informed Machine Learning for Sound Field Estimation"** *(IEEE SPM invited survey)* — Koyama, Ribeiro, Nakamura, Ueno, Pezzoli · *IEEE SPM* 2024 · `raw/PINN-SoundField-Survey-2408.14731.txt`
 
 - Five-category taxonomy of PIML for sound-field estimation: **(1) basis expansion** (plane-wave / spherical harmonic / equivalent source, inherently satisfy PDE); **(2) PDE-kernel KRR**; **(3) linear regression with PDE regularization**; **(4) NN with PDE loss** (vanilla PINN); **(5) hybrid architectures** that embed physics into the layer design (e.g. Point Neuron).
 - Application domains surveyed: room acoustics, VR/AR audio, HRTF estimation, beamforming, source localization, **spatial ANC**, nearfield holography, RIR reconstruction. Both frequency- and time-domain formulations.
@@ -214,7 +217,7 @@ reference only.
 
 ### paper-feng-meta-delayless-anc
 
-**"Meta-Learning-Based Delayless Subband Adaptive Filter using Complex Self-Attention for Active Noise Control"** — Feng & So · arXiv 2412.19471, 2024 · `raw/MetaLearning-DelaylessSubband-2412.19471.txt` · primary source for [[meta-learning-anc]]
+**"Meta-Learning-Based Delayless Subband Adaptive Filter using Complex Self-Attention for Active Noise Control"** — Pengxing Feng & Hing Cheung So (City Univ. of Hong Kong) · arXiv 2412.19471, 2024 · `raw/MetaLearning-DelaylessSubband-2412.19471.txt` · primary source for [[meta-learning-anc]]
 
 - **Strongest match to Sarkar et al. 2025 ref [5]**: a single-headed attention RNN with learnable feature embedding is the **meta-learner**; it outputs a *predicted gradient* $\tilde{g}(n)$ that replaces the FxLMS gradient, so the filter update is $\mathbf{w}(n+1) = \mathbf{w}(n) - \mu\tilde{g}(n)$.
 - Inputs to the meta-learner: subband filtered-reference $x_{f,k}(n)$ and subband error $e_k(n)$ after a polyphase analysis filter bank (downsampling $D$); FFT applied post-filter bank for stable features.
@@ -225,7 +228,7 @@ reference only.
 
 ### paper-xiao-meta-sfanc
 
-**"Meta-Learning Based Selective Fixed-Filter Active Noise Control System with ResNet Classifier"** — Xiao, Liu, Dai, Lan · arXiv 2504.19173, 2025 · `raw/MetaLearning-SFANC-ResNet-2504.19173.txt`
+**"Meta-Learning Based Selective Fixed-Filter Active Noise Control System with ResNet Classifier"** — Yingying Xiao, Meiqin Liu, Wei Dai, Jian Lan · arXiv 2504.19173, 2025 · `raw/MetaLearning-SFANC-ResNet-2504.19173.txt`
 
 - **Selective Fixed-Filter ANC (SFANC):** a pre-trained filter bank $\{W_i\}$, one per noise category; incoming noise is classified, best-matched filter selected, optionally fine-tuned. Fast response without online-learning lag.
 - **Meta-learning contribution:** MAML-FxLMS pre-trains filters so each is already one-or-two gradient steps from the optimum on *homologous unseen* noises. Inner loop batches multiple inputs to widen the receptive field and speed convergence.
@@ -236,7 +239,7 @@ reference only.
 
 ### paper-yang-coinit-meta-anc
 
-**"Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control"** — Yang et al. · arXiv 2601.13849, 2026 · `raw/MetaLearning-CoInit-2601.13849.txt` · relevant to both [[meta-learning-anc]] and [[neural-secondary-path]]
+**"Co-Initialization of Control Filter and Secondary Path via Meta-Learning for Active Noise Control"** — Yang, Rao, Luo, Shi, Huang, Gan (NTU / Nanjing Univ. / NPU) · arXiv 2601.13849, 2026 · `raw/MetaLearning-CoInit-2601.13849.txt` · relevant to both [[meta-learning-anc]] and [[neural-secondary-path]]
 
 - **Joint MAML** over two initializations: control filter $\Phi \in \mathbb{R}^{L_w}$ **and** secondary-path FIR model $\Psi \in \mathbb{R}^{L_s}$, both meta-learned from a small library of measured in-ear headphone paths.
 - Inner loop: Phase A (auxiliary-noise secondary-path ID, $T_A$ steps) → Phase B (FxLMS control update, $T_B$ steps). Validation on held-out segment; meta-gradients $\nabla_\Phi, \nabla_\Psi$ combined with forgetting factors $\lambda_w, \lambda_s$.
@@ -284,7 +287,7 @@ reference only.
 - **Sub-filter bank:** same orthogonal-subband decomposition as the supervised GFANC paper; $\mathbf{w}(n) = \sum_m g_m(n)\mathbf{c}_m$.
 - **Training:** 80 000 synthetic 1-second noise instances (white noise through random bandpass filters), SNR = 5 dB for robustness. Offline. At deployment, control filter runs at sample rate; CNN policy runs at frame rate on a co-processor.
 - **Baselines:** supervised GFANC, SFANC, adaptive FxLMS. *No comparison with other DRL algorithms* — not even vanilla policy gradient. Notable gap.
-- **Headline numbers:** on real traffic / aircraft / drill noise, GFANC-RL gives **14.4 / 13.3 / 9.2 dB** NR vs FxLMS **7.1 / 4.2 / 3.9 dB** — roughly 7–9 dB over classical adaptive; comparable to supervised GFANC; ~5 dB over SFANC in some frames.
+- **Headline numbers:** on real traffic / aircraft / drill noise, GFANC-RL gives **14.4 / 13.3 / 9.2 dB** NR vs FxLMS **7.1 / 4.2 / 3.9 dB** — roughly 5–9 dB over classical adaptive; 0.1–1.8 dB over supervised GFANC (12.6 / 12.4 / 9.1 dB); 1.2–3.3 dB over SFANC (11.1 / 10.4 / 8.0 dB).
 - **What it is *not*:** a PPO/SAC/TD3 agent emitting continuous speaker drive. Action space is discrete filter selection over a pre-computed fixed-filter basis.
 - Tags: anc, feedforward, fxlms, loudspeaker, stability, comparison
 
@@ -296,15 +299,15 @@ reference only.
 
 - **What is learned:** the parameters of a **3-layer fully-connected nonlinear neural network** (64 → 64 → 32) that models $\hat{S}(z)$. The RL agent optimizes weights; it is not learning a higher-level "when to step $\hat{S}$" policy.
 - **MDP specifics:** state $s_t = \mathbf{x}(n)$; action $a_t$ is either the discrete Q-network output (DQN) or continuous parameter updates (DDPG / PPO / GRPO). Reward $r_t = -|d(n) - \hat{y}(n)|$. Experience replay with random minibatches.
-- **Algorithms compared:** DQN, DDPG, PPO, and **GRPO** (Group Relative Policy Optimization with periodic-prediction auxiliary module). Relative modeling errors on real vehicle data: DQN 89.40%, DDPG 92.04%, PPO 89.36%, **GRPO 87.02%**. PPO shows large reward-curve fluctuations; GRPO is the speed–stability sweet spot.
+- **Algorithms compared:** DQN, DDPG, PPO, and **GRPO** (Group Relative Policy Optimization with periodic-prediction auxiliary module). Relative modeling errors on real vehicle data, as a percentage of the paper's relative-error baseline (lower is better): DQN 89.40%, DDPG 92.04%, PPO 89.36%, **GRPO 87.02%**. PPO shows large reward-curve fluctuations; GRPO is the speed–stability sweet spot.
 - **GRPO's periodic-prediction module:** a second FFT-based agent extracts frequency-regularity features from the noise and feeds them back into the primary actor-critic via a KL-divergence constraint and a regularized-advantage term. Novel contribution of the paper.
-- **Full-loop deployment:** identified $\hat{S}$ is plugged into a closed-loop FxLMS-style controller ("RL-FxLMS"). Tested on **real ZSL-92 armored-vehicle** cabin noise at idle / 1500 / 2100 / 2700 rpm, front/rear error mics. Max NR: **6.5 dB idle, 8.8 dB at 2700 rpm.** MSE reduction 53.1% (0.32 → 0.15), SNR +5.1 dB, relative modeling error 12.6%. $F_s = 16$ kHz.
+- **Full-loop deployment:** identified $\hat{S}$ is plugged into a closed-loop FxLMS-style controller ("RL-FxLMS"). Tested on **real ZSL-92 armored-vehicle** cabin noise at idle / 1500 / 2100 / 2700 rpm, front/rear error mics. Max NR: **6.5 dB idle, 8.8 dB at 2700 rpm.** MSE reduction 53.1% (0.32 → 0.15), SNR +5.1 dB, relative modeling error improved by 12.6% (the abstract quotes a 37.2% average-error reduction and 6.8 dB overall NR improvement). $F_s = 16$ kHz.
 - **Gaps:** single platform; no comparison with classical nonlinear-ID baselines (Volterra, NLMS variants); no ablation isolating the periodic module from the KL constraint; embedded real-time feasibility not discussed.
 - Tags: anc, fxlms, secondary-path, stability, industrial, comparison
 
 ### paper-wang-metric-vs
 
-**"Transferable Selective Virtual Sensing Active Noise Control Based on Metric Learning"** — Wang et al. (NTU) · arXiv 2409.05470, 2024 · `raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt` · adjacent to [[pinn-virtual-sensing]]
+**"Transferable Selective Virtual Sensing Active Noise Control Based on Metric Learning"** — Wang, Shi, Luo, Shen, Ji, Gan (NTU) · arXiv 2409.05470, 2024 · `raw/TransferableVirtualSensing-MetricLearning-Wang-2409.05470.txt` · adjacent to [[pinn-virtual-sensing]]
 
 **Bottom line:** a lightweight 1-D CNN (~13 k params) uses cosine similarity in its learned embedding space to **select** which of $K$ pre-trained auxiliary filters $H_o(z) = P_p(z) - S_p(z)W_{\text{opt}}(z)$ to apply at runtime. The filters themselves come from classical Moreau-style virtual-sensing FxLMS run offline.
 
@@ -342,7 +345,7 @@ reference only.
 **The** foundational ANC tutorial review. Co-author Dennis R. Morgan independently derived FxLMS; his treatment here is authoritative.
 
 - **Coverage:** broadband/narrowband feedforward ANC, feedback ANC, multichannel ($J \times K \times M$) ANC, online secondary-path modeling (Eriksson additive-noise method, delay-compensated LMS), lattice/frequency-domain/subband/RLS structures, DSP implementation, applications (duct, automotive exhaust, headphones, transformer, vibration).
-- **FxLMS derivation:** from mean-square cost function via steepest descent; secondary-path compensation is the key difference from standard LMS; convergence bound $0 < \mu < 2/(\lambda_{\max} S_{\max}^2)$.
+- **FxLMS derivation:** from mean-square cost function via steepest descent; secondary-path compensation is the key difference from standard LMS; approximate maximum step size $\mu_{\max} \approx 1/[P_{x'}(L+\Delta)]$ (Eq. 10; $\Delta$ = secondary-path delay in samples, update written with $\mu$ rather than $2\mu$), and convergence with up to nearly $90^\circ$ of phase error in $\hat S$ for slow adaptation (Morgan).
 - **Causality constraint:** electrical delay must not exceed acoustic delay from reference mic to cancelling speaker; when violated, only narrowband/periodic noise can be controlled.
 - **Coherence bound:** $\text{NR}(f) = -10\log_{10}(1 - \gamma_{dx}^2(f))$ — same formula as [Wise & Leventhall 2010](#paper-wise-leventhall-lf-anc).
 - **Applications demonstrated:** 20 dB broadband duct attenuation; automobile exhaust system; active headset; transformer hum; telephone ringer cancellation.
@@ -414,7 +417,7 @@ Comprehensive decade survey (2009–2020) of **nonlinear ANC (NLANC)**: the algo
 
 - Complete design + validation of a hybrid passive/active duct liner: porous face + rear-face digital feedback fixing $p_\text{rear}=0$ → purely real surface impedance $Z_s = re$ at LF; active off at HF, air-gap $\lambda/4$ tuning takes over.
 - **5-step design recipe:** (1) optimal frequency-dependent impedance for target duct, (2) porous material + cut-off frequency, (3) actuator + controller design, (4) standing-wave-tube single-cell validation, (5) multi-cell duct test.
-- Tester (1970) cited: optimal impedance for semi-infinite duct with one treated wall is frequency-dependent (weak LF resistance, increasing negative reactance) — neither pure passive nor pure active absorbers can realize this alone.
+- Tester (*JSV* 28(2), 1973) cited: optimal impedance for semi-infinite duct with one treated wall is frequency-dependent (weak LF resistance, increasing negative reactance) — neither pure passive nor pure active absorbers can realize this alone.
 - **Cell-by-cell feedback FxLMS** (independent per cell) enables trivial surface scaling by adding cells — no global MIMO coupling.
 - Hardware: wire-mesh porous + piezo actuators → hybrid cell **<0.03 m thick** with approximately real, constant impedance up to 2500 Hz.
 - Validated on ECL MATISSE flow duct (anechoic termination); measured TL vs predicted agree.
@@ -532,7 +535,7 @@ Eight PDFs staged by JOS after the 2026-04-17 batch: the NASA NTRS trio (Brooks,
 - **First full modal-control ANC demonstration** on the NASA Lewis 48-inch Active Noise Control Fan (ANCF). Controller designed and built by GE; rig operated by NASA.
 - **Modal-control approach:** each propagating acoustic duct mode (spinning $(m,n)$ from Tyler-Sofrin) is cancelled by a dedicated canceling modal signal driven onto a ring of flush-mounted in-duct loudspeakers — not a waveform-level FxLMS, but per-mode amplitude/phase adaptation referenced to a shaft encoder (tonal, rotor-locked) and sensed by an in-duct error-mic array.
 - **Headline results at 2BPF:**
-  - (6,0) mode **completely eliminated** at 920 Hz; 13 dB reduction at 2BPF modal level.
+  - (6,0) mode **completely eliminated** at the 920 Hz design frequency (2BPF at about 1700 rpm, below the 1886 rpm nominal speed quoted next); 13 dB reduction at 2BPF modal level.
   - Simultaneous (4,0) + (4,1) control → **15 dB modal PWL reduction**.
   - Total 2BPF farfield sound power reduced **9.4 dB**.
 - **Actuator/sensor design trade:** ring-source simulation shows that for high solidity (>0.5) adding more actuators hardly helps; for low solidity (<0.5) more actuators help substantially. Chosen array minimizes actuator count + solidity + spillover into uncontrolled higher-order modes.
@@ -587,7 +590,7 @@ Eight PDFs staged by JOS after the 2026-04-17 batch: the NASA NTRS trio (Brooks,
 
 - **Bilingual pair of the same broad ANVC overview** — English and German versions were ingested together; content is parallel. Complements the earlier 2009 patents overview ([[#paper-guicking-patents-overview]]) with a research-literature-focused survey.
 - Coverage (both versions):
-  - **Active Noise Control** — early investigations (Rayleigh 1878, Coanda, **Lueg 1933/1934**, Olson 1953, Olson & May 1956); the *energy objection* and its resolution (secondary sources can absorb primary-field energy when properly placed/driven; Nelson/Elliott absorption cross-section $A = \lambda^2/4\pi$); **JMC theory** (Jessel-Mangiante-Canevet) — Huygens-surface formulation with tripoles (monopole + dipole = cardioid) acting as perfectly-matched absorbers; 1-D duct algorithms (FxLMS, feedback cancellation, error-path ID); interaction of primary/secondary sources; **waveform synthesis for (quasi)periodic noise**; small-volume / personal-protection ANC; local cancellation; 3-D fields in enclosures; free-field ANC.
+  - **Active Noise Control** — early investigations (Rayleigh 1878, Coanda, **Lueg 1933/1934**, Olson 1953 patent / Olson & May 1953, Olson 1956); the *energy objection* and its resolution (secondary sources can absorb primary-field energy when properly placed/driven; Nelson/Elliott absorption cross-section $A = \lambda^2/4\pi$); **JMC theory** (Jessel-Mangiante-Canevet) — Huygens-surface formulation with tripoles (monopole + dipole = cardioid) acting as perfectly-matched absorbers; 1-D duct algorithms (FxLMS, feedback cancellation, error-path ID); interaction of primary/secondary sources; **waveform synthesis for (quasi)periodic noise**; small-volume / personal-protection ANC; local cancellation; 3-D fields in enclosures; free-field ANC.
   - **Active Vibration Control** — early applications, beams/plates/structures, vibration isolation, civil-engineering structures, active/adaptive optics, ASAC (active structural-acoustic control), sound-transmission control, control of nonlinear dynamical systems.
   - **Active Flow Control** — brief; plasma actuators, jet-edge flow, separation control.
 - **On active impedance control:** traces the concept to Guicking's own Göttingen group — GUICKING/KARCHER 1984 "Active Impedance Control for One-Dimensional Sound" and GUICKING/MELCHER/WIMMEL 1989 "Active Impedance Control in Mechanical Systems" — cited inline and in the reference list. This is the **closest open-access version** of the Guicking & Karcher 1984 content requested in the pending list; the full 1984 paper remains behind a paywall.
@@ -623,7 +626,7 @@ for the rooftop-fan ANC project.*
 
 **"Low-Frequency Noise: Experiences from a Low-Frequency Noise Perceiving Population"** — Kristina H. Erdélyi, Anselm B. M. Fuermaier, Lara Tucha, Oliver Tucha, Janneke Koerts (Univ. of Groningen + Univ. Medical Center Rostock + NUI Maynooth) · *Int. J. Environ. Res. Public Health* 20:3916, 2023 · DOI [10.3390/ijerph20053916](https://doi.org/10.3390/ijerph20053916) · open access (CC BY 4.0) · `raw/LowFrequencyNoise-ijerph-20-03916.txt`
 
-- **Design:** cross-sectional questionnaire study of Dutch adults; self-reported LFN-perceiving group ($n{=}190$, recruited via *Stichting Laagfrequentgeluid* + snowball, 2018–2021) vs. demographically-matched comparison group ($n{=}371$, online panel). No acoustic measurements — explicitly a subjective-experience mapping. Dutch RIVM LFN definition: 20–125 Hz (infrasound $<$20 Hz); other definitions extend to 200–250 Hz.
+- **Design:** cross-sectional questionnaire study of Dutch adults; self-reported LFN-perceiving group ($n{=}190$, recruited via *Stichting Laagfrequentgeluid* + snowball, 2018–2021) vs. demographically-matched comparison group ($n{=}371$, online panel). No acoustic measurements — explicitly a subjective-experience mapping. Dutch RIVM LFN definition: 20–125 Hz (infrasound $<20$ Hz); other definitions extend to 200–250 Hz.
 - **Perceived frequencies** self-reported by 51 participants: range **5–140 Hz** (23% in RIVM LFN band, 9% infrasound, 1% above 125 Hz). Notably includes the $\approx\!118$ Hz BPF band that motivates the rooftop-fan work in this wiki.
 - **Assumed sources (rank-ordered):** air-conditioning/ventilation (20%), machinery/household appliances (17%), pumps (16%), electrical installations (15%), traffic (13%), heating (12%), gas (10%). One-third of participants could not identify a source at all.
 - **Complaint profile** (26-item checklist, multiple answers, 98% report $\ge 1$): sleep difficulties 89.5%, fatigue 75.3%, annoyance 63.2%, restlessness 62.6%, pressing/pulsing in/on ear 62.6%, stress 61.1%, concentration difficulties 59.5%, body vibrations 58.4%, irritability 57.4%, depressed mood 46.3%, headache 41.6%, heart complaints 36.8%. Mean 9.33 different complaints per person (SD 4.7).
@@ -689,7 +692,7 @@ to absorb low-frequency fan tones.*
 - **Target specific acoustic impedance** (parametric): $Z_{st}(s)= s\,\mu M_{ms}/S_d + R_{st} + \mu/(s S_d C_{mc})$, with $0<\mu<1$ scaling effective mass and stiffness *down together* to widen the band while $R_{st}$ sets the resistance. $\rho c$ match ⇒ $R_{st}=Z_c$.
 - **Bandwidth law:** $BW=\dfrac{S_d}{2\pi\mu M_{ms}}\dfrac{\sqrt{(\sqrt2-1)^2(R_{st}+Z_c)^2-(R_{st}-Z_c)^2}}{\sqrt{1-(\sqrt2-1)^2}}$, valid for $|R_{st}-\sqrt2 Z_c|\le Z_c$. Larger $S_d/M_{ms}$ → wider band; $C_{mc}$ (cabinet volume) sets center $f_0$.
 - Numbers (Peerless SDS-P830657, $S_d$=151 cm², $M_{ms}$=14.67 g, $Bl$=5.98 N/A, $V_b$=10 dm³, $f_0$=84 Hz): Case C ($\mu$=0.15, $R_{st}=\rho c$, i.e. mass+stiffness cut 85%) → **$\rho c$ match over ~410 Hz bandwidth** around 84 Hz.
-- Experiment: 1.97 m × Ø150 mm waveguide, ISO 10534-2, NI CompactRIO FPGA controller, "improved Howland" current pump; near-perfect broadband absorption confirmed. **Duct mode damping:** 44–300 Hz peak-to-dip range 51.3 dB (rigid) → 37.3 dB (open circuit) → **12.6 dB (controlled)** — a 4:1 collapse of the modal dynamics.
+- Experiment: 1.97 m × Ø150 mm waveguide, ISO 10534-2, NI CompactRIO FPGA controller, "improved Howland" current pump; near-perfect broadband absorption confirmed. **Duct mode damping:** 44–300 Hz peak-to-dip range 51.3 dB (rigid) → 37.3 dB (open circuit) → **12.6 dB (controlled)** — a 38.7 dB collapse of the modal contrast.
 - Application discussion = **room modal equalization**: place absorbers at pressure antinodes (corners of plane-parallel rooms); optimal target resistance can be frequency-dependent and per-mode (need not equal $\rho c$); total absorbing area kept small vs reflecting area.
 - **Aperture caveat relevant to the fan project:** the analysis assumes the absorber area ≈ the waveguide cross-section; if the absorber is much smaller than the duct section the uniform-pressure boundary assumption fails and a transverse-mode (or FEM) treatment is required. Mirrors the open-source aperture-coverage problem for an outdoor fan.
 - Tags: active-absorber, active-impedance, feedback, feedforward, loudspeaker, microphone, transducer, impedance, room, stability, duct, reference
@@ -704,11 +707,11 @@ to absorb low-frequency fan tones.*
 
 **"Potential of microperforated panel absorber"** — Dah-You Maa (Academia Sinica) · *J. Acoust. Soc. Am.* 104(5):2861, 1998 · DOI 10.1121/1.423870 · `raw/MicroperforatedPanelAbsorber-Maa-JASA1998.txt`
 
-- Canonical **MPP impedance model**: submillimetre holes ($d\approx0.1$–$1$ mm) supply viscous resistance + low mass reactance with no fibrous fill. The quantitative form of the §5b flow-resistive screen and the first liner element for the E3 duct.
-- Relative impedance $z=r+j\omega m$ keyed to the **perforate constant** $k=d\sqrt{f}/10$: $r=\frac{32\eta t}{\sigma\rho_0 c d^2}k_r$, $\omega m=\frac{\omega t}{\sigma c}k_m$, with $k_r=\sqrt{1+k^2/32}+\frac{\sqrt2}{32}k\frac{d}{t}$, $k_m=1+(1+k^2/2)^{-1/2}+0.85\frac{d}{t}$.
+- Canonical **MPP impedance model**: submillimetre holes ($d\approx0.1$–$1$ mm) supply viscous resistance + low mass reactance with no fibrous fill. The quantitative form of a flow-resistive screen and the first liner element for the E3 duct.
+- Relative impedance $z=r+j\omega m$ keyed to the **perforate constant** $k=d\sqrt{\omega\rho_0/4\eta}\approx d\sqrt{f/10}$ ($d$ in mm, $f$ in Hz; hole radius over viscous boundary-layer thickness): $r=\frac{32\eta t}{\sigma\rho_0 c d^2}k_r$, $\omega m=\frac{\omega t}{\sigma c}k_m$, with $k_r=\sqrt{1+k^2/32}+\frac{\sqrt2}{32}k\frac{d}{t}$, $k_m=1+(1+k^2/2)^{-1/2}+0.85\frac{d}{t}$. *(As printed in Eq. 5 of the 1998 paper; its own Eq. 4, and Maa's earlier papers, have $(3^2+k^2/2)^{-1/2}$, which gives the correct small-$k$ Crandall mass factor $4/3$. Check before coding.)*
 - MPP + cavity $D$ over rigid backing: $\alpha=\frac{4r}{(1+r)^2+(\omega m-\cot(\omega D/c))^2}$; resonance $\omega_0 m=\cot(\omega_0 D/c)$ → $\alpha_0=\frac{4r}{(1+r)^2}$, **perfect at $r=1$** (matched). Bandwidth $f_2/f_1=\pi/\cot^{-1}(1+r)-1$ — resistance trades peak for width.
 - **Deep-subwavelength**: $D/\lambda$ falls below $1/4$ as $k$ grows → thin LF absorber, but still a $\lambda/4$-cavity resonator (examples: 250–2000 Hz @ $D{=}6$ cm; 125–1000 Hz @ $D{=}12$ cm). Reaching 118 Hz wants a deep or coiled cavity (→ [[hybrid-active-passive]] metamaterials).
-- Pairs with the bias-flow perforate (Howe 1979 / Jing–Sun 2000, [[electroacoustic-absorbers]] §9): same hole geometry, viscous-vs-vortex resistance.
+- Pairs with the bias-flow perforate (Howe 1979 / Jing–Sun 2000; see [[duct-acoustics-liner-modeling]]): same hole geometry, viscous-vs-vortex resistance.
 - Tags: hybrid-passive, active-absorber, acoustics, impedance, duct, reference
 
 ---

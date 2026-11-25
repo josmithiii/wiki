@@ -1,7 +1,7 @@
 ---
 title: Phase Vocoder and Time-Scale Modification
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [phase-vocoder, tsm, stft, phase-unwrap, modifications]
 sources:
@@ -9,7 +9,8 @@ sources:
   - /w/sasp/tsm.tex
   - /w/sasp/tsmpv.tex
   - /w/sasp/unwrap.tex
-  - /w/sasp/phasewrap.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Phase_Vocoder.html
+  - https://ccrma.stanford.edu/~jos/sasp/Time_Scale_Modification.html
   - spectral_processing/raw/Improved_phase_vocoder_time-scale_modification_of_audio.txt
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
@@ -54,8 +55,9 @@ $$\phi^s_{m+1}(k) \;=\; \phi^s_m(k) + R_s\, \hat\omega_m(k)$$
 4. Synthesis spectrum: $|X_m(k)|\, e^{j\phi^s_m(k)}$.
 5. Inverse STFT with synthesis hop $R_s$.
 
-For pitch shifting by factor $\beta$: TSM by $\alpha = 1/\beta$ then
-resample by $\beta$.
+For pitch shifting by factor $\beta$: time-stretch by $\alpha = \beta$,
+then resample (play back $\beta$ times faster) to restore the original
+duration.
 
 ## Phasiness and Phase Locking
 
@@ -79,7 +81,7 @@ TSM smears sharp onsets because phase continuation assumes local
 stationarity. Mitigations:
 - Detect transients and **reset phases** to original at transient
   frames (phase re-init).
-- Treat transients separately (SMS-T, see [[sms-sines-plus-noise]]).
+- Treat transients separately (S+N+T, see [[sms-sines-plus-noise]]).
 
 ## Trade-offs vs Alternatives
 
@@ -95,8 +97,11 @@ stationarity. Mitigations:
 - [[sinusoidal-modeling]] — peak model view
 - [[sms-sines-plus-noise]] — alternative TSM framework
 - [[stft-modifications]] — general safe-modification rules
-- [[extrema-sampling-time-stretch]] - cheap content-adaptive OLA stretcher (DAFx26)
+- [[extrema-sampling-time-stretch]] - content-adaptive OLA stretcher for embedded targets, about an order of magnitude cheaper than PV or WSOLA (DAFx26; catalog entry [[entities/source-papers#paper-nielsen-keyframe-extrema-tsm-2026|Nielsen 2026]])
 - [[entities/source-papers#paper-laroche-dolson-improved-pv-1999|Laroche-Dolson 1999 source note]]
-- **DAFx26 additions (Sept 2026):** a content-adaptive OLA stretcher for embedded targets that drives crossfade duration from local extrema density, about an order of magnitude cheaper than PV or WSOLA - see [[entities/source-papers#paper-nielsen-keyframe-extrema-tsm-2026]]
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Time Scale Modification](https://ccrma.stanford.edu/~jos/sasp/Time_Scale_Modification.html), [Phase Continuation](https://ccrma.stanford.edu/~jos/sasp/Phase_Continuation.html), [TSM Examples](https://ccrma.stanford.edu/~jos/sasp/TSM_Examples.html), [Phase Vocoder](https://ccrma.stanford.edu/~jos/sasp/Phase_Vocoder.html), [FFT Implementation of the Phase Vocoder](https://ccrma.stanford.edu/~jos/sasp/FFT_Implementation_Phase_Vocoder.html)
+- [[jos_books/entities/filters-book|Filters]]: [Phase Unwrapping](https://ccrma.stanford.edu/~jos/filters/Phase_Unwrapping.html)
 
 [^laroche-dolson-1999]: Jean Laroche and Mark Dolson, "Improved Phase Vocoder Time-Scale Modification of Audio," *IEEE Transactions on Speech and Audio Processing* 7(3):323-332, May 1999. Distilled in [[entities/source-papers#paper-laroche-dolson-improved-pv-1999]].

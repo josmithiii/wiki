@@ -1,7 +1,7 @@
 ---
 title: Reed and Bow Models
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [reed, nonlinear, waveguide, wind, string, physical-modeling]
 sources:
@@ -9,6 +9,9 @@ sources:
   - /w/pasp/reedboremech.tex
   - /w/pasp/brasses.tex
   - /w/pasp/flute.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Woodwinds.html
+  - https://ccrma.stanford.edu/~jos/pasp/Bowed_Strings.html
+  - https://ccrma.stanford.edu/~jos/pasp/Brasses.html
 ---
 
 # Reed and Bow Models
@@ -16,16 +19,16 @@ sources:
 Sustained-tone instruments require a nonlinear excitation mechanism that
 converts steady energy (breath, bow) into oscillation. In digital waveguide
 models, these appear as nonlinear scattering elements at one end of the bore
-or string.
+or along the string.[^1][^3]
 
 ## Single Reed (Clarinet/Saxophone)
 
 ### Physical Mechanism
 - Player blows with mouth pressure $P_m$ into mouthpiece
 - Reed deflects under pressure difference $P_d = P_m - P_b$ (bore pressure)
-- Flow U through reed aperture depends nonlinearly on P_d
-- At small P_d: reed opens, flow increases (positive resistance)
-- At large P_d: reed closes, flow drops to zero (negative resistance region)
+- Flow $U$ through the reed aperture depends nonlinearly on $P_d$
+- At small $P_d$: flow increases with pressure drop (positive resistance)
+- At larger $P_d$: the reed is pushed closed and flow falls to zero (negative-resistance region)
 - Oscillation sustained by energy injection in the negative-resistance regime
 
 ### Digital Waveguide Implementation
@@ -49,7 +52,7 @@ or string.
 - Lips modeled as mass-spring oscillator (1 or 2 masses)
 - Bernoulli flow between lips: $p_m = p_l + \tfrac{1}{2}\rho\, u_l^2$
 - Jet in mouthpiece dissipates kinetically (no pressure recovery)
-- Cook's simplified model: second-order resonator, output squared and clipped
+- Cook's simplified model[^2]: second-order resonator, output squared and hard-clipped
 - More sophisticated: Rodet-Vergez 1- and 2-mass models
 
 ## Air Reed (Flute/Recorder)
@@ -68,7 +71,7 @@ or string.
   two string segments (nut-side and bridge-side)
 - Incoming waves from both sides determine stick/slip state
 - Bow velocity and force are control parameters
-- See [[friction-synthesis]] in the modal_synthesis wiki for friction physics
+- See [[modal_synthesis/concepts/friction-synthesis|friction synthesis]] for friction physics
 
 ## Common Design Pattern
 
@@ -88,7 +91,10 @@ and produces an outgoing wave — a memoryless or low-order dynamic map.
 - [[string-modeling]] — bowed-string waveguide models
 - [[bowed-string-finite-difference-models]] — the finite-difference alternative (yehu, elasto-plastic friction)
 
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Single-Reed Instruments](https://ccrma.stanford.edu/~jos/pasp/Single_Reed_Instruments.html), [Digital Waveguide Single-Reed Implementation](https://ccrma.stanford.edu/~jos/pasp/Digital_Waveguide_Single_Reed_Implementation.html), [Modeling the Lips and Mouthpiece](https://ccrma.stanford.edu/~jos/pasp/Modeling_Lips_Mouthpiece.html), [Flutes, Recorders, and Pipe Organs](https://ccrma.stanford.edu/~jos/pasp/Flutes_Recorders_Pipe_Organs.html), [The Bow-String Scattering Junction](https://ccrma.stanford.edu/~jos/pasp/Bow_String_Scattering_Junction.html), [Nonlinear Elements](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Elements.html)
+
 ## References
-[^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.
+[^1]: Smith, J.O. III. *Physical Audio Signal Processing*, W3K Publishing, 2010; online at <https://ccrma.stanford.edu/~jos/pasp/>.
 [^2]: Cook, P. (1992). "A Meta-Wind-Instrument Physical Model." PhD thesis, Stanford/CCRMA.
 [^3]: McIntyre, M.E., Schumacher, R.T., & Woodhouse, J. (1983). "On the oscillations of musical instruments." JASA 74(5).

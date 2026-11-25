@@ -314,6 +314,9 @@ def build_sidebar(page_md: Path, out_dir: Path, subwiki_pages: dict[str, list[Pa
 
 def render_one(md_path: Path, out_dir: Path, by_bare, by_relpath,
                subwiki_pages: dict[str, list[Path]]) -> int:
+    """Render one page to HTML. Returns its error count: one per broken
+    wikilink (the page is still rendered, with dead anchors) plus one if
+    pandoc fails."""
     content = md_path.read_text()
     new_content, broken = convert_wikilinks(content, md_path, out_dir, by_bare, by_relpath)
     if broken:
@@ -348,8 +351,8 @@ def render_one(md_path: Path, out_dir: Path, by_bare, by_relpath,
     if proc.returncode != 0:
         print(f"*** pandoc failed for {md_path}", file=sys.stderr)
         print(proc.stderr, file=sys.stderr)
-        return 1
-    return 0
+        return len(broken) + 1
+    return len(broken)
 
 
 def extract_title(content: str) -> str | None:

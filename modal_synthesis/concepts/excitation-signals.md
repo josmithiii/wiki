@@ -1,12 +1,12 @@
 ---
 title: Excitation Signals
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-11-25
 type: concept
 tags: [modal, impulse-response, dsp, physical-modeling, modal-synthesis, impact, friction]
 sources:
-  - https://ccrma.stanford.edu/~jos/pasp/Excitation.html
-  - https://ccrma.stanford.edu/~jos/pasp/Impulse_Response.html
+  - https://ccrma.stanford.edu/~jos/pasp/String_Excitation.html
+  - https://ccrma.stanford.edu/~jos/pasp/Approximating_Shortened_Excitations_Noise.html
 ---
 
 # Excitation Signals
@@ -19,15 +19,15 @@ The choice of excitation shapes the perceptual character of the synthesized soun
 The mathematical ideal: Dirac delta $\delta(t)$.
 
 - Spectrum: flat (white) across all frequencies
-- Excites all modes simultaneously with equal amplitude at t=0
+- Excites all modes simultaneously with equal amplitude at $t=0$
 - Result: pure decay — the impulse response of the resonator bank
-- In practice: single non-zero sample of amplitude A at t=0
+- In practice: single non-zero sample of amplitude $A$ at $t=0$
 - Use for: struck/hit sounds (hammer, mallet, collision), any transient event
 - Modal synthesis: apply impulse to each mode's initial conditions
   — sets $x_n(0) = 0$, $\dot{x}_n(0) = \phi_n(x_{\text{drive}})\, F_{\text{impulse}} / m_n$
 - Extended impulse (shaped): raised-cosine or Hann-windowed pulse
-  — controls spectral bandwidth, avoids exciting modes above f_cutoff
-  — softer mallet = lower f_cutoff = less high-frequency mode content
+  — controls spectral bandwidth, avoids exciting modes above a cutoff $f_c$
+  — softer mallet = lower $f_c$ = less high-frequency mode content
 
 ## Noise Burst
 
@@ -42,6 +42,7 @@ Band-limited or broadband noise, windowed to finite duration.
 - Burst length effect: short burst ~ impulse; long burst ~ continuous noise input
 - Key advantage over impulse: controllable onset smoothness, avoids clicks
 - Common in percussion synthesis: drum hit = noise burst convolved with shell modes
+  (cf. [[waveguide_synthesis/concepts/commuted-synthesis|commuted synthesis]], where a short body response is folded into the excitation)
 
 ## Continuous Excitation
 
@@ -53,9 +54,9 @@ Sustained signal driving the resonator bank indefinitely.
 - Output spectrum = $|H(\omega)|^2 \cdot S_{\text{input}}(\omega)$
 
 ### Sinusoidal / Harmonic Drive
-- Single frequency f_drive or harmonic series
-- When $f_{\text{drive}}$ near mode $\omega_n$: resonance buildup (transient + steady state)
-- Beating when $f_{\text{drive}}$ slightly off resonance: $|f_{\text{drive}} - f_n|$ beats per second
+- Single frequency $f_{\text{drive}}$ or harmonic series
+- When $f_{\text{drive}}$ is near a mode frequency $f_n$: resonance buildup (transient + steady state)
+- Transient beating when $f_{\text{drive}}$ is slightly off resonance: $|f_{\text{drive}} - f_n|$ beats per second, dying out at the mode's decay rate
 - Use for: bowed strings, singing bowls, friction drums, wind-excited structures
 
 ### Bow-Force Model (friction excitation)
@@ -93,3 +94,6 @@ The input force couples to mode $n$ proportional to $\phi_n(x_{\text{drive}})$:
 - Impact force model: [[impact-synthesis]]
 - Friction/bow drive: [[friction-synthesis]]
 - Resonator response to inputs: [[resonator-bank-implementation]]
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [String Excitation](https://ccrma.stanford.edu/~jos/pasp/String_Excitation.html), [Pluck Modeling](https://ccrma.stanford.edu/~jos/pasp/Pluck_Modeling.html), [Piano Hammer Modeling](https://ccrma.stanford.edu/~jos/pasp/Piano_Hammer_Modeling.html), [Excitation Noise Substitution](https://ccrma.stanford.edu/~jos/pasp/Approximating_Shortened_Excitations_Noise.html)

@@ -1,7 +1,7 @@
 ---
 title: Extrema-Sampling Time Stretching
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [tsm, ola, modifications, applications, downsampling]
 sources:
@@ -91,5 +91,8 @@ Corpus: the 10 TSM-toolbox stress clips.
 - [[phase-vocoder-and-tsm]] - the expensive, phasey alternative
 - [[overlap-add-stft]] - OLA in its usual STFT setting
 - [[entities/source-papers#paper-nielsen-keyframe-extrema-tsm-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Time Scale Modification](https://ccrma.stanford.edu/~jos/sasp/Time_Scale_Modification.html), [TSM Examples](https://ccrma.stanford.edu/~jos/sasp/TSM_Examples.html)
 
 [^nielsen-2026]: Matthew Nielsen, "Keyframe Time Stretching via Extrema Sampling," *Proc. DAFx26*, Cambridge MA, Sept. 2026, pp. 168-175. Distilled in [[entities/source-papers#paper-nielsen-keyframe-extrema-tsm-2026]].

@@ -1,7 +1,7 @@
 ---
 title: HASY ASIC
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: entity
 tags: [asic, oscillator-sync, additive, real-time, oscillator]
 sources:
@@ -11,7 +11,8 @@ sources:
 
 # HASY ASIC
 
-HASY ("hard sync") is a 65 nm CMOS chip from ETH Zurich that computes the
+HASY (presumably "hard sync"; the paper does not expand the name) is a 65 nm CMOS
+chip from ETH Zurich that computes the
 spectral-resampling transform of [[alias-free-oscillator-sync]] and resynthesizes the
 result additively, in real time.[^1]
 

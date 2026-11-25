@@ -7,7 +7,10 @@ Spectral audio signal processing -- FFT-based analysis, modification, and resynt
 Spectral audio signal processing -- FFT-based analysis, modification, and resynthesis of music and audio signals. Covers the DFT/DTFT/STFT, spectrum analysis windows, overlap-add (OLA) and filter-bank summation (FBS) views of the STFT, sinusoidal and sines-plus-noise (SMS) modeling, peak detection and QIFFT, phase vocoder and time-scale modification, multirate filter banks, FIR/window design, and spectral modeling applications (cross-synthesis, spectral envelope, f0 estimation, audio coding). Adjacent: physical modeling (waveguide_synthesis, modal_synthesis), general DSP.
 
 ## Primary Source
-Julius O. Smith III, *Spectral Audio Signal Processing* (SASP), LaTeX source at `/w/sasp/`.
+Julius O. Smith III, *Spectral Audio Signal Processing* (SASP), free online at
+<https://ccrma.stanford.edu/~jos/sasp/> (LaTeX source at `/w/sasp/` on the host).
+Hub page with the chapter map: [[jos_books/entities/sasp-book]]. Prerequisite
+books: MDFT ([[jos_books/entities/mdft-book]]) and Filters ([[jos_books/entities/filters-book]]).
 
 ## Context Budget
 This wiki is used by agents with as little as 32k token context. Rules:
@@ -39,14 +42,25 @@ type: entity | concept | comparison | query | summary
 tags: [from taxonomy below]
 sources:
   - /w/sasp/<file>.tex
-  - https://ccrma.stanford.edu/~jos/sasp/...
+  - https://ccrma.stanford.edu/~jos/sasp/<Page_Name>.html
 ---
 ```
 
 ## Source Attribution
 - Primary source is the SASP LaTeX book at `/w/sasp/`. Cite the specific
-  `.tex` files a page distills in its `sources:` frontmatter list.
-- Web version: `https://ccrma.stanford.edu/~jos/sasp/`.
+  `.tex` files a page distills in its `sources:` frontmatter list, **plus** the
+  URL of the corresponding online section(s) - frontmatter is not rendered on
+  the web site, and `/w/` paths mean nothing to outside readers.
+- Online books: one HTML page per section,
+  `https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html` with `<book>` in
+  `mdft | filters | pasp | sasp`. Page names cannot be guessed - look them up
+  in `jos_books/catalog/<book>.tsv` (page name, title, parent page).
+- Every book-derived page ends with a `## JOS online books` section (before the
+  footnote definitions): one bullet per book, the hub wikilink first
+  (`[[jos_books/entities/sasp-book|SASP]]`), then 2-6 deep links whose text is
+  the book section's title. Link inline as well where a specific result is used.
+- Check with `make book-links` (or `python3 scripts/book_links.py check .
+  spectral_processing`); `make rebuild` runs the same check.
 - Use markdown footnotes in the body when citing a specific result.
 
 ## Tag Taxonomy
@@ -94,7 +108,7 @@ sources:
 - noise -- noise spectrum analysis, averaging, Welch, Bartlett
 - statistical-dsp -- expectation, variance, estimator bias
 - gauss -- Gaussian and chirp-Gaussian theory
-- bbt -- Blackman-Tukey spectrum estimation
+- blackman-tukey -- Blackman-Tukey spectrum estimation (lag-windowed autocorrelation)
 
 ### Filter banks
 - filter-banks -- general filter bank theory
@@ -109,10 +123,11 @@ sources:
 
 ### Meta
 - history -- historical notes, futurists, Hammond, Telharmonium, voder/vocoder
+- reference -- source-paper catalog entries and other reference/catalog pages
 
 ## Directory Structure
 - `entities/` -- specific methods, tools, historical items (e.g., PARSHL, phase vocoder)
 - `concepts/` -- core theory and techniques
 - `comparisons/` -- OLA vs FBS, sinusoidal vs SMS, etc.
 - `queries/` -- curated entry points for common questions
-- `raw/` -- optional cached raw sources (the book lives at `/w/sasp/`)
+- `raw/` -- gitignored text extractions of research PDFs (the book itself lives at `/w/sasp/` and online)

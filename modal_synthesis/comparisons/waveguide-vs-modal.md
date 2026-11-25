@@ -1,7 +1,7 @@
 ---
 title: Waveguide vs. Modal Synthesis
 created: 2026-04-09
-updated: 2026-09-08
+updated: 2026-11-25
 type: comparison
 tags: [waveguide, modal-synthesis, physical-modeling, dsp, comparison]
 sources:
@@ -32,16 +32,16 @@ differ in efficiency and what is natural to control.
 | Core DSP element | Delay line + filter | Resonator (biquad) |
 | Excitation | Bow, reed, breath (flow-pressure) | Impact, impulse force |
 | Geometry | 1D structures (strings, bores) | Any dimensionality |
-| Mode count | Implicitly infinite | Explicit, finite N |
-| Real-time cost | $O(L)$ — length of structure | $O(N)$ — number of modes |
-| Pitch control | Change delay length | Scale all f_k |
+| Mode count | Implicit (all modes up to Nyquist) | Explicit, finite $N$ |
+| Real-time cost | $O(1)$ per sample per delay loop (memory $O(L)$) | $O(N)$ — number of modes |
+| Pitch control | Change delay length | Scale all $f_k$ |
 | Damping | Lowpass filter in loop | Pole radius per mode |
 | Nonlinearity | Natural (reed, bow at junction) | Requires feedback loop |
 | Best for | Strings, woodwinds, brass | Bars, plates, bells, shells |
 
 ## 1D Equivalence
 For a lossless string: waveguide = modal (exactly).
-- N-mode modal sum of string = output of Smith's digital waveguide model (1992);
+- $N$-mode modal sum of string = output of Smith's digital waveguide model (1992);
   Karplus-Strong (1983) is a special case of this equivalence
 - They differ only in how parameters are specified
 
@@ -63,16 +63,19 @@ Use **modal** when:
 
 ## Hybrid Approaches
 - **Modal + waveguide**: use modal for body resonance, waveguide for string
-  (e.g., guitar body modeled as modes, string as waveguide)
-- **Commuted synthesis**: convolve excitation with pre-computed modal IR
-  (avoids running all resonators: offline computation + convolution at runtime)
+  (e.g., guitar body modeled as modes, string as waveguide); see [[coupled-structures]]
+- **Delay-loop expansion**: one filtered delay loop per quasi-harmonic series of modes
+- **Banded waveguides**: one band-limited delay loop per mode of a bar, bowl or glass, keeping
+  waveguide-style nonlinear excitation ([[waveguide_synthesis/concepts/banded-waveguides|banded waveguides]])
+- **Commuted synthesis**: fold the body's modal IR into the excitation (next section)
 
 ## Commuted Synthesis Shortcut
-If pickup position and excitation position are fixed, precompute the impulse response:
-$$h(t) \;=\; \sum_k a_k\, e^{-d_k t}\, \sin(2\pi f_k t)$$
-Then synthesize: $y(t) = e(t) * h(t)$ (convolution)
-This is exactly a single convolution -- often cheaper than running N biquads
-for long-decay instruments (but loses flexibility of changing pickup or modes).
+String and body are both LTI, so they commute. Precompute the body impulse response
+$$h_{\text{body}}(t) \;=\; \sum_k a_k\, e^{-d_k t}\, \sin(2\pi f_k t)$$
+convolve it offline with the excitation, $a(t) = e(t) * h_{\text{body}}(t)$, and play that
+table into the string loop: $y = a * h_{\text{string}}$. The hundreds of body resonators never run
+at synthesis time - at the cost of a body frozen into the table (no run-time changes to
+pickup or modes). See [[waveguide_synthesis/concepts/commuted-synthesis|commuted synthesis]].
 
 ## DAFx26 additions
 
@@ -83,4 +86,9 @@ for long-decay instruments (but loses flexibility of changing pickup or modes).
 ## Related Concepts
 - [[modal-synthesis-overview]] -- modal synthesis in full detail
 - [[resonator-bank-implementation]] -- modal DSP
-- [[friction-synthesis]] -- case where waveguide topology suits modal problems
+- [[friction-synthesis]] - nonlinear feedback excitation: natural at a waveguide junction, a feedback loop in modal form
+- [[waveguide_synthesis/concepts/waveguide-overview|waveguide overview]] - the waveguide side in full detail
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Modal Expansion](https://ccrma.stanford.edu/~jos/pasp/Modal_Expansion.html), [Delay Loop Expansion](https://ccrma.stanford.edu/~jos/pasp/Delay_Loop_Expansion.html), [Commuted Synthesis](https://ccrma.stanford.edu/~jos/pasp/Commuted_Synthesis.html), [Digital Waveguide Models](https://ccrma.stanford.edu/~jos/pasp/Digital_Waveguide_Models.html), [Physical Models](https://ccrma.stanford.edu/~jos/pasp/Physical_Models.html)
+- [[jos_books/entities/filters-book|Filters]]: [Digital Waveguide Oscillator Example](https://ccrma.stanford.edu/~jos/filters/State_Space_Analysis_Example_The.html)

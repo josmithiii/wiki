@@ -1,9 +1,9 @@
 ---
 title: VIOLA — Automatic WDF Audio Plug-in Generator
 created: 2026-04-15
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
-tags: [dsp, faust, realtime, nonlinear, reference]
+tags: [scattering, dsp, realtime, nonlinear, reference]
 sources:
   - raw/papers/automatic-generation-va-plugins-wdf.txt
   - https://github.com/polimi-ispl/viola
@@ -113,12 +113,16 @@ Both RTRs $\ll 1$ on an Intel i7-11800H — real-time with wide headroom.
 
 ## Related
 
+- [[wdf-code-generation]] — the other automation route: a circuit DSL compiled to WDF code
 - [[wdf-r-type-adaptors]] — MNA-based scattering that VIOLA builds on
 - [[wdf-multiple-nonlinearities]] — K-method framework; SIM is an alternative
 - [[wave-digital-filters]] — theory
 - [[wdf-adaptors]] — scattering junctions
 - [[wdf-elements]] — one-port models including diode
 - [[wdf-applications]] — broader VA emulation context
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Wave Digital Filters](https://ccrma.stanford.edu/~jos/pasp/Wave_Digital_Filters_I.html), [Reflection Free Port](https://ccrma.stanford.edu/~jos/pasp/Reflection_Free_Port.html), [Nonlinear Elements](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Elements.html)
 
 ## References
 [^1]: Giampiccolo, R.; Ravasi, S.; Bernardini, A. "Automatic Generation

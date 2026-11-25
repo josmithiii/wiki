@@ -1,7 +1,7 @@
 ---
 title: Impact Synthesis
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-11-25
 type: concept
 tags: [impact, modal-synthesis, physical-modeling, acoustics, rigid-body]
 sources:
@@ -13,7 +13,8 @@ sources:
 ## Overview
 Impact synthesis models the sound produced when two objects collide.
 Most common excitation model for modal synthesis — a struck or dropped object.
-Early work by Perry Cook (1995); later made real-time by James, Barbic, Pai (2006).
+Early work: Gaver (1993), Cook (1997), van den Doel & Pai (1998); real-time interactive
+contact sounds in FoleyAutomatic (van den Doel, Kry & Pai 2001).
 
 ## Physics of Impact
 Two contact phases:
@@ -22,7 +23,8 @@ Two contact phases:
 
 Key insight: for rigid-body impact, contact force ~ a half-sine pulse of duration $T_c$.
 $T_c$ depends on object stiffnesses (Hertz contact model):
-$$T_c \;\sim\; 1/f_{\text{contact}} \;\sim\; (\text{material stiffness})^{-2/5}$$
+$$T_c \;\sim\; 1/f_{\text{contact}} \;\propto\; (m^2 / k_h^2 v_0)^{1/5}$$
+(Hertz: effective mass $m$, contact stiffness $k_h$, impact speed $v_0$ - stiffer or faster means shorter).
 
 ## Hertz Contact Model
 Force during contact:
@@ -32,7 +34,7 @@ where:
 - $\delta(t)$ = mutual indentation (overlap) of objects at contact point
 - $k_h$ = Hertz contact stiffness = $f(E_1, E_2, R_1, R_2)$ (elastic moduli, radii)
 
-Resulting force pulse ~ smooth bump; spectral content up to ~1/T_c Hz.
+Resulting force pulse ~ smooth bump; spectral content up to ~$1/T_c$ Hz.
 
 ## Modal Response
 Object's acoustic output after impact:
@@ -43,28 +45,30 @@ $$y(t) \;=\; \sum_k a_k\, \phi_k(r_{\text{impact}})\, e^{-d_k t}\, \sin(2\pi f_k
 
 For real contact pulse $F(t)$: each mode is convolved with $F(t)$,
 which attenuates high-frequency modes (the pulse is a low-pass filter).
-Hard materials → short T_c → more HF modes excited.
-Soft materials (rubber) → long T_c → only LF modes excited.
+Hard materials → short $T_c$ → more HF modes excited.
+Soft materials (rubber) → long $T_c$ → only LF modes excited.
 
 ## Precomputed Impact Sounds
-James, Barbic & Pai (2006) "Precomputed Acoustic Transfer":
+The standard pipeline (van den Doel, Kry & Pai 2001; O'Brien, Shen & Gatchalian 2002):
 - Precompute mode parameters offline (FEM)
 - Store per-vertex mode shape values
-- At runtime: look up phi_k(r_impact) and trigger resonator bank
+- At runtime: look up $\phi_k(r_{\text{impact}})$ and trigger the resonator bank
 - Enables real-time rigid-body impact sound synthesis for games/VR
+- James, Barbič & Pai (2006), "Precomputed Acoustic Transfer", adds each mode's precomputed
+  radiation to the listener (see [[radiation-and-directivity]])
 
 ## Contact Models for Different Material Types
-| Material | Hertz model? | T_c | Modes excited |
+| Material | Hertz model? | $T_c$ | Modes excited |
 |----------|--------------|-----|---------------|
 | Metal-metal | Yes | very short | broad spectrum |
 | Wood-wood | Yes (approx) | short | mid-high freq |
 | Rubber-hard | Nonlinear | long | low freq only |
 | Cloth | Complex | N/A | not modal |
 
-## Perceptual Factors (Cook 2002)
-- Fundamental frequency most salient cue for material (hardness)
-- Decay rate → hardness/damping perception
-- Mode spacing → size and shape perception
+## Perceptual Factors
+- Decay rate (internal damping) → the main cue to material (Klatzky, Pai & Krotkov 2000)
+- Frequency → size (lower = larger), and a secondary material cue
+- Mode spacing → shape perception
 - Spectral centroid → brightness / hardness
 - Inharmonicity → "metallic" vs "wooden" timbre
 
@@ -80,3 +84,7 @@ James, Barbic & Pai (2006) "Precomputed Acoustic Transfer":
 - [[friction-synthesis]] — continuous excitation (bowing, scraping)
 - [[rigid-body-sound-synthesis]] — full simulation pipeline
 - [[material-properties-and-modes]] — how material affects mode parameters
+- [[nonlinear-modal-synthesis]] — power-law collisions with energy-stable numerical schemes
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Piano Hammer Modeling](https://ccrma.stanford.edu/~jos/pasp/Piano_Hammer_Modeling.html), [Nonlinear Spring Model](https://ccrma.stanford.edu/~jos/pasp/Nonlinear_Spring_Model.html), [Including Hysteresis](https://ccrma.stanford.edu/~jos/pasp/Including_Hysteresis.html), [Ideal String Struck by a Mass](https://ccrma.stanford.edu/~jos/pasp/Ideal_String_Struck_Mass.html)

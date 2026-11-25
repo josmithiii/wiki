@@ -2,8 +2,9 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Source book: Julius O. Smith III, *Spectral Audio Signal Processing* (`/w/sasp/`).
-> Last updated: 2026-09-10 | Total pages: 25
+> Source book: Julius O. Smith III, *Spectral Audio Signal Processing*, online at <https://ccrma.stanford.edu/~jos/sasp/> (LaTeX source `/w/sasp/`).
+> Book hub pages (chapter maps, deep links, prerequisites MDFT and Filters): [[jos_books/index|JOS online books]].
+> Last updated: 2026-11-25 | Total pages: 25
 
 ## Entities
 <!-- specific methods, tools, historical items -->
@@ -16,14 +17,14 @@
 
 ## Concepts
 <!-- core theory pages -->
-- [[sasp-overview]] — big picture of the SASP book, chapter map, three views
-- [[dtft-and-fourier-theorems]] — four Fourier cases, DTFT, key theorems, Poisson summation
+- [[sasp-overview]] — big picture of the SASP book, three views, chapter map linked to the online chapters
+- [[dtft-and-fourier-theorems]] — four Fourier cases, DTFT, key theorems, Poisson summation formula
 - [[zero-padding-and-interpolation]] — zero padding as DTFT interpolation; minimum-zp tables
 - [[spectrum-analysis-windows]] — window zoo; main-lobe vs side-lobe trade-off
 - [[window-design-methods]] — window method, least-squares, LP/Chebyshev, Parks-McClellan
 - [[short-time-fourier-transform]] — STFT definition, parameters, two dual views
-- [[overlap-add-stft]] — OLA interpretation, COLA constraint, FFT convolution
-- [[filter-bank-summation-stft]] — FBS interpretation, DFT filter bank, Portnoff windows
+- [[overlap-add-stft]] — OLA interpretation, weak/strong COLA constraints, FFT convolution
+- [[filter-bank-summation-stft]] — FBS interpretation, DFT filter bank, Nyquist(N) and Portnoff windows
 - [[stft-modifications]] — safe spectral modifications, time-varying filtering
 - [[sinusoidal-modeling]] — analysis, peak tracking, birth/death, PARSHL pipeline
 - [[qifft-peak-estimation]] — parabolic peak interpolation, bias vs window
@@ -32,8 +33,8 @@
 - [[phase-vocoder-and-tsm]] — phase vocoder, TSM, phase locking, transient handling
 - [[cross-synthesis-and-morphing]] — envelope × carrier, magnitude/phase exchange
 - [[f0-and-spectral-envelope]] — f0 estimation, LPC/cepstral envelope extraction
-- [[noise-spectrum-analysis]] — Bartlett, Welch, Blackman-Tukey; bias/variance trade-off
-- [[multirate-filter-banks]] — polyphase, noble identities, PR FB, wavelets
+- [[noise-spectrum-analysis]] — periodogram, Bartlett, Welch, Blackman-Tukey; bias/variance; processing gain
+- [[multirate-filter-banks]] — polyphase, noble identities, PR/QMF/CQF banks, cosine modulation, wavelets
 - [[spectral-audio-applications]] — audio coding, loudness, vocoders, effects
 - [[gaussian-and-chirp-windows]] — Gaussian optimality, chirplets, uncertainty principle
 - [[nonstationary-sinusoidal-estimation-ddm]] - polynomial AM-FM sinusoids estimated by the distribution derivative method
@@ -42,6 +43,6 @@
 - [[linear-phase-octave-filter-bank-implementation]] - blocked and OpenMP-task realization of a multistage IFIR octave bank on an edge SoC
 
 ## Comparisons
-<!-- See also sibling wikis: ../waveguide_synthesis/ and ../modal_synthesis/ -->
+- None yet (candidates: OLA vs FBS, sinusoidal vs SMS). Related sub-wikis: [[waveguide_synthesis/index|waveguide_synthesis]], [[modal_synthesis/index|modal_synthesis]], [[virtual_analog/index|virtual_analog]].
 
 ## Queries

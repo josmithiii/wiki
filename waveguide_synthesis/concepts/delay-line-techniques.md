@@ -1,7 +1,7 @@
 ---
 title: Delay-Line Techniques
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [delay-line, dsp, waveguide, realtime]
 sources:
@@ -9,6 +9,8 @@ sources:
   - /w/pasp/delay-var.tex
   - /w/pasp/delay-lossy-prop.tex
   - /w/pasp/delay-allpass-waveguide.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Delay_Line_Signal_Interpolation.html
+  - https://ccrma.stanford.edu/~jos/pasp/Time_Varying_Delay_Effects.html
   - /l/dttd/DAFx26/ - DAFx26 papers catalogued in entities/source-papers.md
 ---
 
@@ -16,15 +18,17 @@ sources:
 
 Digital waveguide models require precise control of delay length, including
 fractional samples for pitch accuracy and smooth time variation for effects
-and physical modeling.
+and physical modeling.[^1]
 
 ## Integer Delay Lines
 
-- Implemented as circular buffers: O(1) read/write per sample
+- Implemented as circular buffers: $O(1)$ read/write per sample
 - Length $N$ sets fundamental: $f_0 = f_s / N$ (for a string loop)
 - Total loop delay = $N_{\text{delay}} + N_{\text{filter}}$ (delay from loop filters counts)
 
 ## Fractional Delay Interpolation
+
+Surveyed in Laakso et al.[^2]; the three workhorses:
 
 ### Linear Interpolation
 $$y(n + \eta) \;=\; (1 - \eta)\, y(n) + \eta\, y(n+1), \qquad \eta \in [0,1]$$
@@ -40,19 +44,21 @@ $$H(z) \;=\; \frac{\eta + z^{-1}}{1 + \eta\, z^{-1}}$$
 - Flat magnitude response (unity gain at all frequencies)
 - Preferred inside feedback loops (waveguide string models)
 - Same cost as linear: 1 multiply, 2 adds
-- Ramping $\eta$ from 0 to 1 smoothly "grows" one sample of delay
+- Low-frequency delay $\Delta \approx (1-\eta)/(1+\eta)$: $\eta = 1$ gives 0, $\eta = 0$ gives 1 sample
+  (in practice use $\Delta \in [0.1, 1.1]$ to stay clear of the pole-zero cancellation at $z=-1$)
+- Recursive state causes transients when $\eta$ changes quickly - see [[differentiable-karplus-strong]]
 - STK class: `DelayA`
 
 ### Higher-Order Methods
-- Lagrange interpolation: polynomial fit to M+1 samples
+- Lagrange interpolation: polynomial fit to $M+1$ samples (FIR, maximally flat at DC)
 - Thiran allpass: maximally flat group delay at DC
 - Windowed-sinc: best for high-quality table lookup (not feedback loops)
 
 ## Variable Delay Lines
 
 Used for:
-- **Vibrato/tremolo**: periodic delay modulation
-- **Chorus/flange/phase**: multiple modulated delays mixed
+- **Vibrato / Doppler shift**: periodic or ramped delay modulation
+- **Chorus/flanging**: one or more modulated delays mixed with the input
 - **Pitch shifting**: delay ramping with crossfade
 - **Waveguide pitch control**: vary string/bore length in real time
 
@@ -90,9 +96,13 @@ Stiff strings and other media have frequency-dependent propagation speed:
 - [[scattering-junctions]] — connecting waveguides requires delay management
 - [[string-modeling]] — primary application of fractional delay + loop filters
 - [[artificial-reverberation]] — delay lines as building blocks for reverb
-- **Pass-2 pages:** [[loopback-fm-time-varying-delay]], [[circular-buffer-topology-monodromy]], [[differentiable-karplus-strong]]
+- **DAFx26 pages:** [[loopback-fm-time-varying-delay]], [[circular-buffer-topology-monodromy]], [[differentiable-karplus-strong]]
 - **DAFx26 additions (Sept 2026):** loopback FM via a time-varying delay line, and evidence that time-domain fractional-delay interpolation is differentiable with no time-aliasing - see [[entities/source-papers#paper-smyth-loopback-fm-tvdl-2026]] and [[entities/source-papers#paper-tablas-differentiable-karplus-strong-2026]]
 
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Delay-Line Interpolation](https://ccrma.stanford.edu/~jos/pasp/Delay_Line_Interpolation.html), [First-Order Allpass Interpolation](https://ccrma.stanford.edu/~jos/pasp/First_Order_Allpass_Interpolation.html), [Lagrange Interpolation](https://ccrma.stanford.edu/~jos/pasp/Lagrange_Interpolation.html), [Variable Delay Lines](https://ccrma.stanford.edu/~jos/pasp/Variable_Delay_Lines.html), [Lossy Acoustic Propagation](https://ccrma.stanford.edu/~jos/pasp/Lossy_Acoustic_Propagation.html)
+- [[jos_books/entities/filters-book|Filters]]: [Phase and Group Delay](https://ccrma.stanford.edu/~jos/filters/Phase_Group_Delay.html)
+
 ## References
-[^1]: Smith, J.O. III. "Physical Audio Signal Processing," CCRMA/Stanford.
+[^1]: Smith, J.O. III. *Physical Audio Signal Processing*, W3K Publishing, 2010; online at <https://ccrma.stanford.edu/~jos/pasp/>.
 [^2]: Laakso, T.I. et al. (1996). "Splitting the unit delay." IEEE SPM 13(1).

@@ -1,13 +1,14 @@
 ---
 title: Zero Padding and Spectral Interpolation
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [dft, fft, ft-theorems]
 sources:
   - /w/sasp/specinterp.tex
   - /w/sasp/zpblackman.tex
   - /w/sasp/zpfmin.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Spectral_Interpolation.html
 ---
 
 # Zero Padding and Spectral Interpolation
@@ -54,7 +55,10 @@ $$X(\omega) \;=\; \sum_{k=0}^{N-1} X(k)\, \operatorname{asinc}_N\!\!\left(\omega
 
 ## Minimum Zero-Padding for Peak-Finding
 
-For QIFFT bias below a spec $\Delta$ (% of $f_s/M$):
+Minimum zero-padding factor $L_{\min} = N_{\min}/M$ keeping QIFFT
+peak-frequency bias below $\Delta$ (% of $f_s/M$), from SASP's
+[table for high-frequency peaks](https://ccrma.stanford.edu/~jos/sasp/Minimum_Zero_Padding_High_Frequency_Peaks.html)
+(smaller factors suffice [below 1 kHz](https://ccrma.stanford.edu/~jos/sasp/Minimum_Zero_Padding_Low_Frequency_Peaks.html)):
 
 | Window | $\Delta=1\%$ | $\Delta=0.1\%$ |
 |--------|-------------:|---------------:|
@@ -76,3 +80,7 @@ interpolation fits better (see [[qifft-peak-estimation]]).
 - [[dtft-and-fourier-theorems]] — DFT samples the DTFT
 - [[qifft-peak-estimation]] — primary beneficiary
 - [[spectrum-analysis-windows]] — resolution vs interpolation distinction
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Zero Padding in the Time Domain](https://ccrma.stanford.edu/~jos/sasp/Zero_Padding_Time_Domain.html), [Zero-Phase Zero Padding](https://ccrma.stanford.edu/~jos/sasp/Zero_Phase_Zero_Padding.html), [Interpolating a DFT](https://ccrma.stanford.edu/~jos/sasp/Interpolating_DFT.html), [Minimum Zero-Padding for High-Frequency Peaks](https://ccrma.stanford.edu/~jos/sasp/Minimum_Zero_Padding_High_Frequency_Peaks.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Zero Padding Theorem (Spectral Interpolation)](https://ccrma.stanford.edu/~jos/mdft/Zero_Padding_Theorem_Spectral.html), [Zero Padding Applications](https://ccrma.stanford.edu/~jos/mdft/Zero_Padding_Applications.html)

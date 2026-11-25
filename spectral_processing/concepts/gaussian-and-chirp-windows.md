@@ -1,7 +1,7 @@
 ---
 title: Gaussian and Chirp Windows
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [gauss, windows, main-lobe]
 sources:
@@ -11,6 +11,9 @@ sources:
   - /w/sasp/gauss-complex.tex
   - /w/sasp/gauss-chirp.tex
   - /w/sasp/chirplets.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Gaussian_Windowed_Chirps_Chirplets.html
+  - https://ccrma.stanford.edu/~jos/sasp/Gaussian_Function_Properties.html
+  - https://ccrma.stanford.edu/~jos/sasp/Gaussian_Window_Transform.html
 ---
 
 # Gaussian and Chirp Windows
@@ -33,9 +36,10 @@ $$20\log_{10}|W(\omega)| \;=\; \text{const} - \tfrac{1}{2}\sigma^2\omega^2 \cdot
 
 ## Uncertainty Principle
 
-Duration-bandwidth product:
+With duration and bandwidth defined as rms (second-moment) widths of
+$|w(t)|^2$ and $|W(\omega)|^2$:
 $$\Delta t \cdot \Delta\omega \;\ge\; \tfrac{1}{2}$$
-with equality for the Gaussian. No window can be simultaneously more
+with equality only for the Gaussian. No window can be simultaneously more
 concentrated in both domains.
 
 ## Practical Drawback
@@ -44,8 +48,10 @@ The Gaussian has **no finite support** — it must be truncated, which
 introduces discontinuities $\Rightarrow$ leakage. Typical choice:
 truncate at $\pm 3\sigma$ to $\pm 4\sigma$ (extremely close to zero).
 
-The **Kaiser** window is a near-optimal, finite-support approximation
-of a time-limited Gaussian and is usually used in practice.
+For a *finite-support* window the relevant optimum is the
+DPSS/Slepian window (maximum main-lobe energy concentration); the
+**Kaiser** window is its closed-form approximation and is what is
+usually used in practice ([[spectrum-analysis-windows]]).
 
 ## Complex Gaussian and Modulation
 
@@ -83,12 +89,15 @@ sharpening without the search.
 
 ## Relationship to Wigner Distribution
 
-The Gaussian-windowed spectrogram is a Gaussian-smoothed Wigner
-distribution; the Gaussian is the unique window that yields a
-non-negative smoothed TFD without cross-terms of a single Gaussian
-atom.
+Any spectrogram is the signal's Wigner distribution smoothed (2D
+convolution) by the Wigner distribution of the window; for a Gaussian
+window that kernel is a 2D Gaussian of minimum time-frequency area, the
+least smoothing that guarantees a nonnegative result. (Not in SASP.)
 
 ## Related Concepts
 - [[spectrum-analysis-windows]] — window zoo including Kaiser
 - [[qifft-peak-estimation]] — parabolic interpolation, exact for Gaussian
 - [[short-time-fourier-transform]] — host transform
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Gaussian Window and Transform](https://ccrma.stanford.edu/~jos/sasp/Gaussian_Window_Transform.html), [Gaussian Windowed Chirps (Chirplets)](https://ccrma.stanford.edu/~jos/sasp/Gaussian_Windowed_Chirps_Chirplets.html), [Fourier Transform of Complex Gaussian](https://ccrma.stanford.edu/~jos/sasp/Fourier_Transform_Complex_Gaussian.html), [The Uncertainty Principle](https://ccrma.stanford.edu/~jos/sasp/Uncertainty_Principle.html), [Gaussian Function Properties](https://ccrma.stanford.edu/~jos/sasp/Gaussian_Function_Properties.html)

@@ -1,7 +1,7 @@
 ---
 title: Window and FIR Design Methods
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [fir-design, optimal-fir, windows]
 sources:
@@ -11,6 +11,8 @@ sources:
   - /w/sasp/optimal-fir.tex
   - /w/sasp/opt-fir-td.tex
   - /w/sasp/freqsamp.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Window_Design_Linear_Programming.html
+  - https://ccrma.stanford.edu/~jos/sasp/FIR_Digital_Filter_Design.html
 ---
 
 # Window and FIR Design Methods
@@ -60,8 +62,9 @@ Solutions are **equi-ripple**. Two main paths:
   over a dense grid $\{\omega_i\}$.
 - Arbitrary constraints (time-domain, positivity, complex targets,
   monotone windows) trivially added.
-- JOS uses LP in SASP to design custom Chebyshev-like **analysis
-  windows** with shaped side-lobe envelopes, impossible with Remez.
+- SASP uses LP ([Optimal Window Design by linprog](https://ccrma.stanford.edu/~jos/sasp/Window_Design_Linear_Programming.html))
+  to design custom Chebyshev-like **analysis windows** with shaped
+  side-lobe envelopes and extra constraints that Remez cannot take.
 - Solvers: `linprog` (Matlab), GLPK (Octave).
 
 ## Second-Order Cone (SOCP)
@@ -90,3 +93,7 @@ Type III/IV used for **Hilbert transformers** and **differentiators**.
 ## Related Concepts
 - [[spectrum-analysis-windows]] — windows as a special FIR design case
 - [[dtft-and-fourier-theorems]] — theoretical foundation
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Window Method for FIR Filter Design](https://ccrma.stanford.edu/~jos/sasp/Window_Method_FIR_Filter.html), [Frequency-Sampling FIR Filter Design](https://ccrma.stanford.edu/~jos/sasp/Frequency_Sampling_Method_FIR.html), [Optimal FIR Digital Filter Design](https://ccrma.stanford.edu/~jos/sasp/Optimal_FIR_Digital_Filter.html), [Optimal Window Design by linprog](https://ccrma.stanford.edu/~jos/sasp/Window_Design_Linear_Programming.html), [Hilbert Transform Design Example](https://ccrma.stanford.edu/~jos/sasp/Hilbert_Transform_Design_Example.html)
+- [[jos_books/entities/filters-book|Filters]]: [Linear-Phase Filters](https://ccrma.stanford.edu/~jos/filters/Linear_Phase_Filters_Symmetric_Impulse.html)

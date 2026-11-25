@@ -1,7 +1,7 @@
 ---
 title: Differentiable Karplus-Strong
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [string, guitar, delay-line, differentiable, ml, optimization, comparison]
 sources:
@@ -95,5 +95,9 @@ $\mathrm{sgn}(\partial \mathcal{L}/\partial f) = \mathrm{sgn}(f - f_x)$.
 - [[string-modeling]] - the extended Karplus-Strong structure being fitted
 - [[delay-line-techniques]] - Lagrange versus allpass fractional delay
 - [[waveguide-parameter-optimization]] - where this sits in the calibration taxonomy
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [The Extended Karplus-Strong Algorithm](https://ccrma.stanford.edu/~jos/pasp/Extended_Karplus_Strong_Algorithm.html), [Lagrange Interpolation](https://ccrma.stanford.edu/~jos/pasp/Lagrange_Interpolation.html), [First-Order Allpass Interpolation](https://ccrma.stanford.edu/~jos/pasp/First_Order_Allpass_Interpolation.html), [Loop Filter Identification](https://ccrma.stanford.edu/~jos/pasp/Loop_Filter_Identification.html)
+- [[jos_books/entities/filters-book|Filters]]: [Phase Delay](https://ccrma.stanford.edu/~jos/filters/Phase_Delay.html)
 
 [^tablas]: P. Tablas de Paula, D. Marttila, R. Diaz, I. Roman, E. Benetos, J. D. Reiss, "Sound Matching with a Differentiable Karplus-Strong Algorithm," DAFx26. See [[entities/source-papers#paper-tablas-differentiable-karplus-strong-2026]].

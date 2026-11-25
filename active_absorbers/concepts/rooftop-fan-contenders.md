@@ -1,7 +1,7 @@
 ---
 title: Rooftop-Fan Noise — Out-of-Scope Contenders (pointer page)
 created: 2026-04-17
-updated: 2026-04-22
+updated: 2026-11-25
 type: concept
 tags: [fan-noise, passive, metamaterial, industrial, reference]
 sources:
@@ -94,7 +94,7 @@ Free once you have multiple fans.
   rather than a reinforced line.
 - **Phase scheduling (Abali 2007, US 7,282,873)** — deliberate
   mechanical phase offset between fans; already in the wiki as
-  `paper-abali-fan-phase-cancellation-patent`.
+  [[entities/source-papers#paper-abali-fan-phase-cancellation-patent|paper-abali-fan-phase-cancellation-patent]].
 - **Demand-based speed control** — run fewer fans at higher RPM, or
   more fans at lower RPM, whichever is quieter for the current load.
   Commonly limited by compressor / cooling constraints.
@@ -128,11 +128,12 @@ The class most directly useful at 118 Hz.
 - **Helmholtz resonator arrays** — tuned to BPF; can achieve near-
   perfect absorption at the design frequency in a compact (~10 cm)
   package if quality factor is matched to source bandwidth.
-  Detunes ±2% on the way to ±15% temperature swing — see
+  Detunes by about ±2.5% over a ±15 °C temperature swing
+  ($f_0\propto c\propto\sqrt{T}$) — see
   [[hybrid-active-passive]] for the active-tuning fix.
 - **Panel / membrane absorbers** — tuned bass traps; λ/20 thickness
   possible. Broader-band than Helmholtz but lower peak absorption.
-- **Acoustic metamaterials** (Fang 2006, Mei 2012, Ma & Sheng 2014,
+- **Acoustic metamaterials** (Fang 2006, Mei 2012, Ma et al. 2014,
   Yang 2015) — locally-resonant membrane AMs; perfect absorption at
   100–200 Hz in λ/50 packages. The "dark acoustic metamaterial"
   lineage is the strongest passive option at 118 Hz for a rooftop
@@ -144,7 +145,7 @@ The class most directly useful at 118 Hz.
 
 ### 3.4 Distance and siting
 
-- Geometric spreading is 6 dB per doubling of distance; often
+- [Geometric spreading](https://ccrma.stanford.edu/~jos/pasp/Spherical_Waves_Point_Source.html) is 6 dB per doubling of distance; often
   cheaper to relocate the intake/discharge than to add treatment.
 - Tall stacks direct noise upward; ground reflection favours
   horizontal paths to community receivers.
@@ -189,12 +190,16 @@ outcomes over two decades.
   [[ai-anc-overview]]
 - **Narrowband / tonal ANC (the BPF case)** — [[tonal-periodic-anc]]
 - **Hybrid active + passive treatments** — [[hybrid-active-passive]]
+- **Active impedance / electroacoustic absorbers** (and the open-panel
+  50% and aperture limits) — [[electroacoustic-absorbers]]
+- **Confined-path (ducted) strategy and liner modeling** —
+  [[duct-acoustics-liner-modeling]]
 - **Psychoacoustic / tonality reshaping** — [[psychoacoustic-anc]]
 - **Virtual sensing (quiet zone 30 m away)** — [[pinn-virtual-sensing]]
 - **Multi-fan mechanical-phase cancellation** — Abali 2007 patent in
-  `entities/source-papers.md#paper-abali-fan-phase-cancellation-patent`
+  [[entities/source-papers#paper-abali-fan-phase-cancellation-patent|paper-abali-fan-phase-cancellation-patent]]
 - **Tonal fan ANC (early patent)** — Guerci 1995 in
-  `entities/source-papers.md#paper-guerci-fan-anc-patent`
+  [[entities/source-papers#paper-guerci-fan-anc-patent|paper-guerci-fan-anc-patent]]
 
 ## 6. Recommended ordering for a rooftop-fan project
 
@@ -226,5 +231,9 @@ outcomes over two decades.
 
 See also: [[classical-anc-overview]], [[tonal-periodic-anc]],
 [[hybrid-active-passive]], [[psychoacoustic-anc]].
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Spherical Waves from a Point Source](https://ccrma.stanford.edu/~jos/pasp/Spherical_Waves_Point_Source.html) (the $1/r$ law of §3.4), [Air Absorption](https://ccrma.stanford.edu/~jos/pasp/Air_Absorption.html) (negligible at 118 Hz, so only spreading attenuates the tone with distance)
+- [[jos_books/entities/mdft-book|MDFT]]: [DB SPL](https://ccrma.stanford.edu/~jos/mdft/DB_SPL.html), [DBA (A-Weighted DB)](https://ccrma.stanford.edu/~jos/mdft/DBA_A_Weighted_DB.html)
 
 [^erdelyi-2023]: K. H. Erdélyi, A. B. M. Fuermaier, L. Tucha, O. Tucha & J. Koerts, "Low-Frequency Noise: Experiences from a Low-Frequency Noise Perceiving Population," *Int. J. Environ. Res. Public Health* 20:3916, 2023. [DOI](https://doi.org/10.3390/ijerph20053916). Distilled in [paper-erdelyi-lfn-perceptions-2023](../entities/source-papers.md#paper-erdelyi-lfn-perceptions-2023).

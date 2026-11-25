@@ -1,7 +1,7 @@
 ---
 title: SAV Nonlinear String with Measured Body
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal-synthesis, string, vibration, physical-modeling, impulse-response, dataset, dsp]
 sources:
@@ -96,5 +96,8 @@ Ranges: 50-200 bridge modes and 80-300 radiation poles per side.
 - 6 strings $\times$ frets 0-15 per guitar, about 6240 notes, 5 s at 48 kHz; MATLAB cost 0.1-0.5 s per note (radiation bank dominates), whole library in hours.
 - $\xi_b=0.995$, pluck fraction random in $[0.68,0.82]$, $\varepsilon=10^{-16}$, modal limit 10 kHz, $T_{60,s}\in[2.43,4.58]$ s, $\eta_{f,s}\in[2.0,2.5]\times10^{-4}$ s.
 - Limits: no listening test versus recordings; the measured body is linear, so all nonlinearity lives in the string; multi-string bridge coupling, fret buzz and slides are future work; no real-time port yet.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Tension Modulation](https://ccrma.stanford.edu/~jos/pasp/Tension_Modulation.html), [The Stiff String](https://ccrma.stanford.edu/~jos/pasp/Stiff_String.html), [Measured Guitar-Bridge Admittance](https://ccrma.stanford.edu/~jos/pasp/Measured_Guitar_Bridge_Admittance.html), [Passive String Terminations](https://ccrma.stanford.edu/~jos/pasp/Passive_String_Terminations.html)
 
 [^1]: [[entities/source-papers#paper-ducceschi-65-classical-guitars-2026]] - Ducceschi, Russo & Webb, "Measurement-Informed Nonlinear Modal Synthesis of 65 Classical Guitars," DAFx26. Code: github.com/Nemus-Project/65_modelled_guitars

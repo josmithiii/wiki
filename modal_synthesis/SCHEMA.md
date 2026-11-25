@@ -51,6 +51,15 @@ sources:
   ```
 - The local wiki links to raw files for offline reading; footnotes give the
   original URL. The export converter strips raw links and keeps only URLs.
+- **JOS online books** (MDFT, Filters, PASP, SASP) are served one HTML page per section at
+  `https://ccrma.stanford.edu/~jos/<book>/<Page_Name>.html`. Page names cannot be guessed: look them up in
+  `jos_books/catalog/<book>.tsv` (page name, title, parent page) and verify with
+  `make book-links` (also run by `make rebuild`; one sub-wiki: `python3 scripts/book_links.py check . modal_synthesis`).
+- A page that draws on a book lists the main section URL(s) in `sources:` and ends with a
+  `## JOS online books` section (before the footnote definitions): one bullet per book, the hub wikilink
+  first (`[[jos_books/entities/pasp-book|PASP]]`, likewise `filters-book`, `mdft-book`, `sasp-book`), then
+  2-6 deep links whose text is the book section's title. Omit the section when no book section really
+  covers the topic (datasets, FEM/BEM, ML surveys); the full convention is in `jos_books/SCHEMA.md`.
 
 ## Tag Taxonomy
 
@@ -60,6 +69,7 @@ sources:
 - resonator -- resonator bank, filter bank synthesis
 - damping -- loss factors, decay rates, Q-factor
 - impulse-response -- measured or synthesized IRs
+- measurement -- experimental modal analysis, FRF/IR measurement, measured datasets
 
 ### Physics / Math
 - acoustics -- sound radiation, acoustic modes

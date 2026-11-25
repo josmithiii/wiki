@@ -1,7 +1,7 @@
 ---
 title: TPT / ZDF Filters (Trapezoidal Integration)
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [tpt-zdf, va-filters, state-space, time-varying, reference]
 sources:
@@ -13,7 +13,8 @@ sources:
 
 The dominant discretization route for virtual analog filters: take a
 continuous-time state-space prototype of the analog circuit and integrate it
-with the trapezoidal rule. Also called the (state-space) bilinear or Tustin
+with the [trapezoidal rule](https://ccrma.stanford.edu/~jos/pasp/Trapezoidal_Rule.html). Also called the
+(state-space) [bilinear](https://ccrma.stanford.edu/~jos/filters/Bilinear_Transformation.html) or Tustin
 transform; "topology-preserving transform" (TPT) and "zero-delay feedback"
 (ZDF) are the audio-DSP names for the same construction, because the analog
 block diagram survives intact and the delay-free loops it creates are resolved
@@ -38,8 +39,10 @@ C &= C_C (I - gA_C)^{-1}, &\quad D &= D_C + g\,C_C (I - gA_C)^{-1} B_C .
 
 - $g > 0$ is the discretization parameter. Without pre-warping $g = T/2$ with
   $T$ the sampling period.
-- With the prototype normalized to $\omega_C = 1$ rad/s, pre-warping a target
-  discrete cutoff $\omega_D$ uses $g = \tan(\omega_D T / 2)$.
+- With the prototype normalized to $\omega_C = 1$ rad/s,
+  [pre-warping](https://ccrma.stanford.edu/~jos/filters/Frequency_Warping.html) a target discrete cutoff
+  $\omega_D$ uses $g = \tan(\omega_D T / 2)$ (in general
+  $g = \tan(\omega_D T/2)/\omega_C$).
 - The matrix inverse $(I - gA_C)^{-1}$ *is* the zero-delay-feedback solve: in
   block-diagram form it is the closed-form solution of the instantaneous
   feedback loop around each integrator.
@@ -75,11 +78,20 @@ pole analysis then proves nothing - see
   [[wave-digital-filters]] in the waveguide wiki, which also uses the bilinear
   transform but gets stability from energy arguments instead of a Lyapunov
   certificate.
+- Trapezoidal state-space discretization is the *linear* special case of the
+  K-method (Borin, De Poli & Rocchesso, 2000; the paper cites Yeh's 2009
+  thesis for it),[^1] whose nonlinear form appears in
+  [[waveguide_synthesis/concepts/wdf-multiple-nonlinearities|WDFs with multiple nonlinearities]];
+  for nonlinear circuit DAEs see [[state-space-circuit-solvers]].
 
 ## See also
 
 - [[virtual-analog-overview]] - where TPT/ZDF sits among the method families.
 - [[entities/source-papers#paper-mcclellan-time-varying-va-stability-2026]]
+
+## JOS online books
+- [[jos_books/entities/filters-book|Filters]]: [Bilinear Transformation](https://ccrma.stanford.edu/~jos/filters/Bilinear_Transformation.html), [Frequency Warping](https://ccrma.stanford.edu/~jos/filters/Frequency_Warping.html), [RC Filter Analysis](https://ccrma.stanford.edu/~jos/filters/RC_Filter_Analysis.html), [State Space Filters](https://ccrma.stanford.edu/~jos/filters/State_Space_Filters.html)
+- [[jos_books/entities/pasp-book|PASP]]: [Trapezoidal Rule](https://ccrma.stanford.edu/~jos/pasp/Trapezoidal_Rule.html), [Bilinear Transformation](https://ccrma.stanford.edu/~jos/pasp/Bilinear_Transformation.html)
 
 ## References
 

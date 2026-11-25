@@ -1,7 +1,7 @@
 ---
 title: State Space Models as Modal Resonator Banks
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, eigenmode, resonator, room, ml, neural, differentiable, inference]
 sources:
@@ -92,6 +92,10 @@ the Matrix Pencil stage, roughly 42 minutes for the 16-file test set.
 
 ## Limits
 Linear and time-invariant only (nonlinear plate behaviour is out of scope); modal gains are the weak point in both variants; state sizes above about 2k exceeded GPU memory for the parallel scan, so the least-squares stage ran on CPU; and Matrix Pencil conditioning degrades in dense high-frequency regions.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [State Space to Modal Synthesis](https://ccrma.stanford.edu/~jos/pasp/State_Space_Modal_Synthesis.html), [Efficiency of Diagonalized State-Space Models](https://ccrma.stanford.edu/~jos/pasp/Efficiency_Diagonalized_State_Space_Models.html)
+- [[jos_books/entities/filters-book|Filters]]: [Modal Representation](https://ccrma.stanford.edu/~jos/filters/Modal_Representation.html), [Complex Resonator](https://ccrma.stanford.edu/~jos/filters/Complex_Resonator.html), [Two-Pole Partial Fraction Expansion](https://ccrma.stanford.edu/~jos/filters/Two_Pole_Partial_Fraction_Expansion.html)
 
 [^1]: [[entities/source-papers#paper-bittner-diagonal-ssm-plate-reverb-2026]] - Bittner, Wess, Dallinger, Schnoll & Jantsch, "Diagonal Complex-Valued State Space Models ... Metal Plate Reverbs," DAFx26.
 [^2]: [[entities/source-papers#paper-bittner-matrix-pencil-ssm-taskb-2026]] - Bittner & Jantsch, "Non-Iterative Modal Parameter Estimation for Plate Reverbs via Matrix-Pencil-Guided State Space Model Initialization," DAFx26 challenge report.

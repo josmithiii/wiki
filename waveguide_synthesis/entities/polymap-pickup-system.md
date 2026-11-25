@@ -1,7 +1,7 @@
 ---
 title: PolyMap Pickup System
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: entity
 tags: [guitar, string, dsp, realtime, reference]
 sources:
@@ -71,5 +71,9 @@ tracks is narrow, and no modelling work is done with the captured data.
 - [[string-modeling]] - the string models this can measure against
 - [[commuted-synthesis]] - pickup and body response as a separable filter
 - [[entities/source-papers#paper-wieland-polymap-pickups-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Related Forms](https://ccrma.stanford.edu/~jos/pasp/Related_Forms.html) (pickup position as a feedforward comb), [Rigid Terminations](https://ccrma.stanford.edu/~jos/pasp/Rigid_Terminations.html) (the "virtual pickup"), [Electric Guitars](https://ccrma.stanford.edu/~jos/pasp/Electric_Guitars.html)
+- [[jos_books/entities/filters-book|Filters]]: [Analysis of a Digital Comb Filter](https://ccrma.stanford.edu/~jos/filters/Analysis_Digital_Comb_Filter.html)
 
 [^wieland]: D. Wieland, J. Roth, C. Studer, "PolyMap: A 64-Channel Polyphonic Guitar Pickup System," DAFx26 demo. See [[entities/source-papers#paper-wieland-polymap-pickups-2026]].

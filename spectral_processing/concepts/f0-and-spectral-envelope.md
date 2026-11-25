@@ -1,7 +1,7 @@
 ---
 title: f0 Estimation and Spectral Envelope
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [f0-estimation, spec-envelope]
 sources:
@@ -9,6 +9,8 @@ sources:
   - /w/sasp/tf0est.tex
   - /w/sasp/mlpitch.tex
   - /w/sasp/specenv.tex
+  - https://ccrma.stanford.edu/~jos/sasp/Spectral_Envelope_Extraction.html
+  - https://ccrma.stanford.edu/~jos/sasp/Fundamental_Frequency_Estimation_Spectral.html
 ---
 
 # f0 Estimation and Spectral Envelope
@@ -30,9 +32,10 @@ pitch shifting, and speech coding.
 - **Harmonic matching**: fit an ideal harmonic comb $k f_0$ to
   detected spectral peaks; pick $f_0$ maximizing total matched
   amplitude.
-- **Maximum likelihood** (SASP): model the DFT magnitude as noisy
-  samples from a harmonic template; ML $f_0$ maximizes a likelihood
-  that combines peak picks with expected harmonic positions.
+- **Approximate maximum likelihood from peaks** ([SASP](https://ccrma.stanford.edu/~jos/sasp/Fundamental_Frequency_Estimation_Spectral.html)): histogram the
+  differences between measured peak frequencies to get the most common
+  harmonic spacing, then refine by least-squares regression of the
+  line $f_k = k f_0$ through the harmonic peaks (slope $= f_0$).
 - **Cepstral f0**: the first significant quefrency peak above the
   envelope cut-off corresponds to the fundamental period.
 
@@ -59,7 +62,8 @@ $$X(z) \;\approx\; \frac{G}{1 - \sum_{k=1}^p a_k z^{-k}}$$
 $$c(n) \;=\; \operatorname{IDFT}\!\big(\log|X(k)|\big)$$
 - Envelope = low quefrency portion (liftering).
 - Harmonics = high quefrency.
-- Low-pass the cepstrum at $n < N/(2 f_0 T_s)$ to keep only envelope.
+- Low-pass ("lifter") the cepstrum with cutoff $n_c$ below the pitch
+  period $f_s/f_0$ samples to keep only the envelope.
 - Less tied to all-pole assumption; works for non-speech too.
 
 ### Discrete / True Envelope
@@ -90,3 +94,7 @@ $$c(n) \;=\; \operatorname{IDFT}\!\big(\log|X(k)|\big)$$
 - [[cross-synthesis-and-morphing]] — source/filter recombination
 - [[noise-spectrum-analysis]] — smoothing for non-harmonic parts
 - [[sms-sines-plus-noise]] — envelope for residual
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [F0 Estimation from Spectral Peaks](https://ccrma.stanford.edu/~jos/sasp/Fundamental_Frequency_Estimation_Spectral.html), [Fundamental Frequency Estimation](https://ccrma.stanford.edu/~jos/sasp/Fundamental_Frequency_Estimation.html), [Cepstral Windowing](https://ccrma.stanford.edu/~jos/sasp/Cepstral_Windowing.html), [Linear Prediction Spectral Envelope](https://ccrma.stanford.edu/~jos/sasp/Linear_Prediction_Spectral_Envelope.html)
+- [[jos_books/entities/mdft-book|MDFT]]: [Autocorrelation](https://ccrma.stanford.edu/~jos/mdft/Autocorrelation.html)

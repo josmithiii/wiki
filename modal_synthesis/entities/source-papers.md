@@ -1,7 +1,7 @@
 ---
 title: Source Papers -- Distilled Catalog
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-11-25
 type: entity
 tags: [reference, comparison, modal, modal-synthesis, room, ml]
 sources:
@@ -33,8 +33,8 @@ Unless noted otherwise, every entry below is from the *Proceedings of the 29th
 International Conference on Digital Audio Effects (DAFx26), Cambridge, MA, USA,
 1-4 September 2026*, and this is a **pass-1 catalog**: bullets are seeded from
 the annotated bibliography at `/l/dttd/DAFx26/README_JOS.md` plus the abstract
-and opening sections of each paper. Deep distillation into concept pages is
-pass 2.
+and opening sections of each paper. Pass 2 (2026-09-10) distilled most entries
+into full concept pages - see "DAFx26 deep dives" in `index.md`.
 
 When any single paper needs deeper treatment than the bullet summary supports,
 promote it to a dedicated `entities/paper-<slug>.md` file and leave the section
@@ -49,7 +49,7 @@ here as a cross-link.
 **"Measurement-Informed Nonlinear Modal Synthesis of 65 Classical Guitars"** - Michele Ducceschi, Riccardo Russo, Craig J. Webb (University of Bologna) · DAFx26, Cambridge MA, Sept 2026 · `raw/DAFx26_paper_40.txt`
 
 - Full plucked-string-plus-body pipeline for a whole population of instruments: from the public **Mores dataset** of impulse-response measurements on **65 classical guitars**, extract per-instrument modal parameters of the **bridge compliance** and of the **bridge-to-air radiation path**.
-- String model: transverse vibration under a **geometrically exact elastic potential**, coupled at an interior bridge point to the measured body data - so the body is a modal load at the bridge rather than being commuted into the excitation (contrast [[commuted-synthesis]] and [[coupled-structures]]).
+- String model: transverse vibration under a **geometrically exact elastic potential**, coupled at an interior bridge point to the measured body data - so the body is a modal load at the bridge rather than being commuted into the excitation (contrast [[waveguide_synthesis/concepts/commuted-synthesis|commuted-synthesis]] and [[coupled-structures]]).
 - The nonlinear potential is quadratized by the **Scalar Auxiliary Variable** (SAV) method, so the equations of motion become linear in a scalar variable and a known gradient vector **at the continuous level**, not merely after discretization.
 - After time discretization the coupled system is inverted with **two sequential Sherman-Morrison rank-one updates** - one for the bridge coupling, one for the SAV nonlinearity - giving an $O(N)$ algorithm per time step.
 - Two regularization techniques prevent long-term drift of the auxiliary variable; the pipeline is demonstrated by synthesizing plucked tones across all frets and strings for each of the 65 guitars.
@@ -250,7 +250,7 @@ baseline 1.968.
 
 ### paper-franchino-subband-ar-pole-harvesting-2026
 
-**"Multi-View Subband Autoregressive Pole Harvesting for Modal Plate Identification"** - Facundo Franchino, Jatin Chowdhury, Jin Woo Lee, Mark Rau (MIT), Soohyun Kim (CCRMA) · DAFx26 challenge report, Cambridge MA, Sept 2026 · `raw/DAFx26_challenge_88.txt`
+**"Multi-View Subband Autoregressive Pole Harvesting for Modal Plate Identification"** - Facundo Franchino, Jatin Chowdhury, Jin Woo Lee (MIT), Soohyun Kim (CCRMA), Mark Rau (MIT) · DAFx26 challenge report, Cambridge MA, Sept 2026 · `raw/DAFx26_challenge_88.txt`
 
 - **Task B, ranked 7th** on the per-mode metric (RE 0.957) but nearly exact above 1 kHz in the organizers' frequency-domain re-evaluation, overshooting at low frequencies.
 - Pure signal processing: a **matching-pursuit anchor stage** seeds a **multi-view subband autoregressive** (linear-prediction) pole harvester run on the raw IR **and its first two finite differences**.
@@ -267,7 +267,7 @@ and 4 plus the annotated bibliography. Full text is in `raw/` and the PDFs are a
 the paths given.
 
 - **Physics-Inspired Feature Fusion for Plate Parameter Estimation from Acoustic Impulse Responses** - Guo, Zhang, Chen, Liu, Huang (Wuhan U. / Hunan U.). Task A, 7th: pretrained CNN backbone fused with 15 hand-crafted IR features. `/l/dttd/DAFx26/DAFx26_challenge_78.pdf`
-- **ALAMODE: Automated Learning of Acoustical Modal Parameters via Differential Evolution** - Lee, Chowdhury, Franchino, Rau (MIT), Kim (CCRMA). Task A, 3rd (mean NMSE $1\times10^{-4}$): three-stage gradient-free differential-evolution search on a fast physics simulator - frequency-determining parameters, then output position, then mass density from amplitude. `/l/dttd/DAFx26/DAFx26_challenge_79.pdf`
+- **ALAMODE: Automated Learning of Acoustical Modal Parameters via Differential Evolution** - Lee, Chowdhury, Franchino (MIT), Kim (CCRMA), Rau (MIT). Task A, 3rd (mean NMSE $1\times10^{-4}$): three-stage gradient-free differential-evolution search on a fast physics simulator - frequency-determining parameters, then output position, then mass density from amplitude. `/l/dttd/DAFx26/DAFx26_challenge_79.pdf`
 - **A Multi-Resolution Spectrogram Approach for Estimating the Physical Parameters of a Plate Reverb** - Anderson (UMN Duluth), Lipkin, Chen, Thompson, Cogliati, Heilemann (U. Rochester). Task A, 8th: ResNet-18 on multi-resolution spectrograms with spectral phase as an extra channel to disambiguate output position. `/l/dttd/DAFx26/DAFx26_challenge_80.pdf`
 - **Simulation-Based Plate-Reverb Parameter Estimation from a Single Impulse Response** - Lu, Reiss (QMUL). Task A, 9th: non-iterative tree-ensemble regression from hand-crafted amplitude/spectral/decay descriptors, 6 ms per IR, beating a single PSO run. `/l/dttd/DAFx26/DAFx26_challenge_81.pdf`
 - **Simulation-Based Inference for Plate Reverb System Identification** - Sechet, Evrard, Kowalski (Paris-Saclay). Task A, 4th: a network learns a posterior over plate parameters from simulator samples, then is fine-tuned per test IR with extra simulation rounds, returning a distribution rather than a point estimate. `/l/dttd/DAFx26/DAFx26_challenge_84.pdf`

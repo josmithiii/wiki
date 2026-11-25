@@ -1,7 +1,7 @@
 ---
 title: "WDF Arbitrary Port Adaptation"
 created: 2026-04-15
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [scattering, impedance, dsp, reference]
 sources:
@@ -20,8 +20,8 @@ delay-free loop at that port. For simple series or parallel junctions,
 adaptation formulas are textbook. For **R-type topological junctions**
 — those that can't decompose into series/parallel adaptors —
 Werner et al. (2015) solved the scattering matrix derivation via MNA
-(see [[wdf-r-type-adaptors]]), but adaptation still required symbolic
-algebra until Giampiccolo et al. (2025).
+(see [[wdf-r-type-adaptors]]), but adaptation was left to symbolic
+algebra or root-finding until Giampiccolo et al. (2025).[^1]
 
 ## Prior Approaches to Adaptation
 
@@ -62,9 +62,10 @@ and is inverted **numerically** with known element values.
 
 ## Worked Example: Delta (Triangle) Network
 
-Three resistors in a delta — the simplest topology requiring a general
-3-port scattering junction (it cannot be represented as a WDF tree of
-2-port series/parallel adaptors).
+Three one-ports in a delta form a single loop, i.e. a plain three-port
+**series** junction - not an R-type topology, but the smallest case on
+which the formula can be checked by hand against the textbook
+reflection-free series port ([[wdf-adaptors]]).
 
 ```
        R₂
@@ -82,7 +83,7 @@ can't self-adapt.) We want the adaptation resistance $Z_1$.
 
 ### Via Scattering Matrix (symbolic or root-finding)
 
-The 3-port scattering matrix (via loop analysis with
+The 3-port series scattering matrix (via loop analysis with
 $B = [1,\ {-}1,\ {-}1]$) gives:
 
 $$S_{11} = \frac{Z_2 + Z_3 - Z_1}{Z_1 + Z_2 + Z_3}$$
@@ -118,16 +119,15 @@ port 1's terminals: with $R_1$ removed, current flows from node 1
 through $R_2$ to node 2, then through $R_3$ back to node 0, i.e.
 $R_2$ and $R_3$ in series.
 
-### Why the Delta Still Illustrates the Point
+### What the Delta Does and Does Not Show
 
-The delta **cannot** be built from WDF 2-port series/parallel adaptors
-— it requires a general 3-port junction with its own scattering matrix.
-The adaptation result $Z_1=Z_2+Z_3$ happens to equal a series formula,
-but that's a consequence of the circuit (one loop), not of the topology
-being "series" in the WDF-tree sense. For larger non-decomposable
-topologies — Wheatstone bridges, op-amp feedback networks — the
-Thévenin resistance has no simple closed form, and the direct MNA
-formula is more convenient than root-finding.
+The result $Z_1=Z_2+Z_3$ is exactly the classical series reflection-free
+port, as it must be: the delta *is* a series adaptor, so the example only
+verifies the mechanics. The formula earns its keep on genuinely
+non-decomposable (R-type) junctions, the smallest of which has six ports
+(bridged-T, Wheatstone bridge), and on op-amp feedback networks. There
+the Thévenin resistance has no convenient closed form, and one numerical
+inversion of $\check{Y}$ replaces symbolic algebra or root-finding.
 
 ## Related
 
@@ -138,6 +138,9 @@ formula is more convenient than root-finding.
 - [[wdf-adaptors]] — standard 2-port series/parallel adaptation
 - [[wave-digital-filters]] — WDF fundamentals
 - [[scattering-junctions]] — scattering matrices
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Reflection Free Port](https://ccrma.stanford.edu/~jos/pasp/Reflection_Free_Port.html), [Series Reflection Free Port](https://ccrma.stanford.edu/~jos/pasp/Series_Reflection_Free_Port.html), [Binary Connection Tree Series Adaptor](https://ccrma.stanford.edu/~jos/pasp/Binary_Connection_Tree_Series.html)
 
 ## References
 [^1]: Giampiccolo, R.; Ravasi, S.; Bernardini, A. "Automatic Generation

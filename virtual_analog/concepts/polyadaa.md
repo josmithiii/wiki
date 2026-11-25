@@ -1,7 +1,7 @@
 ---
 title: PolyADAA
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [adaa, antialiasing, nonlinear, oversampling, reference]
 sources:
@@ -39,8 +39,10 @@ M_k = \int_{-1}^{1} T_k(t)\,W(t)\,dt$$
   coefficients, from a length-$2K$ real FFT of the symmetric vector
   $[g(\tau_0),\dots,g(\tau_K),g(\tau_{K-1}),\dots,g(\tau_1)]$.
 - The **moments** $M_k$ depend only on the kernel and are precomputed offline.
-  Rectangular: $M_0 = 1$; $M_k = 0$ for odd $k$; $M_k = (-1)^{k/2}/(1-k^2)$ for even
-  $k \ge 2$. Triangular ($W(t) = 2(1-|t|)$): evaluated numerically once.
+  Rectangular ($W = \tfrac12$): $M_0 = 1$; $M_k = 0$ for odd $k$; $M_k = 1/(1-k^2)$
+  for even $k \ge 2$ (the paper prints an extra $(-1)^{k/2}$, which fails at $k=2$:
+  $\tfrac12\int_{-1}^{1}(2t^2-1)\,dt = -\tfrac13$). Triangular: evaluated numerically
+  once (printed as $W(t) = 2(1-|t|)$; unit DC gain, $M_0 = 1$, needs $W(t) = 1-|t|$).
 - Consequences: switching kernel changes a table, not the code; **no antiderivatives
   of $f$ are needed**, so a new nonlinearity costs no analysis; and the $0/0$
   ill-conditioning is gone.
@@ -84,7 +86,13 @@ LUT or fast approximation replaces $f$.
 ## See also
 
 [[antiderivative-antialiasing]] - [[alias-free-oscillator-sync]] -
-[[virtual-analog-overview]]
+[[virtual-analog-overview]] -
+[[waveguide_synthesis/concepts/delay-line-techniques|delay-line interpolation]]
+(Lagrange interpolators in their usual role)
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Lagrange Interpolation](https://ccrma.stanford.edu/~jos/pasp/Lagrange_Interpolation.html), [Explicit Lagrange Coefficient Formulas](https://ccrma.stanford.edu/~jos/pasp/Explicit_Lagrange_Coefficient_Formulas.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Chebyshev Polynomials](https://ccrma.stanford.edu/~jos/sasp/Chebyshev_Polynomials.html)
 
 ## References
 

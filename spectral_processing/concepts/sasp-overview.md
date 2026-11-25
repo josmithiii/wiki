@@ -1,7 +1,7 @@
 ---
 title: SASP Overview
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-11-25
 type: concept
 tags: [stft, dft, windows, sinusoidal, sms, phase-vocoder, applications]
 sources:
@@ -12,10 +12,15 @@ sources:
 
 # SASP Overview
 
-*Spectral Audio Signal Processing* (SASP) by Julius O. Smith III develops
+*Spectral Audio Signal Processing* (SASP) by Julius O. Smith III[^1] develops
 the theory and practice of FFT-based analysis, modification, and
-resynthesis of music and audio signals. Web edition:
-`https://ccrma.stanford.edu/~jos/sasp/`.
+resynthesis of music and audio signals. Free online at
+<https://ccrma.stanford.edu/~jos/sasp/>; the chapter-by-chapter hub is
+the [[jos_books/entities/sasp-book|SASP hub page]]. SASP is book 4 of a
+series: its prerequisites are [[jos_books/entities/mdft-book|MDFT]] (the
+DFT and its theorems) and [[jos_books/entities/filters-book|Filters]]
+(LTI filters, phase, FIR), and its physical-modeling companion is
+[[jos_books/entities/pasp-book|PASP]].
 
 ## Big Picture
 
@@ -37,16 +42,19 @@ with window $w$, hop size $R$, and frame index $m$.
 
 ## Chapter Map
 
-| Part | Topic | Pages |
-|------|-------|-------|
-| Foundations | DFT/DTFT, four Fourier cases, theorems | [[dtft-and-fourier-theorems]], [[zero-padding-and-interpolation]] |
-| Windows & FIR | Window zoo, FIR design | [[spectrum-analysis-windows]], [[window-design-methods]] |
-| STFT | Two dual views | [[short-time-fourier-transform]], [[overlap-add-stft]], [[filter-bank-summation-stft]], [[stft-modifications]] |
-| Sinusoidal | Peaks, tracking, SMS | [[sinusoidal-modeling]], [[qifft-peak-estimation]], [[sinusoidal-parameter-interpolation]], [[sms-sines-plus-noise]] |
-| Modification | Phase vocoder, cross-synth | [[phase-vocoder-and-tsm]], [[cross-synthesis-and-morphing]] |
-| Spectral models | f0, envelope, noise | [[f0-and-spectral-envelope]], [[noise-spectrum-analysis]] |
-| Filter banks | Multirate, wavelets | [[multirate-filter-banks]] |
-| Appendices | Gaussian, applications | [[gaussian-and-chirp-windows]], [[spectral-audio-applications]] |
+| Part | SASP chapter (online) | Wiki pages |
+|------|-----------------------|------------|
+| Foundations | 2. [Fourier Transforms and Theorems](https://ccrma.stanford.edu/~jos/sasp/Fourier_Transforms_Continuous_Discrete_Time_Frequency.html) | [[dtft-and-fourier-theorems]], [[zero-padding-and-interpolation]] |
+| Windows | 3. [Spectrum Analysis Windows](https://ccrma.stanford.edu/~jos/sasp/Spectrum_Analysis_Windows.html) | [[spectrum-analysis-windows]] |
+| FIR design | 4. [FIR Digital Filter Design](https://ccrma.stanford.edu/~jos/sasp/FIR_Digital_Filter_Design.html) | [[window-design-methods]] |
+| Sinusoids | 5. [Spectrum Analysis of Sinusoids](https://ccrma.stanford.edu/~jos/sasp/Spectrum_Analysis_Sinusoids.html) | [[qifft-peak-estimation]], [[sinusoidal-modeling]] |
+| Noise | 6. [Spectrum Analysis of Noise](https://ccrma.stanford.edu/~jos/sasp/Spectrum_Analysis_Noise.html) | [[noise-spectrum-analysis]] |
+| STFT | 7. [Time-Frequency Displays](https://ccrma.stanford.edu/~jos/sasp/Time_Frequency_Displays.html) | [[short-time-fourier-transform]] |
+| OLA view | 8. [Overlap-Add STFT Processing](https://ccrma.stanford.edu/~jos/sasp/Overlap_Add_OLA_STFT_Processing.html) | [[overlap-add-stft]] |
+| FBS view | 9. [Filter Bank View of the STFT](https://ccrma.stanford.edu/~jos/sasp/Filter_Bank_Summation_FBS.html) | [[filter-bank-summation-stft]], [[stft-modifications]] |
+| Applications | 10. [Applications of the STFT](https://ccrma.stanford.edu/~jos/sasp/Applications_STFT.html) | [[sms-sines-plus-noise]], [[sinusoidal-parameter-interpolation]], [[phase-vocoder-and-tsm]], [[cross-synthesis-and-morphing]], [[f0-and-spectral-envelope]], [[spectral-audio-applications]] |
+| Filter banks | 11. [Multirate Filter Banks](https://ccrma.stanford.edu/~jos/sasp/Multirate_Filter_Banks.html) | [[multirate-filter-banks]] |
+| Appendices | D. [Gaussian Function Properties](https://ccrma.stanford.edu/~jos/sasp/Gaussian_Function_Properties.html), G. [Spectral Audio Modeling History](https://ccrma.stanford.edu/~jos/sasp/History_Spectral_Audio_Signal.html), H. [The PARSHL Program](https://ccrma.stanford.edu/~jos/sasp/PARSHL_Program.html) | [[gaussian-and-chirp-windows]], [[spectral-audio-applications]], [[sinusoidal-modeling]] |
 
 ## How the Views Connect
 
@@ -59,8 +67,12 @@ with window $w$, hop size $R$, and frame index $m$.
   non-uniform (auditory, wavelet) partitions.
 
 ## Related Wikis
-- [waveguide_synthesis](../../waveguide_synthesis/index.md) — physical modeling companion volume (PASP)
-- [modal_synthesis](../../modal_synthesis/index.md) — modal / resonator view of the same signals
+- [[waveguide_synthesis/index|waveguide_synthesis]] — physical modeling companion volume (PASP)
+- [[modal_synthesis/index|modal_synthesis]] — modal / resonator view of the same signals
+- [[jos_books/index|JOS online books]] — hub pages for all four books
+
+## JOS online books
+- [[jos_books/entities/sasp-book|SASP]]: [Introduction and Overview](https://ccrma.stanford.edu/~jos/sasp/Introduction_Overview.html), [Book Series Overview](https://ccrma.stanford.edu/~jos/sasp/Book_Series_Overview.html), [Summary and Conclusions](https://ccrma.stanford.edu/~jos/sasp/Summary_Conclusions.html)
 
 ## References
-[^1]: Smith, J.O. III. *Spectral Audio Signal Processing*, W3K, 2011.
+[^1]: Smith, J.O. III. *Spectral Audio Signal Processing*, W3K Publishing, 2011, ISBN 978-0-9745607-3-1. <https://ccrma.stanford.edu/~jos/sasp/>

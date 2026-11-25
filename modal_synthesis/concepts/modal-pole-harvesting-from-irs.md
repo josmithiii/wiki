@@ -1,7 +1,7 @@
 ---
 title: Modal Pole Harvesting from IRs
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, eigenmode, resonator, dsp, impulse-response, ml, neural, inference, reference]
 sources:
@@ -75,6 +75,10 @@ the classical estimators on 24 CPU cores. Frequencies are essentially perfect an
 decays good; **gains are not**, the same wall every entry hit. And the overview's
 frequency-domain check exposes what the per-mode metric hides: B2 reproduces the
 right spectral shape about 30 dB too low.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Mode Extraction Techniques](https://ccrma.stanford.edu/~jos/pasp/Mode_Extraction_Techniques.html), [Sinusoidal Modeling of Mode Decays](https://ccrma.stanford.edu/~jos/pasp/Sinusoidal_Modeling_Mode_Decays.html)
+- [[jos_books/entities/filters-book|Filters]]: [Prony's Method](https://ccrma.stanford.edu/~jos/filters/Prony_s_Method.html), [Partial Fraction Expansion](https://ccrma.stanford.edu/~jos/filters/Partial_Fraction_Expansion.html)
 
 [^1]: [[entities/source-papers#paper-franchino-subband-ar-pole-harvesting-2026]] - Franchino, Chowdhury, Lee, Kim & Rau, "Multi-View Subband Autoregressive Pole Harvesting for Modal Plate Identification," DAFx26 challenge report.
 [^2]: [[entities/source-papers#paper-diaz-count-density-networks-2026]] - Diaz, Tablas De Paula, Marttila, Ibnyahya & Yu, "Count-Density Networks for Modal Plate Parameter Estimation," DAFx26 challenge report.

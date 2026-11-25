@@ -2,7 +2,8 @@
 
 > Content catalog. Every wiki page listed under its type with a one-line summary.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-20 | Concepts: 17 · Source papers in catalog: 49
+> Last updated: 2026-11-25 | Total pages: 18 (17 concepts + 1 source-paper catalog) · Source papers in catalog: 49
+> Background theory: [[jos_books/index|JOS online books]] (acoustics, impedance, filters, spectrum analysis) — concept pages end with a "JOS online books" section of deep links.
 
 ## Entities
 
@@ -49,7 +50,7 @@ cross-link.
 
 - [paper-feng-meta-delayless-anc](entities/source-papers.md#paper-feng-meta-delayless-anc) — Feng & So 2024: complex self-attention RNN as learned FxLMS gradient; strongest match to Sarkar ref [5]
 - [paper-xiao-meta-sfanc](entities/source-papers.md#paper-xiao-meta-sfanc) — Xiao et al. 2025: MAML over SFANC filter bank + ResNet noise classifier on ESC-50
-- [paper-yang-coinit-meta-anc](entities/source-papers.md#paper-yang-coinit-meta-anc) — Yang et al. 2026: joint MAML of control filter **and** secondary-path FIR; runtime algorithm unchanged (pure initialization)
+- [paper-yang-coinit-meta-anc](entities/source-papers.md#paper-yang-coinit-meta-anc) — Yang, Rao, Luo et al. 2026: joint MAML of control filter **and** secondary-path FIR; runtime algorithm unchanged (pure initialization)
 
 #### Deep ANC / generative
 
@@ -62,7 +63,7 @@ cross-link.
 
 *Four new papers: 2 genuine DRL-ANC, 1 metric-learning virtual sensing, 1 comprehensive 2023 review.*
 
-- [paper-luo-gfanc-rl](entities/source-papers.md#paper-luo-gfanc-rl) — Luo et al. *Neural Networks* 2024: SAC over $M{=}15$ binary sub-filter selection; 7–9 dB over FxLMS on real noise; $\gamma{=}0$ so effectively contextual bandit
+- [paper-luo-gfanc-rl](entities/source-papers.md#paper-luo-gfanc-rl) — Luo et al. *Neural Networks* 2024: SAC over $M{=}15$ binary sub-filter selection; 5–9 dB over FxLMS on real noise; $\gamma{=}0$ so effectively contextual bandit
 - [paper-li-rl-secondary-path](entities/source-papers.md#paper-li-rl-secondary-path) — Li, Wu, Bai *AIP Advances* 2025: PPO/DDPG/DQN/GRPO head-to-head on nonlinear $\hat{S}(z)$ ID; closed-loop on real ZSL-92 armored vehicle; GRPO wins
 - [paper-wang-metric-vs](entities/source-papers.md#paper-wang-metric-vs) — Wang et al. 2024: cosine-similarity classifier over pre-trained auxiliary filters; 92.6% cross-system transfer without conv-layer retraining
 - [paper-shi-anc-review-2023](entities/source-papers.md#paper-shi-anc-review-2023) — Shi, Lam, Gan, Cheer, Elliott *IEEE SPM* 2023: canonical modern classical-ANC review; no DRL/PINN coverage (use as 2023 snapshot only)
@@ -136,14 +137,14 @@ cross-link.
 
 ### Duct-acoustics & liner modeling (2026-06-20)
 
-- [paper-maa-mpp-1998](entities/source-papers.md#paper-maa-mpp-1998) — Maa *JASA* 1998: canonical microperforated-panel impedance model ($z=r+j\omega m$ via perforate constant $k=d\sqrt f/10$); perfect absorption at $r{=}1$; deep-subwavelength LF liner; feeds [[duct-acoustics-liner-modeling]]
+- [paper-maa-mpp-1998](entities/source-papers.md#paper-maa-mpp-1998) — Maa *JASA* 1998: canonical microperforated-panel impedance model ($z=r+j\omega m$ via perforate constant $k=d\sqrt{f/10}$); perfect absorption at $r{=}1$; deep-subwavelength LF liner; feeds [[duct-acoustics-liner-modeling]]
 
 ## Concepts
 
 ### Classical adaptive filtering
 
 - [classical-anc-overview](concepts/classical-anc-overview.md) — **Map of the territory**: all classical (non-AI) ANC methods — linear/nonlinear algorithms, heuristic optimization, control topologies, secondary-path modeling, applications, hardware; companion to ai-anc-overview
-- [lms-algorithm](concepts/lms-algorithm.md) — Widrow–Hoff LMS + adaptive noise-cancelling architecture (distilled from Widrow 1975)
+- [lms-algorithm](concepts/lms-algorithm.md) — Widrow–Hoff LMS + adaptive noise-cancelling architecture + sinusoidal-reference adaptive notch (distilled from Widrow 1975)
 - [fxlms-algorithm](concepts/fxlms-algorithm.md) — Filtered-x LMS: LMS with secondary-path compensation for feedforward ANC; includes Latent FxLMS variant
 
 ### Rooftop-fan / tonal ANC *(project focus)*
@@ -161,7 +162,7 @@ cross-link.
 - [deep-anc-crn](concepts/deep-anc-crn.md) — NN *replaces* the adaptive filter: Zhang & Wang 2021 CRN + Dai 2026 speech-preserving reverberant follow-up
 - [neural-system-identification](concepts/neural-system-identification.md) — NN *guides* the filter: Helwani 2023 topology-aware VAE + retraction, parent framework of Latent FxLMS
 - [meta-learning-anc](concepts/meta-learning-anc.md) — NN *is* the update rule: Feng & So 2024 attention-RNN gradient predictor + Xiao 2025 MAML-SFANC + Yang 2026 co-init
-- [neural-secondary-path](concepts/neural-secondary-path.md) — NN *learns the plant*: implicit (Deep ANC) + meta-learned FIR init (Yang 2026) + RL plant-ID (Li/Wu/Bai 2025)
+- [neural-secondary-path](concepts/neural-secondary-path.md) — NN *learns the plant* (or its starting point): implicit (Deep ANC) + meta-learned FIR init (Yang 2026) + RL plant-ID (Li/Wu/Bai 2025)
 - [pinn-virtual-sensing](concepts/pinn-virtual-sensing.md) — NN *replaces the sensor*: Zhang 2023 canonical PINN-ANC + 5 supporting PINN papers + Wang 2024 metric-learning alternative
 - [deep-rl-anc](concepts/deep-rl-anc.md) — NN *replaces the controller*: GFANC-RL (SAC over binary filter selection) + Li/Wu/Bai PPO/DDPG/DQN/GRPO plant-ID benchmark; continuous-drive DRL still open
 - [transformer-se-anc](concepts/transformer-se-anc.md) — Transformer / Conformer / Mamba architectures for SE and selective NC — transfer points to neural ANC

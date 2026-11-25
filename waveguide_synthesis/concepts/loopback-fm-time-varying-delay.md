@@ -1,7 +1,7 @@
 ---
 title: Loopback FM via a Time-Varying Delay Line
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [delay-line, waveguide, dsp, nonlinear, tutorial]
 sources:
@@ -25,7 +25,7 @@ with $m_t$ the momentary transposition. Integrating,
 $D(n) = n - (\theta_c/\omega_c) f_s$. A circular buffer requires
 $d_0 \le D(n) \le D_M$.
 
-- **Oscillatory modulation is easy.** For $\omega_i(n) = \omega_c - d\cos(\omega_m nT)$,
+- **Oscillatory modulation is easy.** For $\omega_i(n) = \omega_c - d\cos(\omega_m nT)$, with index $I = d/\omega_m$,
   $D_m(n) = \frac{I}{\omega_c}\sin(\omega_m nT) f_s + \frac{I}{\omega_c}f_s$, where the DC term (a constant
   of integration equal to the sinusoid's amplitude) is exactly what keeps $D$
   positive. This is vibrato and flanging.
@@ -84,5 +84,8 @@ comparison against direct closed-form synthesis of the same signal.
 - [[delay-line-techniques]] - variable delay lines, interpolation, pitch shifting
 - [[nonlinear-and-time-varying-fdn-effects]] - other nonlinear operations inside delay loops
 - [[entities/source-papers#paper-smyth-loopback-fm-tvdl-2026]] - catalog entry
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Variable Delay Lines](https://ccrma.stanford.edu/~jos/pasp/Variable_Delay_Lines.html), [Doppler Simulation via Delay Lines](https://ccrma.stanford.edu/~jos/pasp/Doppler_Simulation_Delay_Lines.html), [Vibrato Simulation](https://ccrma.stanford.edu/~jos/pasp/Vibrato_Simulation.html), [Application to FM Synthesis](https://ccrma.stanford.edu/~jos/pasp/Application_FM_Synthesis.html)
 
 [^smyth]: T. Smyth, "Loopback Frequency Modulation Using a Time-Varying Delay Line," DAFx26. See [[entities/source-papers#paper-smyth-loopback-fm-tvdl-2026]].

@@ -1,20 +1,21 @@
 ---
 title: Waveguide Vocal Models
 created: 2026-04-11
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [voice, waveguide, physical-modeling, dsp, acoustics]
 sources:
   - /l/wgr/Sections/Advancements/SpeechProcessing.tex
   - /w/pasp/idealtubesummary.tex
+  - https://ccrma.stanford.edu/~jos/pasp/Singing_Kelly_Lochbaum_Vocal_Tract.html
   - /l/dttd/DAFx26/DAFx26_paper_39.pdf
 ---
 
 # Waveguide Vocal Models
 
 The vocal tract was among the earliest acoustic systems modeled with digital scattering
-theory (Kelly & Lochbaum, 1962). Modern waveguide vocal models range from
-1D piecewise-cylindrical tubes to 3D waveguide meshes driven by MRI geometry.
+theory (Kelly & Lochbaum, 1962[^1]). Modern waveguide vocal models range from
+1D piecewise-cylindrical tubes to 3D waveguide meshes driven by MRI geometry.[^3]
 
 ## Kelly-Lochbaum Model (1962)
 
@@ -24,7 +25,7 @@ theory (Kelly & Lochbaum, 1962). Modern waveguide vocal models range from
 - Glottal source at one end, lip radiation at the other
 - Led directly to ladder/lattice digital filters and LPC for speech
 
-## SPASM — Singing Voice (Cook, 1991-93)
+## SPASM — Singing Voice (Cook, 1991-93)[^2]
 
 "Singing Physical Articulatory Synthesis Model":
 - Nasal tract branching via variable 3-port velum/pharynx junction
@@ -80,6 +81,11 @@ See [[waveguide-parameter-optimization]] for the full optimization taxonomy.
 - [[waveguide-meshes]] — 2D/3D meshes used for advanced vocal tract models
 - [[waveguide-parameter-optimization]] — calibrating vocal tract models
 - [[differentiable-kelly-lochbaum-tract]] — the DAFx26 sygyt copy-synthesis model in full
+- [[spectral_processing/concepts/f0-and-spectral-envelope|f0 and spectral envelope]] — LPC, the signal-model descendant of the K-L ladder
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Singing Kelly-Lochbaum Vocal Tract](https://ccrma.stanford.edu/~jos/pasp/Singing_Kelly_Lochbaum_Vocal_Tract.html), [Kelly-Lochbaum Scattering Junctions](https://ccrma.stanford.edu/~jos/pasp/Kelly_Lochbaum_Scattering_Junctions.html), [Ideal Acoustic Tube](https://ccrma.stanford.edu/~jos/pasp/Ideal_Acoustic_Tube.html), [Voice Synthesis](https://ccrma.stanford.edu/~jos/pasp/Voice_Synthesis.html), [Singing Voice](https://ccrma.stanford.edu/~jos/pasp/Singing_Voice.html)
+- [[jos_books/entities/sasp-book|SASP]]: [Linear Prediction Spectral Envelope](https://ccrma.stanford.edu/~jos/sasp/Linear_Prediction_Spectral_Envelope.html)
 
 ## References
 [^1]: Kelly, J. & Lochbaum, C. (1962). "Speech synthesis." 4th ICA, Copenhagen.

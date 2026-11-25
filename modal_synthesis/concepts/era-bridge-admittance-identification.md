@@ -1,7 +1,7 @@
 ---
 title: ERA Bridge Admittance Identification
 created: 2026-09-10
-updated: 2026-09-10
+updated: 2026-11-25
 type: concept
 tags: [modal, eigenmode, impulse-response, string, dsp, comparison, reference]
 sources:
@@ -95,5 +95,9 @@ measured decay at both ends of the band.
 ## Caveats
 - **Passivity is not guaranteed.** The paper motivates modal methods by noting that IIR fitting can be unstable for lack of guaranteed passivity, but the ERA realization carries no passivity guarantee either and none is enforced or tested - a real concern when the body filter sits inside a bowed-string feedback loop.
 - No method reproduces the measured EDR exactly (ERA is only the closest); six instruments, one drive point, no listening test.
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Measured Guitar-Bridge Admittance](https://ccrma.stanford.edu/~jos/pasp/Measured_Guitar_Bridge_Admittance.html), [Passive String Terminations](https://ccrma.stanford.edu/~jos/pasp/Passive_String_Terminations.html), [Positive Real Functions](https://ccrma.stanford.edu/~jos/pasp/Positive_Real_Functions.html)
+- [[jos_books/entities/filters-book|Filters]]: [Markov Parameters](https://ccrma.stanford.edu/~jos/filters/Markov_Parameters.html), [Modal Representation](https://ccrma.stanford.edu/~jos/filters/Modal_Representation.html), [Similarity Transformations](https://ccrma.stanford.edu/~jos/filters/Similarity_Transformations.html)
 
 [^1]: [[entities/source-papers#paper-giampiccolo-era-violin-bridge-2026]] - Giampiccolo, Mezza, Malvermi, Pezzoli, Bernardini & Antonacci, "Eigensystem Realization of Violin Bridge Admittances," DAFx26.

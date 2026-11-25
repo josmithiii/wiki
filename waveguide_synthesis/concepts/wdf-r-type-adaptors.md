@@ -1,7 +1,7 @@
 ---
 title: "WDF R-Type Adaptors for Arbitrary Topologies"
 created: 2026-04-15
-updated: 2026-04-15
+updated: 2026-11-25
 type: concept
 tags: [scattering, impedance, dsp, reference]
 sources:
@@ -17,7 +17,8 @@ scattering matrices for **R-type** (rigid / non-decomposable) topologies
 that may include multiport linear elements (transformers, controlled
 sources, op-amps). This is the companion paper to
 [[wdf-multiple-nonlinearities]], which builds on these linear techniques
-to handle nonlinear circuits.
+to handle nonlinear circuits. Werner's dissertation[^3] gives the
+comprehensive treatment.
 
 ## The Problem
 
@@ -30,7 +31,8 @@ into series/parallel connections:
   inverting input
 - **Transformer-coupled stages** — controlled sources in tube amplifiers
 
-Before this work, such circuits were simply intractable as WDFs.
+Before this work, such circuits had no general WDF treatment (special
+cases such as the bridged-T adaptor of Martens & Meerkötter, 1976, aside).
 
 ## Method 1: MNA-Derived Scattering (the main result)
 
@@ -122,6 +124,10 @@ by inspection (no systematic procedure); no multiport element support.
 - [[viola-wdf-plugin-generator]] — VIOLA automates the full pipeline
   from SPICE netlist through R-type adaptor derivation to plug-in
 - [[wave-digital-filters]] — WDF fundamentals
+- [[virtual_analog/concepts/state-space-circuit-solvers|state-space circuit solvers]] — the Kirchhoff-domain alternative to wave variables
+
+## JOS online books
+- [[jos_books/entities/pasp-book|PASP]]: [Adaptors for Wave Digital Elements](https://ccrma.stanford.edu/~jos/pasp/Adaptors_Wave_Digital_Elements.html), [Reflection Free Port](https://ccrma.stanford.edu/~jos/pasp/Reflection_Free_Port.html), [Binary Connection Tree Parallel Adaptor](https://ccrma.stanford.edu/~jos/pasp/Binary_Connection_Tree_Parallel.html)
 
 ## References
 [^1]: Werner, K.J.; Smith, J.O.; Abel, J.S. "Wave Digital Filter
